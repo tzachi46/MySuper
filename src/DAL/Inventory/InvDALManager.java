@@ -33,7 +33,7 @@ public class InvDALManager {
 	 * add product to the DB
 	 * @param product
 	 */
-	public void addNewProduct(Product product){
+	public void addNewProduct(Product product, String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		productDb.addNewProduct(product);
 	}
@@ -60,7 +60,7 @@ public class InvDALManager {
 	 * update Product that already exist in the DB
 	 * @param product
 	 */
-	public void updateProduct(Product product){
+	public void updateProduct(Product product, String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		productDb.updateProduct(product);
 	}
@@ -68,7 +68,7 @@ public class InvDALManager {
 	 * delete p from the DB
 	 * @param p
 	 */
-	public void deleteProduct(Product p){
+	public void deleteProduct(Product p){ //TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		OrderManager.getInstance().removeProduct(p);
 		SupplierManager.getInstance().removeProduct(p);
@@ -106,7 +106,7 @@ public class InvDALManager {
 	 * @param ID
 	 * @return
 	 */
-	public Product getProduct(int ID){
+	public Product getProduct(int ID,String storeAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		return productDb.getProduct(ID);
 	}
@@ -130,7 +130,7 @@ public class InvDALManager {
 	 *get all products ID's as int array
 	 * @return
 	 */
-	public int[] getAllProductID(){
+	public int[] getAllProductID(String storeAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		return productDb.getAllID();
 	}
@@ -138,7 +138,7 @@ public class InvDALManager {
 	 *get all products ID's as int array that are in stock 
 	 * @return
 	 */
-	public int[] getItemsInInventory(){
+	public int[] getItemsInInventory(String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		return productDb.getItemsInInventory();
 	}
@@ -146,7 +146,7 @@ public class InvDALManager {
 	 * 
 	 * @return
 	 */
-	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(){
+	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		return productDb.getDefectItems();
 	}
@@ -154,7 +154,7 @@ public class InvDALManager {
 	 * List of items that are going out of stock
 	 * @return
 	 */
-	public LinkedList<Product>getMissingItems(){
+	public LinkedList<Product>getMissingItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productDb.initProductInfoTable();
 		return productDb.getMissingItems();
 	}
