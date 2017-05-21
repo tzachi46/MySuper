@@ -15,7 +15,7 @@ public class InvDALManager {
 	private static InvDALManager instance;
 	private ProductDB productDb;
 	private CategoryDB categoryDb;
-	private ProductInStore productInStore;
+	private ProductInStoreDB productInStore;
 	/**
 	 * Singleton constructor
 	 */
@@ -23,7 +23,7 @@ public class InvDALManager {
 		DALManager.getInstance();
 		productDb= ProductDB.getProductDB();
 		categoryDb=CategoryDB.getCategoryDB();
-		productInStore=new ProductInStore();
+		productInStore = ProductInStoreDB.getInstance();
 	}
 	public static InvDALManager getInstance(){
 		if(instance==null){
@@ -164,6 +164,25 @@ public class InvDALManager {
 		return productDb.getMissingItems();
 	}
 	
+	public void addProductsInNewStore(String storeAddress){
+		productInStore.InitTable();
+		productInStore.productsForNewStore(storeAddress);
+	}
+	
+	public void removeSiteProducts(String storeAddress){
+		productInStore.InitTable();
+		productInStore.removeSite(storeAddress);
+	}
+	
+	public void removeDummyProcuts(int productId){
+		productInStore.InitTable();
+		productInStore.deleteDummyProcuts(productId);	
+	}
+	
+	public LinkedList<String> getStoresOfferingProduct(int productId){
+		productInStore.InitTable();
+		return productInStore.getStoresOfferingProduct(productId);
+	}
 	
 	protected static boolean executeSQLCommand(String[] SQL) {
 		try (Statement stmt = DALManager.conn.createStatement()) {

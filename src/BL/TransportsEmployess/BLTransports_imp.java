@@ -65,7 +65,9 @@ public class BLTransports_imp implements BLTransports {
 
 	@Override
 	public boolean createSite(String address, String phoneNumber, String contactName, int isStore, int areaCode) {
-		return dal.insertSite(new Site(address,phoneNumber,contactName, isStore,areaCode));
+		boolean res = dal.insertSite(new Site(address,phoneNumber,contactName, isStore,areaCode));
+		DAL.Inventory.InvDALManager.getInstance().addProductsInNewStore(address);
+		return res;
 	}
 
 	

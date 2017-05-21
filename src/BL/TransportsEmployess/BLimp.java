@@ -209,6 +209,7 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean deleteSite(String address) {
+		DAL.Inventory.InvDALManager.getInstance().removeSiteProducts(address);
 		return bl_trans.deleteSite(address);
 	}
 

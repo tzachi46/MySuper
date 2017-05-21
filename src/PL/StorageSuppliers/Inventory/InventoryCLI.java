@@ -106,10 +106,13 @@ public class InventoryCLI {
 			String pro=in.nextLine();
 			while(!pro.equals("~"))
 			{
-				if(calc.checkInt(pro))
-					if(BL.checkProductId(Integer.parseInt(pro)))
-						break;
-				System.out.println("This product does not exists, please enter product id again.\nTo go back to category manager menu press '~'.");
+				if(!calc.checkInt(pro))
+					System.out.println("invalid input, try again");
+				else if(!BL.checkProductId(Integer.parseInt(pro)))		
+					System.out.println("This product does not exists, please enter product id again.\nTo go back to category manager menu press '~'.");
+				else if(BL.getStoresOfferingProduct(Integer.parseInt(pro)).size()>0)
+					System.out.println("This product already exists in some stores, please remove it from the stores.\nTo go back to category manager menu press '~'.");
+				else break;
 				pro=in.nextLine();
 			}
 			if(pro.equals("~"))

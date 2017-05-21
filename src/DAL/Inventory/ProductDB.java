@@ -17,14 +17,14 @@ import SharedClasses.StorageSuppliers.Product;
  */
 public class ProductDB {
 	private static ProductDB instance;
-	private ProductInStore productInStore;
+	private ProductInStoreDB productInStore;
 	private ProductSellingCostDB pscDB;
 	/**
 	 * Singleton constructor 
 	 */
 	private ProductDB(){
 		pscDB=ProductSellingCostDB.getProductBuyingCostDB();
-		productInStore = new ProductInStore();
+		productInStore = ProductInStoreDB.getInstance();
 	}
 	static ProductDB getProductDB(){
 		if(instance==null)

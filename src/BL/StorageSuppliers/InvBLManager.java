@@ -171,4 +171,8 @@ public class InvBLManager {
 		public Product getProduct(int ID){
 			return DB.getProduct(ID,BLManager.emp.getWorkAddress());
 		}
+		
+		public LinkedList<String> getStoresOfferingProduct(int productId){
+			return DB.getStoresOfferingProduct(productId);
+		}
 	}
