@@ -246,10 +246,10 @@ public class DAL_Test {
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
-		Transport trp1 = new Transport(1234, 111, "hhhh", "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
 		boolean result = _dal.insertTransport(trp1);
 		assertTrue("insertion of transport was unsuccessful.", result);
-		Transport trp3 = new Transport(1234, 111, "hhhh", "01/02/2011", "10:12", 950,2);
+		Transport trp3 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 950,2);
 		result = _dal.insertTransport(trp3);
 		assertFalse("insertion of transport was successful but shoudnt (PK)", result);
 		TransportDestination td = new TransportDestination(111, "01/02/2011", "10:12", "aaaa", 123, "10:15");
@@ -281,7 +281,7 @@ public class DAL_Test {
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
 		
-		Transport trp1 = new Transport(1234, 111, "hhhh", "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
 		_dal.insertTransport(trp1);
 
 		boolean result = (_dal.fetchTransport("01/02/2011", "10:12", 111).toString()).equals(trp1.toString());
@@ -303,9 +303,9 @@ public class DAL_Test {
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
 		
-		Transport trp1 = new Transport(1234, 111, "hhhh", "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
 		_dal.insertTransport(trp1);
-		Transport trp2 = new Transport(1234, 111, "hhhh", "01/02/2011", "10:12", 978.9,1);
+		Transport trp2 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 978.9,1);
 		boolean result = _dal.updateTransport(trp2);
 		assertTrue("updating of transport was unsuccessful.", result);
 	}
