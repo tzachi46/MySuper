@@ -1,8 +1,10 @@
 package DAL.Inventory;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import DAL.DALManager;
+import SharedClasses.StorageSuppliers.Product;
 
 public class ProductInStore {
 	
@@ -29,7 +31,7 @@ public class ProductInStore {
         } catch (SQLException e) {  }
 	}
 	
-	public void addNewProductInStore(SharedClasses.StorageSuppliers.ProductInStore productInStore){
+	protected void addNewProductInStore(SharedClasses.StorageSuppliers.ProductInStore productInStore){
 		String sql = "INSERT OR IGNORE INTO ProductInStore \n"
                 + "	(Barcode, StoreAdd, QuantityShelf, QuantityWarehouse, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay)\n"
                 + "	values("+productInStore.getProductid()
@@ -47,7 +49,7 @@ public class ProductInStore {
 	}
 	
 	
-	public void UpdateProductInStore(SharedClasses.StorageSuppliers.ProductInStore productInStore){
+	protected void UpdateProductInStore(SharedClasses.StorageSuppliers.ProductInStore productInStore){
 		String sql = "UPDATE ProductInStore \n"
                 + "SETStoreAdd='"+productInStore.getStoreAddress()+"',\n"
                 + "QuantityShelf="+productInStore.getStoreQuantity()+",\n"
@@ -63,7 +65,7 @@ public class ProductInStore {
         } catch (SQLException e) {    }
 	}
 	
-	public void removeProduct(int ProductId){
+	protected void removeProduct(int ProductId){
 		String sql= "DELETE FROM ProductInStore\n"
 					+ " WHERE Barcode="+ProductId+"\n";
 		try (Statement stmt = DALManager.conn.createStatement()) {
@@ -71,13 +73,51 @@ public class ProductInStore {
         } catch (SQLException e) {  }	
 	}
 	
-	public void removeSite(String StoreAdd){
+	protected void removeSite(String StoreAdd){
 		String sql= "DELETE FROM ProductInStore\n"
 				+ " WHERE StoreAdd is "+StoreAdd+"\n";
 	try (Statement stmt = DALManager.conn.createStatement()) {
         stmt.execute(sql);
-    } catch (SQLException e) {  }	
+    	} catch (SQLException e) {  }	
 	}
-		
+	
+	protected SharedClasses.StorageSuppliers.ProductInStore getProductInStore(int ProductId,String StoreAddress){
+		String sql = "Select Barcode, StoreAdd, QuantityShelf, QuantityWarehouse, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay\n"
+				+"FROM ProductInStore WHERE Barcode = "+ProductId +" AND StoreAdd is "+StoreAddress;
+		SharedClasses.StorageSuppliers.ProductInStore res=null;
+	    try ( Statement stmt  = DALManager.conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+	    	//rs.getString("DepartureDate");
+	    	res= new SharedClasses.StorageSuppliers.ProductInStore(rs.getString("StoreAdd"),
+	    			rs.getInt("Barcode"),rs.getInt("QuantityShelf"),rs.getInt("QuantityWarehouse"),
+	    			rs.getString("PlaceInWarehouse"),rs.getString("PlaceInStore"),
+	    			rs.getInt("StoreDefective"),rs.getInt("WareDefective"),
+	    			rs.getInt("SalesPerDay")
+	    			);
+
+	        } catch (SQLException e) {
+	            return null; 
+	        }
+		return res;
+	}
+	// add a ProductInStore foreach store in the system 
+	protected void InitialNewProduct(Product p, String StoreAddress){
+		SharedClasses.StorageSuppliers.ProductInStore PIS;
+		String sql = "Select ADDRESS\n"
+				+"FROM Sites";
+		  try ( Statement stmt  = DALManager.conn.createStatement();
+		             ResultSet rs    = stmt.executeQuery(sql)){
+			  while(rs.next()){
+				   PIS= new SharedClasses.StorageSuppliers.ProductInStore(rs.getString("ADDRESS"),p.getId());
+				   addNewProductInStore(PIS);
+			  }
+			  PIS=new SharedClasses.StorageSuppliers.ProductInStore(StoreAddress,p.getId(),
+					  p.getStoreQuantity(),p.getWarehouseQuantity(),
+					  p.getWareLoc(),p.getStoreLoc(),
+					  p.getStoreDefective(),p.getWareDefective(),p.getSalesPerDay());
+			  UpdateProductInStore(PIS);
+			  
+		  } catch (SQLException e) { }	
+	}
 	
 }

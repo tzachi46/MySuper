@@ -9,10 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import BL.BLManager;
 import DAL.DALManager;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
-import SharedClasses.StorageSuppliers.Quartet;
 
 public class InvDALManagerTest {
 	DAL.Inventory.InvDALManager dalM;
@@ -50,8 +51,8 @@ public class InvDALManagerTest {
 
 	@Test
 	public void testAddNewProduct() {
-		dalM.addNewProduct(p);
-		Product p2=dalM.getProduct(123);
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
+		Product p2=dalM.getProduct(123,BLManager.emp.getWorkAddress());
 		assertEquals(p.getId(), p2.getId());
 		dalM.deleteProduct(p);
 	}
@@ -65,24 +66,24 @@ public class InvDALManagerTest {
 	}
 	@Test
 	public void testUpdateProductProductInt() {
-		dalM.addNewProduct(p);
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
 		p.setSalesPerDay(10);
-		dalM.updateProduct(p);
-		Product p2=dalM.getProduct(123);
+		dalM.updateProduct(p,BLManager.emp.getWorkAddress());
+		Product p2=dalM.getProduct(123,BLManager.emp.getWorkAddress());
 		assertEquals(p.getSalesPerDay(), p2.getSalesPerDay());
 		dalM.deleteProduct(p);
 	}
 
 	@Test
 	public void testDeleteProduct() {
-		dalM.addNewProduct(p);
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
 		dalM.deleteProduct(p);
-		assertNull(dalM.getProduct(123));
+		assertNull(dalM.getProduct(123,BLManager.emp.getWorkAddress()));
 	}
 	@Test
 	public void testGetProduct() {
-		dalM.addNewProduct(p);
-		Product p2=dalM.getProduct(123);
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
+		Product p2=dalM.getProduct(123,BLManager.emp.getWorkAddress());
 		assertEquals(p.getId(), p2.getId());
 		dalM.deleteProduct(p);
 	}
@@ -98,17 +99,17 @@ public class InvDALManagerTest {
 	}
 	@Test
 	public void testGetAllProductID() {
-		int pArr[]=dalM.getAllProductID();
-		dalM.addNewProduct(p);
-		int pArr2[]=dalM.getAllProductID();
+		int pArr[]=dalM.getAllProductID(BLManager.emp.getWorkAddress());
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
+		int pArr2[]=dalM.getAllProductID(BLManager.emp.getWorkAddress());
 		assertEquals(pArr.length+1,pArr2.length);
 		dalM.deleteProduct(p);
 	}
 	@Test
 	public void testGetDefectItems() {
 		//p.setStoreDefective(10);
-		dalM.addNewProduct(p);
-		LinkedList<Quartet<Integer,String,Integer,Integer>>defective=dalM.getDefectItems();
+		dalM.addNewProduct(p,BLManager.emp.getWorkAddress());
+		LinkedList<Quartet<Integer,String,Integer,Integer>>defective=dalM.getDefectItems(BLManager.emp.getWorkAddress());
 		boolean contains=false;
 		for(int i=0;i<defective.size();i++)
 			if(defective.get(i).getKey()==p.getId())

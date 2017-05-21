@@ -2,6 +2,7 @@ package BL.StorageSuppliers;
 
 import java.util.List;
 
+import BL.BLManager;
 import DAL.Suppliers.SupplierManager;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.ProductFromSupplier;
@@ -119,7 +120,7 @@ public class BLSupplier {
 	}
 	
 	public boolean isProductExist(int ProductID){
-		return DAL.Inventory.InvDALManager.getInstance().getProduct(ProductID)!=null;
+		return DAL.Inventory.InvDALManager.getInstance().getProduct(ProductID,BLManager.emp.getWorkAddress())!=null;
 	}
 	
 	public Pair<Double,ProductFromSupplier> getBestPrice(int ProductID,int minimumQuantity){

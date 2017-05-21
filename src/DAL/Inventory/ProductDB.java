@@ -8,9 +8,8 @@ import java.util.LinkedList;
 
 import DAL.DALManager;
 import DAL.Suppliers.SupplierManager;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Product;
-
-import SharedClasses.StorageSuppliers.Quartet;
 /**
  * Manage the Product table in the DB 
  * 
@@ -18,12 +17,14 @@ import SharedClasses.StorageSuppliers.Quartet;
  */
 public class ProductDB {
 	private static ProductDB instance;
+	private ProductInStore productInStore;
 	private ProductSellingCostDB pscDB;
 	/**
 	 * Singleton constructor 
 	 */
 	private ProductDB(){
 		pscDB=ProductSellingCostDB.getProductBuyingCostDB();
+		productInStore = new ProductInStore();
 	}
 	static ProductDB getProductDB(){
 		if(instance==null)
@@ -37,22 +38,13 @@ public class ProductDB {
 		String sql = "CREATE TABLE IF NOT EXISTS Product (\n"
                 + "	Barcode integer PRIMARY KEY,\n"
                 + "	Name VARCHAR(30) NOT NULL,\n"
-                + "	QuantityShelf integer NOT NULL,\n"
-                + "	QuantityWarehouse integer NOT NULL,\n"
                 + "	Manufacturer VARCHAR(30) NOT NULL,\n"
-                + "	PlaceInWarehouse VARCHAR(30) NOT NULL,\n"
-                + "	PlaceInStore VARCHAR(30) NOT NULL,\n"
-                + "	StoreDefective integer DEFAULT 0,\n"
-                + " WareDefective integer DEFAULT 0,\n"
-                + " SalesPerDay integer DEFAULT 0,\n"
                 + " Category integer DEFAULT 0,\n"
                 + "FOREIGN KEY(Category) REFERENCES Category(CategoryID) ON UPDATE CASCADE ON DELETE CASCADE"
                 + ");";
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
-        } catch (SQLException e) {
-            //System.out.println(e.getMessage());
-        }
+        } catch (SQLException e) {        }
 		pscDB.initProductSellingCostTable();
 	}
 	
@@ -60,26 +52,19 @@ public class ProductDB {
 	 * add a new Product to the database
 	 * @param Product
 	 */
-	public void addNewProduct(Product product){//  
+	public void addNewProduct(Product product, String StoreAddress){
 		String sql = "INSERT OR IGNORE INTO Product \n"
-                + "	(Barcode, Name, QuantityShelf, QuantityWarehouse, Manufacturer, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay,Category)\n"
+                + "	(Barcode, Name, Manufacturer,Category)\n"
                 + "	values("+product.getId()
                 +","+"'"+product.getName()+"'"
-                +","+product.getStoreQuantity()
-                +","+product.getWarehouseQuantity()
                 +","+"'"+product.getManufacturer()+"'"
-                +","+"'"+product.getWareLoc()+"'"
-                +","+"'"+product.getStoreLoc()+"'"
-                +","+product.getStoreDefective()
-                +","+product.getWareDefective()
-                +","+product.getSalesPerDay()
-                +","+product.getCategory()+");";	
-		////System.out.println(DBLocation);
+                +","+product.getCategory()+");";// add to Product	
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
+            productInStore.InitialNewProduct(product,StoreAddress);
+            
         } catch (SQLException e) {
-        	//System.out.println("WHAT?");
-            ////System.out.println(e.getMessage());
+
         }
 		pscDB.addProductSellingCost(product);
 	}
@@ -87,25 +72,22 @@ public class ProductDB {
 	 * updates the given Product's information
 	 * @param Product
 	 */
-	public void updateProduct(Product product){
+	public void updateProduct(Product product, String StoreAddress){
+		SharedClasses.StorageSuppliers.ProductInStore res=null;
 		String sql = "UPDATE Product \n"
                 + "SET Barcode="+product.getId()+",\n"
                 + "Name='"+product.getName()+"',\n"
-                + "QuantityShelf="+product.getStoreQuantity()+",\n"
-                + "QuantityWarehouse="+product.getWarehouseQuantity()+",\n"
                 + "Manufacturer='"+product.getManufacturer()+"',\n" 
-                + "PlaceInWarehouse='"+product.getWareLoc()+"',\n" 
-                + "PlaceInStore='"+product.getStoreLoc()+"',\n" 
-                + "StoreDefective="+product.getStoreDefective()+",\n" 
-                + "WareDefective="+product.getWareDefective()+",\n"
-                + "SalesPerDay="+product.getSalesPerDay()+",\n"
                 + "Category="+product.getCategory()+"\n"
                 + "WHERE Barcode="+product.getId();     
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
-        } catch (SQLException e) {
-           // //System.out.println(e.getMessage());
-        }
+            res=new SharedClasses.StorageSuppliers.ProductInStore(StoreAddress,product.getId(),
+            		product.getStoreQuantity(),product.getWarehouseQuantity(),
+            		product.getWareLoc(),product.getStoreLoc(),
+            		product.getStoreDefective(),product.getWareDefective(),product.getSalesPerDay());
+            productInStore.UpdateProductInStore(res);
+        } catch (SQLException e) {   }
 		pscDB.updateProductSellingCost(product);
 	}
 	

@@ -4,9 +4,9 @@ import BL.StorageSuppliers.Calculations;
  * Inventory cli is responsible for the main menu and some calculation functions.
  */
 import BL.StorageSuppliers.InvBLManager;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
-import SharedClasses.StorageSuppliers.Quartet;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

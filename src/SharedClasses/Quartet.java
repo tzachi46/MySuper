@@ -1,4 +1,4 @@
-package SharedClasses.StorageSuppliers;
+package SharedClasses;
 
 
 public class Quartet<K,V,T,S> {

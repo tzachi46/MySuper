@@ -4,10 +4,12 @@ package BL.StorageSuppliers;
  * This class is a singelton
  */
 import java.util.LinkedList;
+
+import BL.BLManager;
 import DAL.Inventory.InvDALManager;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
-import SharedClasses.StorageSuppliers.Quartet;
 
 
 public class InvBLManager {
@@ -31,24 +33,24 @@ public class InvBLManager {
 		 * @return Quartet of the defect items
 		 */
 		public LinkedList<Quartet<Integer,String,Integer,Integer>>getDefectItems(){
-			return DB.getDefectItems();
+			return DB.getDefectItems(BLManager.emp.getWorkAddress());
 		}
 		/**
 		 * 
 		 * @return linked list of missing items
 		 */
 		public LinkedList<Product>getMissingItems(){
-			return DB.getMissingItems();
+			return DB.getMissingItems(BLManager.emp.getWorkAddress());
 		}
 		/**
 		 * 
 		 * @return all products in inventory
 		 */
 		public LinkedList<Product> getProductInInventoryList(){
-			int[]id=DB.getItemsInInventory();
+			int[]id=DB.getItemsInInventory(BLManager.emp.getWorkAddress());
 			LinkedList<Product>p=new LinkedList<>();
 			for(int i=0;i<id.length;i++)
-				p.add(DB.getProduct(id[i]));
+				p.add(DB.getProduct(id[i],BLManager.emp.getWorkAddress()));
 			return p;
 		}
 		/**
@@ -56,10 +58,10 @@ public class InvBLManager {
 		 * @return the products in the inventory
 		 */
 		public Product[]getProductInInventory(){
-			int[]id=DB.getItemsInInventory();
+			int[]id=DB.getItemsInInventory(BLManager.emp.getWorkAddress());
 			Product[]p=new Product[id.length];
 			for(int i=0;i<id.length;i++)
-				p[i]=DB.getProduct(id[i]);
+				p[i]=DB.getProduct(id[i],BLManager.emp.getWorkAddress());
 			return p;
 		}
 		/**
@@ -90,7 +92,7 @@ public class InvBLManager {
 		 */
 		public void updateProduct(Product product){
 			// may couse adding order
-			DB.updateProduct(product);
+			DB.updateProduct(product,BLManager.emp.getWorkAddress());
 		}
 		/**
 		 * updates a category
@@ -105,7 +107,7 @@ public class InvBLManager {
 		 * @return
 		 */
 		public boolean checkProductId(int ID){
-			int [] productsID=DB.getAllProductID();
+			int [] productsID=DB.getAllProductID(BLManager.emp.getWorkAddress());
 			for(int i=0;i<productsID.length;i++)
 				if(ID==productsID[i])
 					return true;
@@ -152,7 +154,7 @@ public class InvBLManager {
 		 */
 		public void addNewProduct(Product product){
 			//may couse adding order
-			DB.addNewProduct(product);
+			DB.addNewProduct(product,BLManager.emp.getWorkAddress());
 		}
 		/**
 		 * add new category
@@ -167,6 +169,6 @@ public class InvBLManager {
 		 * @return Product.
 		 */
 		public Product getProduct(int ID){
-			return DB.getProduct(ID);
+			return DB.getProduct(ID,BLManager.emp.getWorkAddress());
 		}
 	}

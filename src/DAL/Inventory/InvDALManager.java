@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import DAL.DALManager;
 import DAL.Orders.OrderManager;
 import DAL.Suppliers.SupplierManager;
-import SharedClasses.StorageSuppliers.Quartet;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
 public class InvDALManager {
@@ -15,6 +15,7 @@ public class InvDALManager {
 	private static InvDALManager instance;
 	private ProductDB productDb;
 	private CategoryDB categoryDb;
+	private ProductInStore productInStore;
 	/**
 	 * Singleton constructor
 	 */
@@ -22,6 +23,7 @@ public class InvDALManager {
 		DALManager.getInstance();
 		productDb= ProductDB.getProductDB();
 		categoryDb=CategoryDB.getCategoryDB();
+		productInStore=new ProductInStore();
 	}
 	public static InvDALManager getInstance(){
 		if(instance==null){
@@ -33,9 +35,10 @@ public class InvDALManager {
 	 * add product to the DB
 	 * @param product
 	 */
-	public void addNewProduct(Product product, String StoreAddress){//TODO:: fix adaption to multipale Stores
+	public void addNewProduct(Product product, String StoreAddress){
 		productDb.initProductInfoTable();
-		productDb.addNewProduct(product);
+		productInStore.InitTable();
+		productDb.addNewProduct(product,StoreAddress);
 	}
 	/**
 	 * add new category to the DB
@@ -60,18 +63,20 @@ public class InvDALManager {
 	 * update Product that already exist in the DB
 	 * @param product
 	 */
-	public void updateProduct(Product product, String StoreAddress){//TODO:: fix adaption to multipale Stores
+	public void updateProduct(Product product, String StoreAddress){
 		productDb.initProductInfoTable();
-		productDb.updateProduct(product);
+		productDb.updateProduct(product,StoreAddress);
 	}
 	/**
 	 * delete p from the DB
 	 * @param p
 	 */
-	public void deleteProduct(Product p){ //TODO:: fix adaption to multipale Stores
+	public void deleteProduct(Product p){ 
 		productDb.initProductInfoTable();
+		productInStore.InitTable();
 		OrderManager.getInstance().removeProduct(p);
 		SupplierManager.getInstance().removeProduct(p);
+		productInStore.removeProduct(p.getId());
 		productDb.deleteProduct(p);
 		ProductSellingCostDB.getProductBuyingCostDB().deleteProduct(p);
 	}
