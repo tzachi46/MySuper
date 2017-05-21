@@ -110,7 +110,7 @@ public class PL_TransportEdit
 	 {
 		 System.out.println("Enter " + toPrint);
 		 String time = scanner.nextLine();
-	     while (!validator.validateTime(time) || !checkSameShif(timeLess,time)) 
+	     while (!validator.validateTime(time) || !checkSameShift(timeLess,time)) 
 	     {
 	         if (time.equals("0"))
 	             return time;
@@ -120,7 +120,7 @@ public class PL_TransportEdit
 	     return time;
 	 }
 	 
-	 private boolean checkSameShif(String relTime,String newTime)
+	 private boolean checkSameShift(String relTime,String newTime)
 	 {
 		 int hour1 = Integer.parseInt(relTime.substring(0, 2));
 		 int min1 = Integer.parseInt(relTime.substring(3));
@@ -264,6 +264,7 @@ public class PL_TransportEdit
 			while(true)
 			{
 				boolean enterSiteAndTruck = false;
+				//CHANGE TO COMPANYID
 				source = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 				if(source.equals("0"))
 					return;
@@ -313,6 +314,7 @@ public class PL_TransportEdit
 			if(!replan)
 				break;
 		}
+		//CHANGW TO ????
 		sourceDocNum = getSourceDocNumInputFromUser("supplier");
 		if(sourceDocNum.equals("0"))
 			return;

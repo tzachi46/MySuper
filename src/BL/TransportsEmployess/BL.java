@@ -69,17 +69,17 @@ public interface BL {
   	//*******************//
   	
   	//***** Sites *****//
-  	public boolean createSite(String address, String phoneNumber, String contactName, int isStore, int areaCode);		
+  	public boolean createSite(String address, String phoneNumber, String contactName, /*int isStore,*/ int areaCode);		
   	public boolean updateSite(String address, String phoneNumber, String contactName, int areaCode);
   	public Site fetchSite(String address);
   	public boolean deleteSite(String address);
   	//*****************//
   	
   	//***** Transports *****//
-  	public boolean createTransport(String date, String time, int truckNumber, int driverID, String source,
+  	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
   							double weight, int sourceDoc);
   	public Transport fetchTransport(String date, String time, int numberOfTruck);
-  	public boolean updateTransport(String date, String time, int truckNumber, int driverID, String source,
+  	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
   							double weight, int sourceDoc);
   	public boolean deleteTransport(String date, String time, int truckNumber);
   	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr);

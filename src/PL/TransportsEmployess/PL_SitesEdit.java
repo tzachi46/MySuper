@@ -164,7 +164,7 @@ public class PL_SitesEdit
 	{
 		Employee admin = null;
 		String address, phoneNum, contact, areaCode;
-		int isStore;
+//		int isStore;
 		System.out.println("Please insert the Site's details : ");
 		address = pl_shared.getNotExistAddressFromUser();	
 		if(address.equals("0"))
@@ -206,7 +206,7 @@ public class PL_SitesEdit
 		String address;
 		while (true)
 		{
-			address = pl_shared.getExistAddressFromUser(2);
+			address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
 			if(address.equals("0"))
 				break;
 			Site site = bl.fetchSite(address);
@@ -284,7 +284,7 @@ public class PL_SitesEdit
 	
 	private void deleteSite() 
 	{
-		String address = pl_shared.getExistAddressFromUser(2);
+		String address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
 		if(address.equals("BasePoint"))
 		{
 			System.out.println("cant delete the main store!");
@@ -297,7 +297,7 @@ public class PL_SitesEdit
 	}
 	private void fetchSite() 
 	{
-		String address = pl_shared.getExistAddressFromUser(2);
+		String address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
 		if(address.equals("0"))
 			return;
 		Site site = bl.fetchSite(address);

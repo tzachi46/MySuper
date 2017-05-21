@@ -193,8 +193,8 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public boolean createSite(String address, String phoneNumber, String contactName, int isStore, int areaCode) {
-		return bl_trans.createSite(address, phoneNumber, contactName, isStore, areaCode);
+	public boolean createSite(String address, String phoneNumber, String contactName/*, int isStore*/, int areaCode) {
+		return bl_trans.createSite(address, phoneNumber, contactName, /*isStore,*/ areaCode);
 	}
 
 	@Override
@@ -214,10 +214,10 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public boolean createTransport(String date, String time, int truckNumber, int driverID, String source,
+	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
 			double weight, int sourceDoc)
 	{
-		return bl_trans.createTransport(date, time, truckNumber, driverID, source, weight, sourceDoc);
+		return bl_trans.createTransport(date, time, truckNumber, driverID, companyID/*source*/, weight, sourceDoc);
 	}
 
 	@Override
@@ -226,9 +226,9 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public boolean updateTransport(String date, String time, int truckNumber, int driverID, String source,
+	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID /*String source*/,
 			double weight, int sourceDoc) {
-		return bl_trans.updateTransport(date, time, truckNumber, driverID, source, weight, sourceDoc);
+		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc);
 	}
 
 	@Override
