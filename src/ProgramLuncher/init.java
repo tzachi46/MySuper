@@ -16,10 +16,10 @@ public class init
 	{
 		DAL dal_imp = DAL_imp.getDALImp();
 		//4 stores
-		dal_imp.insertSite(new Site("Base", "0111111111", "yoniz", 0, 123));
-		dal_imp.insertSite(new Site("ofir street", "0111111111", "ofir", 1, 123));
-		dal_imp.insertSite(new Site("dov street", "0111111111", "dov", 1, 123));
-		dal_imp.insertSite(new Site("rosh street", "0111111111", "rosh", 1, 123));
+		dal_imp.insertSite(new Site("Base", "0111111111", "yoniz",  123));
+		dal_imp.insertSite(new Site("ofir street", "0111111111", "ofir",  123));
+		dal_imp.insertSite(new Site("dov street", "0111111111", "dov",  123));
+		dal_imp.insertSite(new Site("rosh street", "0111111111", "rosh", 123));
 		
 		//ceo
 		dal_imp.insertEmployee(new Employee(111111111, "ceo1", "ceo1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.logisticManeger, "ofir street", 7));

@@ -244,6 +244,7 @@ public class PL_TransportEdit
 	 
 	private void insertTransport() 
 	{
+		//source-First store, where driver is coming from
 		String date, time, source, supplier,  numberOfTruck,sourceDocNum, weight;
 		int idOfDriver;
 		while(true)
@@ -251,7 +252,7 @@ public class PL_TransportEdit
 			boolean replan = false;
 			System.out.println("Please insert the Transport's details : ");
 			System.out.println("*****************************************");
-			supplier  = pl_Shared.getExistAddressFromUser(0);
+			supplier  = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(0)*/;
 			if(supplier .equals("0"))
 				return;
 			date = pl_Shared.getShiftDate();
@@ -263,7 +264,7 @@ public class PL_TransportEdit
 			while(true)
 			{
 				boolean enterSiteAndTruck = false;
-				source = pl_Shared.getExistAddressFromUser(1);
+				source = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 				if(source.equals("0"))
 					return;
 				if(bl.cheakAvailableStoreKeepers(source, date, time))
@@ -361,7 +362,7 @@ public class PL_TransportEdit
 			return;
 		while(true)
 		{
-			siteAddress =  pl_Shared.getExistAddressFromUser(1);
+			siteAddress =  pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 			if(siteAddress.equals("0"))
 				return;
 			if(bl.fetchSite(siteAddress).getAreaCode()==bl.fetchSite(transport.getAddressOrign()).getAreaCode())
@@ -399,7 +400,7 @@ public class PL_TransportEdit
 		Transport transport = getTransportByKey();
 		while(true)
 		{
-			siteAddress = pl_Shared.getExistAddressFromUser(1);
+			siteAddress = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 			if(siteAddress.equals("0"))
 				return;
 			if(bl.fetchEmployee(Integer.toString(transport.getDriverID())).getWorkAddress().equals(siteAddress))
@@ -517,7 +518,7 @@ public class PL_TransportEdit
 		if(bl.deleteTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()))
 			System.out.println("Transport deleted successfully.");
 		else 
-			System.out.println("Unfortunately the system couldnt deleted the Transport in the data base.");
+			System.out.println("Unfortunately the system couldn't deleted the Transport in the data base.");
 		
 	}
 	private void fetchTransport() 

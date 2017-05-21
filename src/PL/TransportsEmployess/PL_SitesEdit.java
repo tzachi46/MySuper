@@ -138,26 +138,26 @@ public class PL_SitesEdit
         return new Employee(Integer.parseInt(id),fisrt_name,last_name,Double.parseDouble(salery),currentDate,"",BankAccount,(Rank.storeManeger),address,day);
 	}
 	
-	//For site's isStore
-	private int getStoreOrSupplierFromUser()
-	{
-		String option;
-		System.out.println("choose Option:");
-		System.out.println("1)Store");
-		System.out.println("2)Supplier");
-		
-		option = scanner.nextLine(); 
-		while(!option.equals("1") && !option.equals("2"))
-		{
-			if(option.equals("0"))
-				return -1; 
-			System.out.println("area code is not valid, try again");
-			option = scanner.nextLine();
-		}
-		if(option.equals("1"))
-			return 1;
-		return 0;
-	}
+//	//For site's isStore
+//	private int getStoreOrSupplierFromUser()
+//	{
+//		String option;
+//		System.out.println("choose Option:");
+//		System.out.println("1)Store");
+//		System.out.println("2)Supplier");
+//		
+//		option = scanner.nextLine(); 
+//		while(!option.equals("1") && !option.equals("2"))
+//		{
+//			if(option.equals("0"))
+//				return -1; 
+//			System.out.println("area code is not valid, try again");
+//			option = scanner.nextLine();
+//		}
+//		if(option.equals("1"))
+//			return 1;
+//		return 0;
+//	}
 
 	
 	private void insertSite() 
@@ -179,22 +179,22 @@ public class PL_SitesEdit
 		if(contact.equals("0"))
 			return;	
 		/* Store or Supplier */
-		isStore = getStoreOrSupplierFromUser();
-		if(isStore == -1)
-			return;
-		if(isStore == 1)
-		{
+//		isStore = getStoreOrSupplierFromUser();
+//		if(isStore == -1)
+//			return;
+//		if(isStore == 1)
+//		{
 			admin = getValidAdmin(address);
 			if(admin == null)
 				return;
-		}
-		if(bl.createSite(address, phoneNum, contact, isStore, Integer.parseInt(areaCode)))
+//		}
+		if(bl.createSite(address, phoneNum, contact,/* isStore,*/ Integer.parseInt(areaCode)))
 		{
-			if(isStore == 1)
-			{
+//			if(isStore == 1)
+//			{
 				bl.addEmployee(String.valueOf(admin.getId()), String.valueOf(admin.getSalary()), admin.getFname(), admin.getLname(), admin.getStartDate(), admin.getEndDate(), admin.getRank().toString(), admin.getBankAccount(), admin.getWorkAddress(),admin.getDayOfRest());
 				pl_shared.makeDayOfWorkUnavilable(admin.getId(),admin.getDayOfRest());
-			}
+//			}
 			System.out.println("Site created successfully.");
 		}
 		else 
