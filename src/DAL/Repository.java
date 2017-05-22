@@ -331,4 +331,57 @@ public class Repository {
 	        return vec;
 	}
 	  
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
+    	Vector<Integer> truckNums = new Vector<Integer>(); 
+    	String sql = "SELECT Trucks.TRUCKNO"
+			 		+ " FROM Trucks "
+					+ "WHERE Trucks.TRUCKNO NOT IN (SELECT Trucks.TRUCKNO"
+												+ " FROM Trucks JOIN Transports ON "
+												+ "Trucks.TRUCKNO = Transports.LICENCETRUCK"
+												+ " WHERE Transports.DATE = ?)";
+		        
+		        try (Connection conn = this.transports.connect();
+		             PreparedStatement stmt = conn.prepareStatement(sql)){
+		        	stmt.setString(1, date);
+		            ResultSet rs = stmt.executeQuery();
+		            while (rs.next())
+		            {// get the result
+		            	truckNums.add(rs.getInt(1));
+		            }
+		        } catch (SQLException e) {
+		        	System.out.println(e.getMessage());
+		        }
+		Vector<Pair<Integer, String>> trucksAndTheirSchedual = new Vector<Pair<Integer,String>>();
+        sql =	 "SELECT Trucks.TRUCKNO, Transports.HOUR"
+				+ " FROM Trucks JOIN Transports ON "
+				+ "Trucks.TRUCKNO = Transports.LICENCETRUCK"
+				+ " WHERE Transports.DATE = ?";
+
+	        try (Connection conn = this.transports.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setString(1, date);
+
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	            	trucksAndTheirSchedual.add(new Pair<Integer,String>(rs.getInt(1),rs.getString(2)));
+	            }
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+	    for(Pair<Integer, String> pair : trucksAndTheirSchedual){
+	    	String type="morning";
+			int hour = Integer.parseInt(pair.getValue().substring(0, 2));
+			if(hour<24 && hour>=12)
+				type="evening";
+	    	if(!type.equals(shift)){
+	    		truckNums.add(pair.getKey());
+	    	}
+	    }
+	    for(Integer trk : truckNums){
+	    	System.out.println("truck no. " + trk);
+	    }
+	    
+	    return truckNums;
+    }
 }
