@@ -10,6 +10,7 @@ import DAL.Suppliers.SupplierManager;
 import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
+import SharedClasses.StorageSuppliers.ProductInStore;
 public class InvDALManager {
 
 	private static InvDALManager instance;
@@ -111,9 +112,20 @@ public class InvDALManager {
 	 * @param ID
 	 * @return
 	 */
-	public Product getProduct(int ID,String storeAddress){//TODO:: fix adaption to multipale Stores
-		productDb.initProductInfoTable();
-		return productDb.getProduct(ID);
+	public Product getProduct(int ID,String storeAddress){//TODO:: DONE
+		productDb.initProductInfoTable(); 
+		productInStore.InitTable();
+		//QuantityShelf, QuantityWarehouse, Manufacturer, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay
+		Product prod = productDb.getProduct(ID);
+		ProductInStore pis= productInStore.getProductInStore(ID, storeAddress);
+		prod.setStoreQuantity(pis.getStoreQuantity());
+		prod.setWarehouseQuantity(pis.getWareQuantity());
+		prod.setWareLoc(pis.getWarehouseLoc());
+		prod.setStoreLoc(pis.getStoreLoc());
+		prod.setStoreDefective(pis.getStoreDefective());
+		prod.setWareDefective(pis.getWarehouseDefective());
+		prod.setSalesPerDay(pis.getSalesPerDay());
+		return prod;
 	}
 	/**
 	 * get all Categories as array category 
@@ -136,32 +148,32 @@ public class InvDALManager {
 	 * @return
 	 */
 	public int[] getAllProductID(String storeAddress){//TODO:: fix adaption to multipale Stores
-		productDb.initProductInfoTable();
+		productDb.initProductInfoTable(); //CHANGE IS NOT NEEDED
 		return productDb.getAllID();
 	}
 	/**
 	 *get all products ID's as int array that are in stock 
 	 * @return
 	 */
-	public int[] getItemsInInventory(String StoreAddress){//TODO:: fix adaption to multipale Stores
-		productDb.initProductInfoTable();
-		return productDb.getItemsInInventory();
+	public int[] getItemsInInventory(String StoreAddress){//TODO:: DONE
+		productInStore.InitTable();
+		return productInStore.getItemsInInventory(StoreAddress);
 	}
 	/**
 	 * 
 	 * @return
 	 */
 	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
-		productDb.initProductInfoTable();
-		return productDb.getDefectItems();
+		productInStore.InitTable();
+		return productInStore.getDefectItems();
 	}
 	/**
 	 * List of items that are going out of stock
 	 * @return
 	 */
-	public LinkedList<Product>getMissingItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
-		productDb.initProductInfoTable();
-		return productDb.getMissingItems();
+	public LinkedList<Product> getMissingItems(String StoreAddress){//TODO:: DONE
+		productInStore.InitTable();
+		return productInStore.getMissingItems(StoreAddress);
 	}
 	
 	public void addProductsInNewStore(String storeAddress){
@@ -174,10 +186,6 @@ public class InvDALManager {
 		productInStore.removeSite(storeAddress);
 	}
 	
-	public void removeDummyProcuts(int productId){
-		productInStore.InitTable();
-		productInStore.deleteDummyProcuts(productId);	
-	}
 	
 	public LinkedList<String> getStoresOfferingProduct(int productId){
 		productInStore.InitTable();
