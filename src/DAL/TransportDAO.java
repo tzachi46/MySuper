@@ -18,7 +18,7 @@ public class TransportDAO extends DAO {
 	protected boolean insertTransport(Transport trs){
 		if(!this.checkValidDriver(trs))
 			return false;
-		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,ADDRESSORIGIN,"
+		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,COMPANYID,"
 				+ "DATE,HOUR,TRUCKWEIGHT,SOURCEDOC)"
 			 		+ " VALUES(?,?,?,?,?,?,?)";
 			 
@@ -26,7 +26,7 @@ public class TransportDAO extends DAO {
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
 		    pstmt.setInt(1, trs.getDriverID());
 		    pstmt.setInt(2, trs.getTruckNo());
-		    pstmt.setString(3, trs.getAddressOrign());
+		    pstmt.setInt(3, trs.getCompanyID());
 		    pstmt.setString(4, trs.getDateOfDep());
 		    pstmt.setString(5, trs.getHourOfDep());
 		    pstmt.setDouble(6, trs.getTruckWeight());
@@ -63,7 +63,7 @@ public class TransportDAO extends DAO {
 
 	protected boolean updateTransport(Transport trs){
 		 String sql = "UPDATE Transports SET "
-	                + "DRIVERID = ? ,"+ " ADDRESSORIGIN = ? ," +
+	                + "DRIVERID = ? ,"+ " COMPANYID = ? ," +
 				  " TRUCKWEIGHT = ? ," +"SOURCEDOC = ?"+
 	                " WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	 
@@ -73,7 +73,7 @@ public class TransportDAO extends DAO {
             // set the corresponding parameters
         	pstmt.setInt(1, trs.getDriverID());
 		    pstmt.setInt(5, trs.getTruckNo());
-		    pstmt.setString(2, trs.getAddressOrign());
+		    pstmt.setInt(2, trs.getCompanyID());
 		    pstmt.setString(7, trs.getDateOfDep());
 		    pstmt.setString(6, trs.getHourOfDep());
 		    pstmt.setDouble(3, trs.getTruckWeight());
@@ -90,7 +90,7 @@ public class TransportDAO extends DAO {
 	
 	protected Transport fetchTransport(int licenceNo, String hour, String date){
 
-		 String sql = "SELECT DRIVERID, LICENCETRUCK, ADDRESSORIGIN, DATE, HOUR,"
+		 String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, DATE, HOUR,"
 		 		+ " TRUCKWEIGHT, SOURCEDOC"
 		 		+ " FROM Transports " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
@@ -107,7 +107,7 @@ public class TransportDAO extends DAO {
 	        	}
 	        	// get the result
 	        	return new Transport(rs.getInt(1), rs.getInt(2), 
-	        			rs.getString(3), rs.getString(4), 
+	        			rs.getInt(3), rs.getString(4), 
 	        			rs.getString(5), rs.getDouble(6),rs.getInt(7));
 	           
 	        } catch (SQLException e) {

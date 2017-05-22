@@ -41,7 +41,6 @@ public class Repository {
 					   + "(ADDRESS TEXT PRIMARY KEY NOT NULL, "
 						+ "CONTACTNAME	TEXT	NOT NULL, "
 						+ "PHONENO   TEXT	NOT NULL, "
-						+ "ISSTORE INT NOT NULL, "
 						+ "AREACODE INT NOT NULL)");
 	
 		employees.createTable("CREATE TABLE IF NOT EXISTS employees " 
@@ -106,7 +105,7 @@ public class Repository {
 		transports.createTable("CREATE TABLE IF NOT EXISTS Transports " +
                 			"(DRIVERID	INT		NOT		NULL, " +
                 			"	LICENCETRUCK	INT		NOT NULL, " + 
-                			"	ADDRESSORIGIN   TEXT	NOT NULL, " + 
+                			"	COMPANYID   INT	NOT NULL, " + 
                 			"	DATE   TEXT	NOT NULL, " + 
                 			"	HOUR   TEXT	NOT NULL, " + 
                 			"SOURCEDOC 	INT 	NOT 	NULL, "
