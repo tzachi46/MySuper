@@ -19,6 +19,7 @@ public class Repository {
 	EmployeeShiftsDAO empShifts;
 	TransportDAO transports;
 	TransportDestinationsDAO transDests;
+	messagesDAO messages;
 	public Repository(String url){
 		trucks = new TruckDAO(url);
 		sites = new SiteDAO(url);
@@ -27,6 +28,7 @@ public class Repository {
 		empShifts = new EmployeeShiftsDAO(url);
 		transports = new TransportDAO(url);
 		transDests = new TransportDestinationsDAO(url);
+		messages = new messagesDAO(url);
 	}
 	
 	protected void createDB(){
@@ -127,6 +129,16 @@ public class Repository {
                 			+ "FOREIGN KEY(LICENCETRUCK,DATE,HOUR) REFERENCES Transports(LICENCETRUCK,DATE,HOUR) ON DELETE CASCADE,"
                 			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
 	
+		messages.createTable("CREATE TABLE IF NOT EXISTS Messages " +
+                			"( LICENCETRUCK		INT		NOT NULL, " + 
+                			"	ADDRESSDEST   TEXT	NOT NULL, " + 
+                			"	DATE   		TEXT	NOT NULL, " + 
+                			"	HOUR   		TEXT	NOT NULL, " + 
+                			"	DOCCODE		INT		NOT NULL, " +
+                			"   HOUROFARR TEXT NOT NULL, " 
+                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, ADDRESSDEST),"
+                			+ "FOREIGN KEY(LICENCETRUCK,DATE,HOUR) REFERENCES Transports(LICENCETRUCK,DATE,HOUR) ON DELETE CASCADE,"
+                			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
 	}
 
 	public TransportDAO getTransports() {
