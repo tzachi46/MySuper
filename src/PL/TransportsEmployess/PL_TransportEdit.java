@@ -259,6 +259,8 @@ public class PL_TransportEdit
             System.out.println("choose option");
             System.out.println("0)return, 1)left, 2)right, 3)Send Transport 4)manual");
             System.out.println("***********************************");
+            
+            System.out.println("***********************************");
             String option = scanner.nextLine();
             if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
@@ -373,6 +375,12 @@ public class PL_TransportEdit
 
 	
 
+	private double minimizeWeightMenu(double parseDouble) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	private String OverWeightMenu() 
 	{
 		String option;
@@ -405,7 +413,7 @@ public class PL_TransportEdit
 			siteAddress =  pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 			if(siteAddress.equals("0"))
 				return;
-			if(bl.fetchSite(siteAddress).getAreaCode()==bl.fetchSite(transport.getAddressOrign()).getAreaCode())
+			if(bl.fetchSite(siteAddress).getAreaCode()==bl.fetchSite(transport.getCompanyID()).getAreaCode())
 			{
 				if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
 					break;
@@ -545,7 +553,7 @@ public class PL_TransportEdit
 	private void commitUpdate(Transport transport)
 	{
 		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()
-				, transport.getDriverID(), transport.getAddressOrign(), transport.getTruckWeight(), transport.getSourceDoc()))
+				, transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getSourceDoc()))
 			System.out.println("Transport updated successfully.");
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");
