@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.Shift;
 
@@ -306,5 +307,20 @@ public class PL_Shared
 		}
 		return address;
 	}
-    
+
+
+	public int manualOrder(int i, Vector<Order> undeliveredOrders) 
+	{
+		System.out.println("At any point you can press 0 to return to previous menu");
+	       
+        int orderNumber = getOrderNumber();
+		
+        for (int j=0; j <undeliveredOrders.size() ; j++)
+        {
+            if (undeliveredOrders.elementAt(j).getOrderNumber().equals(date) && undeliveredOrders.elementAt(j).getAddress.equals(type))
+                return j;
+        }
+        System.out.println("shift not exist");
+        return i;
+	}
 }

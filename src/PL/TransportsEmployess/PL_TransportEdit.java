@@ -4,7 +4,10 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
+import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Driver;
+import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 
@@ -242,88 +245,119 @@ public class PL_TransportEdit
 		
 	}
 	 
-	private void insertTransport() 
+	private void insertTransport()
 	{
-		//source-First store, where driver is coming from
+		int i = 0;
+        while (true)
+        {
+            Vector<Order> undeliveredOrders = bl.getUndeliveredOrders();
+            if(undeliveredOrders == null)
+            {
+                System.out.println("no relevant undelivered orders");
+                return;
+            }
+            System.out.println("choose option");
+            System.out.println("0)return, 1)left, 2)right, 3)Send Transport 4)manual");
+            System.out.println("***********************************");
+            String option = scanner.nextLine();
+            if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
+                System.out.println("invalid input, try again");
+            else {
+                if (option.equals("0"))
+                    break;
+                if (option.equals("1")) {
+                    if (i == 0)
+                        System.out.println("earlier shifts not exist");
+                    else
+                        i--;
+                }
+                if (option.equals("2")) {
+                    if (i == undeliveredOrders.size() - 1)
+                        System.out.println("later shifts not exist");
+                    else
+                        i++;
+                }
+                if (option.equals("3")) 
+                    i = sentTransport(undeliveredOrders.elementAt(i),i);   
+                if (option.equals("4"))
+                    i = pl_Shared.manualOrder(i,undeliveredOrders);
+            }
+        }
+	}
+	
+	
+	
+	
+	private int sentTransport(Order elementAt, int i) 
+	{
 		String date, time, source, supplier,  numberOfTruck,sourceDocNum, weight;
 		int idOfDriver;
 		while(true)
 		{
 			boolean replan = false;
 			System.out.println("Please insert the Transport's details : ");
-			System.out.println("*****************************************");
-			supplier  = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(0)*/;
-			if(supplier .equals("0"))
-				return;
 			date = pl_Shared.getShiftDate();
 			if(date.equals("0"))
-				return;
+				return i;
 			time = getTimeInputFromUser("leaving time");
 			if(time.equals("0"))
-				return;
+				return i;
 			while(true)
 			{
-				boolean enterSiteAndTruck = false;
+				boolean enterTruck = false;
 				//CHANGE TO COMPANYID
-				source = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
-				if(source.equals("0"))
-					return;
 				if(bl.cheakAvailableStoreKeepers(source, date, time))
 				{
 					numberOfTruck = fetchAvilableTruck(date,time);
 					if(numberOfTruck.equals("0"))
-						return;
+						return i;
 					Truck truck = bl.fetchTruck(Integer.parseInt(numberOfTruck));
 					idOfDriver = getExistTruckDrivers(source,date,time,truck.getLicenceType());
 					if(idOfDriver == 0)
-						return;
+						return i;
 					if(idOfDriver > 0)
 					{
-						while(true)
+						if(truck.getMaxWeight() < Double.parseDouble(weight))
 						{
-							weight = getWeightFromUser("Weight");
-							if(weight.equals("0"))
-								return;
-							if(truck.getMaxWeight() < Double.parseDouble(weight))
+							System.out.println("Over Weight");
+							String choice = OverWeightMenu();
+							if(choice.equals("4"))//return
+								return i;
+							if(choice.equals("2"))//return
 							{
-								System.out.println("Over Weight");
-								String choice = OverWeightMenu();
-								if(choice.equals("4"))//return
-									return;
-								if(choice.equals("1"))//replan
-								{
-									replan = true;
-									break;
-								}
-								if(choice.equals("3"))
-								{
-									enterSiteAndTruck = true;
-									break;
-								}
+								double minimize = minimizeWeightMenu(Double.parseDouble(weight));
+								if(minimize == -1)
+									return i;
+								weight = Double.toString(minimize); 
 							}
-							else
-								break;
+							if(choice.equals("1"))//replan
+								replan = true;
+							if(choice.equals("3"))
+								enterTruck = true;
 						}
-						if(!enterSiteAndTruck)
+						else
 							break;
 					}
+					if(!enterTruck)
+						break;
 				}
 				else
 					System.out.println("There is no available storekeepers in the store at this time, please try again");
 			}
 			if(!replan)
 				break;
-		}
+		}	
+		
 		//CHANGW TO ????
 		sourceDocNum = getSourceDocNumInputFromUser("supplier");
 		if(sourceDocNum.equals("0"))
-			return;
+			return i;
 		String docNum = getSourceDocNumInputFromUser("store");
 		if(docNum.equals("0"))
-			return;
+			return i;
 		String arrivaleTime = getTimeInputInShift(time, "arrival time");
 		if(arrivaleTime.equals("0"))
-			return;
+			return i;
 		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, Double.parseDouble(weight),Integer.parseInt(sourceDocNum));
 		if(success)
 		{
@@ -332,7 +366,11 @@ public class PL_TransportEdit
 		}
 		else 
 			System.out.println("Unfortunately the system couldnt create the transport in the data base.");
+
+	
+		
 	}
+
 	
 
 	private String OverWeightMenu() 
