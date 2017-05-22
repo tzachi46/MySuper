@@ -18,7 +18,6 @@ public class messagesDAO extends DAO {
 	protected boolean insertMessage(Message m){
 		String sql = "INSERT INTO Messages(ADDRESS,DATE,ORDERNUMBER,ISHANDLED)"
 			 	   + " VALUES(?,?,?,?)";
-			 
 		try (Connection conn = this.connect();
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
 		    pstmt.setString(1, m.getAddress());
@@ -28,6 +27,7 @@ public class messagesDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
+			System.out.println(e.getStackTrace());
      		    return false;
 		}
 	}

@@ -8,6 +8,7 @@ import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -224,6 +225,11 @@ public class DAL_imp implements DAL{
 	@Override
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date) {
 		return repo.getTransports().fetchtrucksAndDates(date);
+	}
+
+	@Override
+	public boolean insertMessage(Message message) {
+		return repo.getMessages().insertMessage(message);
 	}
 	
 	

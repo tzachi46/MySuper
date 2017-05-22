@@ -6,6 +6,7 @@ import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
@@ -75,5 +76,6 @@ public interface DAL {
 	
 	public Vector<String> getHoursOfArrival(Transport trans);
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date);
+	public boolean insertMessage(Message message);
 	
 }

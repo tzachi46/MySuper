@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
 
@@ -130,15 +131,13 @@ public class Repository {
                 			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
 	
 		messages.createTable("CREATE TABLE IF NOT EXISTS Messages " +
-                			"( LICENCETRUCK		INT		NOT NULL, " + 
-                			"	ADDRESSDEST   TEXT	NOT NULL, " + 
-                			"	DATE   		TEXT	NOT NULL, " + 
-                			"	HOUR   		TEXT	NOT NULL, " + 
-                			"	DOCCODE		INT		NOT NULL, " +
-                			"   HOUROFARR TEXT NOT NULL, " 
-                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, ADDRESSDEST),"
-                			+ "FOREIGN KEY(LICENCETRUCK,DATE,HOUR) REFERENCES Transports(LICENCETRUCK,DATE,HOUR) ON DELETE CASCADE,"
-                			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
+                			"( 	ADDRESS   	TEXT	NOT NULL, " + 
+                			"	DATE		TEXT	NOT NULL, " + 
+                			"	ORDERNUMBER INT		NOT NULL, " + 
+                			"	ISHANDLED 	INT		NOT NULL DEFAULT 0, "
+                			+" PRIMARY KEY(DATE, ADDRESS, ORDERNUMBER),"
+                			+ "FOREIGN KEY(ADDRESS) REFERENCES Sites(ADDRESS) ON DELETE CASCADE,"
+                			+ "FOREIGN KEY(ORDERNUMBER) REFERENCES Orders(OrderNumber) ON DELETE CASCADE)");
 	}
 
 	public TransportDAO getTransports() {
@@ -167,6 +166,10 @@ public class Repository {
 
 	public EmployeeShiftsDAO getEmpShifts() {
 		return empShifts;
+	}
+	
+	public messagesDAO getMessages() {
+		return messages;
 	}
 
 	public boolean checkLicenceAndWeight(int driverID, int truckNumber, double weight) {

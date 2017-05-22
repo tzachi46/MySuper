@@ -6,6 +6,7 @@ import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
@@ -189,6 +190,9 @@ public class init
 		dal_imp.insertTruck(new Truck(44444444, "subaro", 1000, 60, 25));
 		dal_imp.insertTruck(new Truck(55555555, "subaro", 1000, 70, 30));
 		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 100, 45));
+		
+		//messages
+		System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
 		
 	}
 }
