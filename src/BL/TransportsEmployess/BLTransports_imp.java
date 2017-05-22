@@ -198,4 +198,8 @@ public class BLTransports_imp implements BLTransports {
 		return dal.checkLicenceAndWeight(driverId, truckNo, weight);
 	}
 	
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
+		return this.dal.fetchAvailableTrucks(date, shift);
+	}
+	
 }

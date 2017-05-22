@@ -237,5 +237,8 @@ public class DAL_imp implements DAL{
 		return repo.getMessages().fetchMessages(workAddress, b);
 	}
 	
-	
+	@Override
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
+		return this.repo.fetchAvailableTrucks(date, shift);
+	}
 }

@@ -1,5 +1,7 @@
 package BL.TransportsEmployess;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
 import SharedClasses.TransportsEmployess.Driver;
@@ -7,6 +9,7 @@ import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -17,6 +20,7 @@ public class BLimp implements BL {
 	//Fields
 	private BLEmployees_imp bl_emp;
     private BLTransports_imp bl_trans;
+    public static final int WEEK = 7;
     
     //Constructor
     public BLimp(){
@@ -326,6 +330,52 @@ public class BLimp implements BL {
 	
 	private double getWeightOfOrder() {
 		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
+	}
+	
+	public boolean checkTransportToOrder(Order order){
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        LocalDate localDate = LocalDate.now();
+        String date; 
+        for(int i = 0; i < WEEK; i++){
+       	 localDate.plusDays(i);
+       	 date = dtf.format(localDate);
+       	 if(checkDate(date, order.getStore()) == true)
+       			 return true;
+        }
+        return false;
+   }
+	
+	
+	private boolean checkDate(String date, String store){
+		/* store keepers */
+		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
+				!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning"))){
+			return false;
+		} else {
+			/* get the optional trucks in morning */
+			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
+			/* choose the proper driver to the truck in morning */
+			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store);
+			if(driverNtruckM == null){ /* not M */
+				/* get the optional trucks in evening */
+				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
+				/* choose the proper driver to the truck in evening */
+				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store);
+				if(driverNtruckE == null){/* not M  & not E */
+					return false;
+				} else {/* E */
+					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+							driverNtruckE.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
+				}
+			} else { /* M */
+				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+						driverNtruckM.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
+			}
+		}
+	}
+	
+	private int getSourceDoc() {
 		throw new UnsupportedOperationException();
 	}
 }
