@@ -176,10 +176,9 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<String> getNotHandledMessages(String workAddress) {
 		// TODO CHANGE TO MESSAGES!!!!
 		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, false);
-		Vector<String> ans = null;
-		Pair<String, Integer> iter = messages.firstElement();
-		while(iter!=null){
-			ans.add("Order number "+iter.getValue().intValue()+" was added at "+iter.getKey());
+		Vector<String> ans = new Vector<String>();
+		for(int i=0; i<messages.size(); i++){
+			ans.add("Order number "+messages.elementAt(i).getValue().intValue()+" was added at "+messages.elementAt(i).getKey());
 		}
 		return ans;
 	}
@@ -187,10 +186,9 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<String> getHandledMessages(String workAddress) {
 		// TODO CHANGE TO MESSAGES!!!!
 		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, true);
-		Vector<String> ans = null;
-		Pair<String, Integer> iter = messages.firstElement();
-		while(iter!=null){
-			ans.add("Order number "+iter.getValue().intValue()+" was added at "+iter.getKey());
+		Vector<String> ans = new Vector<String>();
+		for(int i=0; i<messages.size(); i++){
+			ans.add("Order number "+messages.elementAt(i).getValue().intValue()+" was added at "+messages.elementAt(i).getKey());
 		}
 		return ans;
 	}

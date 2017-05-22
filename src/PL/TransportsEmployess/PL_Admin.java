@@ -499,10 +499,16 @@ public class PL_Admin
             case "1":
             {
             	Vector<String> newMessages = bl.getNotHandledMessages(workAddress);
+        		for(int i=0; i<newMessages.size(); i++){
+        			System.out.println(newMessages.elementAt(i));
+        		}
             }
             case "2":
             {
             	Vector<String> oldMessages = bl.getHandledMessages(workAddress);
+            	for(int i=0; i<oldMessages.size(); i++){
+        			System.out.println(oldMessages.elementAt(i));
+        		}
             }
             default:
             {
