@@ -471,5 +471,45 @@ public class PL_Admin
                     i = pl_shared.manual(i,initializedShifts);
             }
         }
-    }	
+    }
+
+
+	public void viewMessages(String workAddress) {
+    	System.out.println("At any point you can press 0 to return to previous menu");
+		while (true)
+	    {
+	         System.out.println("Choose Option: ");
+	         System.out.println("1) view not handled messages");
+	         System.out.println("2) view handled messages");
+	         
+	         String choice = scanner.nextLine();
+	         if(!handleViewMessagesChoice(workAddress, choice))
+	        	 break;
+	    }
+	}
+
+
+	private boolean handleViewMessagesChoice(String workAddress, String choice) {
+		switch (choice)
+        {
+			case "0":
+			{
+				return false;
+			}
+            case "1":
+            {
+            	Vector<String> newMessages = bl.getNotHandledMessages(workAddress);
+            }
+            case "2":
+            {
+            	Vector<String> oldMessages = bl.getHandledMessages(workAddress);
+            }
+            default:
+            {
+                System.out.println("invalid input, try again");
+                break;
+            }
+        }
+        return  true;
+	}	
 }

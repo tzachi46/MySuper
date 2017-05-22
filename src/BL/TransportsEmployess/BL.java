@@ -95,4 +95,8 @@ public interface BL {
   	boolean updateDriver(int id, int parseInt);
   	public Vector<String> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
+
+	Vector<String> getNotHandledMessages(String workAddress);
+
+	Vector<String> getHandledMessages(String workAddress);
 }

@@ -172,6 +172,28 @@ public class BLTransports_imp implements BLTransports {
 		}
 		return true;
 	}
+
+	public Vector<String> getNotHandledMessages(String workAddress) {
+		// TODO CHANGE TO MESSAGES!!!!
+		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, false);
+		Vector<String> ans = null;
+		Pair<String, Integer> iter = messages.firstElement();
+		while(iter!=null){
+			ans.add("Order number "+iter.getValue().intValue()+" was added at "+iter.getKey());
+		}
+		return ans;
+	}
+
+	public Vector<String> getHandledMessages(String workAddress) {
+		// TODO CHANGE TO MESSAGES!!!!
+		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, true);
+		Vector<String> ans = null;
+		Pair<String, Integer> iter = messages.firstElement();
+		while(iter!=null){
+			ans.add("Order number "+iter.getValue().intValue()+" was added at "+iter.getKey());
+		}
+		return ans;
+	}
 	
 	
 }

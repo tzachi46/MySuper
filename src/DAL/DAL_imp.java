@@ -231,6 +231,11 @@ public class DAL_imp implements DAL{
 	public boolean insertMessage(Message message) {
 		return repo.getMessages().insertMessage(message);
 	}
+
+	public Vector<Pair<String, Integer>> getMessages(String workAddress, boolean b) {
+		// first=date second = ordernumber
+		return repo.getMessages().fetchMessages(workAddress, b);
+	}
 	
 	
 }

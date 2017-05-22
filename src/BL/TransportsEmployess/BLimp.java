@@ -300,4 +300,14 @@ public class BLimp implements BL {
 	{
 		return bl_trans.checkIfTruckAvilable(date, time, truckNumber);
 	}
+
+	@Override
+	public Vector<String> getNotHandledMessages(String workAddress) {
+		return bl_trans.getNotHandledMessages(workAddress);
+	}
+
+	@Override
+	public Vector<String> getHandledMessages(String workAddress) {
+		return bl_trans.getHandledMessages(workAddress);
+	}
 }

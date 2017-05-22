@@ -165,7 +165,8 @@ public class PLimpl implements PL
             System.out.println("5) delete shift");
             System.out.println("6) show Employee details");
             System.out.println("7) show Initialized shifts");
-            System.out.println("8) go back to Previous menu");
+            System.out.println("8) View Messages");
+            System.out.println("9) go back to Previous menu");
 
             String choice = scanner.nextLine();
 
@@ -277,6 +278,10 @@ public class PLimpl implements PL
                 break;
             }
             case "8":
+            {
+            	pl_admin.viewMessages(emp.getWorkAddress());
+            }
+            case "9":
             {
                 return false;
             }
