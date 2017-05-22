@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.Shift;
 
@@ -259,17 +260,17 @@ public class PL_Shared
 	    return truckNo; 
 	}
     
-    protected String getExistAddressFromUser(int isStore)
+    protected String getExistStoreAddressFromUser()/*getExistAddressFromUser(int isStore)*/
 	{
 		String address;
-		if(isStore == 1)
+		//if(isStore == 1)
 			System.out.println("Please insert the stores's address : ");
-		else if (isStore == 0)
-			System.out.println("Please insert the supplier's address : ");
-		else
-			System.out.println("Please insert the site's address : ");
-		while(true)
-		{
+//		else if (isStore == 0)
+//			System.out.println("Please insert the supplier's address : ");
+//		else
+//			System.out.println("Please insert the site's address : ");
+//		while(true)
+//		{
 			address = scanner.nextLine();
 			while(bl.fetchSite(address) == null) 
 			{
@@ -278,16 +279,16 @@ public class PL_Shared
 				System.out.println("address not exist, try again: ");
 				address = scanner.nextLine();
 			}
-			if(bl.fetchSite(address).getIsStore() == isStore || bl.fetchSite(address).getIsStore() == 2)
-				break;
-			else
-			{
-				if(isStore == 1)
-					System.out.println("you gave addreres of supplier ,should be address of store");
-				else
-					System.out.println("you gave addreres of store,should be address of supplier ");
-			}
-		}
+//			if(bl.fetchSite(address).getIsStore() == isStore || bl.fetchSite(address).getIsStore() == 2)
+//				break;
+//			else
+//			{
+//				if(isStore == 1)
+//					System.out.println("you gave addreres of supplier ,should be address of store");
+//				else
+//					System.out.println("you gave addreres of store,should be address of supplier ");
+//			}
+//		}
 		return address;
 	}
 	
@@ -306,5 +307,20 @@ public class PL_Shared
 		}
 		return address;
 	}
-    
+
+
+	public int manualOrder(int i, Vector<Order> undeliveredOrders) 
+	{
+		System.out.println("At any point you can press 0 to return to previous menu");
+	       
+        int orderNumber = getOrderNumber();
+		
+        for (int j=0; j <undeliveredOrders.size() ; j++)
+        {
+            if (undeliveredOrders.elementAt(j).getOrderNumber().equals(date) && undeliveredOrders.elementAt(j).getAddress.equals(type))
+                return j;
+        }
+        System.out.println("shift not exist");
+        return i;
+	}
 }

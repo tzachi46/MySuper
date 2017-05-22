@@ -64,8 +64,8 @@ public class BLTransports_imp implements BLTransports {
 	}
 
 	@Override
-	public boolean createSite(String address, String phoneNumber, String contactName, int isStore, int areaCode) {
-		boolean res = dal.insertSite(new Site(address,phoneNumber,contactName, isStore,areaCode));
+	public boolean createSite(String address, String phoneNumber, String contactName, /*int isStore,*/ int areaCode) {
+		boolean res = dal.insertSite(new Site(address,phoneNumber,contactName, /*isStore,*/areaCode));
 		DAL.Inventory.InvDALManager.getInstance().addProductsInNewStore(address);
 		return res;
 	}
@@ -87,18 +87,16 @@ public class BLTransports_imp implements BLTransports {
 		return dal.deleteSite(address);
 	}
 
-	@Override
-	public boolean createTransport(String date, String time, int truckNumber, int driverID, String source,
-		double weight, int sourceDoc)
-	{
-		return dal.insertTransport(new Transport(driverID, truckNumber, source, date, time, weight,sourceDoc));
+	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String csource*/,
+			double weight, int sourceDoc) {
+		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,sourceDoc));
 	}
 
 	@Override
-	public boolean updateTransport(String date, String time, int truckNumber, int driverID, String source,
+	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
 			double weight, int sourceDoc) {
 	///	if(dal.checkLicenceAndWeight(driverID, truckNumber, weight)){
-			return dal.updateTransport(new Transport(driverID, truckNumber, source, date, time, weight, sourceDoc));
+			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight, sourceDoc));
 	///	}
 	///	return false;
 	}
@@ -192,6 +190,5 @@ public class BLTransports_imp implements BLTransports {
 		}
 		return ans;
 	}
-	
 	
 }
