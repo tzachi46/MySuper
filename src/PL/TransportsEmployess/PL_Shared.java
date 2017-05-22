@@ -317,7 +317,7 @@ public class PL_Shared
 		
         for (int j=0; j <undeliveredOrders.size() ; j++)
         {
-            if (undeliveredOrders.elementAt(j).getOrderNumber().equals(date) && undeliveredOrders.elementAt(j).getAddress.equals(type))
+            if (undeliveredOrders.elementAt(j).getOrderNumber()==orderNumber && undeliveredOrders.elementAt(j).getAddress.equals(type))
                 return j;
         }
         System.out.println("shift not exist");

@@ -99,4 +99,6 @@ public interface BL {
 
 	Vector<String> getNotHandledMessages(String workAddress);
 	Vector<String> getHandledMessages(String workAddress);
+
+	Vector<Order> getUndeliveredOrders();
 }

@@ -413,15 +413,10 @@ public class PL_TransportEdit
 			siteAddress =  pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 			if(siteAddress.equals("0"))
 				return;
-			if(bl.fetchSite(siteAddress).getAreaCode()==bl.fetchSite(transport.getCompanyID()).getAreaCode())
-			{
-				if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
-					break;
-				else
-					System.out.println("There are no available storekeeprs at this site, try again");
-			}
+			if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
+				break;
 			else
-				System.out.println("Address not in the same area of the Transport, try again");
+				System.out.println("There are no available storekeeprs at this site, try again");
 		}
 		String docNum = getSourceDocNumInputFromUser("store");
 		if(docNum.equals("0"))

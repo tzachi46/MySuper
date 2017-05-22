@@ -7,6 +7,7 @@ import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -309,5 +310,11 @@ public class BLimp implements BL {
 	@Override
 	public Vector<String> getHandledMessages(String workAddress) {
 		return bl_trans.getHandledMessages(workAddress);
+	}
+
+	@Override
+	public Vector<Order> getUndeliveredOrders() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
