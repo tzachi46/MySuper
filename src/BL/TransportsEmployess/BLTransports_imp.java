@@ -193,5 +193,9 @@ public class BLTransports_imp implements BLTransports {
 		return ans;
 	}
 	
+	@Override
+	public boolean checkLicenceAndWeight(int driverId, int truckNo, double weight){
+		return dal.checkLicenceAndWeight(driverId, truckNo, weight);
+	}
 	
 }

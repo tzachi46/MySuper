@@ -310,4 +310,22 @@ public class BLimp implements BL {
 	public Vector<String> getHandledMessages(String workAddress) {
 		return bl_trans.getHandledMessages(workAddress);
 	}
+	
+	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store){
+		Vector<Driver> drivers = bl_trans.fetchAvailableDrivers(store, date, shift);
+		double weight = getWeightOfOrder();
+		for(Driver d : drivers){
+			for(Integer truckNo : truckNums){
+				if(bl_trans.checkLicenceAndWeight(d.getId(), truckNo, weight)){
+					return new Pair<Driver,Truck>(d, bl_trans.fetchTruck(truckNo));
+				}
+			}
+		}
+		return null;
+	}
+	
+	private double getWeightOfOrder() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
+	}
 }
