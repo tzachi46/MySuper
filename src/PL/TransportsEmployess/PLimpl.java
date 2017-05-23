@@ -123,10 +123,10 @@ public class PLimpl implements PL
             {
                 return HandleLogedAdmin(emp);
             }
-            case shiftManager:
+    /*        case shiftManager:
             {
                 return HandleLogedManager(emp);
-            }
+            }*/
             default:
             {
                 return HandleLogedRegular(emp);
