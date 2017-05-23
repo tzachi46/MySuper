@@ -292,7 +292,10 @@ public class PL_TransportEdit
 	
 	private int sentTransport(Order elementAt, int i) 
 	{
-		String date, time, source, supplier,  numberOfTruck,sourceDocNum, weight;
+		String date, time,  numberOfTruck,sourceDocNum;
+		double  weight = elementAt.calculateWeight();
+		int supplier = elementAt.getSupplierId();
+		String source = elementAt.getAddres();
 		int idOfDriver;
 		while(true)
 		{
@@ -319,23 +322,29 @@ public class PL_TransportEdit
 						return i;
 					if(idOfDriver > 0)
 					{
-						if(truck.getMaxWeight() < Double.parseDouble(weight))
+						if(truck.getMaxWeight() < weight)
 						{
+							String choice = "2";
 							System.out.println("Over Weight");
-							String choice = OverWeightMenu();
-							if(choice.equals("4"))//return
-								return i;
-							if(choice.equals("2"))//return
+							while(choice.equals("2"))
 							{
-								double minimize = minimizeWeightMenu(Double.parseDouble(weight));
-								if(minimize == -1)
+								choice = OverWeightMenu();
+								if(choice.equals("4"))//return
 									return i;
-								weight = Double.toString(minimize); 
+								if(choice.equals("2"))//return
+								{
+									double Mweight = minimizeWeightMenu(weight,elementAt);
+									if(Mweight != -1)
+									{
+										weight = Mweight;
+										break;
+									}
+								}
+								if(choice.equals("1"))//replan
+									replan = true;
+								if(choice.equals("3"))
+									enterTruck = true;
 							}
-							if(choice.equals("1"))//replan
-								replan = true;
-							if(choice.equals("3"))
-								enterTruck = true;
 						}
 						else
 							break;
@@ -365,17 +374,20 @@ public class PL_TransportEdit
 		{
 			System.out.println("Transport created successfully.");
 			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), source, Integer.parseInt(docNum),arrivaleTime);
+			if(i==0)
+				return i;
+			return i-1;
 		}
 		else 
+		{
 			System.out.println("Unfortunately the system couldnt create the transport in the data base.");
-
-	
-		
+			return i;
+		}
 	}
 
 	
 
-	private double minimizeWeightMenu(double parseDouble) {
+	private double minimizeWeightMenu(double parseDouble, Order order) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
