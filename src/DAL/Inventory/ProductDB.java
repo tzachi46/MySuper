@@ -40,6 +40,7 @@ public class ProductDB {
                 + "	Name VARCHAR(30) NOT NULL,\n"
                 + "	Manufacturer VARCHAR(30) NOT NULL,\n"
                 + " Category integer DEFAULT 0,\n"
+                + " Weight integer DEFAULT 0,\n"
                 + "FOREIGN KEY(Category) REFERENCES Category(CategoryID) ON UPDATE CASCADE ON DELETE CASCADE"
                 + ");";
 		try (Statement stmt = DALManager.conn.createStatement()) {
@@ -54,11 +55,12 @@ public class ProductDB {
 	 */
 	public void addNewProduct(Product product, String StoreAddress){
 		String sql = "INSERT OR IGNORE INTO Product \n"
-                + "	(Barcode, Name, Manufacturer,Category)\n"
+                + "	(Barcode, Name, Manufacturer,Category,Weight)\n"
                 + "	values("+product.getId()
                 +","+"'"+product.getName()+"'"
                 +","+"'"+product.getManufacturer()+"'"
-                +","+product.getCategory()+");";// add to Product	
+                +","+product.getCategory()
+                +","+product.getWeight()+");";// add to Product	
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
             productInStore.InitialNewProduct(product,StoreAddress);
@@ -79,6 +81,7 @@ public class ProductDB {
                 + "Name='"+product.getName()+"',\n"
                 + "Manufacturer='"+product.getManufacturer()+"',\n" 
                 + "Category="+product.getCategory()+"\n"
+                + "Weight="+product.getCategory()+"\n"
                 + "WHERE Barcode="+product.getId();     
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
@@ -111,7 +114,7 @@ public class ProductDB {
 	 * @return return Product's information with the corresponding ID
 	 */
 	public Product getProduct(int ID){
-		String sql = "Select Barcode, Name, Manufacturer, Category\n"
+		String sql = "Select Barcode, Name, Manufacturer, Category,Weight\n"
 				+"FROM Product WHERE Barcode="+ID;
 		Product res=null;
 	    try ( Statement stmt  = DALManager.conn.createStatement();
@@ -130,6 +133,7 @@ public class ProductDB {
 	    	res.setSalesPerDay(rs.getInt("SalesPerDay"));
 	    	*/
 	    	res.setCategory(rs.getInt("Category"));
+	    	res.setWeight(rs.getInt("Weight"));
 	        } catch (SQLException e) {
 	            return null; 
 	        }
