@@ -314,6 +314,14 @@ public class BLimp implements BL {
 	public Vector<String> getHandledMessages(String workAddress) {
 		return bl_trans.getHandledMessages(workAddress);
 	}
+<<<<<<< HEAD
+
+	@Override
+	public Vector<Order> getUndeliveredOrders() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+=======
 	
 	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store){
 		Vector<Driver> drivers = bl_trans.fetchAvailableDrivers(store, date, shift);
@@ -378,4 +386,5 @@ public class BLimp implements BL {
 	private int getSourceDoc() {
 		throw new UnsupportedOperationException();
 	}
+>>>>>>> Itay
 }

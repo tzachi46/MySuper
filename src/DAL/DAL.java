@@ -77,5 +77,6 @@ public interface DAL {
 	public Vector<String> getHoursOfArrival(Transport trans);
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date);
 	public boolean insertMessage(Message message);
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift);
 	
 }
