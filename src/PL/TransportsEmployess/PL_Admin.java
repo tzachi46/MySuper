@@ -55,12 +55,12 @@ public class PL_Admin
     	 else
     	 {
 	    	 System.out.println("Does the new Employee has driving licence?");
-	         System.out.println("0-return, 1-no and continue,else enter the driving licence");
+	         System.out.println("~-return, 1-no and continue,else enter the driving licence");
     	 }
          String lio = scanner.nextLine();
          while(!validator.validateIntInBounds(lio, 2, 99999999))
          {
-             if (lio.equals("0"))
+             if (lio.equals("~"))
                  return lio;
              if(!isManger && lio.equals("1"))
              	return "";
@@ -112,7 +112,7 @@ public class PL_Admin
     
     public void addEmployee(String address) 
     {
-        System.out.println("At any point you can press 0 to return to previous menu");
+        System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter new Employee details :");
         String id = pl_shared.getNotExistingId();
         if(id.equals("~"))
@@ -227,6 +227,10 @@ public class PL_Admin
             case "5":
             {
                 return false;
+            }
+            case "~":
+            {
+            	return false;
             }
             default:
             {
@@ -399,7 +403,7 @@ public class PL_Admin
     {
         while (true) 
         {
-            System.out.println("At any point you can press 0 to return to previous menu");
+            System.out.println("At any point you can press ~ to return to previous menu");
             System.out.println("choose option :");
             System.out.println("1) Add/Reduce workers to empty shift");
             System.out.println("2) Return to previuos menu");
@@ -421,6 +425,10 @@ public class PL_Admin
                 case "2":
                 {
                     return false;
+                }
+                case "~":
+                {
+                	return false;
                 }
                 default:
                 {
@@ -463,7 +471,7 @@ public class PL_Admin
                 System.out.println("invalid input, try again");
             else 
             {
-                if (option.equals("0"))
+                if (option.equals("0")||option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)

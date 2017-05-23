@@ -94,10 +94,10 @@ public class PLimpl implements PL
     private boolean showLoginMenu() {
         Employee emp;
         while (true) {
-            System.out.println("Enter your id or press 0 to return: ");
+            System.out.println("Enter your id or press ~ to return: ");
             String id = scanner.nextLine();
             while (!validator.validateID(id)) {
-                if (id.equals("0"))
+                if (id.equals("~"))
                     return true;
                 System.out.println("id is not valid, try again:");
                 id = scanner.nextLine();

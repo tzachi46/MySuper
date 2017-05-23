@@ -32,7 +32,7 @@ public class PL_man {
 
     public void updateShift(Employee emp) {
         while (true) {
-            System.out.println("At any point you can press 0 to return to previous menu");
+            System.out.println("At any point you can press ~ to return to previous menu");
             System.out.println("choose option :");
             System.out.println("1) Add workers to empty shift");
             System.out.println("2) Return to previous menu");
@@ -52,6 +52,9 @@ public class PL_man {
             }
             case "2": {
                 return false;
+            }
+            case "~": {
+            	return false;
             }
             default: {
                 System.out.println("invalid input, try again");
@@ -96,7 +99,7 @@ public class PL_man {
             if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
             else {
-                if (option.equals("0"))
+                if (option.equals("0")||option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)
@@ -150,7 +153,7 @@ public class PL_man {
         choice = scanner.nextLine();
         while ((vecOpt1 = validator.validateEmployeeChoice(vecMan.size(),choice, Shift.getNumOfAccup("ShiftManager", accups)/*shift.getShift_manger()*/)) == null)
         {
-            if (choice.equals("0"))
+            if (choice.equals("0")||choice.equals("0"))
                 return index;
             System.out.println("choice is not valid, try again:");
             choice = scanner.nextLine();
@@ -172,7 +175,7 @@ public class PL_man {
             System.out.println("Write your options with ',' between them");
             choice = scanner.nextLine();
             while ((vecOpt2 = validator.validateEmployeeChoice(vecCash.size(), choice, Shift.getNumOfAccup("Cashier", accups)/*shift.getCashier()*/)) == null) {
-                if (choice.equals("0"))
+                if (choice.equals("~"))
                     return index;
                 System.out.println("choice is not valid, try again:");
                 choice = scanner.nextLine();
@@ -194,7 +197,7 @@ public class PL_man {
             System.out.println("Write your options with ',' between them");
             choice = scanner.nextLine();
             while ((vecOpt3 = validator.validateEmployeeChoice(vecSK.size(), choice, Shift.getNumOfAccup("StoreKeeper", accups)/*shift.getStorekeeper()*/)) == null) {
-                if (choice.equals("0"))
+                if (choice.equals("~"))
                     return index;
                 System.out.println("choice is not valid, try again:");
                 choice = scanner.nextLine();
@@ -216,7 +219,7 @@ public class PL_man {
             choice = scanner.nextLine();
 
             while ((vecOpt4 = validator.validateEmployeeChoice(vecCA.size(), choice, Shift.getNumOfAccup("TruckDriver", accups)/*shift.getTruck_driver()*/)) == null) {
-                if (choice.equals("0"))
+                if (choice.equals("~"))
                     return index;
                 System.out.println("choice is not valid, try again:");
                 choice = scanner.nextLine();
@@ -248,9 +251,9 @@ public class PL_man {
 
     public void updateSpec(Employee manEmp)
     {
-        System.out.println("At any point you can press 0 to return to previous menu");
+        System.out.println("At any point you can press ~ to return to previous menu");
         String id = pl_shared.getExistingId();
-        if(id.equals("0"))
+        if(id.equals("~"))
         	return;
         Employee emp = bl.fetchEmployee(id);
         if(!manEmp.getWorkAddress().equals(emp.getWorkAddress()))
@@ -280,7 +283,7 @@ public class PL_man {
     private void addSpecializiation(Employee emp)
     {
         String spec = getSpecialization();
-        if(spec.equals("0"))
+        if(spec.equals("~"))
         	return;
         if(spec.equals("Carrier"))
         {
@@ -301,7 +304,7 @@ public class PL_man {
     private void removeSpecializiation(Employee emp)
     {
     	String spec = getSpecialization();
-        if(spec.equals("0"))
+        if(spec.equals("~"))
         	return;
          boolean updateded = bl.deleteEmployeeSpeciality(emp.getId(), spec);
          if (updateded)
@@ -316,7 +319,7 @@ public class PL_man {
           String spec = scanner.nextLine();
           while (!validator.validateSpec(spec)) 
           {
-              if (spec.equals("0"))
+              if (spec.equals("~"))
                   return spec;
               System.out.println("Specialization is not valid, try again:");
               spec = scanner.nextLine();
@@ -342,6 +345,10 @@ public class PL_man {
             case "3": 
             {
                 return false;
+            }
+            case "~":
+            {
+            	return false;
             }
             default: 
             {

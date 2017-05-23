@@ -32,7 +32,7 @@ public class PL_Shared
          String date = scanner.nextLine();
          while(!validator.validateDate(date))
          {
-             if (date.equals("0"))
+             if (date.equals("~"))
                  return date;
              System.out.println("date is not valid, try again: ");
              date = scanner.nextLine();
@@ -48,7 +48,7 @@ public class PL_Shared
         String Type = scanner.nextLine();
         while(!Type.equals("1") && !Type.equals("2"))
         {
-            if (Type.equals("0"))
+            if (Type.equals("~"))
                 return Type;
             System.out.println("type is not valid, try again:");
             Type = scanner.nextLine();
@@ -66,7 +66,7 @@ public class PL_Shared
 	    String day = scanner.nextLine();
 	    while(!validator.validateIntInBounds(day, 1, 7))
 	    {
-	        if (day.equals("0"))
+	        if (day.equals("~"))
 	            return 0;
 	        System.out.println(toPrint + " is not valid, try again:");
 	        day = scanner.nextLine();
@@ -81,8 +81,8 @@ public class PL_Shared
         String id = scanner.nextLine();
         while (!validator.validateID(id)) 
         {
-            if (id.equals("0"))
-                return "0";
+            if (id.equals("~"))
+                return "~";
             System.out.println("id is not valid, try again:");
             id = scanner.nextLine();
         }
@@ -94,7 +94,7 @@ public class PL_Shared
 		while (true)
         {
 	        String id =  getValidId();
-	        if(id.equals("0"))
+	        if(id.equals("~"))
 	        	return id;
 	        Employee emp = bl.fetchEmployee(id);
 	        if (emp != null)
@@ -108,7 +108,7 @@ public class PL_Shared
     	while (true)
         {
 	        String id =  getValidId();
-	        if(id.equals("0"))
+	        if(id.equals("~"))
 	        	return id;
 	        Employee emp = bl.fetchEmployee(id);
 	        if (emp == null)
@@ -132,7 +132,7 @@ public class PL_Shared
         String name = scanner.nextLine();
         while(!validator.validateName(name))
         {
-            if (name.equals("0"))
+            if (name.equals("~"))
                 return name;
             System.out.println(toPrint+" is not valid, try again:");
             name = scanner.nextLine();
@@ -146,7 +146,7 @@ public class PL_Shared
         String salary = scanner.nextLine();
         while(!validator.validateDouble(salary))
         {
-            if (salary.equals("0"))
+            if (salary.equals("~"))
                 return salary;
             System.out.println("salary is not valid, try again: ");
             salary = scanner.nextLine();
@@ -160,7 +160,7 @@ public class PL_Shared
          String accNum = scanner.nextLine();
          while(!validator.validateIntInBounds(accNum, 100000, 999999))
          {
-             if (accNum.equals("0"))
+             if (accNum.equals("~"))
                  return accNum;
              System.out.println("account number is not valid, try again: ");
              accNum = scanner.nextLine();
@@ -169,7 +169,7 @@ public class PL_Shared
          String bankName = scanner.nextLine();
          while(!validator.validateBankName(bankName))
          {
-             if (bankName.equals("0"))
+             if (bankName.equals("~"))
                  return bankName;
              System.out.println("bank name is not valid, try again :");
              bankName = scanner.nextLine();
@@ -178,7 +178,7 @@ public class PL_Shared
          String branchNumber = scanner.nextLine();
          while(!validator.validateIntInBounds(branchNumber, 100, 999))
          {
-             if (branchNumber.equals("0"))
+             if (branchNumber.equals("~"))
                  return branchNumber;
              System.out.println("invalid branch number, try again: :");
              branchNumber = scanner.nextLine();
@@ -194,13 +194,13 @@ public class PL_Shared
     
     protected int manual(int i,Vector<Shift> vec1)
     {
-        System.out.println("At any point you can press 0 to return to previous menu");
+        System.out.println("At any point you can press ~ to return to previous menu");
        
         String date = getShiftDate();
-        if (date.equals("0"))
+        if (date.equals("~"))
             return i;
         String type  = getShiftType();
-        if (type.equals("0"))
+        if (type.equals("~"))
             return i;
         
         for (int j=0; j <vec1.size() ; j++)
@@ -220,8 +220,8 @@ public class PL_Shared
 		truckNo = scanner.nextLine();
 		while (!validator.validateIntInBounds(truckNo, 10000000, 99999999)) 
 		{
-			if (truckNo.equals("0"))
-				return "0";
+			if (truckNo.equals("~"))
+				return "~";
 		    System.out.println("Truck No is not valid, try again:");
 		    truckNo = scanner.nextLine();
 		}
@@ -235,7 +235,7 @@ public class PL_Shared
 		while(true)
 		{
 			truckNo = getValidTruckNumber();
-			if(truckNo.equals("0"))
+			if(truckNo.equals("~"))
 				return truckNo;
 			if(bl.fetchTruck(Integer.parseInt(truckNo)) == null)
 				break;
@@ -251,7 +251,7 @@ public class PL_Shared
 		while(true)
 		{
 			truckNo = getValidTruckNumber();
-			if(truckNo.equals("0"))
+			if(truckNo.equals("~"))
 				return truckNo;
 			if(bl.fetchTruck(Integer.parseInt(truckNo)) != null)
 				break;
@@ -275,7 +275,7 @@ public class PL_Shared
 			address = scanner.nextLine();
 			while(bl.fetchSite(address) == null) 
 			{
-				if(address.equals("0"))
+				if(address.equals("~"))
 					return address;
 				System.out.println("address not exist, try again: ");
 				address = scanner.nextLine();
@@ -301,7 +301,7 @@ public class PL_Shared
 		address = scanner.nextLine();
 		while(bl.fetchSite(address) != null) 
 		{
-			if(address.equals("0"))
+			if(address.equals("~"))
 				return address;
 			System.out.println("address not exist, try again");
 			address = scanner.nextLine();
