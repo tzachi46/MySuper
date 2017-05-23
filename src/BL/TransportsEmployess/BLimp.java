@@ -315,9 +315,9 @@ public class BLimp implements BL {
 		return bl_trans.getHandledMessages(workAddress);
 	}
 	
-	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store){
+	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store, double orderWeight){
 		Vector<Driver> drivers = bl_trans.fetchAvailableDrivers(store, date, shift);
-		double weight = getWeightOfOrder();
+		double weight = orderWeight;
 		for(Driver d : drivers){
 			for(Integer truckNo : truckNums){
 				if(bl_trans.checkLicenceAndWeight(d.getId(), truckNo, weight)){
@@ -328,11 +328,6 @@ public class BLimp implements BL {
 		return null;
 	}
 	
-	private double getWeightOfOrder() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
-	}
-	
 	public boolean checkTransportToOrder(Order order){
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         LocalDate localDate = LocalDate.now();
@@ -340,14 +335,14 @@ public class BLimp implements BL {
         for(int i = 0; i < WEEK; i++){
        	 localDate.plusDays(i);
        	 date = dtf.format(localDate);
-       	 if(checkDate(date, order.getStore()) == true)/* after big merge */
+       	 if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true)/* after big merge */
        			 return true;
         }
         return false;
    }
 	
 	
-	private boolean checkDate(String date, String store, int supplierId){
+	private boolean checkDate(String date, String store, int supplierId, Order order){
 		/* store keepers */
 		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
 				!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning"))){
@@ -356,29 +351,24 @@ public class BLimp implements BL {
 			/* get the optional trucks in morning */
 			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
 			/* choose the proper driver to the truck in morning */
-			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store);
+			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
 			if(driverNtruckM == null){ /* not M */
 				/* get the optional trucks in evening */
 				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
 				/* choose the proper driver to the truck in evening */
-				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store);
+				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
 				if(driverNtruckE == null){/* not M  & not E */
 					return false;
 				} else {/* E */
 					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-							driverNtruckE.getKey().getId(), supplierId, getWeightOfOrder(), getSourceDoc()));
+							driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
 				}
 			} else { /* M */
 				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
-						driverNtruckM.getKey().getId(), supplierId, getWeightOfOrder(), getSourceDoc()));
+						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
 			}
 		}
 	}
-	
-	private int getSourceDoc() {
-		throw new UnsupportedOperationException();
-	}
-
 	@Override
 	public Vector<Order> getUndeliveredOrders() {
 		// TODO Auto-generated method stub
