@@ -5,7 +5,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import BL.BLManager;
 import DAL.DALManager;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Product;
@@ -110,7 +109,7 @@ public class SupplierProductsDB {
 		ProductFromSupplier res=null;
 	    try (Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
-	    	Product p= DAL.Inventory.InvDALManager.getInstance().getProduct(ProductId,BLManager.emp.getWorkAddress());
+	    	Product p= DAL.Inventory.InvDALManager.getInstance().getProduct(ProductId);
 	    	res= new ProductFromSupplier(rs.getInt("SupplierId"),p,rs.getInt("SupplierCatalogId"),rs.getInt("AvarageDeleveryTime"),prices);
 	        } catch (Exception e) {
 	            return null; 

@@ -21,6 +21,7 @@ public class Product {
 	private int warehouseDefective;
 	private int category;
 	private int salesPerDay;
+	private int weight;
 	/**
 	 * Constructor for inserting new product
 	 * @param id
@@ -30,6 +31,7 @@ public class Product {
 	 * @param priceToBuy
 	 * @param priceToSell
 	 */
+	
 	public Product(int id, String name,String manufacturer,int storeQuantity,int warehouseQuantity,double priceToSell){
 		this.name=name;
 		this.id=id;
@@ -46,6 +48,12 @@ public class Product {
 		storeDefective=0;
 		warehouseDefective=0;
 		salesPerDay=0;
+		
+	}
+	
+	public Product(int id, String name,String manufacturer,int storeQuantity,int warehouseQuantity,double priceToSell,int weight){
+		this(id, name, manufacturer, storeQuantity, warehouseQuantity, priceToSell);
+		this.weight=weight;
 	}
 	/**
 	 * Constructor
@@ -58,6 +66,7 @@ public class Product {
 		this.storeQuantity=0;
 		this.wareQuantity=0;
 		this.priceToSell=0;
+		this.weight=0;
 		discountFromSupp=0;
 		discountToCus=0;
 		discountFinishTime=null;
@@ -71,6 +80,9 @@ public class Product {
 	 */
 	public int getId(){
 		return id;
+	}
+	public int getWeight(){
+		return weight;
 	}
 	/**
 	 * @return name 
@@ -181,12 +193,17 @@ public class Product {
 	public void setSalesPerDay(int salesPerDay){
 		this.salesPerDay=salesPerDay;
 	}
-
+	public void getWeight(int weight){
+		this.weight= weight;
+	}
 	/**
 	 * sets name 
 	 */
 	public void setName(String name){
 		this.name=name;
+	}
+	public void setWeight(int weight){
+		this.weight= weight;
 	}
 	/**
 	 * sets manufacturer
