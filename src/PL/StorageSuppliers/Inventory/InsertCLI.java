@@ -196,6 +196,18 @@ public class InsertCLI {
 				else{
 					product.setWareLoc(ware);
 				}
+				System.out.println("Enter the weight of the product\nIf you wish to return to the main menu press ~");
+				String weight=in.nextLine();
+				while(!(weight.equals("~"))&&!calc.checkInt(weight)){
+					System.out.println("Illegal input, please try again.");
+					weight=in.nextLine();
+				}
+				if(weight.equals("~"))
+					break;
+					//inv_cli.mainMenu();
+				else{
+					product.setWeight(Integer.parseInt(weight));
+				}
 				BL.addNewProduct(product);
 				System.out.println("Product added successfully");
 				//insertProductMenu();
