@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Vector;
 
+import BL.StorageSuppliers.Calculations;
 import BL.TransportsEmployess.*;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Employee;
@@ -311,13 +312,20 @@ public class PL_Shared
 
 	public int manualOrder(int i, Vector<Order> undeliveredOrders) 
 	{
-		System.out.println("At any point you can press 0 to return to previous menu");
+		System.out.println("At any point you can press ~ to return to previous menu");
 	       
-        int orderNumber = getOrderNumber();
+		Calculations calc = Calculations.GetCalculations();
+        String orderNumber = scanner.nextLine();
+        if(!calc.checkInt(orderNumber))
+        {
+        	if(orderNumber.equals("~"))
+        		return i;
+        	System.out.println("invalid order number, try again");
+        }
 		
         for (int j=0; j <undeliveredOrders.size() ; j++)
         {
-            if (undeliveredOrders.elementAt(j).getOrderNumber()==orderNumber && undeliveredOrders.elementAt(j).getAddress.equals(type))
+            if (undeliveredOrders.elementAt(j).getOrderNumber()== Integer.parseInt(orderNumber))
                 return j;
         }
         System.out.println("shift not exist");

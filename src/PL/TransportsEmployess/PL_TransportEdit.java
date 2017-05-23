@@ -296,7 +296,7 @@ public class PL_TransportEdit
 	private int sentTransport(Order elementAt, int i) 
 	{
 		String date, time,  numberOfTruck,sourceDocNum;
-		double  weight = elementAt.calculateWeight();
+		double  weight = elementAt.getWeightOrder();
 		int supplier = elementAt.getSupplierId();
 		String source = elementAt.getAddres();
 		int idOfDriver;
@@ -393,7 +393,7 @@ public class PL_TransportEdit
 	private double minimizeWeightMenu(double maxWeight, Order order) 
 	{
 		String option;
-		double weight = order.CalculateWeight();
+		double weight = order.getWeightOrder();
 		LinkedList<OrderProduct> orderProducts= order.getProducts();
 		while(weight > maxWeight)
 		{
@@ -409,7 +409,7 @@ public class PL_TransportEdit
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
 			}
 			option = scanner.nextLine();
-			if(option.equals(2));
+			if(option.equals(2))
 				return -1;
 		
 			String pid,amount;
@@ -423,10 +423,10 @@ public class PL_TransportEdit
 			{
 				OrderProduct Current = listIterator.next();
 				if(Current.getProductId() == Integer.parseInt(pid))
-					Double.parseDouble(Current.setAmount(amount));
+					Current.setAmount(Integer.parseInt(amount));
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
 			}
-			weight = order.CalculateWeight();
+			weight = order.getWeightOrder();
 		}	
 		return weight;
 	}

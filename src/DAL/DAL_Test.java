@@ -91,7 +91,7 @@ public class DAL_Test {
 		//Update
 		emp1.setSalary(777);
 		assertTrue(_dal.updateEmployee(emp1));
-		emp2.setRank(Rank.shiftManager);
+	/*	emp2.setRank(Rank.shiftManager);*/
 		assertTrue(_dal.updateEmployee(emp2));
 		
 		//Fetch Again
@@ -239,10 +239,10 @@ public class DAL_Test {
 		testInd = 7;
 		Site st1 = new Site("hhhh","itay","0545492167",0);
 		Site st2 = new Site("aaaa","ofik","0545492168",1);
-		Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "rosh street", 7,4);
-		Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
-		_dal.insertEmployee(drv1);
-		_dal.insertDriver(drv1);
+		/*Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "rosh street", 7,4);
+		*/Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
+		/*_dal.insertEmployee(drv1);
+		_dal.insertDriver(drv1);*/
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);

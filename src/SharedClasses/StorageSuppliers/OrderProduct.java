@@ -24,6 +24,9 @@ public class OrderProduct {
 	public String getProductName(){
 		return InvBLManager.GetInvBLManager().getProduct(ProductId).getName();
 	}
+	public int getProductWeight(){
+		return InvBLManager.GetInvBLManager().getProduct(ProductId).getWeight();
+	}
 	
 	private void initialPrices(){
 		Pair<Double,ProductFromSupplier> pair=BLSupplier.GetBLSupplier().getBestPrice(ProductId, Amount);
