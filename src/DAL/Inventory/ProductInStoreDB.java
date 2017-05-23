@@ -6,7 +6,9 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import DAL.DALManager;
+import DAL.Suppliers.SupplierManager;
 import SharedClasses.StorageSuppliers.ProductInStore;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Product;
 
 public class ProductInStoreDB {
@@ -158,6 +160,74 @@ public class ProductInStoreDB {
 	        }
 		return res;
 	}
+	
+	/**
+	 * get all the items that are about to run out of stock
+	 * @return List of products 
+	 */
+	public LinkedList<Product> getMissingItems(String storeAddress){
+		int[] ProductsIds= ProductDB.getProductDB().getAllID();
+		LinkedList<Product> temp = new LinkedList<>();
+		for(int i=0;i<ProductsIds.length;i++){
+			int DeliveryTime=SupplierManager.getInstance().getAvarageSupplyTimeOfProduct(ProductsIds[i]);
+			String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is " + storeAddress +"AND (QuantityShelf+QuantityWarehouse)<=(SalesPerDay*"+DeliveryTime+"*1.2) AND Barcode = "+ProductsIds[i];
+			try ( Statement stmt  = DALManager.conn.createStatement();
+		             ResultSet rs    = stmt.executeQuery(sql)){
+				 while(rs.next()){
+					 temp.add(ProductDB.getProductDB().getProduct(rs.getInt("Barcode")));
+				 }
+			 }
+			 catch (SQLException e) {}
+			
+		}		
+		return temp;
+	}
+	
+	
+	/**
+	 * return array of brocade of products that have any product in stock
+	 * @return array of barricades
+	 */
+	public int[] getItemsInInventory(String storeAddress){
+		String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is " + storeAddress +"AND  QuantityShelf>=0 OR QuantityWarehouse>=0 ";
+		int[] res=null;
+		LinkedList<Integer> temp = new LinkedList<Integer>();
+		 try (Statement stmt  = DALManager.conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+			 while(rs.next()){
+				 temp.add(rs.getInt("Barcode"));
+			 }
+			 res= new int[temp.size()];
+			 for(int i=0;i<res.length;i++){
+				 res[i]=temp.pop();
+			 }
+		 }
+		 catch (SQLException e) {
+			 return new int[0];
+		 }
+		return res;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(){
+		String sql="SELECT Barcode,Name,storeDefective,wareDefective FROM ProductInStore WHERE StoreDefective>0 OR WareDefective>0 ";
+		LinkedList<Quartet<Integer,String,Integer,Integer>> temp = new LinkedList<>();
+		 try (Statement stmt  = DALManager.conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+			 while(rs.next()){
+				 temp.add(new Quartet<Integer,String,Integer,Integer>(rs.getInt("Barcode"),rs.getString("Name"),rs.getInt("StoreDefective"),rs.getInt("WareDefective")));
+			 }
+		 }
+		 catch (SQLException e) {
+			 return null; 
+		 }
+		return temp;
+	}
+	
+	
 	// add a ProductInStore foreach store in the system 
 	protected void InitialNewProduct(Product p, String StoreAddress){
 		ProductInStore PIS;

@@ -72,9 +72,9 @@ public class UpdateCLI {
 			System.out.println("1. Update name.\n2. Update warehouse,store or sales per day quantity.\n3. Update manufacturer."
 					+ "\n4. Update product prices and discounts\n"
 					+"5. Update category.\n6. Update product location."
-					+ "\n7. Report if product is expired or has a defect.\n~. Back.");
+					+ "\n7. Report if product is expired or has a defect\n8. Update weight.\n~. Back.");
 			String s2=in.nextLine();
-			while(!calc.checkKeyboardMenu(s2, 1, 7)&&!s2.equals("~")){
+			while(!calc.checkKeyboardMenu(s2, 1, 8)&&!s2.equals("~")){
 				System.out.println("Illegal input, please try again.");
 				s2=in.nextLine();
 			}
@@ -523,9 +523,21 @@ public class UpdateCLI {
 			}		
 			case(8):{
 				//inv_cli.mainMenu();
-				return;
-				//break;
-			}
+				System.out.println("Enter the weight\nIf you wish to return to the main menu press ~");
+				String weight=in.nextLine();
+				while(!(weight.equals("~"))&&!calc.checkInt(weight)){
+					System.out.println("Illegal input, please try again.");
+					weight=in.nextLine();
+				}
+				if(weight.equals("~"))
+					break;
+					//inv_cli.mainMenu();
+				else{
+					product.setWeight(Integer.parseInt(weight));
+				}
+				BL.updateProduct(product);
+				break;
+				}
 			}
 			System.out.println("Product updated successfully");
 			//updateProduct(product);

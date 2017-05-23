@@ -40,6 +40,7 @@ public class ProductDB {
                 + "	Name VARCHAR(30) NOT NULL,\n"
                 + "	Manufacturer VARCHAR(30) NOT NULL,\n"
                 + " Category integer DEFAULT 0,\n"
+                + " Weight integer DEFAULT 0,\n"
                 + "FOREIGN KEY(Category) REFERENCES Category(CategoryID) ON UPDATE CASCADE ON DELETE CASCADE"
                 + ");";
 		try (Statement stmt = DALManager.conn.createStatement()) {
@@ -54,11 +55,12 @@ public class ProductDB {
 	 */
 	public void addNewProduct(Product product, String StoreAddress){
 		String sql = "INSERT OR IGNORE INTO Product \n"
-                + "	(Barcode, Name, Manufacturer,Category)\n"
+                + "	(Barcode, Name, Manufacturer,Category,Weight)\n"
                 + "	values("+product.getId()
                 +","+"'"+product.getName()+"'"
                 +","+"'"+product.getManufacturer()+"'"
-                +","+product.getCategory()+");";// add to Product	
+                +","+product.getCategory()
+                +","+product.getWeight()+");";// add to Product	
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
             productInStore.InitialNewProduct(product,StoreAddress);
@@ -79,6 +81,7 @@ public class ProductDB {
                 + "Name='"+product.getName()+"',\n"
                 + "Manufacturer='"+product.getManufacturer()+"',\n" 
                 + "Category="+product.getCategory()+"\n"
+                + "Weight="+product.getCategory()+"\n"
                 + "WHERE Barcode="+product.getId();     
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
@@ -111,7 +114,7 @@ public class ProductDB {
 	 * @return return Product's information with the corresponding ID
 	 */
 	public Product getProduct(int ID){
-		String sql = "Select Barcode, Name, QuantityShelf, QuantityWarehouse, Manufacturer, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay, Category\n"
+		String sql = "Select Barcode, Name, Manufacturer, Category,Weight\n"
 				+"FROM Product WHERE Barcode="+ID;
 		Product res=null;
 	    try ( Statement stmt  = DALManager.conn.createStatement();
@@ -119,15 +122,18 @@ public class ProductDB {
 	    	//rs.getString("DepartureDate");
 	    	res= new Product(rs.getInt("Barcode"));
 	    	res.setName(rs.getString("Name"));
-	    	res.setStoreQuantity(rs.getInt("QuantityShelf"));
-	    	res.setWarehouseQuantity(rs.getInt("QuantityWarehouse"));
+	    	//res.setStoreQuantity(rs.getInt("QuantityShelf"));
+	    	//res.setWarehouseQuantity(rs.getInt("QuantityWarehouse"));
 	    	res.setManufacturer(rs.getString("Manufacturer"));
+	    	/*
 	    	res.setStoreLoc(rs.getString("PlaceInStore"));
 	    	res.setWareLoc(rs.getString("PlaceInWarehouse"));
 	    	res.setStoreDefective(rs.getInt("StoreDefective"));
 	    	res.setWareDefective(rs.getInt("WareDefective"));
 	    	res.setSalesPerDay(rs.getInt("SalesPerDay"));
+	    	*/
 	    	res.setCategory(rs.getInt("Category"));
+	    	res.setWeight(rs.getInt("Weight"));
 	        } catch (SQLException e) {
 	            return null; 
 	        }
@@ -158,67 +164,8 @@ public class ProductDB {
 		 }
 		return res;
 	}
-	/**
-	 * 
-	 * @return
-	 */
-	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(){
-		String sql="SELECT Barcode,Name,storeDefective,wareDefective FROM Product WHERE StoreDefective>0 OR WareDefective>0 ";
-		LinkedList<Quartet<Integer,String,Integer,Integer>> temp = new LinkedList<>();
-		 try (Statement stmt  = DALManager.conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(sql)){
-			 while(rs.next()){
-				 temp.add(new Quartet<Integer,String,Integer,Integer>(rs.getInt("Barcode"),rs.getString("Name"),rs.getInt("StoreDefective"),rs.getInt("WareDefective")));
-			 }
-		 }
-		 catch (SQLException e) {
-			 return null; 
-		 }
-		return temp;
-	}
-	/**
-	 * get all the items that are about to run out of stock
-	 * @return List of products 
-	 */
-	public LinkedList<Product> getMissingItems(){
-		int[] ProductsIds= this.getAllID();
-		LinkedList<Product> temp = new LinkedList<>();
-		for(int i=0;i<ProductsIds.length;i++){
-			int DeliveryTime=SupplierManager.getInstance().getAvarageSupplyTimeOfProduct(ProductsIds[i]);
-			String sql="SELECT Barcode FROM Product WHERE (QuantityShelf+QuantityWarehouse)<=(SalesPerDay*"+DeliveryTime+"*1.2) AND Barcode is "+ ProductsIds[i];
-			try ( Statement stmt  = DALManager.conn.createStatement();
-		             ResultSet rs    = stmt.executeQuery(sql)){
-				 while(rs.next()){
-					 temp.add(getProduct(rs.getInt("Barcode")));
-				 }
-			 }
-			 catch (SQLException e) {}
-			
-		}		
-		return temp;
-	}
-	/**
-	 * return array of brocade of products that have any product in stock
-	 * @return array of barricades
-	 */
-	public int[] getItemsInInventory(){
-		String sql="SELECT Barcode FROM Product WHERE QuantityShelf>=0 OR QuantityWarehouse>=0 ";
-		int[] res=null;
-		LinkedList<Integer> temp = new LinkedList<Integer>();
-		 try (Statement stmt  = DALManager.conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(sql)){
-			 while(rs.next()){
-				 temp.add(rs.getInt("Barcode"));
-			 }
-			 res= new int[temp.size()];
-			 for(int i=0;i<res.length;i++){
-				 res[i]=temp.pop();
-			 }
-		 }
-		 catch (SQLException e) {
-			 return new int[0];
-		 }
-		return res;
-	}
+
+
+
 	
 }

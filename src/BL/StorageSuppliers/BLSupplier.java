@@ -119,7 +119,7 @@ public class BLSupplier {
 		return DB.getAllSuppliersOfAProduct(ProductID);
 	}
 	
-	public boolean isProductExist(int ProductID){
+	public boolean isProductExist(int ProductID){ 
 		return DAL.Inventory.InvDALManager.getInstance().getProduct(ProductID,BLManager.emp.getWorkAddress())!=null;
 	}
 	
