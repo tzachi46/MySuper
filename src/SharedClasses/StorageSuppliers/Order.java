@@ -111,15 +111,7 @@ public class Order {
 	public LinkedList<OrderProduct> getProducts() {
 		return products;
 	}
-	public int getWeightOrder(){
-		int sum=0;
-		for(OrderProduct p: products){
-			int amount=p.getAmount();
-			Product p1=BL.StorageSuppliers.InvBLManager.GetInvBLManager().getProduct(p.getProductId());
-			sum+=amount*p1.getWeight();
-		}
-		return sum;
-	}
+
 	
 	public boolean canOrder(){
 		if (!DueDate.equals(""))

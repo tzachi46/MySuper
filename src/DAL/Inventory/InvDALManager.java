@@ -7,14 +7,16 @@ import java.util.LinkedList;
 import DAL.DALManager;
 import DAL.Orders.OrderManager;
 import DAL.Suppliers.SupplierManager;
-import SharedClasses.StorageSuppliers.Quartet;
+import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
+import SharedClasses.StorageSuppliers.ProductInStore;
 public class InvDALManager {
 
 	private static InvDALManager instance;
 	private ProductDB productDb;
 	private CategoryDB categoryDb;
+	private ProductInStoreDB productInStore;
 	/**
 	 * Singleton constructor
 	 */
@@ -22,6 +24,7 @@ public class InvDALManager {
 		DALManager.getInstance();
 		productDb= ProductDB.getProductDB();
 		categoryDb=CategoryDB.getCategoryDB();
+		productInStore = ProductInStoreDB.getInstance();
 	}
 	public static InvDALManager getInstance(){
 		if(instance==null){
@@ -33,9 +36,10 @@ public class InvDALManager {
 	 * add product to the DB
 	 * @param product
 	 */
-	public void addNewProduct(Product product){
+	public void addNewProduct(Product product, String StoreAddress){
 		productDb.initProductInfoTable();
-		productDb.addNewProduct(product);
+		productInStore.InitTable();
+		productDb.addNewProduct(product,StoreAddress);
 	}
 	/**
 	 * add new category to the DB
@@ -60,18 +64,20 @@ public class InvDALManager {
 	 * update Product that already exist in the DB
 	 * @param product
 	 */
-	public void updateProduct(Product product){
+	public void updateProduct(Product product, String StoreAddress){
 		productDb.initProductInfoTable();
-		productDb.updateProduct(product);
+		productDb.updateProduct(product,StoreAddress);
 	}
 	/**
 	 * delete p from the DB
 	 * @param p
 	 */
-	public void deleteProduct(Product p){
+	public void deleteProduct(Product p){ 
 		productDb.initProductInfoTable();
+		productInStore.InitTable();
 		OrderManager.getInstance().removeProduct(p);
 		SupplierManager.getInstance().removeProduct(p);
+		productInStore.removeProduct(p.getId());
 		productDb.deleteProduct(p);
 		ProductSellingCostDB.getProductBuyingCostDB().deleteProduct(p);
 	}
@@ -106,9 +112,20 @@ public class InvDALManager {
 	 * @param ID
 	 * @return
 	 */
-	public Product getProduct(int ID){
-		productDb.initProductInfoTable();
-		return productDb.getProduct(ID);
+	public Product getProduct(int ID,String storeAddress){//TODO:: DONE
+		productDb.initProductInfoTable(); 
+		productInStore.InitTable();
+		//QuantityShelf, QuantityWarehouse, Manufacturer, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay
+		Product prod = productDb.getProduct(ID);
+		ProductInStore pis= productInStore.getProductInStore(ID, storeAddress);
+		prod.setStoreQuantity(pis.getStoreQuantity());
+		prod.setWarehouseQuantity(pis.getWareQuantity());
+		prod.setWareLoc(pis.getWarehouseLoc());
+		prod.setStoreLoc(pis.getStoreLoc());
+		prod.setStoreDefective(pis.getStoreDefective());
+		prod.setWareDefective(pis.getWarehouseDefective());
+		prod.setSalesPerDay(pis.getSalesPerDay());
+		return prod;
 	}
 	/**
 	 * get all Categories as array category 
@@ -130,35 +147,50 @@ public class InvDALManager {
 	 *get all products ID's as int array
 	 * @return
 	 */
-	public int[] getAllProductID(){
-		productDb.initProductInfoTable();
+	public int[] getAllProductID(String storeAddress){//TODO:: fix adaption to multipale Stores
+		productDb.initProductInfoTable(); //CHANGE IS NOT NEEDED
 		return productDb.getAllID();
 	}
 	/**
 	 *get all products ID's as int array that are in stock 
 	 * @return
 	 */
-	public int[] getItemsInInventory(){
-		productDb.initProductInfoTable();
-		return productDb.getItemsInInventory();
+	public int[] getItemsInInventory(String StoreAddress){//TODO:: DONE
+		productInStore.InitTable();
+		return productInStore.getItemsInInventory(StoreAddress);
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(){
-		productDb.initProductInfoTable();
-		return productDb.getDefectItems();
+	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
+		productInStore.InitTable();
+		return productInStore.getDefectItems();
 	}
 	/**
 	 * List of items that are going out of stock
 	 * @return
 	 */
-	public LinkedList<Product>getMissingItems(){
-		productDb.initProductInfoTable();
-		return productDb.getMissingItems();
+	public LinkedList<Product> getMissingItems(String StoreAddress){//TODO:: DONE
+		productInStore.InitTable();
+		return productInStore.getMissingItems(StoreAddress);
 	}
 	
+	public void addProductsInNewStore(String storeAddress){
+		productInStore.InitTable();
+		productInStore.productsForNewStore(storeAddress);
+	}
+	
+	public void removeSiteProducts(String storeAddress){
+		productInStore.InitTable();
+		productInStore.removeSite(storeAddress);
+	}
+	
+	
+	public LinkedList<String> getStoresOfferingProduct(int productId){
+		productInStore.InitTable();
+		return productInStore.getStoresOfferingProduct(productId);
+	}
 	
 	protected static boolean executeSQLCommand(String[] SQL) {
 		try (Statement stmt = DALManager.conn.createStatement()) {
