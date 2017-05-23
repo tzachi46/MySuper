@@ -12,14 +12,14 @@ import SharedClasses.TransportsEmployess.Employee.Rank;
 /**
  * Created by kazarski on 3/26/17.
  */
-public class PL_Admin
+public class PL_HR_man
 {
 	private BL bl;
     private Scanner scanner;
     private Validator validator;
     private PL_Shared pl_shared;
     
-    public PL_Admin(BL bl, Scanner scanner, Validator validator,PL_Shared pl_shared)
+    public PL_HR_man(BL bl, Scanner scanner, Validator validator,PL_Shared pl_shared)
     {
         this.bl = bl;
         this.scanner = scanner;
@@ -69,7 +69,7 @@ public class PL_Admin
          }
          return lio;
     }
-    
+    /*
     private void addAllSpeciality(int id)
     {
     	 bl.addEmployeeSpeciality(id, "ShiftManager");
@@ -77,7 +77,7 @@ public class PL_Admin
          bl.addEmployeeSpeciality(id, "StoreKeeper");
          bl.addEmployeeSpeciality(id, "Carrier");
     }
-    
+    */
     public void reEmploy(String address)
     {
     	System.out.println("At any point you can press ~ to return to previous menu");
@@ -174,7 +174,7 @@ public class PL_Admin
        	}
 		if(emp.getRank() == Rank.logisticManeger)
 		{
-			System.out.println("you dont have the permission to update a ceo:");
+			System.out.println("you dont have the permission to update a logistic manager:");
 			return;
 		}
 	    while (true)
@@ -307,7 +307,7 @@ public class PL_Admin
        	}
        	if(emp.getRank() == Rank.logisticManeger)
        	{
-       		System.out.println("you dont have the permission to view ceo's details.");
+       		System.out.println("you dont have the permission to view logistic manager's details.");
        		return;
        	}
        	printEmpDetails(emp);
@@ -348,7 +348,7 @@ public class PL_Admin
 	        else
 	        	System.out.println("shift already exist in this stote, try again");
         } 
-        man = getNumOfEmployees("shift manegers", 1, 100);
+        man = getNumOfEmployees("shift managers", 1, 100);
         if(man == -1)
         	return;
         cash = getNumOfEmployees("Cashiers", 0, 100);
