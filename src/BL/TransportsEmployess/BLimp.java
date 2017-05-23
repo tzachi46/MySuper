@@ -340,14 +340,14 @@ public class BLimp implements BL {
         for(int i = 0; i < WEEK; i++){
        	 localDate.plusDays(i);
        	 date = dtf.format(localDate);
-       	 if(checkDate(date, order.getStore()) == true)
+       	 if(checkDate(date, order.getStore()) == true)/* after big merge */
        			 return true;
         }
         return false;
    }
 	
 	
-	private boolean checkDate(String date, String store){
+	private boolean checkDate(String date, String store, int supplierId){
 		/* store keepers */
 		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
 				!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning"))){
@@ -366,16 +366,23 @@ public class BLimp implements BL {
 					return false;
 				} else {/* E */
 					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-							driverNtruckE.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
+							driverNtruckE.getKey().getId(), supplierId, getWeightOfOrder(), getSourceDoc()));
 				}
 			} else { /* M */
 				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
-						driverNtruckM.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
+						driverNtruckM.getKey().getId(), supplierId, getWeightOfOrder(), getSourceDoc()));
 			}
 		}
 	}
 	
 	private int getSourceDoc() {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Vector<Order> getUndeliveredOrders() {
+		// TODO Auto-generated method stub
+		//return null;
+		throw new UnsupportedOperationException(); 
 	}
 }
