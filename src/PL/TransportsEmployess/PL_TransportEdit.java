@@ -1,11 +1,14 @@
 package PL.TransportsEmployess;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
@@ -259,7 +262,7 @@ public class PL_TransportEdit
             System.out.println("choose option");
             System.out.println("0)return, 1)left, 2)right, 3)Send Transport 4)manual");
             System.out.println("***********************************");
-            
+            System.out.println(undeliveredOrders.elementAt(i).toString());
             System.out.println("***********************************");
             String option = scanner.nextLine();
             if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
@@ -369,7 +372,7 @@ public class PL_TransportEdit
 		String arrivaleTime = getTimeInputInShift(time, "arrival time");
 		if(arrivaleTime.equals("0"))
 			return i;
-		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, Double.parseDouble(weight),Integer.parseInt(sourceDocNum));
+		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum));
 		if(success)
 		{
 			System.out.println("Transport created successfully.");
@@ -387,9 +390,45 @@ public class PL_TransportEdit
 
 	
 
-	private double minimizeWeightMenu(double parseDouble, Order order) {
-		// TODO Auto-generated method stub
-		return 0;
+	private double minimizeWeightMenu(double maxWeight, Order order) 
+	{
+		String option;
+		double weight = order.CalculateWeight();
+		LinkedList<OrderProduct> orderProducts= order.getProducts();
+		while(weight > maxWeight)
+		{
+			System.out.println("Choose option:");
+			System.out.println("1)reduce product");
+			System.out.println("2)return to OverWeight Menu");
+			System.out.println("Current weight: " + weight + "Max weight: " + maxWeight);
+			
+			ListIterator<OrderProduct> listIterator = orderProducts.listIterator();
+			while (listIterator.hasNext()) 
+			{
+				OrderProduct Current = listIterator.next();
+				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
+			}
+			option = scanner.nextLine();
+			if(option.equals(2));
+				return -1;
+		
+			String pid,amount;
+			System.out.println("Enter productId: ");
+			pid = scanner.nextLine();
+			System.out.println("Enter new Amount");
+			amount = scanner.nextLine();
+			
+			listIterator = orderProducts.listIterator();
+			while (listIterator.hasNext()) 
+			{
+				OrderProduct Current = listIterator.next();
+				if(Current.getProductId() == Integer.parseInt(pid))
+					Double.parseDouble(Current.setAmount(amount));
+				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
+			}
+			weight = order.CalculateWeight();
+		}	
+		return weight;
 	}
 
 
@@ -425,15 +464,10 @@ public class PL_TransportEdit
 			siteAddress =  pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
 			if(siteAddress.equals("0"))
 				return;
-			if(bl.fetchSite(siteAddress).getAreaCode()==bl.fetchSite(transport.getCompanyID()).getAreaCode())
-			{
-				if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
-					break;
-				else
-					System.out.println("There are no available storekeeprs at this site, try again");
-			}
+			if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
+				break;
 			else
-				System.out.println("Address not in the same area of the Transport, try again");
+				System.out.println("There are no available storekeeprs at this site, try again");
 		}
 		String docNum = getSourceDocNumInputFromUser("store");
 		if(docNum.equals("0"))
