@@ -2,7 +2,7 @@ package BL.TransportsEmployess;
 
 import java.util.Vector;
 
-import DAL.DAL_imp;
+import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Site;
@@ -13,10 +13,10 @@ import SharedClasses.TransportsEmployess.Truck;
 public class BLTransports_imp implements BLTransports {
 
 	//Fields
-	DAL_imp dal;
+	DALhrtrManager dal;
 	
 	public BLTransports_imp() {
-		dal = DAL_imp.getDALImp();
+		dal = DALhrtrManager.getDALImp();
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.TransportDestination;
 import SharedClasses.TransportsEmployess.Truck;
 
-public interface DAL {
+public interface DALhrtr_Interface {
 	/* Trucks */
 	public boolean insertTruck(Truck truck);
 	public Truck fetchTruck(int truckNumber);

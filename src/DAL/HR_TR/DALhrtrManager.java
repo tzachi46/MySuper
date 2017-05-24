@@ -1,8 +1,9 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.nio.file.Paths;
 import java.util.Vector;
 
+import DAL.DALhrtr_Interface;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
@@ -17,19 +18,19 @@ import SharedClasses.TransportsEmployess.Truck;
 
 
 
-public class DAL_imp implements DAL{
+public class DALhrtrManager implements DALhrtr_Interface{
 	private String url = "jdbc:sqlite:" + Paths.get(".").toAbsolutePath().normalize().toString()
 			+ "\\DataBase.db";
-	private static DAL_imp singleDAL = null;
+	private static DALhrtrManager singleDAL = null;
 	private Repository repo;
-	private DAL_imp(){
+	private DALhrtrManager(){
 		repo = new Repository(url);
 		repo.createDB();
 	}
 	
-	public static DAL_imp getDALImp(){
+	public static DALhrtrManager getDALImp(){
 		if(singleDAL == null){
-			singleDAL = new DAL_imp();
+			singleDAL = new DALhrtrManager();
 		}
 		return singleDAL;
 	}
