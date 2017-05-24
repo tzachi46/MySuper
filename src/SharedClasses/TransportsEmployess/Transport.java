@@ -1,5 +1,8 @@
 package SharedClasses.TransportsEmployess;
 
+import DAL.DAL;
+import DAL.DAL_imp;
+
 public class Transport {
 	@Override
 	public String toString() {
@@ -10,15 +13,15 @@ public class Transport {
 	private int driverID;
 	private int truckNo;
 	private int companyID;
-	/*private String addressOrign;*/
+	private String addressOrign;
 	private String dateOfDep;
 	private String hourOfDep;
 	private int sourceDoc;
 	private double Weight;
 	
 	public Transport(int driverID, int truckNo, int companyID/*String addressOrign*/,
-			String dateOfDep, String hourOfDep, double Weight, int sourceDoc) {
-		super();
+			String dateOfDep, String hourOfDep, double Weight, int sourceDoc,String addressOrign) 
+	{
 		this.driverID = driverID;
 		this.truckNo = truckNo;
 		//this.addressOrign = addressOrign;
@@ -27,6 +30,7 @@ public class Transport {
 		this.hourOfDep = hourOfDep;
 		this.sourceDoc = sourceDoc;
 		this.Weight = Weight;
+		this.addressOrign = addressOrign;
 	}
 	public int getSourceDoc(){
 		return sourceDoc;
@@ -37,9 +41,9 @@ public class Transport {
 	public int getTruckNo() {
 		return truckNo;
 	}
-//	public String getAddressOrign() {
-//		return addressOrign;
-//	}
+	public String getAddressOrign() {
+		return addressOrign;
+	}
 	public int getCompanyID() {
 		return companyID;
 	}
@@ -51,7 +55,7 @@ public class Transport {
 	}
 	public double getTruckWeight() 
 	{
-		return truckWeight;
+		return (DAL_imp.getDALImp().fetchTruck(truckNo)).getWeight();
 	}
 	public void setDriverID(int driverID) {
 		this.driverID = driverID;
@@ -74,10 +78,10 @@ public class Transport {
 	public void setSourceDoc(int sourceDoc) {
 		this.sourceDoc = sourceDoc;
 	}
-	public void setTruckWeight(double truckWeight) {
-		this.truckWeight = truckWeight;
+	public void setWeight(double Weight) {
+		this.Weight = Weight;
 	}
-	public int getCurrentWeight() 
+	public double getCurrentWeight() 
 	{
 		return Weight;
 	}

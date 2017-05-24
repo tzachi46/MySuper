@@ -460,6 +460,7 @@ public class PL_TransportEdit
 		
 	private int insertSiteToTransport(int i,Order o) 
 	{
+		double weight;
 		String timeOfArrival,siteAddress;
 		System.out.println("Please insert the Transport's details : ");
 		Transport transport = getTransportByKey();
@@ -470,25 +471,37 @@ public class PL_TransportEdit
 			System.out.println("There are no available storekeeprs at this site, try again");
 			return i;
 		}
-		if(o.getWeightOrder() + transport.getCurrentWeight > transport.getTruckWeight())
+		if(o.getWeightOrder() + transport.getCurrentWeight() > transport.getTruckWeight())
 		{
-			minimizeWeightMenu(transport.getTruckWeight(), order);
-		}
-		
-		while(true)
-		{
-			timeOfArrival = getTimeInputInShift(transport.getHourOfDep(), "time of arrival"); 
-			if(timeOfArrival.equals("0"))
+			double min =  minimizeWeightMenu(transport.getTruckWeight(), o);
+			if(min == -1)
 				return i;
-			if(bl.getHoursOfArrival(transport).contains(timeOfArrival))
-				System.out.println("At this time the truck is unavailable");
-			else
-				break;
+			weight = min;
 		}
-		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(),siteAddress, Integer.parseInt(docNum),timeOfArrival))
-			System.out.println("Successfuly Added the site to destinations.");
-		else 
-			System.out.println("Failed to add the site (maybe the site already in the transport) sorry...");
+		else
+			weight = o.getWeightOrder();
+		
+		if(bl.addreesAtTransport(o.getAddres(),transport))
+		{
+			timeOfArrival = bl.getArrivalTime(o.getAddres());
+		}
+		else
+		{
+			while(true)
+			{
+				timeOfArrival = getTimeInputInShift(transport.getHourOfDep(), "time of arrival"); 
+				if(timeOfArrival.equals("0"))
+					return i;
+				if(bl.getHoursOfArrival(transport).contains(timeOfArrival))
+					System.out.println("At this time the truck is unavailable");
+				else
+					break;
+			}
+			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(),docNum,timeOfArrival))
+				System.out.println("Successfuly Added the site to destinations.");
+			else 
+				System.out.println("Failed to add the site (maybe the site already in the transport) sorry...");
+		}
 	}
 	
 	/*private void deleteSiteFromTransport() 
