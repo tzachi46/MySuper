@@ -199,4 +199,17 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
 		return this.dal.fetchAvailableTrucks(date, shift);
 	}
+
+	@Override
+	public Vector<Integer> getOrdersInTransport(Transport trans) {
+			return dal.getOrdersInTransport(trans);
+	}
+
+	public String getArrivalTime(int orderNumber, Transport transport) {
+
+		return dal.fetchTransportDestination(transport.getTruckNo(),
+				transport.getCompanyID(), 
+				transport.getDateOfDep(), transport.getHourOfDep()).getHourOfArr();
+	}
+
 }

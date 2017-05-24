@@ -385,4 +385,27 @@ public class BLimp implements BL {
 		//return null;
 		throw new UnsupportedOperationException(); 
 	}
+
+	@Override
+	public boolean addreesAtTransport(String address, Transport transport) {
+		Vector<Integer> vec  = bl_trans.getOrdersInTransport(transport);
+		for(Integer orderNo : vec){
+			if(DAL.Orders.OrderManager.getInstance().getOrder(orderNo).getAddres().equals(address))
+				return true;
+		}
+		return false;
+		
+	}
+
+	@Override
+	public String getArrivalTime(String address, Transport transport) {
+		Vector<Integer> vec = bl_trans.getOrdersInTransport(transport);
+		for(Integer orderNo : vec){
+			Order ord = DAL.Orders.OrderManager.getInstance().getOrder(orderNo);
+			if(ord.getAddres().equals(address)){
+				return bl_trans.getArrivalTime(ord.getOrderNumber(), transport);
+			}
+		}
+		return null;
+	}
 }

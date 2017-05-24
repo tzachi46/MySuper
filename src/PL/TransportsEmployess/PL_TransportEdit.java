@@ -483,7 +483,7 @@ public class PL_TransportEdit
 		
 		if(bl.addreesAtTransport(o.getAddres(),transport))
 		{
-			timeOfArrival = bl.getArrivalTime(o.getAddres());
+			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
 		}
 		else
 		{

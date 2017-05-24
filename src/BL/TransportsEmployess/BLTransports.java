@@ -48,4 +48,9 @@ public interface BLTransports {
 	public Vector<String> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
 	public boolean checkLicenceAndWeight(int driverId, int truckNo, double weight);
+	
+	
+	/***/
+	public Vector<Integer> getOrdersInTransport(Transport trans);
+	public String getArrivalTime(int orderNumber, Transport transport);
 }
