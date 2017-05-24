@@ -27,10 +27,10 @@ public class PL_SitesEdit
 		while(true)	
 		{
 			System.out.println("Which of the following operations you wish to do :");
-			System.out.println("1) Insert new Site.");
-			System.out.println("2) Update existing Site's details.");
-			System.out.println("3) Remove site from the database.");
-			System.out.println("4) Fetch site's details from the database.");
+			System.out.println("1) Insert new store.");
+			System.out.println("2) Update existing store's details.");
+			System.out.println("3) Remove store from the database.");
+			System.out.println("4) Fetch store's details from the database.");
 			System.out.println("5) Return to Main Menu.");
 	
 			String choice = scanner.nextLine();
@@ -116,7 +116,7 @@ public class PL_SitesEdit
 	
 	private Employee getValidAdmin(String address)
 	{
-		System.out.println("At any point you can press 0 to return to previous menu");
+		System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter the details of the human resource manger of the store:");
         String id = pl_shared.getNotExistingId();
         if(id.equals("~"))
@@ -167,7 +167,7 @@ public class PL_SitesEdit
 		Employee admin = null;
 		String address, phoneNum, contact, areaCode;
 //		int isStore;
-		System.out.println("Please insert the Site's details : ");
+		System.out.println("Please insert the store's details : ");
 		address = pl_shared.getNotExistAddressFromUser();	
 		if(address.equals("~"))
 			return;
@@ -197,10 +197,10 @@ public class PL_SitesEdit
 				bl.addEmployee(String.valueOf(admin.getId()), String.valueOf(admin.getSalary()), admin.getFname(), admin.getLname(), admin.getStartDate(), admin.getEndDate(), admin.getRank().toString(), admin.getBankAccount(), admin.getWorkAddress(),admin.getDayOfRest());
 				pl_shared.makeDayOfWorkUnavilable(admin.getId(),admin.getDayOfRest());
 //			}
-			System.out.println("Site created successfully.");
+			System.out.println("Store created successfully.");
 		}
 		else 
-			System.out.println("Unfortunately the system couldnt create the site in the data base.");	
+			System.out.println("Unfortunately the system couldn't create the store in the data base.");	
 	}
 	
 	private void updateSite() 
@@ -280,9 +280,9 @@ public class PL_SitesEdit
 	public void commitUpdate(Site site)
 	{
 		if(bl.updateSite(site.getAddress(), site.getPhoneNum(), site.getContactName(), site.getAreaCode()))
-			System.out.println("Site updated successfully.");
+			System.out.println("Store updated successfully.");
 		else 
-			System.out.println("Unfortunately the system couldnt create the site in the data base.");
+			System.out.println("Unfortunately the system couldnt create the store in the data base.");
 	}
 	
 	
@@ -295,9 +295,9 @@ public class PL_SitesEdit
 			return;
 		}
 		if(bl.deleteSite(address))
-			System.out.println("Site was deleted successfully!");
+			System.out.println("Store was deleted successfully!");
 		else
-			System.out.println("Something went wrong during the deletion of the site, sorry...");
+			System.out.println("Something went wrong during the deletion of the store, sorry...");
 	}
 	private void fetchSite() 
 	{

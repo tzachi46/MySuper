@@ -119,14 +119,14 @@ public class PLimpl implements PL
 	        {
 	            return HandleLogedCeo(emp);
 	        }
-            case storeManeger:
+            case humenResourceManeger:
             {
                 return HandleLogedAdmin(emp);
             }
-    /*        case shiftManager:
+            case storeManeger:
             {
                 return HandleLogedManager(emp);
-            }*/
+            }
             default:
             {
                 return HandleLogedRegular(emp);
