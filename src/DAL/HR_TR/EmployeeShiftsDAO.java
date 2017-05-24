@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

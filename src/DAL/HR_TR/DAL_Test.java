@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import static org.junit.Assert.*;
 
@@ -21,13 +21,13 @@ import SharedClasses.TransportsEmployess.Employee.Rank;
 public class DAL_Test {
 	
 	//Fields
-	private DAL_imp _dal;
+	private DALhrtrManager _dal;
 	private int testInd;
 	
 	
 	@Before
 	public void setUp() throws Exception {
-		_dal = DAL_imp.getDALImp();
+		_dal = DALhrtrManager.getDALImp();
 	}
 
 	@After

@@ -3,8 +3,8 @@ package ProgramLuncher;
 import java.util.Vector;
 
 import BL.TransportsEmployess.BLimp;
-import DAL.DAL;
-import DAL.DAL_imp;
+import DAL.DALhrtr_Interface;
+import DAL.HR_TR.DALhrtrManager;
 import DAL.Orders.OrderManager;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
@@ -25,7 +25,7 @@ public class init
 {
 	public static void initHRTR() 
 	{
-		DAL dal_imp = DAL_imp.getDALImp();
+		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
 		//4 stores
 		dal_imp.insertSite(new Site("Base", "0111111111", "yoniz",  123));
 		dal_imp.insertSite(new Site("ofir street", "0111111111", "ofir",  123));
@@ -207,7 +207,7 @@ public class init
 	}
 
 	public static void forItay() {
-		DAL dal_imp = DAL_imp.getDALImp();
+		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
 		Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
 		Shift sht = new Shift("24/12/2017", "morning", 3, 1, "ofir street");
 		vec.add(new Pair<String,Integer>("StoreKeeper",1));

@@ -1,7 +1,7 @@
 package BL.TransportsEmployess;
 
-import DAL.DAL;
-import DAL.DAL_imp;
+import DAL.DALhrtr_Interface;
+import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
@@ -16,7 +16,7 @@ public class TestsForItayBigFunc {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BLimp bl = new BLimp();
-		DAL dal_imp = DAL_imp.getDALImp();
+		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
 		
 		dal_imp.insertSite(new Site("Base", "0111111111", "yoniz",  123));
 		dal_imp.insertSite(new Site("ofir street", "0111111111", "ofir",  123));

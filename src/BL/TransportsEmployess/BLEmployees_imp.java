@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import DAL.DAL;
-import DAL.DAL_imp;
+import DAL.DALhrtr_Interface;
+import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
@@ -18,12 +18,12 @@ import SharedClasses.TransportsEmployess.Employee.Rank;
  */
 public class BLEmployees_imp implements  BLEmployees
 {
-    private DAL dal;
+    private DALhrtr_Interface dal;
 
 
     public BLEmployees_imp()
     {
-        dal = DAL_imp.getDALImp();
+        dal = DALhrtrManager.getDALImp();
     }
 
     @Override
