@@ -49,7 +49,7 @@ public class PL_reg
         if(day == 0)
         	return;	
         String type = pl_shared.getShiftType();
-        if (type.equals("0"))
+        if (type.equals("~"))
         	return;
         String sday = getDayAsString(day);
       
@@ -76,7 +76,7 @@ public class PL_reg
         	if(day != emp.getDayOfRest())
         	{
 	        	String type = pl_shared.getShiftType();
-	            if (type.equals("0"))
+	            if (type.equals("~"))
 	            	return;
 	            String sday = getDayAsString(day);
 	               

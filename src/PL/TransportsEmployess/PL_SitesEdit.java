@@ -57,6 +57,8 @@ public class PL_SitesEdit
 					break;
 			case "5":
 					return false;
+			case "~":
+					return false;
 			default:
 	        {
 	            System.out.println("Invalid input, try again");
@@ -74,7 +76,7 @@ public class PL_SitesEdit
 		phoneNum = scanner.nextLine();
 		while(!validator.validatePhoneNumber(phoneNum)) 
 		{
-			if(phoneNum.equals("0"))
+			if(phoneNum.equals("~"))
 				return phoneNum;
 			System.out.println("phone number is not valid, try again");
 			phoneNum = scanner.nextLine();
@@ -89,7 +91,7 @@ public class PL_SitesEdit
 		name = scanner.nextLine();
 		while(!validator.validateName(name)) 
 		{
-			if(name.equals("0"))
+			if(name.equals("~"))
 				return name;
 			System.out.println("name is not valid, try again");
 			name = scanner.nextLine();
@@ -104,7 +106,7 @@ public class PL_SitesEdit
 		areaCode = scanner.nextLine();
 		while(!validator.validateIntInBounds(areaCode,0,1000)) 
 		{
-			if(areaCode.equals("0"))
+			if(areaCode.equals("~"))
 				return areaCode;
 			System.out.println("area code is not valid, try again");
 			areaCode = scanner.nextLine();
@@ -117,19 +119,19 @@ public class PL_SitesEdit
 		System.out.println("At any point you can press 0 to return to previous menu");
         System.out.println("Enter the details of the human resource manger of the store:");
         String id = pl_shared.getNotExistingId();
-        if(id.equals("0"))
+        if(id.equals("~"))
         	return null;
         String fisrt_name = pl_shared.getName("first name");
-        if(fisrt_name.equals("0"))
+        if(fisrt_name.equals("~"))
         	return null;
         String last_name = pl_shared.getName("last_name");
-        if(last_name.equals("0"))
+        if(last_name.equals("~"))
         	return null;	
         String salery = pl_shared.getsalary();
-        if(salery.equals("0"))
+        if(salery.equals("~"))
         	return null;	 
         String BankAccount = pl_shared.getBankDetails();
-        if(BankAccount.equals("0"))
+        if(BankAccount.equals("~"))
         	return null;	 
         int day = pl_shared.GetDay("rest day");
         if(day == 0)
@@ -167,16 +169,16 @@ public class PL_SitesEdit
 //		int isStore;
 		System.out.println("Please insert the Site's details : ");
 		address = pl_shared.getNotExistAddressFromUser();	
-		if(address.equals("0"))
+		if(address.equals("~"))
 			return;
 		phoneNum = getPhoneNumberFromUser();
-		if(phoneNum.equals("0"))
+		if(phoneNum.equals("~"))
 			return;	
 		contact = getNameFromUser();
-		if(contact.equals("0"))
+		if(contact.equals("~"))
 			return;	
 		areaCode = getAreaCodeFromUser();
-		if(contact.equals("0"))
+		if(contact.equals("~"))
 			return;	
 		/* Store or Supplier */
 //		isStore = getStoreOrSupplierFromUser();
@@ -207,7 +209,7 @@ public class PL_SitesEdit
 		while (true)
 		{
 			address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
-			if(address.equals("0"))
+			if(address.equals("~"))
 				break;
 			Site site = bl.fetchSite(address);
 			System.out.println("Choose option:");
@@ -237,6 +239,8 @@ public class PL_SitesEdit
 					break;
 			case "4":
 					return false;
+			case "~":
+					return false;
 	        default:
 	        {
 	            System.out.println("Invalid input, try again");
@@ -249,7 +253,7 @@ public class PL_SitesEdit
 	private void updateAreaCode(Site site) 
 	{
 		String areaCode = getAreaCodeFromUser();
-		if(areaCode.equals("0"))
+		if(areaCode.equals("~"))
 			return;
 		site.setAreaCode(Integer.parseInt(areaCode));
 		commitUpdate(site);
@@ -258,7 +262,7 @@ public class PL_SitesEdit
 	private void updateContantName(Site site) 
 	{
 		String contant = getNameFromUser();
-		if(contant.equals("0"))
+		if(contant.equals("~"))
 			return;
 		site.setContanName(contant);
 		commitUpdate(site);	
@@ -267,7 +271,7 @@ public class PL_SitesEdit
 	private void updatePhoneNumber(Site site) 
 	{
 		String phoneNum = getPhoneNumberFromUser();
-		if(phoneNum.equals("0"))
+		if(phoneNum.equals("~"))
 			return;
 		site.setPhoneNum(phoneNum);
 		commitUpdate(site);
@@ -298,7 +302,7 @@ public class PL_SitesEdit
 	private void fetchSite() 
 	{
 		String address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
-		if(address.equals("0"))
+		if(address.equals("~"))
 			return;
 		Site site = bl.fetchSite(address);
 		System.out.println(site.toString());
