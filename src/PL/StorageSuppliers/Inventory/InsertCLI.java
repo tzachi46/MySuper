@@ -198,7 +198,7 @@ public class InsertCLI {
 				}
 				System.out.println("Enter the weight of the product\nIf you wish to return to the main menu press ~");
 				String weight=in.nextLine();
-				while(!(weight.equals("~"))&&!calc.checkInt(weight)){
+				while(!(weight.equals("~"))&&!calc.checkDouble(weight)){
 					System.out.println("Illegal input, please try again.");
 					weight=in.nextLine();
 				}
@@ -206,7 +206,7 @@ public class InsertCLI {
 					break;
 					//inv_cli.mainMenu();
 				else{
-					product.setWeight(Integer.parseInt(weight));
+					product.setWeight(Double.parseDouble(weight));
 				}
 				BL.addNewProduct(product);
 				System.out.println("Product added successfully");

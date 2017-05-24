@@ -525,7 +525,7 @@ public class UpdateCLI {
 				//inv_cli.mainMenu();
 				System.out.println("Enter the weight\nIf you wish to return to the main menu press ~");
 				String weight=in.nextLine();
-				while(!(weight.equals("~"))&&!calc.checkInt(weight)){
+				while(!(weight.equals("~"))&&!calc.checkDouble(weight)){
 					System.out.println("Illegal input, please try again.");
 					weight=in.nextLine();
 				}
@@ -533,7 +533,7 @@ public class UpdateCLI {
 					break;
 					//inv_cli.mainMenu();
 				else{
-					product.setWeight(Integer.parseInt(weight));
+					product.setWeight(Double.parseDouble(weight));
 				}
 				BL.updateProduct(product);
 				break;

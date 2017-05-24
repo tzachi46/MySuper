@@ -40,7 +40,7 @@ public class ProductDB {
                 + "	Name VARCHAR(30) NOT NULL,\n"
                 + "	Manufacturer VARCHAR(30) NOT NULL,\n"
                 + " Category integer DEFAULT 0,\n"
-                + " Weight integer DEFAULT 0,\n"
+                + " Weight REAL NOT NULL CHECK(Price >= 0),\n"
                 + "FOREIGN KEY(Category) REFERENCES Category(CategoryID) ON UPDATE CASCADE ON DELETE CASCADE"
                 + ");";
 		try (Statement stmt = DALManager.conn.createStatement()) {
@@ -81,7 +81,7 @@ public class ProductDB {
                 + "Name='"+product.getName()+"',\n"
                 + "Manufacturer='"+product.getManufacturer()+"',\n" 
                 + "Category="+product.getCategory()+"\n"
-                + "Weight="+product.getCategory()+"\n"
+                + "Weight="+product.getWeight()+"\n"
                 + "WHERE Barcode="+product.getId();     
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
@@ -133,7 +133,7 @@ public class ProductDB {
 	    	res.setSalesPerDay(rs.getInt("SalesPerDay"));
 	    	*/
 	    	res.setCategory(rs.getInt("Category"));
-	    	res.setWeight(rs.getInt("Weight"));
+	    	res.setWeight(rs.getDouble("Weight"));
 	        } catch (SQLException e) {
 	            return null; 
 	        }

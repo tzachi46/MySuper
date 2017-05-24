@@ -21,7 +21,7 @@ public class Product {
 	private int warehouseDefective;
 	private int category;
 	private int salesPerDay;
-	private int weight;
+	private double weight;
 	/**
 	 * Constructor for inserting new product
 	 * @param id
@@ -49,7 +49,7 @@ public class Product {
 		salesPerDay=0;
 	}
 	
-	public Product(int id, String name,String manufacturer,int storeQuantity,int warehouseQuantity,double priceToSell,int weight){
+	public Product(int id, String name,String manufacturer,int storeQuantity,int warehouseQuantity,double priceToSell,double weight){
 	this( id,  name, manufacturer, storeQuantity, warehouseQuantity, priceToSell);
 	this.weight=weight;	
 	}
@@ -124,7 +124,7 @@ public class Product {
 	public int getDiscountToCus(){
 		return discountToCus;
 	}
-	public int getWeight(){
+	public double getWeight(){
 		return weight;
 	}
 	/**
@@ -223,7 +223,7 @@ public class Product {
 	public void setDiscountFromSupp(int discount){
 		this.discountFromSupp=discount;
 	}
-	public void setWeight(int weight){
+	public void setWeight(double weight){
 		this.weight= weight;
 	}
 	/**

@@ -222,8 +222,8 @@ public class Order {
 		return s;
 	}
 	
-	public int getWeightOrder(){
-		int sum=0;
+	public double getWeightOrder(){
+		double sum=0;
 		for(OrderProduct p: products){
 			int amount=p.getAmount();
 			Product p1=BL.StorageSuppliers.InvBLManager.GetInvBLManager().getProduct(p.getProductId());
