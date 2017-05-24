@@ -220,7 +220,7 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	}
 
 	@Override
-	public Vector<String> getHoursOfArrival(Transport trans) {
+	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) {
 		return repo.getTransDests().getHoursOfArrival(trans);
 	}
 

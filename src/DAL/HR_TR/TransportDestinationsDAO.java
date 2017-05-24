@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import DAL.DALManager;
+import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.TransportDestination;
 
@@ -137,9 +139,9 @@ public class TransportDestinationsDAO extends DAO {
 		        }
 			return orderNumber;
 	}
-	public Vector<String> getHoursOfArrival(Transport trans) {
-		 Vector<String> vec = new Vector<String>();
-	        String sql = "SELECT TransportDestinations.HOUROFARR "
+	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) {
+		 Vector<Pair<String, String>> vec = new Vector<Pair<String,String>>();
+	        String sql = "SELECT TransportDestinations.HOUROFARR, TransportDestinations.DOCCODE "
 	                + " FROM TransportDestinations "
 	                + " WHERE TransportDestinations.DATE = ? AND TransportDestinations.HOUR = ? ";
 
@@ -153,7 +155,8 @@ public class TransportDestinationsDAO extends DAO {
 	            while (rs.next())
 	            {
 	                // get the result
-	                vec.add(rs.getString(1));
+	                vec.add(new Pair<String,String>(rs.getString(1),
+	                		DAL.Orders.OrderManager.getInstance().getOrder(rs.getInt(2)).getAddres()));
 	            }
 	            if (vec.size() > 0)
 	                return vec;

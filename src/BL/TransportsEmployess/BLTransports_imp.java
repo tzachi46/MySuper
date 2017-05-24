@@ -155,7 +155,7 @@ public class BLTransports_imp implements BLTransports {
 	}
 
 	@Override
-	public Vector<String> getHoursOfArrival(Transport trans) 
+	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) 
 	{
 		return dal.getHoursOfArrival(trans);
 	}

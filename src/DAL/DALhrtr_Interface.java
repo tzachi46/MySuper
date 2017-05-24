@@ -74,7 +74,7 @@ public interface DALhrtr_Interface {
 	public Vector<Pair<String,Integer>> fetchShiftAccupations(Shift shift);
 	public Vector<Pair<Employee,String>> fetchEmployeesInShift(String address, Shift shift);
 	
-	public Vector<String> getHoursOfArrival(Transport trans);
+	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans);
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date);
 	public boolean insertMessage(Message message);
 	public Vector<Integer> fetchAvailableTrucks(String date, String shift);

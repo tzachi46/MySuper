@@ -46,7 +46,7 @@ public interface BLTransports {
 	//**********************//
 	
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
-	public Vector<String> getHoursOfArrival(Transport trans);
+	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
 	public boolean checkLicenceAndWeight(int driverId, int truckNo, double weight);
 	
