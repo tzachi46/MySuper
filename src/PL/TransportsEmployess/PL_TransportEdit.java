@@ -466,7 +466,7 @@ public class PL_TransportEdit
 		Transport transport = getTransportByKey();
 		if(transport == null)
 			return i;
-		if(!bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
+		if(!bl.cheakAvailableStoreKeepers(o.getAddres(), transport.getDateOfDep(), transport.getHourOfDep()))
 		{
 			System.out.println("There are no available storekeeprs at this site, try again");
 			return i;
@@ -497,11 +497,20 @@ public class PL_TransportEdit
 				else
 					break;
 			}
-			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(),docNum,timeOfArrival))
+			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(), o.getAddres() ,o.getOrderNumber(),timeOfArrival))
+			{
 				System.out.println("Successfuly Added the site to destinations.");
-			else 
+				if(i != 1)
+					return i-1;
+				else
+					return i;
+			}
+			else {
 				System.out.println("Failed to add the site (maybe the site already in the transport) sorry...");
+				return i;
+			}
 		}
+		return i;
 	}
 	
 	/*private void deleteSiteFromTransport() 

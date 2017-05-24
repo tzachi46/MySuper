@@ -33,8 +33,8 @@ public interface DALhrtr_Interface {
 	public boolean deleteTransport(String date, String time, int truckNumber);
 	/* TransportDestination */
 	public boolean insertTransportDestination(TransportDestination transportDestination);
-	public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time);
-	public String getTransportDests(String date, String hour, int truckNumber);
+	//public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time);
+	//public String getTransportDests(String date, String hour, int truckNumber);
 	/* Drivers */
 	public boolean insertDriver(Driver driver);
 	public Driver fetchDriver(int iD);

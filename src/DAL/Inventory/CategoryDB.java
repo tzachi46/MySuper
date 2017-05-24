@@ -22,7 +22,7 @@ public class CategoryDB {
 	/**
 	 * Singleton constructor
 	 */
-	static CategoryDB getCategoryDB(){
+	public static CategoryDB getCategoryDB(){
 		if(instance==null)
 			instance= new CategoryDB();
 		return instance;

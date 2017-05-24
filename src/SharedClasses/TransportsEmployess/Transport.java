@@ -1,7 +1,5 @@
 package SharedClasses.TransportsEmployess;
 
-import DAL.DAL;
-import DAL.DAL_imp;
 
 public class Transport {
 	@Override
@@ -20,7 +18,7 @@ public class Transport {
 	private double Weight;
 	
 	public Transport(int driverID, int truckNo, int companyID/*String addressOrign*/,
-			String dateOfDep, String hourOfDep, double Weight, int sourceDoc,String addressOrign) 
+			String dateOfDep, String hourOfDep, double Weight, int sourceDoc, String addressOrign) 
 	{
 		this.driverID = driverID;
 		this.truckNo = truckNo;
@@ -55,7 +53,7 @@ public class Transport {
 	}
 	public double getTruckWeight() 
 	{
-		return (DAL_imp.getDALImp().fetchTruck(truckNo)).getWeight();
+		return (DAL.HR_TR.DALhrtrManager.getDALImp().fetchTruck(truckNo)).getWeight();
 	}
 	public void setDriverID(int driverID) {
 		this.driverID = driverID;

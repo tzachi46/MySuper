@@ -127,13 +127,15 @@ public class TransportDestinationsDAO extends DAO {
 		        	// get the result
 		            while(rs.next())
 		            {
-		            	
+		            	orderNumber.addElement(rs.getInt(1));
 		        	}
-		        	return ans;
+		        	if(orderNumber.size() > 0)
+		        		return orderNumber;
 		           
 		        } catch (SQLException e) {
-		 		        }
-			return null;
+		 		       System.out.println(e.getMessage());
+		        }
+			return orderNumber;
 	}
 	public Vector<String> getHoursOfArrival(Transport trans) {
 		 Vector<String> vec = new Vector<String>();

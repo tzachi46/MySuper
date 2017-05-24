@@ -105,10 +105,11 @@ public class TransportDAO extends DAO {
 	        	if(!rs.next()){
 	        		return null;
 	        	}
+	        	
 	        	// get the result
 	        	return new Transport(rs.getInt(1), rs.getInt(2), 
 	        			rs.getInt(3), rs.getString(4), 
-	        			rs.getString(5), rs.getDouble(6),rs.getInt(7));
+	        			rs.getString(5), rs.getDouble(6),rs.getInt(7), rs.getString(8));
 	           
 	        } catch (SQLException e) {
 	        }

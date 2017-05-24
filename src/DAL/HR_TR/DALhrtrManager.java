@@ -91,13 +91,13 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	public boolean insertTransportDestination(TransportDestination transportDestination) {
 		return repo.getTransDests().insertTransDest(transportDestination);
 	}
-	public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time) {
+	/*public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time) {
 		return repo.getTransDests().deleteTransportDestination(truckNumber, siteAddress, date, time);
 	}
 	
 	public String getTransportDests(String date, String hour, int truckNumber) {
 		return repo.getTransDests().getTransportDests(date, hour, truckNumber);
-	}
+	}*/
 
 	@Override
 	public boolean insertEmployee(Employee emp) {
