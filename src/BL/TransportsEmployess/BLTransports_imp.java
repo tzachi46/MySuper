@@ -88,39 +88,39 @@ public class BLTransports_imp implements BLTransports {
 	}
 
 	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String csource*/,
-			double weight, int sourceDoc) {
-		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,sourceDoc));
+			double weight, int sourceDoc, String address) {
+		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,sourceDoc,address));
 	}
 
-	@Override
-	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-			double weight, int sourceDoc) {
+	/*@Override
+	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyIDString source,
+			double weight, int sourceDoc, String address) {
 	///	if(dal.checkLicenceAndWeight(driverID, truckNumber, weight)){
-			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight, sourceDoc));
+			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight, sourceDoc,address));
 	///	}
 	///	return false;
-	}
+	}*/
 
 	@Override
 	public Transport fetchTransport(String date, String time, int truckNumber) {
 		return dal.fetchTransport(date, time, truckNumber);
 	}
-
+/*
 	@Override
 	public boolean deleteTransport(String date, String time, int truckNumber) {
 		return dal.deleteTransport(date, time, truckNumber);
-	}
+	}*/
 
 	@Override
-	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr)
+	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr)
 	{
-		return dal.insertTransportDestination(new TransportDestination(truckNumber, date, time, siteAddress, docCode , hourOfArr));
+		return dal.insertTransportDestination(new TransportDestination(truckNumber, date, time, docCode , hourOfArr));
 	}
 
-	@Override
+/*	@Override
 	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress) {
 		return dal.deleteTransportDestination(truckNumber,siteAddress,date,time);
-	}
+	}*/
 
 
 	@Override

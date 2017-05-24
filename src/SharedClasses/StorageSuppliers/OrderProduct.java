@@ -24,7 +24,7 @@ public class OrderProduct {
 	public String getProductName(){
 		return InvBLManager.GetInvBLManager().getProduct(ProductId).getName();
 	}
-	public int getProductWeight(){
+	public double getProductWeight(){
 		return InvBLManager.GetInvBLManager().getProduct(ProductId).getWeight();
 	}
 	

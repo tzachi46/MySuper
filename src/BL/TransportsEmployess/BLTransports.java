@@ -38,10 +38,10 @@ public interface BLTransports {
 	public Transport fetchTransport(String date, String time, int numberOfTruck);
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, /*String source*/int companyID,
 							double weight, int sourceDoc);
-	public boolean deleteTransport(String date, String time, int truckNumber);
-	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr) throws Exception;
-	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
-	public String getTransportDests(String date, String hour, int truckNumber);
+/*	public boolean deleteTransport(String date, String time, int truckNumber);*/
+	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr) throws Exception;
+	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
+*/	public String getTransportDests(String date, String hour, int truckNumber);
 	//**********************//
 	
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
