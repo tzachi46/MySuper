@@ -158,7 +158,7 @@ public class PLimpl implements PL
         while (true)
         {
             System.out.println("Hello " + emp.getFname());
-            System.out.println("1) add employee");
+            /*System.out.println("1) add employee");
             System.out.println("2) update employee"); // salery , leaving date, Rank.
             System.out.println("3) Remploy employee"); // salery , leaving date, Rank.
             System.out.println("4) add shift");
@@ -166,8 +166,12 @@ public class PLimpl implements PL
             System.out.println("6) show Employee details");
             System.out.println("7) show Initialized shifts");
             System.out.println("8) View Messages");
-            System.out.println("9) go back to Previous menu");
-
+            System.out.println("9) go back to Previous menu");*/
+            
+            System.out.println("1) Employees management");
+            System.out.println("2) Shifts management");
+            System.out.println("3) Go back to Previous menu");
+            
             String choice = scanner.nextLine();
 
             if(!HandeleAdminChoice(choice,emp))
@@ -234,6 +238,25 @@ public class PLimpl implements PL
 
         return true;
     }
+    
+    private boolean HandleEmployeeManagementMenu(Employee emp)
+    {
+        while (true)
+        {
+        	System.out.println("Choose one of the followings: ");
+            System.out.println("1) Add new employee");
+            System.out.println("2) Update employee");
+            System.out.println("3) Remploye employee");
+            System.out.println("4) View employee's details");
+            System.out.println("5) Return to previous menu");
+            String choice = scanner.nextLine();
+            if(!HandleEmployeeManagementMenuChoice(choice,emp))
+                break;
+        }
+
+        return true;
+    }
+
 
 
     private boolean isStoreKeeper(int id) 
@@ -253,44 +276,19 @@ public class PLimpl implements PL
         {
             case "1":
             {
-                pl_admin.addEmployee(emp.getWorkAddress());
+            	HandleEmployeeManagementMenu(emp);
                 break;
             }
             case "2":
             {
-                pl_admin.UpdateEmployee(emp);
+            	HandleShiftManagementMenu(emp);
                 break;
             }
-            case "3":
-            {
-                pl_admin.reEmploy(emp.getWorkAddress());
-                break;
-            }
-            case "4":
-            {
-                pl_admin.addShift(emp.getWorkAddress());
-                break;
-            }
-            case "5":
-            {
-                pl_admin.deleteShift(emp.getWorkAddress());
-                break;
-            }
-            case "6":
-            {
-                pl_admin.showEmployeeDetails(emp);
-                break;
-            }
-            case "7":
-            {
-                pl_admin.showInitializedShifts(emp.getWorkAddress());
-                break;
-            }
-            case "8":
+            /*case "8":
             {
             	pl_admin.viewMessages(emp.getWorkAddress());
-            }
-            case "9":
+            }*/
+            case "3":
             {
                 return false;
             }
@@ -302,6 +300,92 @@ public class PLimpl implements PL
         }
         return true;
     }
+	
+	private boolean HandleShiftManagementMenu(Employee emp) {
+		while (true)
+        {
+        	System.out.println("Choose one of the followings: ");
+            System.out.println("1) Add new shift");
+            System.out.println("2) Delete shift");
+            System.out.println("3) Show initialized shifts");
+            System.out.println("4) Return to previous menu");
+            String choice = scanner.nextLine();
+            if(!HandleShiftManagementMenuHandle(choice,emp))
+                break;
+        }
+
+        return true;
+		
+	}
+	
+	private boolean HandleShiftManagementMenuHandle(String choice, Employee emp){
+		switch(choice)
+		{
+			case "1":
+		    {
+		        pl_admin.addShift(emp.getWorkAddress());
+		        break;
+		    }
+		    case "2":
+		    {
+		        pl_admin.deleteShift(emp.getWorkAddress());
+		        break;
+		    }
+		    case "3":
+		    {
+		        pl_admin.showInitializedShifts(emp.getWorkAddress());
+		        break;
+		    }
+		    case "4":
+		    {
+		    	return false;
+		    }
+		    default:
+            {
+                System.out.println("Invalid input, try again");
+                break;
+            }
+		}
+		return true;
+	}
+
+	private boolean HandleEmployeeManagementMenuChoice(String choice, Employee emp)
+    {
+        switch (choice)
+        {
+            case "1":
+            {
+                pl_admin.addEmployee(emp.getWorkAddress());
+                break;
+            }
+            case "2":
+            {
+                pl_admin.UpdateEmployee(emp);
+                break;
+            }
+            case "3":
+            {
+            	pl_admin.reEmploy(emp.getWorkAddress());
+                break;
+            }
+            case "4":
+            {
+            	pl_admin.showEmployeeDetails(emp);
+                break;
+            }
+            case "5":
+            {
+                return false;
+            }
+            default:
+            {
+                System.out.println("Invalid input, try again");
+                break;
+            }
+        }
+        return true;
+    }
+
 
     private boolean HandeleManagerChoice(String choice, Employee emp)
     {
@@ -349,17 +433,18 @@ public class PLimpl implements PL
         }
         return true;
     }
-
+    
+    
     private boolean HandeleRegularrChoice(String choice, Employee emp, boolean isStoreKeeper)
     {
         switch (choice)
         {
             case "1":
             {
-                pl_reg.addConstraint(emp.getId());
+                pl_reg.restrictionMenu(emp);
                 break;
             }
-            case "2":
+            /*case "2":
             {
                 pl_reg.removeConstraint(emp);
                 break;
@@ -368,13 +453,13 @@ public class PLimpl implements PL
             {
                 pl_reg.showAllConstraints(emp.getId());
                 break;
-            }
-            case "4":
+            }*/
+            case "2":
             {
                 pl_reg.showAllShifts(emp.getId());
                 break;
             }
-            case "5":
+            case "3":
             {
             	if(!isStoreKeeper)
             		return false;
@@ -385,7 +470,7 @@ public class PLimpl implements PL
             }
             default:
             {
-            	if(!isStoreKeeper && choice.equals("6"))
+            	if(!isStoreKeeper && choice.equals("4"))
             		return false;
             	else
             		System.out.println("Invalid input, try again");
