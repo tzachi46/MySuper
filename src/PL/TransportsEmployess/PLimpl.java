@@ -187,13 +187,12 @@ public class PLimpl implements PL
         while (true)
         {
             System.out.println("Hello " + emp.getFname());
-            System.out.println("1) Add restriction");
-            System.out.println("2) Remove restriction");
-            System.out.println("3) show current restrrictions");
-            System.out.println("4) show shifts");
-            System.out.println("5) update employees of shift");
-            System.out.println("6) update specialization of employee");
-            System.out.println("7) go back to Previous menu");
+            System.out.println("1) Show messages menu");
+            System.out.println("2) Show employee's details");
+            System.out.println("3) Show initialized shifts");
+            System.out.println("4) Show employee's shifts");
+            System.out.println("5) Supplier management");
+            System.out.println("6) Go back to Previous menu");
 
             String choice = scanner.nextLine();
 
@@ -376,7 +375,7 @@ public class PLimpl implements PL
             }
             case "4":
             {
-            	pl_admin.showEmployeeDetails(emp);
+            	pl_admin.showEmployeeDetails(emp); //TODO: CHANGE TO REAL FUNC
                 break;
             }
             case "5":
@@ -399,36 +398,31 @@ public class PLimpl implements PL
         {
             case "1":
             {
-                pl_reg.addConstraint(emp.getId());
+                pl_admin.viewMessages(emp.getWorkAddress());
                 break;
             }
             case "2":
-            {
-                pl_reg.removeConstraint(emp);
+            {//emp det
+            	pl_admin.showEmployeeDetails(emp); //TODO: CHANGE TO REAL FUNC
                 break;
             }
             case "3":
             {
-                pl_reg.showAllConstraints(emp.getId());
+                pl_admin.showInitializedShifts(emp.getWorkAddress());
                 break;
             }
             case "4":
-            {
-                pl_reg.showAllShifts(emp.getId());
+            {//emp shifts
+                pl_reg.showAllShifts(emp.getId()); //TODO: CHANGE TO REAL FUNC
                 break;
             }
             case "5":
-            {
-                pl_man.updateShift(emp);
-                break;
+            {//supplier management
+            	CLIMenu.getInstance().Start(scanner);
+            	break;
             }
             case "6":
-            {
-                pl_man.updateSpec(emp);
-                break;
-            }
-            case "7":
-            {
+            {//ret
                 return false;
             }
             default:
