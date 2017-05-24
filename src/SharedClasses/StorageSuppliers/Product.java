@@ -48,6 +48,7 @@ public class Product {
 		warehouseDefective=0;
 		salesPerDay=0;
 	}
+	
 	public Product(int id, String name,String manufacturer,int storeQuantity,int warehouseQuantity,double priceToSell,int weight){
 	this( id,  name, manufacturer, storeQuantity, warehouseQuantity, priceToSell);
 	this.weight=weight;	

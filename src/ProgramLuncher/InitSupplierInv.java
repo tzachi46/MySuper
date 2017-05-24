@@ -1,6 +1,12 @@
 package ProgramLuncher;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import DAL.DALManager;
+import DAL.Inventory.ProductDB;
 import DAL.Suppliers.SupplierManager;
+import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.StorageSuppliers.Supplier;
 import SharedClasses.StorageSuppliers.SupplierContact;
 
@@ -11,6 +17,83 @@ public class InitSupplierInv {
 		InitSupplier();
 		InitSupplierDays();
 		InitSupplierContact();
+	}
+	
+	private static void InitProducts(){
+		String sql = "CREATE TABLE IF NOT EXISTS Product (\n"
+                + "	Barcode integer PRIMARY KEY,\n"
+                + "	Name VARCHAR(30) NOT NULL,\n"
+                + "	Manufacturer VARCHAR(30) NOT NULL,\n"
+                + " Category integer DEFAULT 0,\n"
+                + " Weight integer DEFAULT 0,\n"
+                + "FOREIGN KEY(Category) REFERENCES Category(CategoryID) ON UPDATE CASCADE ON DELETE CASCADE"
+                + ");";
+		SupplierManager.executeSQLCommand(sql);
+		Product p1=new Product(1, "cola","cola",20,30,20,2);
+		p1.setCategory(4);
+		p1.setSalesPerDay(5);
+		p1.setWareDefective(3);
+		p1.setStoreDefective(3);
+		p1.setStoreLoc("2");
+		p1.setWareLoc("3");
+		
+		ProductDB.getProductDB().addNewProduct(p1, "Base");
+		
+		
+		Product p2=new Product(2, "sprite","cola",3,5,21,2);
+		p2.setCategory(4);
+		p2.setSalesPerDay(5);
+		p2.setWareDefective(0);
+		p2.setStoreDefective(1);
+		p2.setStoreLoc("2");
+		p2.setWareLoc("3");
+		
+		ProductDB.getProductDB().addNewProduct(p2, "Base");
+		
+		Product p3=new Product(3, "soda","osem",2,0,21,1);
+		p3.setCategory(4);
+		p3.setSalesPerDay(10);
+		p3.setWareDefective(0);
+		p3.setStoreDefective(0);
+		p3.setStoreLoc("1");
+		p3.setWareLoc("4");
+		
+		ProductDB.getProductDB().addNewProduct(p3, "ofir street");
+		
+		Product p4=new Product(4, "M&M blue","M&M",20,20,20,2);
+		p4.setCategory(2);
+		p4.setSalesPerDay(5);
+		p4.setWareDefective(0);
+		p4.setStoreDefective(0);
+		p4.setStoreLoc("ROW B");
+		p4.setWareLoc("SHELF 4");
+		
+		ProductDB.getProductDB().addNewProduct(p4, "ofir street");
+		
+		Product p5=new Product(5, "M&M red","M&M",20,10,25,2);
+		p5.setCategory(2);
+		p5.setSalesPerDay(5);
+		p5.setWareDefective(0);
+		p5.setStoreDefective(0);
+		p5.setStoreLoc("ROW B");
+		p5.setWareLoc("SHELF 4");
+		
+		ProductDB.getProductDB().addNewProduct(p5, "ofir street");
+		
+		Product p6=new Product(6, "Milk 3% Tnuva","Tnuva",100,1000,5,6);
+		p6.setCategory(6);
+		p6.setSalesPerDay(300);
+		p6.setWareDefective(0);
+		p6.setStoreDefective(0);
+		p6.setStoreLoc("ROW T");
+		p6.setWareLoc("SHELF A");
+		
+		ProductDB.getProductDB().addNewProduct(p6, "dov street");
+		
+		
+		
+		
+		
 	}
 	
 	private static void InitSupplier() throws Exception{

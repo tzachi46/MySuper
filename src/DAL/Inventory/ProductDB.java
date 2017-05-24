@@ -26,7 +26,7 @@ public class ProductDB {
 		pscDB=ProductSellingCostDB.getProductBuyingCostDB();
 		productInStore = ProductInStoreDB.getInstance();
 	}
-	static ProductDB getProductDB(){
+	public static ProductDB getProductDB(){
 		if(instance==null)
 			instance= new ProductDB();
 		return instance;
