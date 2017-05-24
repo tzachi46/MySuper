@@ -205,7 +205,16 @@ public class PLimpl implements PL
         while (true)
         {
             System.out.println("Hello " + emp.getFname());
-            System.out.println("1) Add restriction");
+            System.out.println("1) Restriction menu");
+            System.out.println("2) show shifts");
+            if(!isStoreKeeper)
+            	System.out.println("3) go back to Previous menu");
+            else
+            {
+            	System.out.println("3) supplier manegment");
+            	System.out.println("4) go back to Previous menu");
+            }
+            /*System.out.println("1) Add restriction");
             System.out.println("2) Remove restriction");
             System.out.println("3) show current restrictions");
             System.out.println("4) show shifts");
@@ -216,7 +225,7 @@ public class PLimpl implements PL
             	System.out.println("5) supplier manegment");
             	System.out.println("6) go back to Previous menu");
             }
-
+			*/
             String choice = scanner.nextLine();
 
             if(!HandeleRegularrChoice(choice,emp,isStoreKeeper))
