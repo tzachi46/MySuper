@@ -170,7 +170,8 @@ public class PLimpl implements PL
             
             System.out.println("1) Employees management");
             System.out.println("2) Shifts management");
-            System.out.println("3) Go back to Previous menu");
+            System.out.println("3) Update employee's specializations");
+            System.out.println("4) Go back to Previous menu");
             
             String choice = scanner.nextLine();
 
@@ -289,6 +290,11 @@ public class PLimpl implements PL
             	pl_admin.viewMessages(emp.getWorkAddress());
             }*/
             case "3":
+            {
+            	pl_man.updateSpec(emp);
+                break;
+            }
+            case "4":
             {
                 return false;
             }
