@@ -303,7 +303,14 @@ public class InitSupplierInv {
 		
 
 
-		Product p=InvBLManager.GetInvBLManager().getProduct(1);
+		Product p=new Product(1, "cola","cola",20,30,20,2);
+		p.setCategory(4);
+		p.setSalesPerDay(5);
+		p.setWareDefective(3);
+		p.setStoreDefective(3);
+		p.setStoreLoc("2");
+		p.setWareLoc("3");
+		
 		String CatalogID= "32";
 		int AvarageDeleveryTime = 10;
 		ProductFromSupplier PFS= new ProductFromSupplier(1,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -312,7 +319,16 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 300, 3.5);
 		
-		p=InvBLManager.GetInvBLManager().getProduct(1);
+		
+		
+		p=new Product(1, "cola","cola",20,30,20,2);
+		p.setCategory(4);
+		p.setSalesPerDay(5);
+		p.setWareDefective(3);
+		p.setStoreDefective(3);
+		p.setStoreLoc("2");
+		p.setWareLoc("3");
+		
 		CatalogID= "312";
 		AvarageDeleveryTime = 9;
 		PFS= new ProductFromSupplier(2,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -321,7 +337,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 100, 5);
 		
-		p=InvBLManager.GetInvBLManager().getProduct(1);
+		p=new Product(1, "cola","cola",20,30,20,2);
+		p.setCategory(4);
+		p.setSalesPerDay(5);
+		p.setWareDefective(3);
+		p.setStoreDefective(3);
+		p.setStoreLoc("2");
+		p.setWareLoc("3");
+		
 		CatalogID= "21";
 		AvarageDeleveryTime = 9;
 		PFS= new ProductFromSupplier(3,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -329,7 +352,15 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(2);
+		
+		p=new Product(2, "sprite","cola",3,5,21,2);
+		p.setCategory(4);
+		p.setSalesPerDay(5);
+		p.setWareDefective(0);
+		p.setStoreDefective(1);
+		p.setStoreLoc("2");
+		p.setWareLoc("3");
+		
 		CatalogID= "31";
 		AvarageDeleveryTime = 21;
 		PFS= new ProductFromSupplier(2,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -337,7 +368,15 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 
-		p=InvBLManager.GetInvBLManager().getProduct(3);
+		
+		p=new Product(3, "soda","osem",2,0,21,1);
+		p.setCategory(4);
+		p.setSalesPerDay(10);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("1");
+		p.setWareLoc("4");
+		
 		CatalogID= "244";
 		AvarageDeleveryTime = 8;
 		PFS= new ProductFromSupplier(3,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -346,7 +385,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 33, 3.9);
 		
-		p=InvBLManager.GetInvBLManager().getProduct(3);
+		p=new Product(3, "soda","osem",2,0,21,1);
+		p.setCategory(4);
+		p.setSalesPerDay(10);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("1");
+		p.setWareLoc("4");
+		
 		CatalogID= "214";
 		AvarageDeleveryTime = 8;
 		PFS= new ProductFromSupplier(4,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -354,7 +400,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(4);
+		p=new Product(4, "M&M blue","M&M",20,20,20,2);
+		p.setCategory(2);
+		p.setSalesPerDay(5);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("ROW B");
+		p.setWareLoc("SHELF 4");
+		
 		CatalogID= "55";
 		AvarageDeleveryTime = 6;
 		PFS= new ProductFromSupplier(5,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -362,7 +415,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(5);
+		p=new Product(5, "M&M red","M&M",20,10,25,2);
+		p.setCategory(2);
+		p.setSalesPerDay(5);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("ROW B");
+		p.setWareLoc("SHELF 4");
+		
 		CatalogID= "100";
 		AvarageDeleveryTime = 4;
 		PFS= new ProductFromSupplier(5,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -370,7 +430,15 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(6);
+		
+		
+		p=new Product(6, "Milk 3% Tnuva","Tnuva",100,1000,5,6);
+		p.setCategory(6);
+		p.setSalesPerDay(300);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("ROW T");
+		p.setWareLoc("SHELF A");
 		CatalogID= "2003";
 		AvarageDeleveryTime = 3;
 		PFS= new ProductFromSupplier(5,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -378,7 +446,16 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(7);
+		
+		
+		p=new Product(7, "Chicken breast","Oftov",29,200,50,1);
+		p.setCategory(8);
+		p.setSalesPerDay(30);
+		p.setWareDefective(0);
+		p.setStoreDefective(0);
+		p.setStoreLoc("ROW A");
+		p.setWareLoc("SHELF 4");
+		
 		CatalogID= "220";
 		AvarageDeleveryTime = 12;
 		PFS= new ProductFromSupplier(5,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -386,7 +463,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		
-		p=InvBLManager.GetInvBLManager().getProduct(8);
+		p=new Product(8, "HAMBURGER","ADOM ADOM",79,99,10,1);
+		p.setCategory(9);
+		p.setSalesPerDay(40);
+		p.setWareDefective(7);
+		p.setStoreDefective(5);
+		p.setStoreLoc("ROW I");
+		p.setWareLoc("SHELF G");
+		
 		CatalogID= "1222";
 		AvarageDeleveryTime = 7;
 		PFS= new ProductFromSupplier(5,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -395,7 +479,14 @@ public class InitSupplierInv {
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 0, Double.valueOf(price));
 		BLSupplier.GetBLSupplier().InsertNewPriceForProduct(PFS.getSupplierId(), PFS.getProduct().getId(), 60, 22.0);
 		
-		p=InvBLManager.GetInvBLManager().getProduct(8);
+		p=new Product(8, "HAMBURGER","ADOM ADOM",79,99,10,1);
+		p.setCategory(9);
+		p.setSalesPerDay(40);
+		p.setWareDefective(7);
+		p.setStoreDefective(5);
+		p.setStoreLoc("ROW I");
+		p.setWareLoc("SHELF G");
+		
 		CatalogID= "122";
 		AvarageDeleveryTime = 1;
 		PFS= new ProductFromSupplier(1,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
@@ -431,18 +522,24 @@ public class InitSupplierInv {
 		OrderProduct orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
 		order.addProduct(orderProduct);
-		Orders.getInstance().addNewOrder(order);
+		
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(1,orderProduct);
 		
 		Order order2=new Order(2);
 		order2.setPeriodic(10);
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order2);
+		
 		orderProduct=new OrderProduct(6);
 		orderProduct.setAmount(10);
-		order2.addProduct(orderProduct);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
+		
 		orderProduct=new OrderProduct(7);
 		orderProduct.setAmount(5);
-		order2.addProduct(orderProduct);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
 		
-		Orders.getInstance().addNewOrder(order2);
+		
+		
 		
 		
 	}

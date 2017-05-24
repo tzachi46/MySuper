@@ -219,9 +219,9 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-			double weight, int sourceDoc)
+			double weight, int sourceDoc,String address)
 	{
-		return bl_trans.createTransport(date, time, truckNumber, driverID, companyID/*source*/, weight, sourceDoc);
+		return bl_trans.createTransport(date, time, truckNumber, driverID, companyID/*source*/, weight, sourceDoc, address);
 	}
 
 	@Override
@@ -231,25 +231,25 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID /*String source*/,
-			double weight, int sourceDoc) {
-		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc);
+			double weight, int sourceDoc,String address) {
+		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc,address);
 	}
 
-	@Override
+	/*@Override
 	public boolean deleteTransport(String date, String time, int truckNumber) {
 		return bl_trans.deleteTransport(date, time, truckNumber);
-	}
+	}*/
 
 	@Override
-	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode,
+	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode,
 			String hourOfArr){
-		return bl_trans.addSiteToTransport(date, time, truckNumber, siteAddress, docCode, hourOfArr);
+		return bl_trans.addSiteToTransport(date, time, truckNumber, docCode, hourOfArr);
 	}
 
-	@Override
+	/*@Override
 	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress) {
 		return bl_trans.deleteSiteFromTransport(date, time, truckNumber, siteAddress);
-	}
+	}*/
 
 	@Override
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time) {
@@ -289,7 +289,7 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public String getTransportDests(String date, String hour, int truckNumber) {
+	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber) {
 		return bl_trans.getTransportDests(date, hour, truckNumber);
 	}
 
@@ -379,7 +379,7 @@ public class BLimp implements BL {
 			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
 			if(driverNtruckM != null){ /* not M */
 				return (bl_trans.createTransport(date, "12:01", driverNtruckM.getValue().getTruckNo(),
-						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber(), order.getAddres()));
 			}
 		} 
 		if(bl_emp.cheakAvailableStoreKeepers(store, date, "evening")){
@@ -389,7 +389,7 @@ public class BLimp implements BL {
 			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
 			 if(driverNtruckE != null) {/* E */
 				return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber(), order.getAddres()));
 			 }
 		} 
 		return false;

@@ -2,6 +2,8 @@ package BL.TransportsEmployess;
 
 import java.util.Vector;
 
+import javax.print.DocFlavor.STRING;
+
 import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.Pair;
@@ -86,20 +88,20 @@ public class BLTransports_imp implements BLTransports {
 	public boolean deleteSite(String address) {
 		return dal.deleteSite(address);
 	}
-
+	@Override
 	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String csource*/,
 			double weight, int sourceDoc, String address) {
 		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,sourceDoc,address));
 	}
 
-	/*@Override
-	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyIDString source,
+	@Override
+	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID,
 			double weight, int sourceDoc, String address) {
 	///	if(dal.checkLicenceAndWeight(driverID, truckNumber, weight)){
 			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight, sourceDoc,address));
 	///	}
 	///	return false;
-	}*/
+	}
 
 	@Override
 	public Transport fetchTransport(String date, String time, int truckNumber) {
@@ -148,7 +150,7 @@ public class BLTransports_imp implements BLTransports {
 	}
 
 	@Override
-	public String getTransportDests(String date, String hour, int truckNumber) {
+	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber) {
 		return dal.getTransportDests(date, hour, truckNumber);
 	}
 

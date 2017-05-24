@@ -78,14 +78,14 @@ public interface BL {
   	
   	//***** Transports *****//
   	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-  							double weight, int sourceDoc);
+  							double weight, int sourceDoc, String address);
   	public Transport fetchTransport(String date, String time, int numberOfTruck);
   	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-  							double weight, int sourceDoc);
-  	public boolean deleteTransport(String date, String time, int truckNumber);
-  	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr);
-  	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
-  	public String getTransportDests(String date, String hour, int truckNumber);
+  							double weight, int sourceDoc,String address);
+  /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
+  	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr);
+  	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);*/
+  	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
   	//**********************//
   	
   	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);

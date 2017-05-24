@@ -378,11 +378,11 @@ public class PL_TransportEdit
 		String arrivaleTime = getTimeInputInShift(time, "arrival time");
 		if(arrivaleTime.equals("0"))
 			return i;
-		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum));
+		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum),elementAt.getAddres());
 		if(success)
 		{
 			System.out.println("Transport created successfully.");
-			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), source, Integer.parseInt(docNum),arrivaleTime);
+			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), Integer.parseInt(docNum),arrivaleTime);
 			if(i==0)
 				return i;
 			return i-1;
@@ -497,7 +497,7 @@ public class PL_TransportEdit
 				else
 					break;
 			}
-			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(), o.getAddres() ,o.getOrderNumber(),timeOfArrival))
+			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo() ,o.getOrderNumber(),timeOfArrival))
 			{
 				System.out.println("Successfuly Added the site to destinations.");
 				if(i != 1)
@@ -617,8 +617,7 @@ public class PL_TransportEdit
 
 	private void commitUpdate(Transport transport)
 	{
-		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()
-				, transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getSourceDoc()))
+		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getSourceDoc(), transport.getAddressOrign()))
 			System.out.println("Transport updated successfully.");
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");
