@@ -115,8 +115,8 @@ public class Repository {
                 			+ "	TRUCKWEIGHT		REAL	NOT NULL," 
                 			+ " PRIMARY KEY (LICENCETRUCK,DATE,HOUR), "
                 			+ " FOREIGN KEY (DRIVERID) REFERENCES Drivers(ID) ON DELETE CASCADE ON UPDATE CASCADE, "
-                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE, "
-                			+ " FOREIGN KEY (ADDRESSORIGIN) REFERENCES Sites(ADDRESS) ON DELETE CASCADE ON UPDATE CASCADE)");
+                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE)");
+                			
 		
 		transDests.createTable("CREATE TABLE IF NOT EXISTS TransportDestinations " +
                 			"( LICENCETRUCK		INT		NOT NULL, " + 
@@ -189,6 +189,7 @@ public class Repository {
 		        	return (rs.getInt(3) >= weight && rs.getInt(1) >= rs.getInt(2));
 		           
 		        } catch (SQLException e) {
+		        	System.out.println(e.getMessage());
 		        }
 		return false;
 	}
@@ -281,14 +282,14 @@ public class Repository {
 	        String sql = "SELECT employees.ID, employees.FIRSTNAME, employees.LASTNAME, employees.SALARY, employees.STARTOFEMPLOYMENTDATE, employees.ENDOFEMPLOYMENTDATE,"
 	        		+ " employees.BANKACCOUNT, employees.RANK , employees.STOREADDRESS, employees.RESTDAY "
 	                + " FROM (employees JOIN employeeShifts ON employees.ID = employeeShifts.ID)"
-	                + " WHERE employees.STOREADDRESS = ? AND employeeShifts.Date = ? AND employeeShifts.specialization = ? AND employeeShifts.Type = ? ";
-
+	                + " WHERE employees.STOREADDRESS = ? AND employeeShifts.Date = ?  AND employeeShifts.Type = ? ";
+/*AND employeeShifts.specialization = ?*/
 	        try (Connection conn = this.employees.connect();
 	             PreparedStatement stmt = conn.prepareStatement(sql)) {
 	            stmt.setString(1, addressStore);
 	            stmt.setString(2, date);
-	            stmt.setString(3, "StoreKeeper");
-	            stmt.setString(4, shiftType);
+	           // stmt.setString(3, "StoreKeeper");
+	            stmt.setString(3/*4*/, shiftType);
 	            ResultSet rs = stmt.executeQuery();
 	            while (rs.next())
 	            {// get the result
@@ -299,6 +300,7 @@ public class Repository {
 	                return vec;
 	        } catch (SQLException e)
 	        {
+	        	System.out.println("error");
 	        }
 	        return vec;
 	  }

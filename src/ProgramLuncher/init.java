@@ -1,19 +1,29 @@
 package ProgramLuncher;
 
+import java.util.Vector;
+
+import BL.TransportsEmployess.BLimp;
 import DAL.DAL;
 import DAL.DAL_imp;
+import DAL.Orders.OrderManager;
+import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
+import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.TransportsEmployess.Message;
+import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
+import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
 
 public class init 
 {
-	public static void main(String[] args) 
+	public static void initHRTR() 
 	{
 		DAL dal_imp = DAL_imp.getDALImp();
 		//4 stores
@@ -46,7 +56,7 @@ public class init
 		
 		dal_imp.insertEmployee(new Employee(677777777, "regular7", "regular7", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(688888888, "regular8", "regular8", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
+		dal_imp.insertEmployee(new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
 		dal_imp.insertEmployee(new Employee(711111111, "regular10", "regular10", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(722222222, "regular11", "regular11", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(733333333, "regular12", "regular12", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
@@ -192,7 +202,31 @@ public class init
 		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 100, 45));
 		
 		//messages
-		System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
+		//System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
 		
+	}
+
+	public static void forItay() {
+		DAL dal_imp = DAL_imp.getDALImp();
+		Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
+		Shift sht = new Shift("24/12/2017", "morning", 3, 1, "ofir street");
+		vec.add(new Pair<String,Integer>("StoreKeeper",1));
+		vec.add(new Pair<String,Integer>("Carrier",1));
+		dal_imp.insertShift(sht,
+				vec);
+		dal_imp.addEmployeeShift(sht, 
+				new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7)
+				, "StoreKeeper");
+		dal_imp.addEmployeeShift(sht, 
+				new Driver(655555555, "regular5", "regular5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7,31)
+				, "Carrier");
+		//dal_imp.insertTransport(new Transport(611111111, 11111111, 1, "24/12/2017", "10:01", 0, 0));
+		Order ord = new Order(1/*key autoinc*/,1/*supplierid*/,"24/12/2017",0,"30/12/2017", "ofir street",0);
+		ord.addProduct(new OrderProduct(1,2));
+		ord.addProduct(new OrderProduct(2,2));
+		OrderManager.getInstance().addNewOrder(ord);
+		
+		BLimp bl = new BLimp();
+		System.out.println(bl.checkDate("24/12/2017", "ofir street", 1, ord));
 	}
 }

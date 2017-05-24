@@ -22,7 +22,7 @@ public class SiteDAO extends DAO {
 		    pstmt.setString(1, site.getAddress());
 		    pstmt.setString(2, site.getContactName());
 		    pstmt.setString(3, site.getPhoneNum());
-		    pstmt.setInt(5, site.getAreaCode());
+		    pstmt.setInt(4, site.getAreaCode());
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) 

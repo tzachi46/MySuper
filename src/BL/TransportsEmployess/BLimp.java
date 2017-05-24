@@ -320,7 +320,8 @@ public class BLimp implements BL {
 		double weight = orderWeight;
 		for(Driver d : drivers){
 			for(Integer truckNo : truckNums){
-				if(bl_trans.checkLicenceAndWeight(d.getId(), truckNo, weight)){
+				if((d.getLno() >= bl_trans.fetchTruck(truckNo).getLicenceType()) && 
+						(bl_trans.fetchTruck(truckNo).getMaxWeight() >= weight)){
 					return new Pair<Driver,Truck>(d, bl_trans.fetchTruck(truckNo));
 				}
 			}
@@ -342,32 +343,57 @@ public class BLimp implements BL {
    }
 	
 	
-	private boolean checkDate(String date, String store, int supplierId, Order order){
+	public boolean checkDate(String date, String store, int supplierId, Order order){
+		// OLD CODE 
 		/* store keepers */
-		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
-				!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning"))){
-			return false;
-		} else {
+//		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
+//				!(bl_emp.cheakAvailableStoreKeepers(store, date, "evening"))){
+//			return false;
+//		} else {
+//			/* get the optional trucks in morning */
+//			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
+//			/* choose the proper driver to the truck in morning */
+//			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
+//			if(driverNtruckM == null){ /* not M */
+//				/* get the optional trucks in evening */
+//				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
+//				/* choose the proper driver to the truck in evening */
+//				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
+//				if(driverNtruckE == null){/* not M  & not E */
+//					return false;
+//				} else {/* E */
+//					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+//							driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+//				}
+//			} else { /* M */
+//				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+//						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+//			}
+//		}
+		
+		
+		if(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")){
 			/* get the optional trucks in morning */
 			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
 			/* choose the proper driver to the truck in morning */
 			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
-			if(driverNtruckM == null){ /* not M */
-				/* get the optional trucks in evening */
-				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
-				/* choose the proper driver to the truck in evening */
-				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
-				if(driverNtruckE == null){/* not M  & not E */
-					return false;
-				} else {/* E */
-					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-							driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
-				}
-			} else { /* M */
-				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+			if(driverNtruckM != null){ /* not M */
+				return (bl_trans.createTransport(date, "12:01", driverNtruckM.getValue().getTruckNo(),
 						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
 			}
-		}
+		} 
+		if(bl_emp.cheakAvailableStoreKeepers(store, date, "evening")){
+			/* get the optional trucks in evening */
+			Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
+			/* choose the proper driver to the truck in evening */
+			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
+			 if(driverNtruckE != null) {/* E */
+				return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+			 }
+		} 
+		return false;
+		
 	}
 	@Override
 	public Vector<Order> getUndeliveredOrders() {

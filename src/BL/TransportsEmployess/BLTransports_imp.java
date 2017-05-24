@@ -126,6 +126,8 @@ public class BLTransports_imp implements BLTransports {
 	@Override
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time) 
 	{
+		if(time.equals("morning") || time.equals("evening"))
+			return dal.fetchAvailableDrivers(addressStore, date, time);
 		//Check shift type
 		String type="morning";
 		int hour = Integer.parseInt(time.substring(0, 2));
