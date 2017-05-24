@@ -156,9 +156,36 @@ public class TransportDAO extends DAO {
 	            if (vec.size() > 0)
 	                return vec;
 	        } catch (SQLException e) {
-	            return vec;
+	            System.out.println(e.getMessage());
 	        }
 		return vec;
+	}
+	
+	public Vector<Integer> getOrdersInTransport(Transport tran){
+		Vector<Integer> vec = new Vector<Integer>();
+		String sql = "SELECT TransportDestinations.SOURCEDOC"
+		 		+ " FROM TransportDestinations " +
+				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
+	        
+	
+	        try (Connection conn = this.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setInt(1, tran.getTruckNo());
+			    stmt.setString(3, tran.getDateOfDep());
+			    stmt.setString(2, tran.getHourOfDep());
+			    
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	                vec.add(rs.getInt(1));
+	            }
+	            if (vec.size() > 0)
+	                return vec;
+	           
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+		return null;
 	}
 
 

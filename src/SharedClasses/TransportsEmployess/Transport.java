@@ -1,24 +1,27 @@
 package SharedClasses.TransportsEmployess;
 
+import DAL.DAL;
+import DAL.DAL_imp;
+
 public class Transport {
 	@Override
 	public String toString() {
 		return "Transport's Details: \nTime of Departure : "+ dateOfDep +" "+hourOfDep + "\nTruck's Number : "+ truckNo +
-				"\nDriver's ID : "+driverID+"\nSource's company ID : "+companyID+"\nTransport's Weight : "+ truckWeight+" kg\n"
+				"\nDriver's ID : "+driverID+"\nSource's company ID : "+companyID+"\nTransport's Weight : "+ Weight+" kg\n"
 				+ "sourceDoc: " + sourceDoc;
 	}
 	private int driverID;
 	private int truckNo;
 	private int companyID;
-	/*private String addressOrign;*/
+	private String addressOrign;
 	private String dateOfDep;
 	private String hourOfDep;
 	private int sourceDoc;
-	private double truckWeight;
+	private double Weight;
 	
 	public Transport(int driverID, int truckNo, int companyID/*String addressOrign*/,
-			String dateOfDep, String hourOfDep, double truckWeight, int sourceDoc) {
-		super();
+			String dateOfDep, String hourOfDep, double Weight, int sourceDoc,String addressOrign) 
+	{
 		this.driverID = driverID;
 		this.truckNo = truckNo;
 		//this.addressOrign = addressOrign;
@@ -26,7 +29,8 @@ public class Transport {
 		this.dateOfDep = dateOfDep;
 		this.hourOfDep = hourOfDep;
 		this.sourceDoc = sourceDoc;
-		this.truckWeight = truckWeight;
+		this.Weight = Weight;
+		this.addressOrign = addressOrign;
 	}
 	public int getSourceDoc(){
 		return sourceDoc;
@@ -37,9 +41,9 @@ public class Transport {
 	public int getTruckNo() {
 		return truckNo;
 	}
-//	public String getAddressOrign() {
-//		return addressOrign;
-//	}
+	public String getAddressOrign() {
+		return addressOrign;
+	}
 	public int getCompanyID() {
 		return companyID;
 	}
@@ -49,8 +53,9 @@ public class Transport {
 	public String getHourOfDep() {
 		return hourOfDep;
 	}
-	public double getTruckWeight() {
-		return truckWeight;
+	public double getTruckWeight() 
+	{
+		return (DAL_imp.getDALImp().fetchTruck(truckNo)).getWeight();
 	}
 	public void setDriverID(int driverID) {
 		this.driverID = driverID;
@@ -73,8 +78,12 @@ public class Transport {
 	public void setSourceDoc(int sourceDoc) {
 		this.sourceDoc = sourceDoc;
 	}
-	public void setTruckWeight(double truckWeight) {
-		this.truckWeight = truckWeight;
+	public void setWeight(double Weight) {
+		this.Weight = Weight;
+	}
+	public double getCurrentWeight() 
+	{
+		return Weight;
 	}
 	
 }

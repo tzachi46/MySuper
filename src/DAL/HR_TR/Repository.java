@@ -120,14 +120,13 @@ public class Repository {
 		
 		transDests.createTable("CREATE TABLE IF NOT EXISTS TransportDestinations " +
                 			"( LICENCETRUCK		INT		NOT NULL, " + 
-                			"	ADDRESSDEST   TEXT	NOT NULL, " + 
                 			"	DATE   		TEXT	NOT NULL, " + 
                 			"	HOUR   		TEXT	NOT NULL, " + 
                 			"	DOCCODE		INT		NOT NULL, " +
                 			"   HOUROFARR TEXT NOT NULL, " 
-                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, ADDRESSDEST),"
+                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, DOCCODE),"
                 			+ "FOREIGN KEY(LICENCETRUCK,DATE,HOUR) REFERENCES Transports(LICENCETRUCK,DATE,HOUR) ON DELETE CASCADE,"
-                			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
+                			+ "FOREIGN KEY(DOCCODE) REFERENCES Orders(OrderNumber) ON DELETE CASCADE)");
 	
 		messages.createTable("CREATE TABLE IF NOT EXISTS Messages " +
                 			"( 	ADDRESS   	TEXT	NOT NULL, " + 

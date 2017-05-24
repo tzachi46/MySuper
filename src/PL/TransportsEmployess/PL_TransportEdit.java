@@ -37,12 +37,12 @@ public class PL_TransportEdit
 			System.out.println("Which of the following operations you wish to do :");
 			System.out.println("1) Insert new Transport.");
 			System.out.println("2) Insert new site to an existing transport.");
-			System.out.println("3) Delete a site from existing transport.");
-			System.out.println("4) Update existing Transport's general details.");
-			System.out.println("5) Remove transport from the database.");
-			System.out.println("6) Fetch transport's details from the database.");
-			System.out.println("7) Fetch transport's destinations.");
-			System.out.println("8) Return to Main Menu.");
+			//System.out.println("3) Delete a site from existing transport.");
+			System.out.println("3) Update existing Transport's general details.");
+			//System.out.println("4) Remove transport from the database.");
+			System.out.println("5) Fetch transport's details from the database.");
+			System.out.println("6) Fetch transport's destinations.");
+			System.out.println("7) Return to Main Menu.");
 			
 			String choice = scanner.nextLine();
 			if(!HandeleTransportOperationChoice(choice))
@@ -54,29 +54,27 @@ public class PL_TransportEdit
 	{
 		switch(choice) {
 			case "1":
-					insertTransport();
+					insertTransport(true);
 					break;
 			case "2":
-					insertSiteToTransport();
+					insertTransport(false);
 					break;
-			case "3":
+		/*	case "3":
 					deleteSiteFromTransport();
 					break;
-			case "4":
+		*/	case "3":
 					updateTransport();
 					break;
-			case "5":
+		/*	case "4":
 					deleteTransport();
-					break;
-			case "6":
+					break;*/
+			case "5":
 					fetchTransport();
 					break;
-			case "7":											
+			case "6":											
 					fetchTransportDests();					 
 					break;									
-			case "8":
-					return false;
-			case "~":
+			case "7":
 					return false;
 			default:
 			{
@@ -93,7 +91,7 @@ public class PL_TransportEdit
 	     String date = scanner.nextLine();
 	     while (!validator.validateDate(date))
 	     {
-	         if (date.equals("~"))
+	         if (date.equals("0"))
 	             return date;
 	         System.out.println("date is not valid, try again: ");
 	         date = scanner.nextLine();
@@ -107,7 +105,7 @@ public class PL_TransportEdit
 	     String time = scanner.nextLine();
 	     while (!validator.validateTime(time))
 	     {
-	         if (time.equals("~"))
+	         if (time.equals("0"))
 	             return time;
 	         System.out.println(toPrint + " is not valid, try again:");
 	         time = scanner.nextLine();
@@ -120,7 +118,7 @@ public class PL_TransportEdit
 		 String time = scanner.nextLine();
 	     while (!validator.validateTime(time) || !checkSameShift(timeLess,time)) 
 	     {
-	         if (time.equals("~"))
+	         if (time.equals("0"))
 	             return time;
 	         System.out.println(toPrint + " is not valid, try again:");
 	         time = scanner.nextLine();
@@ -176,8 +174,8 @@ public class PL_TransportEdit
 		weight = scanner.nextLine();
 		while (!validator.validateDouble(weight)) 
 		{
-			if (weight.equals("~"))
-				return "~";
+			if (weight.equals("0"))
+				return "0";
 			System.out.println(toPrint+ " is not valid, try again:");
 			weight = scanner.nextLine();
 		}
@@ -192,8 +190,8 @@ public class PL_TransportEdit
 		sourceDocNum = scanner.nextLine();
 		while (!validator.validateDouble(sourceDocNum)) 
 		{
-			if (sourceDocNum.equals("~"))
-				return "~";
+			if (sourceDocNum.equals("0"))
+				return "0";
 			System.out.println("doc num is not valid, try again:");
 			sourceDocNum = scanner.nextLine();
 		}
@@ -224,7 +222,7 @@ public class PL_TransportEdit
 		 String option = scanner.nextLine();
 		 while(!validator.validateIntInBounds(option, 0, drivers.size()))
 		 {
-			 if(option.equals("~"))
+			 if(option.equals("0"))
 				 return 0;
 			 System.out.println("invalid input, try again:");
 			 option = scanner.nextLine();
@@ -239,7 +237,7 @@ public class PL_TransportEdit
 		while(true)
 		{
 			numberOfTruck = pl_Shared.getExistingTruckNumber();
-			if(numberOfTruck.equals("~"))
+			if(numberOfTruck.equals("0"))
 				return numberOfTruck;
 			if(bl.checkIfTruckAvilable(date, time, Integer.parseInt(numberOfTruck)))
 				break;
@@ -250,7 +248,7 @@ public class PL_TransportEdit
 		
 	}
 	 
-	private void insertTransport()
+	private void insertTransport(boolean toTras)
 	{
 		int i = 0;
         while (true)
@@ -262,15 +260,18 @@ public class PL_TransportEdit
                 return;
             }
             System.out.println("choose option");
-            System.out.println("0)return, 1)left, 2)right, 3)Send Transport 4)manual");
+            if(toTras)
+            	System.out.println("0)return, 1)left, 2)right, 3)Send Transport 4)manual");
+            else
+            	System.out.println("0)return, 1)left, 2)right, 3)Add order to Transport 4)manual");
             System.out.println("***********************************");
             System.out.println(undeliveredOrders.elementAt(i).toString());
             System.out.println("***********************************");
             String option = scanner.nextLine();
-            if (!option.equals("0")&& !option.equals("~") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
+            if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
             else {
-                if (option.equals("0")||option.equals("~"))
+                if (option.equals("0"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)
@@ -285,7 +286,10 @@ public class PL_TransportEdit
                         i++;
                 }
                 if (option.equals("3")) 
-                    i = sentTransport(undeliveredOrders.elementAt(i),i);   
+                	if(toTras)
+                		i = sentTransport(undeliveredOrders.elementAt(i),i);  
+                	else
+                		insertSiteToTransport(i,undeliveredOrders.elementAt(i));
                 if (option.equals("4"))
                     i = pl_Shared.manualOrder(i,undeliveredOrders);
             }
@@ -307,10 +311,10 @@ public class PL_TransportEdit
 			boolean replan = false;
 			System.out.println("Please insert the Transport's details : ");
 			date = pl_Shared.getShiftDate();
-			if(date.equals("~"))
+			if(date.equals("0"))
 				return i;
 			time = getTimeInputFromUser("leaving time");
-			if(time.equals("~"))
+			if(time.equals("0"))
 				return i;
 			while(true)
 			{
@@ -319,7 +323,7 @@ public class PL_TransportEdit
 				if(bl.cheakAvailableStoreKeepers(source, date, time))
 				{
 					numberOfTruck = fetchAvilableTruck(date,time);
-					if(numberOfTruck.equals("~"))
+					if(numberOfTruck.equals("0"))
 						return i;
 					Truck truck = bl.fetchTruck(Integer.parseInt(numberOfTruck));
 					idOfDriver = getExistTruckDrivers(source,date,time,truck.getLicenceType());
@@ -366,13 +370,13 @@ public class PL_TransportEdit
 		
 		//CHANGW TO ????
 		sourceDocNum = getSourceDocNumInputFromUser("supplier");
-		if(sourceDocNum.equals("~"))
+		if(sourceDocNum.equals("0"))
 			return i;
 		String docNum = getSourceDocNumInputFromUser("store");
-		if(docNum.equals("~"))
+		if(docNum.equals("0"))
 			return i;
 		String arrivaleTime = getTimeInputInShift(time, "arrival time");
-		if(arrivaleTime.equals("~"))
+		if(arrivaleTime.equals("0"))
 			return i;
 		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum));
 		if(success)
@@ -442,7 +446,7 @@ public class PL_TransportEdit
 			System.out.println("Choose option:");
 			System.out.println("1)replan the transport");
 			System.out.println("2)enter weight again");
-			System.out.println("3)replace site and truck");
+			System.out.println("3)replace truck");
 			System.out.println("4)return to previous menu");
 				
 			option = scanner.nextLine();
@@ -454,50 +458,61 @@ public class PL_TransportEdit
 	}
 
 		
-	private void insertSiteToTransport() 
+	private int insertSiteToTransport(int i,Order o) 
 	{
+		double weight;
 		String timeOfArrival,siteAddress;
 		System.out.println("Please insert the Transport's details : ");
 		Transport transport = getTransportByKey();
 		if(transport == null)
-			return;
-		while(true)
+			return i;
+		if(!bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
 		{
-			siteAddress =  pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
-			if(siteAddress.equals("~"))
-				return;
-			if(bl.cheakAvailableStoreKeepers(siteAddress, transport.getDateOfDep(), transport.getHourOfDep()))
-				break;
-			else
-				System.out.println("There are no available storekeeprs at this site, try again");
+			System.out.println("There are no available storekeeprs at this site, try again");
+			return i;
 		}
-		String docNum = getSourceDocNumInputFromUser("store");
-		if(docNum.equals("~"))
-			return;
-		while(true)
+		if(o.getWeightOrder() + transport.getCurrentWeight() > transport.getTruckWeight())
 		{
-			timeOfArrival = getTimeInputInShift(transport.getHourOfDep(), "time of arrival"); 
-			if(timeOfArrival.equals("~"))
-				return;
-			if(bl.getHoursOfArrival(transport).contains(timeOfArrival))
-				System.out.println("At this time the truck is unavailable");
-			else
-				break;
+			double min =  minimizeWeightMenu(transport.getTruckWeight(), o);
+			if(min == -1)
+				return i;
+			weight = min;
 		}
-		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(),siteAddress, Integer.parseInt(docNum),timeOfArrival))
-			System.out.println("Successfuly Added the site to destinations.");
-		else 
-			System.out.println("Failed to add the site (maybe the site already in the transport) sorry...");
+		else
+			weight = o.getWeightOrder();
+		
+		if(bl.addreesAtTransport(o.getAddres(),transport))
+		{
+			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
+		}
+		else
+		{
+			while(true)
+			{
+				timeOfArrival = getTimeInputInShift(transport.getHourOfDep(), "time of arrival"); 
+				if(timeOfArrival.equals("0"))
+					return i;
+				if(bl.getHoursOfArrival(transport).contains(timeOfArrival))
+					System.out.println("At this time the truck is unavailable");
+				else
+					break;
+			}
+			if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo(),docNum,timeOfArrival))
+				System.out.println("Successfuly Added the site to destinations.");
+			else 
+				System.out.println("Failed to add the site (maybe the site already in the transport) sorry...");
+		}
 	}
-	private void deleteSiteFromTransport() 
+	
+	/*private void deleteSiteFromTransport() 
 	{
 		String siteAddress;
 		System.out.println("Please insert the Transport's details : ");
 		Transport transport = getTransportByKey();
 		while(true)
 		{
-			siteAddress = pl_Shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(1)*/;
-			if(siteAddress.equals("~"))
+			siteAddress = pl_Shared.getExistStoreAddressFromUser()getExistAddressFromUser(1);
+			if(siteAddress.equals("0"))
 				return;
 			if(bl.fetchEmployee(Integer.toString(transport.getDriverID())).getWorkAddress().equals(siteAddress))
 				System.out.println("Cant delete the Main destination site.");
@@ -508,7 +523,7 @@ public class PL_TransportEdit
 			System.out.println("Successfuly removed site from destinations.");
 		else
 			System.out.println("Failed to remove the site, sorry...");
-	}
+	}*/
 	private void updateTransport() 
 	{	
 		Transport transport;
@@ -519,9 +534,8 @@ public class PL_TransportEdit
 				return;
 			System.out.println("Choose option:");
 			System.out.println("1)Updete id of driver");
-			System.out.println("2)Updete weight");
-			System.out.println("3)Updete sourceDoc number");
-			System.out.println("4)return to previous menu");
+			System.out.println("2)Updete sourceDoc number");
+			System.out.println("3)return to previous menu");
 				
 			String option = scanner.nextLine();
 			if(!handleTransportUpdate(option,transport))
@@ -537,14 +551,9 @@ public class PL_TransportEdit
 	        		updateId(transport);
 	        		break;
 			case "2":
-					updateWeight(transport);
-					break;
-			case "3":
 					updateSourceDoc(transport);
 					break;
-			case "4":
-					return false;
-			case "~":
+			case "3":
 					return false;
 	        default:
 	        {
@@ -559,7 +568,7 @@ public class PL_TransportEdit
 	private void updateSourceDoc(Transport transport) 
 	{
 		String  SourceDoc = getSourceDocNumInputFromUser("supplier");
-		if(SourceDoc.equals("~"))
+		if(SourceDoc.equals("0"))
 			return;
 		transport.setSourceDoc(Integer.parseInt(SourceDoc));
 		commitUpdate(transport);
@@ -567,14 +576,14 @@ public class PL_TransportEdit
 	}
 
 
-	private void updateWeight(Transport transport) 
+	/*private void updateWeight(Transport transport) 
 	{
 		String  weight;
 		Truck truck = bl.fetchTruck(transport.getTruckNo());
 		while(true)
 		{
 			weight = getWeightFromUser("Weight");
-			if(weight.equals("~"))
+			if(weight.equals("0"))
 				return;
 			if(Double.parseDouble(weight)<=truck.getMaxWeight())
 				break;
@@ -585,7 +594,7 @@ public class PL_TransportEdit
 		transport.setTruckWeight(Double.parseDouble(weight));
 		commitUpdate(transport);
 	}
-
+*/
 
 	private void updateId(Transport transport) 
 	{
@@ -596,9 +605,6 @@ public class PL_TransportEdit
 	    transport.setDriverID(id);
 		commitUpdate(transport);
 	}
-	
-
-
 
 	private void commitUpdate(Transport transport)
 	{
@@ -608,7 +614,8 @@ public class PL_TransportEdit
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");
 	}
-	private void deleteTransport() 
+	
+	/*private void deleteTransport() 
 	{
 		Transport transport =getTransportByKey();
 		if(transport == null)
@@ -618,7 +625,7 @@ public class PL_TransportEdit
 		else 
 			System.out.println("Unfortunately the system couldn't deleted the Transport in the data base.");
 		
-	}
+	}*/
 	private void fetchTransport() 
 	{
 		Transport transport =getTransportByKey();
@@ -642,13 +649,13 @@ public class PL_TransportEdit
 		while(true)
 		{
 			date = getDateInputFromUser();
-			if(date.equals("~"))
+			if(date.equals("0"))
 				return null;
 			time = getTimeInputFromUser("Leaving time");
-			if(time.equals("~"))
+			if(time.equals("0"))
 				return null;
 			numberOfTruck = pl_Shared.getExistingTruckNumber();
-			if(numberOfTruck.equals("~"))
+			if(numberOfTruck.equals("0"))
 				return null;
 		
 			transport = bl.fetchTransport(date, time, Integer.parseInt(numberOfTruck));

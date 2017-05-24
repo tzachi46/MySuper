@@ -94,6 +94,7 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time) {
 		return repo.getTransDests().deleteTransportDestination(truckNumber, siteAddress, date, time);
 	}
+	
 	public String getTransportDests(String date, String hour, int truckNumber) {
 		return repo.getTransDests().getTransportDests(date, hour, truckNumber);
 	}
@@ -241,5 +242,15 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	@Override
 	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
 		return this.repo.fetchAvailableTrucks(date, shift);
+	}
+
+	@Override
+	public Vector<Integer> getOrdersInTransport(Transport trans) {
+		return this.repo.transports.getOrdersInTransport(trans);
+	}
+
+	@Override
+	public TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber, String date, String hour) {
+		return this.repo.transDests.fetchTransportDestination(truckNumbeer, orderNumber, date, hour);
 	}
 }

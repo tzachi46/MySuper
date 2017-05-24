@@ -101,4 +101,8 @@ public interface BL {
 	Vector<String> getHandledMessages(String workAddress);
 
 	Vector<Order> getUndeliveredOrders();
+
+	boolean addreesAtTransport(String address, Transport transport);
+
+	String getArrivalTime(String addres, Transport transport);
 }
