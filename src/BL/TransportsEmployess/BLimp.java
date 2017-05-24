@@ -17,6 +17,18 @@ import SharedClasses.TransportsEmployess.Truck;
 
 public class BLimp implements BL {
 
+	public BLTransports_imp getBl_trans() {
+		return bl_trans;
+	}
+
+	public void setBl_trans(BLTransports_imp bl_trans) {
+		this.bl_trans = bl_trans;
+	}
+
+	public BLEmployees_imp getBl_emp() {
+		return bl_emp;
+	}
+
 	//Fields
 	private BLEmployees_imp bl_emp;
     private BLTransports_imp bl_trans;
@@ -288,13 +300,13 @@ public class BLimp implements BL {
 		return bl_trans.updateDriver(id,parseInt);	
 	}
 
-	@Override
+	/*@Override
 	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber) {
 		return bl_trans.getTransportDests(date, hour, truckNumber);
-	}
+	}*/
 
 	@Override
-	public Vector<String> getHoursOfArrival(Transport trans)
+	public Vector<Pair<String, String>> getHoursOfArrival(Transport trans)
 	{
 		return bl_trans.getHoursOfArrival(trans);
 	}

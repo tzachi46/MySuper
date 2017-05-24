@@ -647,7 +647,7 @@ public class PL_TransportEdit
 		Transport transport =getTransportByKey();
 		if(transport == null)
 			return;
-		System.out.println(bl.getTransportDests(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()).toString());
+		System.out.println(((BLimp) bl).getBl_trans().getHoursOfArrival(transport));//bl.getTransportDests(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()).toString());
 	}
 	
 	private Transport getTransportByKey() 

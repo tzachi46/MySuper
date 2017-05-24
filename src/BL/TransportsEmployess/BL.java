@@ -85,7 +85,7 @@ public interface BL {
   /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
   	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr);
   	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);*/
-  	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
+  //	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
   	//**********************//
   	
   	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
@@ -94,7 +94,7 @@ public interface BL {
   	public boolean cheakAvailableStoreKeepers(String addressStore, String date, String time);
 
   	boolean updateDriver(int id, int parseInt);
-  	public Vector<String> getHoursOfArrival(Transport trans);
+  	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
 
 	Vector<String> getNotHandledMessages(String workAddress);

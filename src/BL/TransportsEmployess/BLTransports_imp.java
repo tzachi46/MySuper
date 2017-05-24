@@ -149,11 +149,11 @@ public class BLTransports_imp implements BLTransports {
 		return dal.updateDriver(id,lio);
 	}
 
-	@Override
+/*	@Override
 	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber) {
 		return dal.getTransportDests(date, hour, truckNumber);
 	}
-
+*/
 	@Override
 	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) 
 	{

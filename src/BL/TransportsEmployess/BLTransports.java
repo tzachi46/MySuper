@@ -42,7 +42,7 @@ public interface BLTransports {
 /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
 	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr) throws Exception;
 	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
-*/	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
+*///	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
 	//**********************//
 	
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
