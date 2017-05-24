@@ -19,6 +19,7 @@ public class PLimpl implements PL
     private PL_man pl_man;
     private PL_HR_man pl_admin;
     private PL_SitesEdit pl_SitesEdit;
+    private PL_Shared pl_shared;
     private PL_TransportEdit pl_TransportEdit;
     private PL_TruckEdit pl_TruckEdit;
     private Scanner scanner;
@@ -36,6 +37,7 @@ public class PLimpl implements PL
         pl_SitesEdit = new PL_SitesEdit(bl, scanner, validator,pl_Shared);
         pl_TruckEdit = new PL_TruckEdit(bl, scanner, validator,pl_Shared);
         pl_TransportEdit = new PL_TransportEdit(bl, scanner, validator,pl_Shared);
+        pl_shared = new PL_Shared(bl, scanner, validator);
     }
 
     @Override
@@ -375,7 +377,7 @@ public class PLimpl implements PL
             }
             case "4":
             {
-            	pl_admin.showEmployeeDetails(emp); //TODO: CHANGE TO REAL FUNC
+            	pl_admin.showEmployeeDetails(emp);
                 break;
             }
             case "5":
@@ -402,8 +404,8 @@ public class PLimpl implements PL
                 break;
             }
             case "2":
-            {//emp det
-            	pl_admin.showEmployeeDetails(emp); //TODO: CHANGE TO REAL FUNC
+            {
+            	pl_admin.showEmployeeDetails(emp);
                 break;
             }
             case "3":
@@ -413,7 +415,10 @@ public class PLimpl implements PL
             }
             case "4":
             {//emp shifts
-                pl_reg.showAllShifts(emp.getId()); //TODO: CHANGE TO REAL FUNC
+            	String id=pl_shared.getExistingId();
+            	if(id.equals("~"))
+            		break;
+                pl_reg.showAllShifts(Integer.parseInt(id));
                 break;
             }
             case "5":
