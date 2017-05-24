@@ -224,7 +224,7 @@ public class SupplierManager {
 	// in house use functions
 
 	
-	protected static boolean executeSQLCommand(String[] SQL) {
+	public static boolean executeSQLCommand(String[] SQL) {
 		try (Statement stmt = DALManager.conn.createStatement()) {
 			for(int i=0;i<SQL.length;i++)
 				stmt.execute(SQL[i]);
@@ -235,7 +235,7 @@ public class SupplierManager {
 		return true;
     }
 	
-	protected static boolean executeSQLCommand(String SQL) {
+	public static boolean executeSQLCommand(String SQL) {
 		String[] sqlCommand=new String[1];
 		sqlCommand[0]=SQL;
 		return executeSQLCommand(sqlCommand);
