@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
 
@@ -19,6 +20,7 @@ public class Repository {
 	EmployeeShiftsDAO empShifts;
 	TransportDAO transports;
 	TransportDestinationsDAO transDests;
+	messagesDAO messages;
 	public Repository(String url){
 		trucks = new TruckDAO(url);
 		sites = new SiteDAO(url);
@@ -27,6 +29,7 @@ public class Repository {
 		empShifts = new EmployeeShiftsDAO(url);
 		transports = new TransportDAO(url);
 		transDests = new TransportDestinationsDAO(url);
+		messages = new messagesDAO(url);
 	}
 	
 	protected void createDB(){
@@ -41,7 +44,6 @@ public class Repository {
 					   + "(ADDRESS TEXT PRIMARY KEY NOT NULL, "
 						+ "CONTACTNAME	TEXT	NOT NULL, "
 						+ "PHONENO   TEXT	NOT NULL, "
-						+ "ISSTORE INT NOT NULL, "
 						+ "AREACODE INT NOT NULL)");
 	
 		employees.createTable("CREATE TABLE IF NOT EXISTS employees " 
@@ -106,27 +108,34 @@ public class Repository {
 		transports.createTable("CREATE TABLE IF NOT EXISTS Transports " +
                 			"(DRIVERID	INT		NOT		NULL, " +
                 			"	LICENCETRUCK	INT		NOT NULL, " + 
-                			"	ADDRESSORIGIN   TEXT	NOT NULL, " + 
+                			"	COMPANYID   INT	NOT NULL, " + 
                 			"	DATE   TEXT	NOT NULL, " + 
                 			"	HOUR   TEXT	NOT NULL, " + 
                 			"SOURCEDOC 	INT 	NOT 	NULL, "
                 			+ "	TRUCKWEIGHT		REAL	NOT NULL," 
                 			+ " PRIMARY KEY (LICENCETRUCK,DATE,HOUR), "
                 			+ " FOREIGN KEY (DRIVERID) REFERENCES Drivers(ID) ON DELETE CASCADE ON UPDATE CASCADE, "
-                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE, "
-                			+ " FOREIGN KEY (ADDRESSORIGIN) REFERENCES Sites(ADDRESS) ON DELETE CASCADE ON UPDATE CASCADE)");
+                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE)");
+                			
 		
 		transDests.createTable("CREATE TABLE IF NOT EXISTS TransportDestinations " +
                 			"( LICENCETRUCK		INT		NOT NULL, " + 
-                			"	ADDRESSDEST   TEXT	NOT NULL, " + 
                 			"	DATE   		TEXT	NOT NULL, " + 
                 			"	HOUR   		TEXT	NOT NULL, " + 
                 			"	DOCCODE		INT		NOT NULL, " +
                 			"   HOUROFARR TEXT NOT NULL, " 
-                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, ADDRESSDEST),"
+                			+" PRIMARY KEY(LICENCETRUCK, DATE, HOUR, DOCCODE),"
                 			+ "FOREIGN KEY(LICENCETRUCK,DATE,HOUR) REFERENCES Transports(LICENCETRUCK,DATE,HOUR) ON DELETE CASCADE,"
-                			+ "FOREIGN KEY(ADDRESSDEST) REFERENCES Sites(ADDRESS) ON DELETE CASCADE)");
+                			+ "FOREIGN KEY(DOCCODE) REFERENCES Orders(OrderNumber) ON DELETE CASCADE)");
 	
+		messages.createTable("CREATE TABLE IF NOT EXISTS Messages " +
+                			"( 	ADDRESS   	TEXT	NOT NULL, " + 
+                			"	DATE		TEXT	NOT NULL, " + 
+                			"	ORDERNUMBER INT		NOT NULL, " + 
+                			"	ISHANDLED 	INT		NOT NULL DEFAULT 0, "
+                			+" PRIMARY KEY(DATE, ADDRESS, ORDERNUMBER),"
+                			+ "FOREIGN KEY(ADDRESS) REFERENCES Sites(ADDRESS) ON DELETE CASCADE,"
+                			+ "FOREIGN KEY(ORDERNUMBER) REFERENCES Orders(OrderNumber) ON DELETE CASCADE)");
 	}
 
 	public TransportDAO getTransports() {
@@ -156,6 +165,10 @@ public class Repository {
 	public EmployeeShiftsDAO getEmpShifts() {
 		return empShifts;
 	}
+	
+	public messagesDAO getMessages() {
+		return messages;
+	}
 
 	public boolean checkLicenceAndWeight(int driverID, int truckNumber, double weight) {
 		 String sql = "SELECT Drivers.LICENCENUM, Trucks.LICENCETYPE, Trucks.MAXWEIGHT"
@@ -175,6 +188,7 @@ public class Repository {
 		        	return (rs.getInt(3) >= weight && rs.getInt(1) >= rs.getInt(2));
 		           
 		        } catch (SQLException e) {
+		        	System.out.println(e.getMessage());
 		        }
 		return false;
 	}
@@ -267,14 +281,14 @@ public class Repository {
 	        String sql = "SELECT employees.ID, employees.FIRSTNAME, employees.LASTNAME, employees.SALARY, employees.STARTOFEMPLOYMENTDATE, employees.ENDOFEMPLOYMENTDATE,"
 	        		+ " employees.BANKACCOUNT, employees.RANK , employees.STOREADDRESS, employees.RESTDAY "
 	                + " FROM (employees JOIN employeeShifts ON employees.ID = employeeShifts.ID)"
-	                + " WHERE employees.STOREADDRESS = ? AND employeeShifts.Date = ? AND employeeShifts.specialization = ? AND employeeShifts.Type = ? ";
-
+	                + " WHERE employees.STOREADDRESS = ? AND employeeShifts.Date = ?  AND employeeShifts.Type = ? ";
+/*AND employeeShifts.specialization = ?*/
 	        try (Connection conn = this.employees.connect();
 	             PreparedStatement stmt = conn.prepareStatement(sql)) {
 	            stmt.setString(1, addressStore);
 	            stmt.setString(2, date);
-	            stmt.setString(3, "StoreKeeper");
-	            stmt.setString(4, shiftType);
+	           // stmt.setString(3, "StoreKeeper");
+	            stmt.setString(3/*4*/, shiftType);
 	            ResultSet rs = stmt.executeQuery();
 	            while (rs.next())
 	            {// get the result
@@ -285,6 +299,7 @@ public class Repository {
 	                return vec;
 	        } catch (SQLException e)
 	        {
+	        	System.out.println("error");
 	        }
 	        return vec;
 	  }
@@ -316,4 +331,57 @@ public class Repository {
 	        return vec;
 	}
 	  
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
+    	Vector<Integer> truckNums = new Vector<Integer>(); 
+    	String sql = "SELECT Trucks.TRUCKNO"
+			 		+ " FROM Trucks "
+					+ "WHERE Trucks.TRUCKNO NOT IN (SELECT Trucks.TRUCKNO"
+												+ " FROM Trucks JOIN Transports ON "
+												+ "Trucks.TRUCKNO = Transports.LICENCETRUCK"
+												+ " WHERE Transports.DATE = ?)";
+		        
+		        try (Connection conn = this.transports.connect();
+		             PreparedStatement stmt = conn.prepareStatement(sql)){
+		        	stmt.setString(1, date);
+		            ResultSet rs = stmt.executeQuery();
+		            while (rs.next())
+		            {// get the result
+		            	truckNums.add(rs.getInt(1));
+		            }
+		        } catch (SQLException e) {
+		        	System.out.println(e.getMessage());
+		        }
+		Vector<Pair<Integer, String>> trucksAndTheirSchedual = new Vector<Pair<Integer,String>>();
+        sql =	 "SELECT Trucks.TRUCKNO, Transports.HOUR"
+				+ " FROM Trucks JOIN Transports ON "
+				+ "Trucks.TRUCKNO = Transports.LICENCETRUCK"
+				+ " WHERE Transports.DATE = ?";
+
+	        try (Connection conn = this.transports.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setString(1, date);
+
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	            	trucksAndTheirSchedual.add(new Pair<Integer,String>(rs.getInt(1),rs.getString(2)));
+	            }
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+	    for(Pair<Integer, String> pair : trucksAndTheirSchedual){
+	    	String type="morning";
+			int hour = Integer.parseInt(pair.getValue().substring(0, 2));
+			if(hour<24 && hour>=12)
+				type="evening";
+	    	if(!type.equals(shift)){
+	    		truckNums.add(pair.getKey());
+	    	}
+	    }
+	    for(Integer trk : truckNums){
+	    	System.out.println("truck no. " + trk);
+	    }
+	    
+	    return truckNums;
+    }
 }

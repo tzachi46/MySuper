@@ -27,10 +27,10 @@ public class PL_SitesEdit
 		while(true)	
 		{
 			System.out.println("Which of the following operations you wish to do :");
-			System.out.println("1) Insert new Site.");
-			System.out.println("2) Update existing Site's details.");
-			System.out.println("3) Remove site from the database.");
-			System.out.println("4) Fetch site's details from the database.");
+			System.out.println("1) Insert new store.");
+			System.out.println("2) Update existing store's details.");
+			System.out.println("3) Remove store from the database.");
+			System.out.println("4) Fetch store's details from the database.");
 			System.out.println("5) Return to Main Menu.");
 	
 			String choice = scanner.nextLine();
@@ -57,6 +57,8 @@ public class PL_SitesEdit
 					break;
 			case "5":
 					return false;
+			case "~":
+					return false;
 			default:
 	        {
 	            System.out.println("Invalid input, try again");
@@ -74,7 +76,7 @@ public class PL_SitesEdit
 		phoneNum = scanner.nextLine();
 		while(!validator.validatePhoneNumber(phoneNum)) 
 		{
-			if(phoneNum.equals("0"))
+			if(phoneNum.equals("~"))
 				return phoneNum;
 			System.out.println("phone number is not valid, try again");
 			phoneNum = scanner.nextLine();
@@ -89,7 +91,7 @@ public class PL_SitesEdit
 		name = scanner.nextLine();
 		while(!validator.validateName(name)) 
 		{
-			if(name.equals("0"))
+			if(name.equals("~"))
 				return name;
 			System.out.println("name is not valid, try again");
 			name = scanner.nextLine();
@@ -104,7 +106,7 @@ public class PL_SitesEdit
 		areaCode = scanner.nextLine();
 		while(!validator.validateIntInBounds(areaCode,0,1000)) 
 		{
-			if(areaCode.equals("0"))
+			if(areaCode.equals("~"))
 				return areaCode;
 			System.out.println("area code is not valid, try again");
 			areaCode = scanner.nextLine();
@@ -114,22 +116,22 @@ public class PL_SitesEdit
 	
 	private Employee getValidAdmin(String address)
 	{
-		System.out.println("At any point you can press 0 to return to previous menu");
+		System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter the details of the human resource manger of the store:");
         String id = pl_shared.getNotExistingId();
-        if(id.equals("0"))
+        if(id.equals("~"))
         	return null;
         String fisrt_name = pl_shared.getName("first name");
-        if(fisrt_name.equals("0"))
+        if(fisrt_name.equals("~"))
         	return null;
         String last_name = pl_shared.getName("last_name");
-        if(last_name.equals("0"))
+        if(last_name.equals("~"))
         	return null;	
         String salery = pl_shared.getsalary();
-        if(salery.equals("0"))
+        if(salery.equals("~"))
         	return null;	 
         String BankAccount = pl_shared.getBankDetails();
-        if(BankAccount.equals("0"))
+        if(BankAccount.equals("~"))
         	return null;	 
         int day = pl_shared.GetDay("rest day");
         if(day == 0)
@@ -138,67 +140,67 @@ public class PL_SitesEdit
         return new Employee(Integer.parseInt(id),fisrt_name,last_name,Double.parseDouble(salery),currentDate,"",BankAccount,(Rank.storeManeger),address,day);
 	}
 	
-	//For site's isStore
-	private int getStoreOrSupplierFromUser()
-	{
-		String option;
-		System.out.println("choose Option:");
-		System.out.println("1)Store");
-		System.out.println("2)Supplier");
-		
-		option = scanner.nextLine(); 
-		while(!option.equals("1") && !option.equals("2"))
-		{
-			if(option.equals("0"))
-				return -1; 
-			System.out.println("area code is not valid, try again");
-			option = scanner.nextLine();
-		}
-		if(option.equals("1"))
-			return 1;
-		return 0;
-	}
+//	//For site's isStore
+//	private int getStoreOrSupplierFromUser()
+//	{
+//		String option;
+//		System.out.println("choose Option:");
+//		System.out.println("1)Store");
+//		System.out.println("2)Supplier");
+//		
+//		option = scanner.nextLine(); 
+//		while(!option.equals("1") && !option.equals("2"))
+//		{
+//			if(option.equals("0"))
+//				return -1; 
+//			System.out.println("area code is not valid, try again");
+//			option = scanner.nextLine();
+//		}
+//		if(option.equals("1"))
+//			return 1;
+//		return 0;
+//	}
 
 	
 	private void insertSite() 
 	{
 		Employee admin = null;
 		String address, phoneNum, contact, areaCode;
-		int isStore;
-		System.out.println("Please insert the Site's details : ");
+//		int isStore;
+		System.out.println("Please insert the store's details : ");
 		address = pl_shared.getNotExistAddressFromUser();	
-		if(address.equals("0"))
+		if(address.equals("~"))
 			return;
 		phoneNum = getPhoneNumberFromUser();
-		if(phoneNum.equals("0"))
+		if(phoneNum.equals("~"))
 			return;	
 		contact = getNameFromUser();
-		if(contact.equals("0"))
+		if(contact.equals("~"))
 			return;	
 		areaCode = getAreaCodeFromUser();
-		if(contact.equals("0"))
+		if(contact.equals("~"))
 			return;	
 		/* Store or Supplier */
-		isStore = getStoreOrSupplierFromUser();
-		if(isStore == -1)
-			return;
-		if(isStore == 1)
-		{
+//		isStore = getStoreOrSupplierFromUser();
+//		if(isStore == -1)
+//			return;
+//		if(isStore == 1)
+//		{
 			admin = getValidAdmin(address);
 			if(admin == null)
 				return;
-		}
-		if(bl.createSite(address, phoneNum, contact, isStore, Integer.parseInt(areaCode)))
+//		}
+		if(bl.createSite(address, phoneNum, contact,/* isStore,*/ Integer.parseInt(areaCode)))
 		{
-			if(isStore == 1)
-			{
+//			if(isStore == 1)
+//			{
 				bl.addEmployee(String.valueOf(admin.getId()), String.valueOf(admin.getSalary()), admin.getFname(), admin.getLname(), admin.getStartDate(), admin.getEndDate(), admin.getRank().toString(), admin.getBankAccount(), admin.getWorkAddress(),admin.getDayOfRest());
 				pl_shared.makeDayOfWorkUnavilable(admin.getId(),admin.getDayOfRest());
-			}
-			System.out.println("Site created successfully.");
+//			}
+			System.out.println("Store created successfully.");
 		}
 		else 
-			System.out.println("Unfortunately the system couldnt create the site in the data base.");	
+			System.out.println("Unfortunately the system couldn't create the store in the data base.");	
 	}
 	
 	private void updateSite() 
@@ -206,8 +208,8 @@ public class PL_SitesEdit
 		String address;
 		while (true)
 		{
-			address = pl_shared.getExistAddressFromUser(2);
-			if(address.equals("0"))
+			address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
+			if(address.equals("~"))
 				break;
 			Site site = bl.fetchSite(address);
 			System.out.println("Choose option:");
@@ -237,6 +239,8 @@ public class PL_SitesEdit
 					break;
 			case "4":
 					return false;
+			case "~":
+					return false;
 	        default:
 	        {
 	            System.out.println("Invalid input, try again");
@@ -249,7 +253,7 @@ public class PL_SitesEdit
 	private void updateAreaCode(Site site) 
 	{
 		String areaCode = getAreaCodeFromUser();
-		if(areaCode.equals("0"))
+		if(areaCode.equals("~"))
 			return;
 		site.setAreaCode(Integer.parseInt(areaCode));
 		commitUpdate(site);
@@ -258,7 +262,7 @@ public class PL_SitesEdit
 	private void updateContantName(Site site) 
 	{
 		String contant = getNameFromUser();
-		if(contant.equals("0"))
+		if(contant.equals("~"))
 			return;
 		site.setContanName(contant);
 		commitUpdate(site);	
@@ -267,7 +271,7 @@ public class PL_SitesEdit
 	private void updatePhoneNumber(Site site) 
 	{
 		String phoneNum = getPhoneNumberFromUser();
-		if(phoneNum.equals("0"))
+		if(phoneNum.equals("~"))
 			return;
 		site.setPhoneNum(phoneNum);
 		commitUpdate(site);
@@ -276,29 +280,29 @@ public class PL_SitesEdit
 	public void commitUpdate(Site site)
 	{
 		if(bl.updateSite(site.getAddress(), site.getPhoneNum(), site.getContactName(), site.getAreaCode()))
-			System.out.println("Site updated successfully.");
+			System.out.println("Store updated successfully.");
 		else 
-			System.out.println("Unfortunately the system couldnt create the site in the data base.");
+			System.out.println("Unfortunately the system couldnt create the store in the data base.");
 	}
 	
 	
 	private void deleteSite() 
 	{
-		String address = pl_shared.getExistAddressFromUser(2);
+		String address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
 		if(address.equals("BasePoint"))
 		{
 			System.out.println("cant delete the main store!");
 			return;
 		}
 		if(bl.deleteSite(address))
-			System.out.println("Site was deleted successfully!");
+			System.out.println("Store was deleted successfully!");
 		else
-			System.out.println("Something went wrong during the deletion of the site, sorry...");
+			System.out.println("Something went wrong during the deletion of the store, sorry...");
 	}
 	private void fetchSite() 
 	{
-		String address = pl_shared.getExistAddressFromUser(2);
-		if(address.equals("0"))
+		String address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
+		if(address.equals("~"))
 			return;
 		Site site = bl.fetchSite(address);
 		System.out.println(site.toString());

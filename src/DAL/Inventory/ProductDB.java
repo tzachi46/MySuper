@@ -45,7 +45,7 @@ public class ProductDB {
                 + ");";
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
-        } catch (SQLException e) {        }
+        } catch (SQLException e) {      }
 		pscDB.initProductSellingCostTable();
 	}
 	
@@ -66,7 +66,6 @@ public class ProductDB {
             productInStore.InitialNewProduct(product,StoreAddress);
             
         } catch (SQLException e) {
-
         }
 		pscDB.addProductSellingCost(product);
 	}

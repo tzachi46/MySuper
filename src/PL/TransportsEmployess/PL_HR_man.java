@@ -12,14 +12,14 @@ import SharedClasses.TransportsEmployess.Employee.Rank;
 /**
  * Created by kazarski on 3/26/17.
  */
-public class PL_Admin
+public class PL_HR_man
 {
 	private BL bl;
     private Scanner scanner;
     private Validator validator;
     private PL_Shared pl_shared;
     
-    public PL_Admin(BL bl, Scanner scanner, Validator validator,PL_Shared pl_shared)
+    public PL_HR_man(BL bl, Scanner scanner, Validator validator,PL_Shared pl_shared)
     {
         this.bl = bl;
         this.scanner = scanner;
@@ -27,7 +27,7 @@ public class PL_Admin
         this.pl_shared = pl_shared;
     }
     
-    
+    /*
     private Rank getRank()
     {
     	 System.out.println("Choose rank :");
@@ -46,7 +46,7 @@ public class PL_Admin
         	 return Employee.Rank.regular;
          else
         	 return Employee.Rank.shiftManager;     
-    }
+    }*/
     
     private String getLicenceDriver(boolean isManger)
     {
@@ -55,12 +55,12 @@ public class PL_Admin
     	 else
     	 {
 	    	 System.out.println("Does the new Employee has driving licence?");
-	         System.out.println("0-return, 1-no and continue,else enter the driving licence");
+	         System.out.println("~-return, 1-no and continue,else enter the driving licence");
     	 }
          String lio = scanner.nextLine();
          while(!validator.validateIntInBounds(lio, 2, 99999999))
          {
-             if (lio.equals("0"))
+             if (lio.equals("~"))
                  return lio;
              if(!isManger && lio.equals("1"))
              	return "";
@@ -69,7 +69,7 @@ public class PL_Admin
          }
          return lio;
     }
-    
+    /*
     private void addAllSpeciality(int id)
     {
     	 bl.addEmployeeSpeciality(id, "ShiftManager");
@@ -77,12 +77,12 @@ public class PL_Admin
          bl.addEmployeeSpeciality(id, "StoreKeeper");
          bl.addEmployeeSpeciality(id, "Carrier");
     }
-    
+    */
     public void reEmploy(String address)
     {
-    	System.out.println("At any point you can press 0 to return to previous menu");
+    	System.out.println("At any point you can press ~ to return to previous menu");
     	String id = pl_shared.getExistingId();
-    	if(id.equals("0"))
+    	if(id.equals("~"))
     		return;
     	Employee emp = bl.fetchEmployee(id);
     	if(!address.equals(emp.getWorkAddress()))
@@ -103,34 +103,41 @@ public class PL_Admin
     		 System.out.println("employee is still working");
     }
     
+    /** until here we are all clear **/
+    /**
+     * 
+     * TO DO: remove add all speciality and the default storekeeper speciality!!
+     * q: how to support the insertion of speciality to new employee?
+     */
+    
     public void addEmployee(String address) 
     {
-        System.out.println("At any point you can press 0 to return to previous menu");
+        System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter new Employee details :");
         String id = pl_shared.getNotExistingId();
-        if(id.equals("0"))
+        if(id.equals("~"))
         	return;
         String fisrt_name = pl_shared.getName("first name");
-        if(fisrt_name.equals("0"))
+        if(fisrt_name.equals("~"))
         	return;
         String last_name = pl_shared.getName("last_name");
-        if(last_name.equals("0"))
+        if(last_name.equals("~"))
         	return;	
         String salery = pl_shared.getsalary();
-        if(salery.equals("0"))
+        if(salery.equals("~"))
         	return;	 
-        Employee.Rank emp_rank = getRank();
+        Employee.Rank emp_rank = Rank.regular; /*getRank();
         if(emp_rank == null)
-        	return;     
+        	return;     */
         String BankAccount = pl_shared.getBankDetails();
-        if(BankAccount.equals("0"))
+        if(BankAccount.equals("~"))
         	return;	 
         int day = pl_shared.GetDay("rest day");
         if(day == 0)
         	return;
         String currentDate = pl_shared.getCurrentDate();
-        String lio = getLicenceDriver(emp_rank == Rank.storeManeger);
-        if(lio.equals("0"))
+        String lio = getLicenceDriver(false/*emp_rank == Rank.storeManeger : it has no meaning cause you only insert regular */);
+        if(lio.equals("~"))
         	return;
         
         boolean added = bl.addEmployee(id,salery,fisrt_name,last_name,currentDate,"",emp_rank.toString(),BankAccount,address,day);
@@ -140,21 +147,24 @@ public class PL_Admin
             System.out.println(fisrt_name + " " + last_name + "  was added to the system");
             if(!lio.equals(""))
             	bl.insertDriver(new Driver(Integer.parseInt(id), fisrt_name, last_name,Double.parseDouble(salery), currentDate, "", BankAccount, emp_rank, address,day,Integer.parseInt(lio)));
-            if (emp_rank.toString().equals(Employee.Rank.storeManeger.toString()))
+         /*  if (emp_rank.toString().equals(Employee.Rank.storeManeger.toString()))
             	addAllSpeciality(Integer.parseInt(id));
             else
-                bl.addEmployeeSpeciality(Integer.parseInt(id), "StoreKeeper");
+                bl.addEmployeeSpeciality(Integer.parseInt(id), "StoreKeeper"); */
         }
         else
             System.out.println("problem happend");
     }
-
+    /**
+     * ask boris about the line 175
+     * 
+     * */
     public void UpdateEmployee(Employee adminEmp)
     {
-    	System.out.println("At any point you can press 0 to return to previous menu");
+    	System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter id of Employee to update:");
 		String id = pl_shared.getExistingId();
-		if(id.equals("0"))
+		if(id.equals("~"))
 			return;
 		Employee emp = bl.fetchEmployee(id);
 		if(!adminEmp.getWorkAddress().equals(emp.getWorkAddress()))
@@ -164,7 +174,7 @@ public class PL_Admin
        	}
 		if(emp.getRank() == Rank.logisticManeger)
 		{
-			System.out.println("you dont have the permission to update a ceo:");
+			System.out.println("you dont have the permission to update a logistic manager:");
 			return;
 		}
 	    while (true)
@@ -218,6 +228,10 @@ public class PL_Admin
             {
                 return false;
             }
+            case "~":
+            {
+            	return false;
+            }
             default:
             {
                 System.out.println("invalid input, try again");
@@ -230,7 +244,7 @@ public class PL_Admin
     private void updateLicenceType(Employee emp) 
     {
     	   String lio = getLicenceDriver(false);
-           if(lio.equals("0"))
+           if(lio.equals("~"))
         	   return;
            if(bl.fetchDriver(emp.getId())==null)
            	   bl.insertDriver(new Driver(emp.getId(), emp.getFname(), emp.getLname(),emp.getSalary(), emp.getStartDate(), emp.getEndDate(), emp.getBankAccount(), emp.getRank(), emp.getWorkAddress(),emp.getDayOfRest(),Integer.parseInt(lio)));
@@ -242,7 +256,7 @@ public class PL_Admin
 	private void updateSalery(Employee emp)
     {
     	  String salary = pl_shared.getsalary();
-          if(salary.equals("0"))
+          if(salary.equals("~"))
         	  return;
           emp.setSalary(Double.parseDouble(salary));
           commitUpdate(emp);
@@ -251,7 +265,7 @@ public class PL_Admin
     private void updateBankAccount(Employee emp)
     {
     	String BankAccount = pl_shared.getBankDetails();
-    	if(BankAccount.equals("0"))
+    	if(BankAccount.equals("~"))
     		return;
         emp.setBankAccount(BankAccount);
         commitUpdate(emp);   
@@ -281,9 +295,9 @@ public class PL_Admin
     
     public void showEmployeeDetails(Employee adminEmp)
     {
-    	System.out.println("At any point you can press 0 to return to previous menu");
+    	System.out.println("At any point you can press ~ to return to previous menu");
         String id = pl_shared.getExistingId();
-       	if (id.equals("0"))
+       	if (id.equals("~"))
         	return;
        	Employee emp = bl.fetchEmployee(id);
        	if(!adminEmp.getWorkAddress().equals(emp.getWorkAddress()))
@@ -293,7 +307,7 @@ public class PL_Admin
        	}
        	if(emp.getRank() == Rank.logisticManeger)
        	{
-       		System.out.println("you dont have the permission to view ceo's details.");
+       		System.out.println("you dont have the permission to view logistic manager's details.");
        		return;
        	}
        	printEmpDetails(emp);
@@ -320,21 +334,21 @@ public class PL_Admin
     {
     	String date,type;
         int man,cash,storeKeep,carrier;
-        System.out.println("At any point you can press 0 to return to previous menu");
+        System.out.println("At any point you can press ~ to return to previous menu");
         while(true)
         {
 	        date = pl_shared.getShiftDate();
-	        if(date.equals("0"))
+	        if(date.equals("~"))
 	        	return;
 	        type = pl_shared.getShiftType();
-	        if(type.equals("0"))
+	        if(type.equals("~"))
 	        	return;
 	        if(!checkIfShiftExist(date,type,address))
 	        	break;
 	        else
 	        	System.out.println("shift already exist in this stote, try again");
         } 
-        man = getNumOfEmployees("shift manegers", 1, 100);
+        man = getNumOfEmployees("shift managers", 1, 100);
         if(man == -1)
         	return;
         cash = getNumOfEmployees("Cashiers", 0, 100);
@@ -364,10 +378,10 @@ public class PL_Admin
         {
        
             String date = pl_shared.getShiftDate();
-            if (date.equals("0"))
+            if (date.equals("~"))
                 return;
             String type = pl_shared.getShiftType();
-            if (type.equals("0"))
+            if (type.equals("~"))
                 return;   
             if (checkIfShiftExist(date, type, address))
             {
@@ -389,7 +403,7 @@ public class PL_Admin
     {
         while (true) 
         {
-            System.out.println("At any point you can press 0 to return to previous menu");
+            System.out.println("At any point you can press ~ to return to previous menu");
             System.out.println("choose option :");
             System.out.println("1) Add/Reduce workers to empty shift");
             System.out.println("2) Return to previuos menu");
@@ -411,6 +425,10 @@ public class PL_Admin
                 case "2":
                 {
                     return false;
+                }
+                case "~":
+                {
+                	return false;
                 }
                 default:
                 {
@@ -453,7 +471,7 @@ public class PL_Admin
                 System.out.println("invalid input, try again");
             else 
             {
-                if (option.equals("0"))
+                if (option.equals("0")||option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)
@@ -471,5 +489,51 @@ public class PL_Admin
                     i = pl_shared.manual(i,initializedShifts);
             }
         }
-    }	
+    }
+
+
+	public void viewMessages(String workAddress) {
+    	System.out.println("At any point you can press ~ to return to previous menu");
+		while (true)
+	    {
+	         System.out.println("Choose Option: ");
+	         System.out.println("1) view not handled messages");
+	         System.out.println("2) view handled messages");
+	         
+	         String choice = scanner.nextLine();
+	         if(!handleViewMessagesChoice(workAddress, choice))
+	        	 break;
+	    }
+	}
+
+
+	private boolean handleViewMessagesChoice(String workAddress, String choice) {
+		switch (choice)
+        {
+			case "~":
+			{
+				return false;
+			}
+            case "1":
+            {
+            	Vector<String> newMessages = bl.getNotHandledMessages(workAddress);
+        		for(int i=0; i<newMessages.size(); i++){
+        			System.out.println(newMessages.elementAt(i));
+        		}
+            }
+            case "2":
+            {
+            	Vector<String> oldMessages = bl.getHandledMessages(workAddress);
+            	for(int i=0; i<oldMessages.size(); i++){
+        			System.out.println(oldMessages.elementAt(i));
+        		}
+            }
+            default:
+            {
+                System.out.println("invalid input, try again");
+                break;
+            }
+        }
+        return  true;
+	}	
 }

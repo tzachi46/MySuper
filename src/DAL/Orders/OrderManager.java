@@ -135,7 +135,7 @@ public class OrderManager {
 		return true;
     }
 	
-	protected static boolean executeSQLCommand(String SQL) {
+	public static boolean executeSQLCommand(String SQL) {
 		String[] sqlCommand=new String[1];
 		sqlCommand[0]=SQL;
 		return executeSQLCommand(sqlCommand);

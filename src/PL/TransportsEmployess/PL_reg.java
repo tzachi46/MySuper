@@ -1,5 +1,6 @@
 package PL.TransportsEmployess;
 
+import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
@@ -16,12 +17,15 @@ public class PL_reg
     private BL bl;
     Validator validator;
     private PL_Shared pl_shared;
+    private Scanner scanner;
+
     
     public PL_reg(BL bl, Validator validator,PL_Shared pl_shared ) {
 
         this.bl = bl;
         this.validator = validator;
         this.pl_shared = pl_shared;
+        scanner = new Scanner(System.in);
     }
 
     
@@ -49,7 +53,7 @@ public class PL_reg
         if(day == 0)
         	return;	
         String type = pl_shared.getShiftType();
-        if (type.equals("0"))
+        if (type.equals("~"))
         	return;
         String sday = getDayAsString(day);
       
@@ -76,7 +80,7 @@ public class PL_reg
         	if(day != emp.getDayOfRest())
         	{
 	        	String type = pl_shared.getShiftType();
-	            if (type.equals("0"))
+	            if (type.equals("~"))
 	            	return;
 	            String sday = getDayAsString(day);
 	               
@@ -127,4 +131,51 @@ public class PL_reg
                 System.out.println((((Shift)(vec.elementAt(i)).getKey()).getType()) + " shift at " + ((Shift)vec.elementAt(i).getKey()).getDate() + " : " + ((String)vec.elementAt(i).getValue()));
         }
     }
+    
+    private boolean handleRestrictionChoice(String choice, Employee emp){
+    	switch(choice)
+    	{
+	    	case "1":
+	        {
+	            addConstraint(emp.getId());
+	            break;
+	        }
+	        case "2":
+	        {
+	            removeConstraint(emp);
+	            break;
+	        }
+	        case "3":
+	        {
+	            showAllConstraints(emp.getId());
+	            break;
+	        }
+	        default:
+            {
+           		System.out.println("Invalid input, try again");
+            }
+    	}
+    	return true;
+    }
+
+
+	public boolean restrictionMenu(Employee emp) {
+		while (true)
+        {
+            System.out.println("Please choose an option:");
+            System.out.println("1) Add restriction");
+            System.out.println("2) Remove restriction");
+            System.out.println("3) show current restrictions");
+            System.out.println("4) show shifts");
+            String choice = scanner.nextLine();
+
+            if(!handleRestrictionChoice(choice,emp))
+                break;
+        }
+
+        return true;
+		
+	}
+    
+
 }

@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class TransportDAO extends DAO {
 	protected boolean insertTransport(Transport trs){
 		if(!this.checkValidDriver(trs))
 			return false;
-		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,ADDRESSORIGIN,"
+		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,COMPANYID,"
 				+ "DATE,HOUR,TRUCKWEIGHT,SOURCEDOC)"
 			 		+ " VALUES(?,?,?,?,?,?,?)";
 			 
@@ -26,7 +26,7 @@ public class TransportDAO extends DAO {
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
 		    pstmt.setInt(1, trs.getDriverID());
 		    pstmt.setInt(2, trs.getTruckNo());
-		    pstmt.setString(3, trs.getAddressOrign());
+		    pstmt.setInt(3, trs.getCompanyID());
 		    pstmt.setString(4, trs.getDateOfDep());
 		    pstmt.setString(5, trs.getHourOfDep());
 		    pstmt.setDouble(6, trs.getTruckWeight());
@@ -63,7 +63,7 @@ public class TransportDAO extends DAO {
 
 	protected boolean updateTransport(Transport trs){
 		 String sql = "UPDATE Transports SET "
-	                + "DRIVERID = ? ,"+ " ADDRESSORIGIN = ? ," +
+	                + "DRIVERID = ? ,"+ " COMPANYID = ? ," +
 				  " TRUCKWEIGHT = ? ," +"SOURCEDOC = ?"+
 	                " WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	 
@@ -73,7 +73,7 @@ public class TransportDAO extends DAO {
             // set the corresponding parameters
         	pstmt.setInt(1, trs.getDriverID());
 		    pstmt.setInt(5, trs.getTruckNo());
-		    pstmt.setString(2, trs.getAddressOrign());
+		    pstmt.setInt(2, trs.getCompanyID());
 		    pstmt.setString(7, trs.getDateOfDep());
 		    pstmt.setString(6, trs.getHourOfDep());
 		    pstmt.setDouble(3, trs.getTruckWeight());
@@ -90,7 +90,7 @@ public class TransportDAO extends DAO {
 	
 	protected Transport fetchTransport(int licenceNo, String hour, String date){
 
-		 String sql = "SELECT DRIVERID, LICENCETRUCK, ADDRESSORIGIN, DATE, HOUR,"
+		 String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, DATE, HOUR,"
 		 		+ " TRUCKWEIGHT, SOURCEDOC"
 		 		+ " FROM Transports " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
@@ -105,10 +105,11 @@ public class TransportDAO extends DAO {
 	        	if(!rs.next()){
 	        		return null;
 	        	}
+	        	
 	        	// get the result
 	        	return new Transport(rs.getInt(1), rs.getInt(2), 
-	        			rs.getString(3), rs.getString(4), 
-	        			rs.getString(5), rs.getDouble(6),rs.getInt(7));
+	        			rs.getInt(3), rs.getString(4), 
+	        			rs.getString(5), rs.getDouble(6),rs.getInt(7), rs.getString(8));
 	           
 	        } catch (SQLException e) {
 	        }
@@ -156,9 +157,36 @@ public class TransportDAO extends DAO {
 	            if (vec.size() > 0)
 	                return vec;
 	        } catch (SQLException e) {
-	            return vec;
+	            System.out.println(e.getMessage());
 	        }
 		return vec;
+	}
+	
+	public Vector<Integer> getOrdersInTransport(Transport tran){
+		Vector<Integer> vec = new Vector<Integer>();
+		String sql = "SELECT TransportDestinations.SOURCEDOC"
+		 		+ " FROM TransportDestinations " +
+				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
+	        
+	
+	        try (Connection conn = this.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setInt(1, tran.getTruckNo());
+			    stmt.setString(3, tran.getDateOfDep());
+			    stmt.setString(2, tran.getHourOfDep());
+			    
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	                vec.add(rs.getInt(1));
+	            }
+	            if (vec.size() > 0)
+	                return vec;
+	           
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+		return null;
 	}
 
 

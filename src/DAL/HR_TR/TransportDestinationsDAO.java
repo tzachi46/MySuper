@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,24 +17,23 @@ public class TransportDestinationsDAO extends DAO {
 	
 	protected boolean insertTransDest(TransportDestination trds){
 		String sql = "INSERT INTO TransportDestinations"
-				+ "(LICENCETRUCK,ADDRESSDEST,DATE,HOUR,DOCCODE,HOUROFARR)"
-			 		+ " VALUES(?,?,?,?,?,?)";
+				+ "(LICENCETRUCK,DATE,HOUR,DOCCODE,HOUROFARR)"
+			 		+ " VALUES(?,?,?,?,?)";
 			 
 		try (Connection conn = this.connect();
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
 		    pstmt.setInt(1, trds.getTruckNo());
-		    pstmt.setString(2, trds.getDestination());
-		    pstmt.setString(3, trds.getDateOfDep());
-		    pstmt.setString(4, trds.getHourOfDep());
-		    pstmt.setInt(5, trds.getDocCode());
-		    pstmt.setString(6, trds.getHourOfArr());
+		    pstmt.setString(2, trds.getDateOfDep());
+		    pstmt.setString(3, trds.getHourOfDep());
+		    pstmt.setInt(4, trds.getDocCode());
+		    pstmt.setString(5, trds.getHourOfArr());
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
       		    return false;
 		}
 	}
-
+/*
 	public boolean updateTransDest(TransportDestination trds){
 		//ITAYYY - Add hourOfArr
 		 String sql = "UPDATE TransportDestinations SET "
@@ -62,19 +61,19 @@ public class TransportDestinationsDAO extends DAO {
             return false;
         }
 	}
-
-	protected TransportDestination fetchTransportDestination(int licenceNo, String addressDest,
+*/
+	protected TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber,
 			String date, String hour){
 
-		 String sql = "SELECT LICENCETRUCK,DATE,HOUR,ADDRESSDEST,DOCCODE,HOUROFARR"
+		 String sql = "SELECT LICENCETRUCK,DATE,HOUR,DOCCODE,HOUROFARR"
 		 		+ " FROM TransportDestinations" +
 		 		" WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?"
-                + "AND ADDRESSDEST = ?";
+                + "AND DOCCODE = ?";
 	        
 	        try (Connection conn = this.connect();
 	             PreparedStatement stmt = conn.prepareStatement(sql)){
-	        	  stmt.setInt(1, licenceNo);
-	              stmt.setString(4, addressDest);
+	        	  stmt.setInt(1, truckNumbeer);
+	              stmt.setInt(4, orderNumber);
 	              stmt.setString(3, date);
 	              stmt.setString(2, hour);
 	            ResultSet rs = stmt.executeQuery();
@@ -82,7 +81,7 @@ public class TransportDestinationsDAO extends DAO {
 	        		return null;
 	        	}
 	        	// get the result
-	        	return new TransportDestination(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+	        	return new TransportDestination(rs.getInt(1), rs.getString(2), rs.getString(3),
 	        			rs.getInt(5), rs.getString(6));	//ITAYYYYY - Change "" to hourOfArr
 	           
 	        } catch (SQLException e) {
@@ -90,7 +89,7 @@ public class TransportDestinationsDAO extends DAO {
 		return null;
 	}
 	
-	protected boolean deleteTransportDestination(int truckNumber, String addressDest,
+	/*protected boolean deleteTransportDestination(int truckNumber, String addressDest,
 			String date, String hour){
 		 String sql = "DELETE FROM TransportDestinations "
 		 		+ "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?"
@@ -110,14 +109,15 @@ public class TransportDestinationsDAO extends DAO {
         } catch (SQLException e) {
                return false;
         }
-	}
-	protected String getTransportDests(String date, String hour, int truckNo) {
+	}*/
+	protected Vector<Integer> getTransportOrders(String date, String hour, int truckNo) 
+	{
 		//ITAYYYY - Add hourOfArr
-		 String sql = "SELECT LICENCETRUCK,DATE,HOUR,ADDRESSDEST,DOCCODE,HOUROFARR"
+		 Vector<Integer> orderNumber = new Vector<Integer>();
+		 String sql = "SELECT DOCCODE"
 			 		+ " FROM TransportDestinations" +
 			 		" WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
-		 String ans = "Date: " + date + ", " + "Hour: " + hour + ", " + "Truck's No: " + truckNo + "\n";       
-		        try (Connection conn = this.connect();
+		   try (Connection conn = this.connect();
 		             PreparedStatement stmt = conn.prepareStatement(sql)){
 		        	  stmt.setInt(1, truckNo);
 		              stmt.setString(3, date);
@@ -125,16 +125,17 @@ public class TransportDestinationsDAO extends DAO {
 		              //ITAYYY - Add here hourOfArr as part of the string
 		            ResultSet rs = stmt.executeQuery();
 		        	// get the result
-		            while(rs.next()){
-		        		ans = ans + "Destination Address: " + rs.getString(4) + 
-		        				     " Supplies Doc code: " + rs.getInt(5) +
-		        				" hour of arrival: " + rs.getString(6) + "\n";
+		            while(rs.next())
+		            {
+		            	orderNumber.addElement(rs.getInt(1));
 		        	}
-		        	 return ans;
+		        	if(orderNumber.size() > 0)
+		        		return orderNumber;
 		           
 		        } catch (SQLException e) {
-		 		        }
-			return null;
+		 		       System.out.println(e.getMessage());
+		        }
+			return orderNumber;
 	}
 	public Vector<String> getHoursOfArrival(Transport trans) {
 		 Vector<String> vec = new Vector<String>();
@@ -161,4 +162,5 @@ public class TransportDestinationsDAO extends DAO {
 	         }
 	        return vec;
 	}
+
 }

@@ -2,7 +2,7 @@ package BL.TransportsEmployess;
 
 import java.util.Vector;
 
-import DAL.HR_TR.DALhrtrManager;
+import DAL.DAL_imp;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Site;
@@ -13,10 +13,10 @@ import SharedClasses.TransportsEmployess.Truck;
 public class BLTransports_imp implements BLTransports {
 
 	//Fields
-	DALhrtrManager dal;
+	DAL_imp dal;
 	
 	public BLTransports_imp() {
-		dal = DALhrtrManager.getDALImp();
+		dal = DAL_imp.getDALImp();
 	}
 
 	@Override
@@ -126,8 +126,6 @@ public class BLTransports_imp implements BLTransports {
 	@Override
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time) 
 	{
-		if(time.equals("morning") || time.equals("evening"))
-			return dal.fetchAvailableDrivers(addressStore, date, time);
 		//Check shift type
 		String type="morning";
 		int hour = Integer.parseInt(time.substring(0, 2));
@@ -201,17 +199,4 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
 		return this.dal.fetchAvailableTrucks(date, shift);
 	}
-
-	@Override
-	public Vector<Integer> getOrdersInTransport(Transport trans) {
-			return dal.getOrdersInTransport(trans);
-	}
-
-	public String getArrivalTime(int orderNumber, Transport transport) {
-
-		return dal.fetchTransportDestination(transport.getTruckNo(),
-				transport.getCompanyID(), 
-				transport.getDateOfDep(), transport.getHourOfDep()).getHourOfArr();
-	}
-
 }

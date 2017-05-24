@@ -1,13 +1,15 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.nio.file.Paths;
 import java.util.Vector;
 
+import DAL.DALhrtr_Interface;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -16,19 +18,19 @@ import SharedClasses.TransportsEmployess.Truck;
 
 
 
-public class DAL_imp implements DAL{
+public class DALhrtrManager implements DALhrtr_Interface{
 	private String url = "jdbc:sqlite:" + Paths.get(".").toAbsolutePath().normalize().toString()
 			+ "\\DataBase.db";
-	private static DAL_imp singleDAL = null;
+	private static DALhrtrManager singleDAL = null;
 	private Repository repo;
-	private DAL_imp(){
+	private DALhrtrManager(){
 		repo = new Repository(url);
 		repo.createDB();
 	}
 	
-	public static DAL_imp getDALImp(){
+	public static DALhrtrManager getDALImp(){
 		if(singleDAL == null){
-			singleDAL = new DAL_imp();
+			singleDAL = new DALhrtrManager();
 		}
 		return singleDAL;
 	}
@@ -89,12 +91,13 @@ public class DAL_imp implements DAL{
 	public boolean insertTransportDestination(TransportDestination transportDestination) {
 		return repo.getTransDests().insertTransDest(transportDestination);
 	}
-	public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time) {
+	/*public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time) {
 		return repo.getTransDests().deleteTransportDestination(truckNumber, siteAddress, date, time);
 	}
+	
 	public String getTransportDests(String date, String hour, int truckNumber) {
 		return repo.getTransDests().getTransportDests(date, hour, truckNumber);
-	}
+	}*/
 
 	@Override
 	public boolean insertEmployee(Employee emp) {
@@ -225,6 +228,29 @@ public class DAL_imp implements DAL{
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date) {
 		return repo.getTransports().fetchtrucksAndDates(date);
 	}
+
+	@Override
+	public boolean insertMessage(Message message) {
+		return repo.getMessages().insertMessage(message);
+	}
+
+	public Vector<Pair<String, Integer>> getMessages(String workAddress, boolean b) {
+		// first=date second = ordernumber
+		return repo.getMessages().fetchMessages(workAddress, b);
+	}
 	
-	
+	@Override
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift){
+		return this.repo.fetchAvailableTrucks(date, shift);
+	}
+
+	@Override
+	public Vector<Integer> getOrdersInTransport(Transport trans) {
+		return this.repo.transports.getOrdersInTransport(trans);
+	}
+
+	@Override
+	public TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber, String date, String hour) {
+		return this.repo.transDests.fetchTransportDestination(truckNumbeer, orderNumber, date, hour);
+	}
 }

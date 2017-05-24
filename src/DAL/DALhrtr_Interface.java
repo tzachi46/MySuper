@@ -6,6 +6,7 @@ import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
@@ -13,7 +14,7 @@ import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.TransportDestination;
 import SharedClasses.TransportsEmployess.Truck;
 
-public interface DAL {
+public interface DALhrtr_Interface {
 	/* Trucks */
 	public boolean insertTruck(Truck truck);
 	public Truck fetchTruck(int truckNumber);
@@ -32,8 +33,8 @@ public interface DAL {
 	public boolean deleteTransport(String date, String time, int truckNumber);
 	/* TransportDestination */
 	public boolean insertTransportDestination(TransportDestination transportDestination);
-	public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time);
-	public String getTransportDests(String date, String hour, int truckNumber);
+	//public boolean deleteTransportDestination(int truckNumber, String siteAddress, String date, String time);
+	//public String getTransportDests(String date, String hour, int truckNumber);
 	/* Drivers */
 	public boolean insertDriver(Driver driver);
 	public Driver fetchDriver(int iD);
@@ -75,5 +76,10 @@ public interface DAL {
 	
 	public Vector<String> getHoursOfArrival(Transport trans);
 	public Vector<Pair<String, Integer>> fetchtrucksAndDates(String date);
-	
+	public boolean insertMessage(Message message);
+	public Vector<Integer> fetchAvailableTrucks(String date, String shift);
+	/***/
+	public TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber,
+			String date, String hour);
+	public Vector<Integer> getOrdersInTransport(Transport trans);
 }

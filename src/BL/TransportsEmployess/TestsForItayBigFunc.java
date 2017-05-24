@@ -1,32 +1,23 @@
-package ProgramLuncher;
+package BL.TransportsEmployess;
 
-import java.util.Vector;
-
-import BL.TransportsEmployess.BLimp;
 import DAL.DALhrtr_Interface;
 import DAL.HR_TR.DALhrtrManager;
-import DAL.Orders.OrderManager;
-import SharedClasses.Pair;
-import SharedClasses.StorageSuppliers.Order;
-import SharedClasses.StorageSuppliers.OrderProduct;
-import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
-import SharedClasses.TransportsEmployess.Message;
-import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
 
-public class init 
-{
-	public static void initHRTR() 
-	{
+public class TestsForItayBigFunc {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BLimp bl = new BLimp();
 		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
-		//4 stores
+		
 		dal_imp.insertSite(new Site("Base", "0111111111", "yoniz",  123));
 		dal_imp.insertSite(new Site("ofir street", "0111111111", "ofir",  123));
 		dal_imp.insertSite(new Site("dov street", "0111111111", "dov",  123));
@@ -39,14 +30,8 @@ public class init
 		dal_imp.insertEmployee(new Employee(911111111, "admin1", "admin1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "ofir street", 7));
 		dal_imp.insertEmployee(new Employee(922222222, "admin2", "admin2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(933333333, "admin3", "admin3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "rosh street", 7));
-		// 6 mangers 2 per Store
-		/*dal_imp.insertEmployee(new Employee(211111111, "maneger1", "maneger1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "ofir street", 7));
-		dal_imp.insertEmployee(new Employee(222222222, "maneger2", "maneger2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "ofir street", 7));
-		dal_imp.insertEmployee(new Employee(233333333, "maneger3", "maneger3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(244444444, "maneger4", "maneger4", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(255555555, "maneger5", "maneger5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "rosh street", 7));
-		dal_imp.insertEmployee(new Employee(266666666, "maneger5", "maneger5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "rosh street", 7));
-	*/	// 18 regular employees 6 per Store
+	
+		// 18 regular employees 6 per Store
 		dal_imp.insertEmployee(new Employee(611111111, "regular1", "regular1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
 		dal_imp.insertEmployee(new Employee(622222222, "regular2", "regular2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
 		dal_imp.insertEmployee(new Employee(633333333, "regular3", "regular3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
@@ -56,7 +41,7 @@ public class init
 		
 		dal_imp.insertEmployee(new Employee(677777777, "regular7", "regular7", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(688888888, "regular8", "regular8", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
+		dal_imp.insertEmployee(new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(711111111, "regular10", "regular10", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(722222222, "regular11", "regular11", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
 		dal_imp.insertEmployee(new Employee(733333333, "regular12", "regular12", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7));
@@ -201,32 +186,6 @@ public class init
 		dal_imp.insertTruck(new Truck(55555555, "subaro", 1000, 70, 30));
 		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 100, 45));
 		
-		//messages
-		//System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
-		
 	}
 
-	public static void forItay() {
-		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
-		Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
-		Shift sht = new Shift("24/12/2017", "morning", 3, 1, "ofir street");
-		vec.add(new Pair<String,Integer>("StoreKeeper",1));
-		vec.add(new Pair<String,Integer>("Carrier",1));
-		dal_imp.insertShift(sht,
-				vec);
-		dal_imp.addEmployeeShift(sht, 
-				new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7)
-				, "StoreKeeper");
-		dal_imp.addEmployeeShift(sht, 
-				new Driver(655555555, "regular5", "regular5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7,31)
-				, "Carrier");
-		//dal_imp.insertTransport(new Transport(611111111, 11111111, 1, "24/12/2017", "10:01", 0, 0));
-		Order ord = new Order(1/*key autoinc*/,1/*supplierid*/,"24/12/2017",0,"30/12/2017", "ofir street",0);
-		ord.addProduct(new OrderProduct(1,2));
-		ord.addProduct(new OrderProduct(2,2));
-		OrderManager.getInstance().addNewOrder(ord);
-		
-		BLimp bl = new BLimp();
-		System.out.println(bl.checkDate("24/12/2017", "ofir street", 1, ord));
-	}
 }

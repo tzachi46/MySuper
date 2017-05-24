@@ -1,4 +1,4 @@
-package DAL;
+package DAL.HR_TR;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,16 +14,15 @@ public class SiteDAO extends DAO {
 	}
 	
 	protected boolean insertSite(Site site){
-		String sql = "INSERT INTO Sites(ADDRESS,CONTACTNAME,PHONENO,ISSTORE,AREACODE)"
-		 		+ " VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO Sites(ADDRESS,CONTACTNAME,PHONENO,AREACODE)"
+		 		+ " VALUES(?,?,?,?)";
 		 
 		try (Connection conn = this.connect();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 		    pstmt.setString(1, site.getAddress());
 		    pstmt.setString(2, site.getContactName());
 		    pstmt.setString(3, site.getPhoneNum());
-		    pstmt.setInt(4, site.getIsStore());
-		    pstmt.setInt(5, site.getAreaCode());
+		    pstmt.setInt(4, site.getAreaCode());
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) 
@@ -60,7 +59,7 @@ public class SiteDAO extends DAO {
 	}
 	
 	protected Site fetchSite(String address){
-		 String sql = "SELECT ADDRESS, CONTACTNAME, PHONENO, ISSTORE, AREACODE"
+		 String sql = "SELECT ADDRESS, CONTACTNAME, PHONENO, AREACODE"
 			 		+ " FROM Sites " +
 					 "WHERE ADDRESS = ?";
 		        
@@ -73,7 +72,7 @@ public class SiteDAO extends DAO {
         	}
         	// get the result
         	return new Site(rs.getString(1), rs.getString(3), 
-        			rs.getString(2), rs.getInt(4), rs.getInt(5));
+        			rs.getString(2), rs.getInt(5));
            
         } catch (SQLException e) {
         }

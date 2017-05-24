@@ -26,17 +26,17 @@ public interface BLTransports {
 	//*******************//
 	
 	//***** Sites *****//
-	public boolean createSite(String address, String phoneNumber, String contactName, int isStore, int areaCode);		
+	public boolean createSite(String address, String phoneNumber, String contactName, int areaCode);		
 	public boolean updateSite(String address, String phoneNumber, String contactName, int areaCode);
 	public Site fetchSite(String address);
 	public boolean deleteSite(String address);
 	//*****************//
 	
 	//***** Transports *****//
-	public boolean createTransport(String date, String time, int truckNumber, int driverID, String source,
+	public boolean createTransport(String date, String time, int truckNumber, int driverID, /*String source*/int companyID,
 							double weight, int sourceDoc);
 	public Transport fetchTransport(String date, String time, int numberOfTruck);
-	public boolean updateTransport(String date, String time, int truckNumber, int driverID, String source,
+	public boolean updateTransport(String date, String time, int truckNumber, int driverID, /*String source*/int companyID,
 							double weight, int sourceDoc);
 	public boolean deleteTransport(String date, String time, int truckNumber);
 	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr) throws Exception;
@@ -47,4 +47,10 @@ public interface BLTransports {
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
 	public Vector<String> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
+	public boolean checkLicenceAndWeight(int driverId, int truckNo, double weight);
+	
+	
+	/***/
+	public Vector<Integer> getOrdersInTransport(Transport trans);
+	public String getArrivalTime(int orderNumber, Transport transport);
 }

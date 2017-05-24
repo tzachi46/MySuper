@@ -62,12 +62,13 @@ public class OrderDB {
 		
 		String sql = "INSERT INTO Orders \n"
                 + "	(SupplierId ,OpenDate,isPeriodic,DueDate,HaveTransport,StoreAddress)\n"
-                + "	values("+order.getSupplierId()+",'"
-                			+order.getDate()+"',"+order.getPeriodic()+",'"+order.getDueDate()+"',"+order.getHaveTransport()+"',"+order.getAddres()+"');";	
+                + "	values("+order.getSupplierId()+" ,'"
+                			+order.getDate()+"',"+order.getPeriodic()+",'"+order.getDueDate()+"',"+order.getHaveTransport()+", '"+order.getAddres()+"');";	
 		try (Statement stmt = DALManager.conn.createStatement()) {
 				stmt.execute(sql);
 			
         } catch (SQLException e) {
+        	System.out.println(e.getMessage());
         	return;
         }
 		sql="select last_insert_rowid() as a;";
