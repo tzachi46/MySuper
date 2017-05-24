@@ -26,12 +26,14 @@ public class InitSupplierInv {
 	public static void init() throws Exception 
 	{
 		DAL.DALManager.getInstance();
+		init.initHRTR();
 		InitProducts();
 		InitSupplier();
 		InitSupplierDays();
 		InitSupplierContact();
 		InitProductPrices();
 		initOrder();
+		
 		
 	}
 	
