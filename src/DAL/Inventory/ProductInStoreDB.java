@@ -176,7 +176,7 @@ public class ProductInStoreDB {
 			try ( Statement stmt  = DALManager.conn.createStatement();
 		             ResultSet rs    = stmt.executeQuery(sql)){
 				 while(rs.next()){
-					 temp.add(ProductDB.getProductDB().getProduct(rs.getInt("Barcode")));
+					 temp.add(InvDALManager.getInstance().getProduct(rs.getInt("Barcode"),storeAddress));
 				 }
 			 }
 			 catch (SQLException e) {}
