@@ -78,11 +78,7 @@ public class ProductInStoreDB {
 	
 	protected void UpdateProductInStore(ProductInStore productInStore){
 		String sql = "UPDATE ProductInStore \n"
-<<<<<<< HEAD
                 + "SET \n"
-=======
-                + "SET StoreAdd='"+productInStore.getStoreAddress()+"',\n"
->>>>>>> origin/debug_shay
                 + "QuantityShelf="+productInStore.getStoreQuantity()+",\n"
                 + "QuantityWarehouse="+productInStore.getWareQuantity()+",\n"
                 + "PlaceInWarehouse='"+productInStore.getWarehouseLoc()+"',\n" 
@@ -95,7 +91,6 @@ public class ProductInStoreDB {
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {  
-        	System.out.println("FAILS");
         }
 	}
 	
