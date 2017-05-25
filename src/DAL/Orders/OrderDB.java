@@ -95,8 +95,8 @@ public class OrderDB {
                 + "SET SupplierId="+order.getSupplierId()+",\n"
                 + "OpenDate='"+order.getDate()+"',\n"
                 + "isPeriodic="+order.getPeriodic()+",\n"
-                + "DueDate='"+order.getDueDate()+"'\n"
-                + "HaveTransport='"+order.getHaveTransport()+"'\n"
+                + "DueDate='"+order.getDueDate()+"',\n"
+                + "HaveTransport='"+order.getHaveTransport()+"',\n"
                 + "StoreAddress='"+order.getAddres()+"'\n"
                 + "WHERE OrderNumber="+order.getOrderNumber()+";"; 
 		OrderManager.executeSQLCommand(sql);
