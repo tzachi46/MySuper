@@ -54,8 +54,8 @@ public class InitSupplierInv {
                 + "	StoreDefective integer DEFAULT 0,\n"
                 + " WareDefective integer DEFAULT 0,\n"
                 + " SalesPerDay integer DEFAULT 0,\n"
-                + "FOREIGN KEY(Barcode) REFERENCES Product(Barcode) ON UPDATE CASCADE ON DELETE CASCADE"
-                + "FOREIGN KEY(StoreAdd) REFERENCES Sites(ADDRESS) ON UPDATE CASCADE ON DELETE CASCADE"
+                + "FOREIGN KEY(Barcode) REFERENCES Product(Barcode) ON UPDATE CASCADE ON DELETE CASCADE,"
+                + "FOREIGN KEY(StoreAdd) REFERENCES Sites(ADDRESS) ON UPDATE CASCADE ON DELETE CASCADE,"
                 +"CONSTRAINT PKProductInStore PRIMARY KEY (Barcode, StoreAdd)\n"
                 + ");";
 		String sql4 = "CREATE TABLE IF NOT EXISTS Category (\n"
