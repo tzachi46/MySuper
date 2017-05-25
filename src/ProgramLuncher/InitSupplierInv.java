@@ -1,19 +1,9 @@
 package ProgramLuncher;
-
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import BL.StorageSuppliers.BLSupplier;
-import BL.StorageSuppliers.InvBLManager;
-import BL.StorageSuppliers.Orders;
-import DAL.DALManager;
 import DAL.Inventory.CategoryDB;
 import DAL.Inventory.ProductDB;
-import DAL.Inventory.ProductSellingCostDB;
 import DAL.Orders.OrderManager;
 import DAL.Suppliers.SupplierManager;
-import DAL.Suppliers.SupplierProductsDB;
-import PL.StorageSuppliers.SupplierPL.PricesMenuCLI;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -23,17 +13,17 @@ import SharedClasses.StorageSuppliers.Supplier;
 import SharedClasses.StorageSuppliers.SupplierContact;
 
 public class InitSupplierInv {
+	
+	
+	
 	public static void init() throws Exception 
 	{
-		DAL.DALManager.getInstance();
-		init.initHRTR();
 		InitProducts();
 		InitSupplier();
 		InitSupplierDays();
 		InitSupplierContact();
 		InitProductPrices();
 		initOrder();
-		
 		
 	}
 	
@@ -55,7 +45,7 @@ public class InitSupplierInv {
                 + "	FOREIGN KEY(Barcode) REFERENCES Product(Barcode) ON DELETE CASCADE ON UPDATE CASCADE\n"
                 + ");";
 		String sql3 = "CREATE TABLE IF NOT EXISTS ProductInStore (\n"
-                + "	Barcode integer PRIMARY KEY,\n"
+                + "	Barcode integer,\n"
                 + "	StoreAdd TEXT NOT NULL,\n"
                 + "	QuantityShelf integer NOT NULL,\n"
                 + "	QuantityWarehouse integer NOT NULL,\n"

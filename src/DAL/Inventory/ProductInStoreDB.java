@@ -34,7 +34,7 @@ public class ProductInStoreDB {
 	 */
 	protected void InitTable(){
 		String sql = "CREATE TABLE IF NOT EXISTS ProductInStore (\n"
-                + "	Barcode integer PRIMARY KEY,\n"
+                + "	Barcode integer ,\n"
                 + "	StoreAdd TEXT NOT NULL,\n"
                 + "	QuantityShelf integer NOT NULL,\n"
                 + "	QuantityWarehouse integer NOT NULL,\n"

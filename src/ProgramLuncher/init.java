@@ -1,5 +1,6 @@
 package ProgramLuncher;
 
+import java.io.File;
 import java.util.Vector;
 
 import BL.TransportsEmployess.BLimp;
@@ -9,20 +10,30 @@ import DAL.Orders.OrderManager;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
-import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
-import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
-import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
 
 public class init 
 {
+	public static void main(String[] args) throws Exception {
+		String Location=""+System.getProperty("user.dir")+"/DataBase.db";
+		File f= new File(Location);
+		f.delete();
+		
+		DAL.DALManager.getInstance();
+		initHRTR();
+		
+		InitSupplierInv.init();
+		forItay();
+		System.out.println("DB has been ReInitialized");
+	}
+	
 	public static void initHRTR() 
 	{
 		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();

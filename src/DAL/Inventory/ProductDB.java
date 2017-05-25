@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import DAL.DALManager;
-import DAL.Suppliers.SupplierManager;
-import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Product;
 /**
  * Manage the Product table in the DB 
