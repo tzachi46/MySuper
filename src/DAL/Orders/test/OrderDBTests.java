@@ -30,7 +30,7 @@ public class OrderDBTests {
 	/*	Specialorder = new Order(1010, 0, 311498703);
 	*/	
 	}
-	private Supplier addSupplier() throws Exception{
+/*	private Supplier addSupplier() throws Exception{
 		Supplier supplier = new Supplier(10101, "nivos", 12345, 1, "Cash", 1, "albert kami");
 		DAL.Suppliers.SupplierManager.getInstance().removeSupplier(supplier.getCompanyId());
 		DAL.Suppliers.SupplierManager.getInstance().addNewSupplier(supplier);
@@ -43,7 +43,7 @@ public class OrderDBTests {
 		String Location=""+System.getProperty("user.dir")+"/DataBaseForTest.db";
 		File f= new File(Location);
 		f.delete();
-	}
+	}*/
 /*
 	@Test
 	public void addOrder() throws Exception {
@@ -55,6 +55,6 @@ public class OrderDBTests {
 		assertEquals(order.getSupplierId(), toInsert.getSupplierId());
 		assertEquals(order.getOrderNumber(),toInsert.getOrderNumber());
 	}
-*/
 
-}
+
+}*/

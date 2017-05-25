@@ -349,10 +349,13 @@ public class BLimp implements BL {
         LocalDate localDate = LocalDate.now();
         String date; 
         for(int i = 0; i < WEEK; i++){
-       	 localDate.plusDays(i);
-       	 date = dtf.format(localDate);
-       	 if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true)/* after big merge */
-       			 return true;
+			localDate.plusDays(i);
+			date = dtf.format(localDate);
+			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
+				order.setDueDate(order.getDate());
+				order.setHaveTransport(1);
+				return true;
+			}
         }
         return false;
    }
