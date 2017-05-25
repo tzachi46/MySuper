@@ -34,7 +34,7 @@ public class Orders {
 	 * @return get all orders ever created
 	 */
 	public LinkedList<Order> getAllOrders(){
-		return DAL.Orders.OrderManager.getInstance().getAllOrders();
+		return DAL.Orders.OrderManager.getInstance().getAllOrders(BLManager.emp.getWorkAddress());
 	}
 	
 	/**

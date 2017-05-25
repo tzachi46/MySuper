@@ -262,7 +262,7 @@ public class CLIMenu {
 
 	}
 	private void orderArrival(Scanner in){
-		boolean endOfPage=false;
+		boolean endOfPage=false; 
 		while(!endOfPage){
 			System.out.println("Please enter order id. If you wish to return to order menu press ~");
 			String s=in.nextLine();

@@ -25,9 +25,9 @@ public class OrderDB {
 		OrderManager.executeSQLCommand(sql);
 	}
 	
-	protected LinkedList<Order> getAllOrders(){
+	protected LinkedList<Order> getAllOrders(String StoreAddress){
 		LinkedList<Order> res= new LinkedList<Order>();
-		String sql="select OrderNumber,SupplierId,OpenDate,isPeriodic,DueDate,StoreAddress,HaveTransport from Orders";
+		String sql="select OrderNumber,SupplierId,OpenDate,isPeriodic,DueDate,StoreAddress,HaveTransport from Orders where StoreAddress is '"+StoreAddress+"'";
 		try (Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
 			 while(rs.next()){

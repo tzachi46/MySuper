@@ -29,9 +29,9 @@ public class OrderManager {
 		
 	}
 	
-	public LinkedList<Order> getAllOrders(){
+	public LinkedList<Order> getAllOrders(String StoreAddress){
 		orderDB.initTable();
-		return orderDB.getAllOrders();
+		return orderDB.getAllOrders(StoreAddress);
 	}
 	
 	public LinkedList<Order> getUndeliverdOrders(){
