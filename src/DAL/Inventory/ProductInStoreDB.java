@@ -191,7 +191,7 @@ public class ProductInStoreDB {
 	 * @return array of barricades
 	 */
 	public int[] getItemsInInventory(String storeAddress){
-		String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is " + storeAddress +"AND  QuantityShelf>=0 OR QuantityWarehouse>=0 ";
+		String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is " + storeAddress +" AND  QuantityShelf>=0 OR QuantityWarehouse>=0 ";
 		int[] res=null;
 		LinkedList<Integer> temp = new LinkedList<Integer>();
 		 try (Statement stmt  = DALManager.conn.createStatement();

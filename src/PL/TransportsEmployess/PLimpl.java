@@ -195,7 +195,7 @@ public class PLimpl implements PL
             System.out.println("1) Show messages");
             System.out.println("2) Employee reports management");
             System.out.println("3) Shifts reports management");
-            System.out.println("5) Supplier management");
+            System.out.println("4) Supplier management");
             System.out.println("~) Go back to Previous menu");
             String choice = scanner.nextLine();
 
@@ -418,14 +418,6 @@ public class PLimpl implements PL
                 break;
             }
             case "4":
-            {//emp shifts
-            	String id=pl_shared.getExistingId();
-            	if(id.equals("~"))
-            		break;
-                pl_reg.showAllShifts(Integer.parseInt(id));
-                break;
-            }
-            case "5":
             {//supplier management
             	CLIMenu.getInstance().Start(scanner);
             	break;
@@ -495,7 +487,7 @@ public class PLimpl implements PL
         	System.out.println("Choose one of the followings: ");
             System.out.println("1) Show initialized shifts");
             System.out.println("2) Show uninitialized shifts");
-            System.out.println("3) Return to previous menu");
+            System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleEmployeeShiftReportManagementMenuChoice(choice,emp))
                 break;
@@ -518,7 +510,7 @@ public class PLimpl implements PL
                 System.out.println("currently unsported will be avilable soon");
                 break;
             }
-            case "3":
+            case "~":
             {//ret
                 return false;
             }
@@ -553,6 +545,7 @@ public class PLimpl implements PL
             	{
             		CLIMenu.getInstance().Start(scanner);
             	}
+            	break;
             }
             case "4":
             {
@@ -562,6 +555,7 @@ public class PLimpl implements PL
             	{
             		InventoryCLI.GetInvCLIManager().Start();
             	}
+            	break;
             }
             case "5":
             {
@@ -571,6 +565,7 @@ public class PLimpl implements PL
             	{
             		OrderCLI.Start(scanner);
             	}
+            	break;
             }
             case "~":
             {
@@ -579,6 +574,7 @@ public class PLimpl implements PL
             default:
             {
             		System.out.println("Invalid input, try again");
+            		break;
             }
         }
         return true;
@@ -610,6 +606,7 @@ public class PLimpl implements PL
 		    default:
 		    {
 		        System.out.println("Invalid input, try again");
+		        break;
 			}
 		}
 		return true;
