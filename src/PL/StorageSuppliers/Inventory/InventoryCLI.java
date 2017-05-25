@@ -203,12 +203,20 @@ public class InventoryCLI {
 		if(temp!=null){
 			System.out.println("Running out products report:\n"
 					+ "----------------------------------------");
-			for(int i=0;i<temp.size();i++)
-				System.out.println("Product id: "+temp.get(i).getId()+"\nProduct name: "+temp.get(i).getName()
-						+"\nTotal amount in inventory: "+(temp.get(i).getStoreQuantity()+temp.get(i).getWarehouseQuantity())
-						+"\nTotal missing in inventory: "+(temp.get(i).getWarningQuantity()-temp.get(i).getStoreQuantity()-temp.get(i).getWarehouseQuantity())
-						+"\nAverage sell per day: "+temp.get(i).getSalesPerDay()+"\n"
-						+  "----------------------------------------");
+			for(int i=0;i<temp.size();i++){
+				if(temp.get(i).getWarningQuantity()-temp.get(i).getStoreQuantity()-temp.get(i).getWarehouseQuantity()>2000000000)
+					System.out.println("Product id: "+temp.get(i).getId()+"\nProduct name: "+temp.get(i).getName()
+							+"\nTotal amount in inventory: "+(temp.get(i).getStoreQuantity()+temp.get(i).getWarehouseQuantity())
+							+"\nTotal missing in inventory: No supplier to supply this item!"
+							+"\nAverage sell per day: "+temp.get(i).getSalesPerDay()+"\n"
+							+  "----------------------------------------");
+				else
+					System.out.println("Product id: "+temp.get(i).getId()+"\nProduct name: "+temp.get(i).getName()
+							+"\nTotal amount in inventory: "+(temp.get(i).getStoreQuantity()+temp.get(i).getWarehouseQuantity())
+							+"\nTotal missing in inventory: "+(temp.get(i).getWarningQuantity()-temp.get(i).getStoreQuantity()-temp.get(i).getWarehouseQuantity())
+							+"\nAverage sell per day: "+temp.get(i).getSalesPerDay()+"\n"
+							+  "----------------------------------------");
+			}
 		}
 		System.out.println("If you wish to return to the main menu press ~");
 		String s=in.nextLine();

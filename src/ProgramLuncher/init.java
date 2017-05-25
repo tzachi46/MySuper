@@ -229,10 +229,22 @@ public class init
 				new Driver(655555555, "regular5", "regular5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7,31)
 				, "Carrier");
 		//dal_imp.insertTransport(new Transport(611111111, 11111111, 1, "24/12/2017", "10:01", 0, 0));
-		Order ord = new Order(1/*key autoinc*/,1/*supplierid*/,"24/12/2017",0,"30/12/2017", "ofir street",0);
-		ord.addProduct(new OrderProduct(1,2));
-		ord.addProduct(new OrderProduct(2,2));
-		OrderManager.getInstance().addNewOrder(ord);
+//		Order ord = new Order(1/*key autoinc*/,1/*supplierid*/,"24/12/2017",0,"30/12/2017", "ofir street",0);
+//		ord.addProduct(new OrderProduct(1,2));
+//		ord.addProduct(new OrderProduct(2,2));
+//		OrderManager.getInstance().addNewOrder(ord);
+		Order ord = new Order(1);
+		ord.setPeriodic(5);
+		OrderProduct orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(10);
+		OrderProduct orderProduct2=new OrderProduct(2);
+		orderProduct.setAmount(5);
+		ord.setAddres("ofir street");
+		
+		DAL.Orders.OrderManager.getInstance().addNewOrder(ord);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct2);
+		
 		
 		BLimp bl = new BLimp();
 		System.out.println(bl.checkDate("24/12/2017", "ofir street", 1, ord));

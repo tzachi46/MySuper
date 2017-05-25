@@ -513,13 +513,14 @@ public class InitSupplierInv {
 		order.setPeriodic(10);
 		OrderProduct orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
-		order.addProduct(orderProduct);
+		order.setAddres("ofir street");
 		
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(1,orderProduct);
 		
 		Order order2=new Order(2);
 		order2.setPeriodic(10);
+		order2.setAddres("Base");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order2);
 		
 		orderProduct=new OrderProduct(6);
