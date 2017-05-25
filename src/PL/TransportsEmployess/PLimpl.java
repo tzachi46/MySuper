@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 import BL.BLManager;
 import BL.TransportsEmployess.*;
+import PL.StorageSuppliers.Inventory.InventoryCLI;
+import PL.StorageSuppliers.Order.OrderCLI;
 import PL.StorageSuppliers.SupplierPL.CLIMenu;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 
@@ -215,8 +218,10 @@ public class PLimpl implements PL
             	System.out.println("3) go back to Previous menu");
             else
             {
-            	System.out.println("3) supplier manegment");
-            	System.out.println("4) go back to Previous menu");
+            	System.out.println("3) supplier manegment screen");
+            	System.out.println("4) Inventory manegment screen");
+            	System.out.println("5) Order manegment screen");
+            	System.out.println("6) go back to Previous menu");
             }
             /*System.out.println("1) Add restriction");
             System.out.println("2) Remove restriction");
@@ -548,11 +553,35 @@ public class PLimpl implements PL
             		CLIMenu.getInstance().Start(scanner);
             	}
             }
+            case "4":
+            {
+            	if(!isStoreKeeper)
+            		System.out.println("Invalid input, try again");
+            	else
+            	{
+            		InventoryCLI.GetInvCLIManager().Start();
+            	}
+            }
+            case "5":
+            {
+            	if(!isStoreKeeper)
+            		System.out.println("Invalid input, try again");
+            	else
+            	{
+            		OrderCLI.Start(scanner);
+            	}
+            }
+            case "6":
+            {
+            	if(!isStoreKeeper)
+            		System.out.println("Invalid input, try again");
+            	else
+            	{
+            		return false;
+            	}
+            }
             default:
             {
-            	if(isStoreKeeper && choice.equals("4"))
-            		return false;
-            	else
             		System.out.println("Invalid input, try again");
             }
         }
