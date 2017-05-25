@@ -71,8 +71,7 @@ public class SiteDAO extends DAO {
         		return null;
         	}
         	// get the result
-        	return new Site(rs.getString(1), rs.getString(3), 
-        			rs.getString(2), rs.getInt(5));
+        	return new Site(rs.getString(1), rs.getString(3), rs.getString(2), rs.getInt(4));
            
         } catch (SQLException e) {
         }
