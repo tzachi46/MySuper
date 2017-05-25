@@ -27,26 +27,6 @@ public class PL_HR_man
         this.pl_shared = pl_shared;
     }
     
-    /*
-    private Rank getRank()
-    {
-    	 System.out.println("Choose rank :");
-         System.out.println("1) regular employee");
-         System.out.println("2) manager ");
-         String rank = scanner.nextLine();
-
-         while(!rank.equals("1") && !rank.equals("2"))
-         {
-             if (rank.equals("0"))
-                 return null;
-             System.out.println("rank is not valid, try again: :");
-             rank = scanner.nextLine();
-         }
-         if(rank.equals("1"))
-        	 return Employee.Rank.regular;
-         else
-        	 return Employee.Rank.shiftManager;     
-    }*/
     
     private String getLicenceDriver(boolean isManger)
     {
@@ -69,15 +49,7 @@ public class PL_HR_man
          }
          return lio;
     }
-    /*
-    private void addAllSpeciality(int id)
-    {
-    	 bl.addEmployeeSpeciality(id, "ShiftManager");
-         bl.addEmployeeSpeciality(id, "Cashier");
-         bl.addEmployeeSpeciality(id, "StoreKeeper");
-         bl.addEmployeeSpeciality(id, "Carrier");
-    }
-    */
+    
     public void reEmploy(String address)
     {
     	System.out.println("At any point you can press ~ to return to previous menu");

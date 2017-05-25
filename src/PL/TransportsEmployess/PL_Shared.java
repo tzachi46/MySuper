@@ -296,7 +296,7 @@ public class PL_Shared
 	public int manualOrder(int i, Vector<Order> undeliveredOrders) 
 	{
 		System.out.println("At any point you can press ~ to return to previous menu");
-	       
+		System.out.println("Enter order id: ");
 		Calculations calc = Calculations.GetCalculations();
         String orderNumber = scanner.nextLine();
         if(!calc.checkInt(orderNumber))
@@ -311,7 +311,7 @@ public class PL_Shared
             if (undeliveredOrders.elementAt(j).getOrderNumber()== Integer.parseInt(orderNumber))
                 return j;
         }
-        System.out.println("shift not exist");
+        System.out.println("Order not exist or already delivered");
         return i;
 	}
 }

@@ -30,39 +30,11 @@ public class PL_man {
     }
 
 
-    public void updateShift(Employee emp) {
-        while (true) {
-            System.out.println("At any point you can press ~ to return to previous menu");
-            System.out.println("choose option :");
-            System.out.println("1) Add workers to empty shift");
-            System.out.println("2) Return to previous menu");
-
-            String option = scanner.nextLine();
-
-            if (!HandleUpdateShiftOption(option,emp))
-                break;
-        }
+    public void updateShift(Employee emp) 
+    {
+    	 emptyShifts(emp.getWorkAddress());
     }
-
-    private boolean HandleUpdateShiftOption(String option,Employee emp) {
-        switch (option) {
-            case "1": {
-                emptyShifts(emp.getWorkAddress());
-                break;
-            }
-            case "2": {
-                return false;
-            }
-            case "~": {
-            	return false;
-            }
-            default: {
-                System.out.println("invalid input, try again");
-                break;
-            }
-        }
-        return true;
-    }
+    
 
     private void emptyShifts(String address) 
     {

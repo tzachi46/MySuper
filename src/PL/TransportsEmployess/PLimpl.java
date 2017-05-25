@@ -162,16 +162,6 @@ public class PLimpl implements PL
         while (true)
         {
             System.out.println("Hello " + emp.getFname());
-            /*System.out.println("1) add employee");
-            System.out.println("2) update employee"); // salery , leaving date, Rank.
-            System.out.println("3) Remploy employee"); // salery , leaving date, Rank.
-            System.out.println("4) add shift");
-            System.out.println("5) delete shift");
-            System.out.println("6) show Employee details");
-            System.out.println("7) show Initialized shifts");
-            System.out.println("8) View Messages");
-            System.out.println("9) go back to Previous menu");*/
-            
             System.out.println("1) Employees management");
             System.out.println("2) Shifts management");
             System.out.println("3) Employee's specializations management");
@@ -223,18 +213,7 @@ public class PLimpl implements PL
             	System.out.println("~) go back to Previous menu");
 
             }
-            /*System.out.println("1) Add restriction");
-            System.out.println("2) Remove restriction");
-            System.out.println("3) show current restrictions");
-            System.out.println("4) show shifts");
-            if(!isStoreKeeper)
-            	System.out.println("5) go back to Previous menu");
-            else
-            {
-            	System.out.println("5) supplier manegment");
-            	System.out.println("6) go back to Previous menu");
-            }
-			*/
+            
             String choice = scanner.nextLine();
 
             if(!HandeleRegularrChoice(choice,emp,isStoreKeeper))
@@ -289,10 +268,6 @@ public class PLimpl implements PL
             	HandleShiftManagementMenu(emp);
                 break;
             }
-            /*case "8":
-            {
-            	pl_admin.viewMessages(emp.getWorkAddress());
-            }*/
             case "3":
             {
             	pl_man.updateSpec(emp);
@@ -318,6 +293,7 @@ public class PLimpl implements PL
             System.out.println("1) Add new shift");
             System.out.println("2) Delete shift");
             System.out.println("3) Show initialized shifts");
+            System.out.println("4) Add employee to shift");
             System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleShiftManagementMenuHandle(choice,emp))
@@ -344,6 +320,11 @@ public class PLimpl implements PL
 		    case "3":
 		    {
 		        pl_admin.showInitializedShifts(emp.getWorkAddress());
+		        break;
+		    }
+		    case "4":
+		    {
+		        pl_man.updateShift(emp);
 		        break;
 		    }
 		    case "~":
@@ -895,49 +876,6 @@ public class PLimpl implements PL
              //   pl_man.updateShift(emp);
                 break;
             }
-            case "6":
-            {
-              //  pl_man.updateSpec(emp);
-                break;
-            }
-            case "7":
-            {
-                return false;
-            }
-            default:
-            {
-                System.out.println("Invalid input, try again");
-                break;
-            }
-        }
-        return true;
-    }
-    // ***************   NOT  RELEVANT IN HW3   ************************************************
-    
-    private boolean HandleLogedRegular(Employee emp)
-    {
-    	boolean isStoreKeeper = isStoreKeeper(emp.getId());
-        while (true)
-        {
-            System.out.println("Hello " + emp.getFname());
-            System.out.println("1) Add restriction");
-            System.out.println("2) Remove restriction");
-            System.out.println("3) show current restrictions");
-            System.out.println("4) show shifts");
-            if(!isStoreKeeper)
-            	System.out.println("5) go back to Previous menu");
-            else
-            {
-            	System.out.println("5) supplier manegment");
-            	System.out.println("6) go back to Previous menu");
-            }
-
-            String choice = scanner.nextLine();
-
-            if(!HandeleRegularrChoice(choice,emp,isStoreKeeper))
-                break;
-        }
-
         return true;
     }
 
@@ -951,183 +889,5 @@ public class PLimpl implements PL
 		}
 		return false;
 	}
-
-    
-    
-    private boolean HandeleRegularrChoice(String choice, Employee emp, boolean isStoreKeeper)
-    {
-        switch (choice)
-        {
-            case "1":
-            {
-                pl_reg.addConstraint(emp.getId());
-                break;
-            }
-            case "2":
-            {
-                pl_reg.removeConstraint(emp);
-                break;
-            }
-            case "3":
-            {
-                pl_reg.showAllConstraints(emp.getId());
-                break;
-            }
-            case "4":
-            {
-                pl_reg.showAllShifts(emp.getId());
-                break;
-            }
-            case "5":
-            {
-            	if(!isStoreKeeper)
-            		return false;
-            	else
-            	{
-            		CLIMenu.getInstance().Start(scanner);
-            	}
-            }
-            default:
-            {
-            	if(!isStoreKeeper && choice.equals("6"))
-            		return false;
-            	else
-            		System.out.println("Invalid input, try again");
-            }
-        }
-        return true;
-    }
-    
-	private boolean HandeleCeoChoice(String choice, Employee emp) 
-	{
-		switch(choice)
-		{
-		    case "1":
-		    {
-		        pl_SitesEdit.workOnSites();
-		        break;
-		    }
-		    case "2":
-		    {
-		        pl_TruckEdit.workOnTrucks();
-		        break;
-		    }
-		    case "3":
-		    {
-		        pl_TransportEdit.workOnTransport();
-		        break;
-		    }
-		    case "4":
-		    {
-		        return false;
-		    }
-		    default:
-		    {
-		        System.out.println("Invalid input, try again");
-			}
-		}
-		return true;
-	}
-
-	// *****  NEW  ******************************** yoni
-	private boolean HandleLogedHRmanager(Employee emp)
-	{
-		while (true)
-		{
-			System.out.println("Hello " + emp.getFname());
-		    System.out.println("1) Manage Employees");
-		    System.out.println("2) Manage Shifts"); 
-			
-		    String choice = scanner.nextLine();
-		    
-		    if(!HandleHRmanagerChoice(choice,emp))
-		        break;
-		}
-		return  true;
-	}
-
-	private boolean HandleLogedStoremanager(Employee emp)
-	{
-		while (true)
-		{
-			System.out.println("Hello " + emp.getFname());
-		    System.out.println("1) show Initialized shifts");
-		    System.out.println("2) update specialization of employee"); 
-		    System.out.println("3) Export reports"); 
-		    
-		    String choice = scanner.nextLine();
-		    
-		    if(!HandleStoremanagerChoice(choice,emp))
-		        break;
-		}
-		return  true;
-	}
-
-	private boolean HandleHRmanagerChoice(String choice, Employee emp)
-	{
-	    switch (choice)
-	    {
-	        case "1":
-	        {
-	        	//Manage Employees
-	        	pl_HR_man.manage_Employees(emp);
-	            break;
-	        }
-	        case "2":
-	        {
-	        	//Manage Shifts
-	        	pl_HR_man.manage_Shifts(emp);
-	            break;
-	        }
-	        case "~":
-	        {
-	        	 return false;
-	        }
-	        default:
-	        {
-	            System.out.println("Invalid input, try again");
-	            break;
-	        }
-	    }
-	    return true;
-	}
-
-	private boolean HandleStoremanagerChoice(String choice, Employee emp)
-	{
-	    switch (choice)
-	    {
-	        case "1":
-	        {
-	        	//Manage Employees
-	            pl_store_man.showInitializedShifts(emp.getWorkAddress());
-	            break;
-	        }
-	        case "2":
-	        {
-	        	//Manage Shifts
-	        	pl_store_man.updateSpec(emp);
-	            break;
-	        }
-	        case "3":
-	        {
-	        	//Export reports
-	        	pl_store_man.export_reports();
-	            break;
-	        }
-	        case "~":
-	        {
-	        	 return false;
-	        }
-	        default:
-	        {
-	            System.out.println("Invalid input, try again");
-	            break;
-	        }
-	    }
-	    return true;
-	}
-	// *****  NEW  ******************************** yoni
-}
-
 
 */
