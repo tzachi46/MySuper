@@ -150,6 +150,10 @@ public class PL_reg
 	            showAllConstraints(emp.getId());
 	            break;
 	        }
+	        case "4":
+	        {
+	        	return false;
+	        }
 	        default:
             {
            		System.out.println("Invalid input, try again");
@@ -166,7 +170,7 @@ public class PL_reg
             System.out.println("1) Add restriction");
             System.out.println("2) Remove restriction");
             System.out.println("3) show current restrictions");
-            System.out.println("4) show shifts");
+            System.out.println("4) go to previous menu");
             String choice = scanner.nextLine();
 
             if(!handleRestrictionChoice(choice,emp))
@@ -174,7 +178,6 @@ public class PL_reg
         }
 
         return true;
-		
 	}
     
 
