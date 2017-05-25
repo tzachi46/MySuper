@@ -7,6 +7,7 @@ import BL.TransportsEmployess.BLimp;
 import DAL.DALhrtr_Interface;
 import DAL.HR_TR.DALhrtrManager;
 import DAL.Orders.OrderManager;
+import DAL.Suppliers.SupplierManager;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -31,6 +32,10 @@ public class init
 		
 		InitSupplierInv.init();
 		forItay();
+		String s[]=new String[2];
+		s[0]="insert into SupplierProducts (SupplierId, ProductId, SupplierCatalogId, AvarageDeleveryTime) VALUES (1,2,123,21);";
+		s[1]="INSERT INTO ProductsPrices (SupplierId, ProductId, MinimumQuantity, Price) VALUES (1,2,0,10);";
+		SupplierManager.executeSQLCommand(s);
 		System.out.println("DB has been ReInitialized");
 	}
 	
