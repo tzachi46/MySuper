@@ -151,7 +151,18 @@ public class Orders {
 		list.add(toAdd);
 		
 	}*/
-	
+
+	public Order CancelOrderToNextOrder(Order order){
+		if(!order.getIsPeriodic())
+			return null;
+		order.setAddres(ZonedDateTime.now().toString());
+		updateOrder(order);
+		order.setOpenDate(ZonedDateTime.parse(order.getDate()).plusDays(order.getPeriodic()-getSupplyTimeOfOrder(order)).toString()); 
+		order.setDueDate("");
+		addNewOrder(order);
+		return order;
+		
+	}
 	
 	/**
 	 * @param orderId
@@ -276,4 +287,6 @@ public class Orders {
 				return order;
 		return null;
 	}*/
+	
+	
 }
