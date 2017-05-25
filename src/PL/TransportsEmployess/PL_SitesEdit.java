@@ -117,14 +117,14 @@ public class PL_SitesEdit
 	private Employee getValidAdmin(String address,String job)
 	{
 		System.out.println("At any point you can press ~ to return to previous menu");
-        System.out.println("Enter the details of the "+ job + "of the store:");
+        System.out.println("Enter the details of the "+ job + " of the store:");
         String id = pl_shared.getNotExistingId();
         if(id.equals("~"))
         	return null;
         String fisrt_name = pl_shared.getName("first name");
         if(fisrt_name.equals("~"))
         	return null;
-        String last_name = pl_shared.getName("last_name");
+        String last_name = pl_shared.getName("last name");
         if(last_name.equals("~"))
         	return null;	
         String salery = pl_shared.getsalary();

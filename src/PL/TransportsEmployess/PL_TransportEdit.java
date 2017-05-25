@@ -6,11 +6,9 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
-import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
-import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 

@@ -120,7 +120,7 @@ public class PL_HR_man
         String fisrt_name = pl_shared.getName("first name");
         if(fisrt_name.equals("~"))
         	return;
-        String last_name = pl_shared.getName("last_name");
+        String last_name = pl_shared.getName("last name");
         if(last_name.equals("~"))
         	return;	
         String salery = pl_shared.getsalary();

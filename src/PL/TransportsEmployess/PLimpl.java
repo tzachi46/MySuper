@@ -7,7 +7,6 @@ import BL.TransportsEmployess.*;
 import PL.StorageSuppliers.Inventory.InventoryCLI;
 import PL.StorageSuppliers.Order.OrderCLI;
 import PL.StorageSuppliers.SupplierPL.CLIMenu;
-import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 
@@ -147,7 +146,7 @@ public class PLimpl implements PL
              System.out.println("1) Store Manegment");
              System.out.println("2) Truck Manegment"); 
              System.out.println("3) Transport Manegment"); 
-             System.out.println("~) go back to Previous menu");
+             System.out.println("4) go back to Previous menu");
 
              String choice = scanner.nextLine();
 
@@ -599,10 +598,12 @@ public class PLimpl implements PL
 		        pl_TransportEdit.workOnTransport();
 		        break;
 		    }
-		    case "~":
+		    case "4":
 		    {
 		        return false;
 		    }
+		    case "~":
+		    	return false;
 		    default:
 		    {
 		        System.out.println("Invalid input, try again");

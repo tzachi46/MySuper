@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import DAL.DALManager;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.TransportDestination;
