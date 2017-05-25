@@ -114,10 +114,10 @@ public class PL_SitesEdit
 		return areaCode;
 	}
 	
-	private Employee getValidAdmin(String address)
+	private Employee getValidAdmin(String address,String job)
 	{
 		System.out.println("At any point you can press ~ to return to previous menu");
-        System.out.println("Enter the details of the human resource manger of the store:");
+        System.out.println("Enter the details of the "+ job + "of the store:");
         String id = pl_shared.getNotExistingId();
         if(id.equals("~"))
         	return null;
@@ -137,36 +137,15 @@ public class PL_SitesEdit
         if(day == 0)
         	return null;
         String currentDate = pl_shared.getCurrentDate(); 
-        return new Employee(Integer.parseInt(id),fisrt_name,last_name,Double.parseDouble(salery),currentDate,"",BankAccount,(Rank.storeManeger),address,day);
+        return new Employee(Integer.parseInt(id),fisrt_name,last_name,Double.parseDouble(salery),currentDate,"",BankAccount,Rank.valueOf(job),address,day);
 	}
 	
-//	//For site's isStore
-//	private int getStoreOrSupplierFromUser()
-//	{
-//		String option;
-//		System.out.println("choose Option:");
-//		System.out.println("1)Store");
-//		System.out.println("2)Supplier");
-//		
-//		option = scanner.nextLine(); 
-//		while(!option.equals("1") && !option.equals("2"))
-//		{
-//			if(option.equals("0"))
-//				return -1; 
-//			System.out.println("area code is not valid, try again");
-//			option = scanner.nextLine();
-//		}
-//		if(option.equals("1"))
-//			return 1;
-//		return 0;
-//	}
-
 	
 	private void insertSite() 
 	{
-		Employee admin = null;
+		Employee HR = null;
+		Employee StoreManger = null;
 		String address, phoneNum, contact, areaCode;
-//		int isStore;
 		System.out.println("Please insert the store's details : ");
 		address = pl_shared.getNotExistAddressFromUser();	
 		if(address.equals("~"))
@@ -180,23 +159,18 @@ public class PL_SitesEdit
 		areaCode = getAreaCodeFromUser();
 		if(contact.equals("~"))
 			return;	
-		/* Store or Supplier */
-//		isStore = getStoreOrSupplierFromUser();
-//		if(isStore == -1)
-//			return;
-//		if(isStore == 1)
-//		{
-			admin = getValidAdmin(address);
-			if(admin == null)
-				return;
-//		}
-		if(bl.createSite(address, phoneNum, contact,/* isStore,*/ Integer.parseInt(areaCode)))
+		HR = getValidAdmin(address,"humenResourceManeger");
+		if(HR == null)
+			return;
+		StoreManger = getValidAdmin(address,"storeManeger");
+		if(StoreManger == null)
+			return;
+		if(bl.createSite(address, phoneNum, contact, Integer.parseInt(areaCode)))
 		{
-//			if(isStore == 1)
-//			{
-				bl.addEmployee(String.valueOf(admin.getId()), String.valueOf(admin.getSalary()), admin.getFname(), admin.getLname(), admin.getStartDate(), admin.getEndDate(), admin.getRank().toString(), admin.getBankAccount(), admin.getWorkAddress(),admin.getDayOfRest());
-				pl_shared.makeDayOfWorkUnavilable(admin.getId(),admin.getDayOfRest());
-//			}
+			bl.addEmployee(String.valueOf(HR.getId()), String.valueOf(HR.getSalary()), HR.getFname(), HR.getLname(), HR.getStartDate(), HR.getEndDate(), HR.getRank().toString(), HR.getBankAccount(), HR.getWorkAddress(),HR.getDayOfRest());
+			pl_shared.makeDayOfWorkUnavilable(HR.getId(),HR.getDayOfRest());
+			bl.addEmployee(String.valueOf(StoreManger.getId()), String.valueOf(StoreManger.getSalary()), StoreManger.getFname(), StoreManger.getLname(), StoreManger.getStartDate(), StoreManger.getEndDate(), StoreManger.getRank().toString(), StoreManger.getBankAccount(), StoreManger.getWorkAddress(),StoreManger.getDayOfRest());
+			pl_shared.makeDayOfWorkUnavilable(StoreManger.getId(),StoreManger.getDayOfRest());
 			System.out.println("Store created successfully.");
 		}
 		else 
@@ -208,7 +182,7 @@ public class PL_SitesEdit
 		String address;
 		while (true)
 		{
-			address = pl_shared.getExistStoreAddressFromUser()/*getExistAddressFromUser(2)*/;
+			address = pl_shared.getExistStoreAddressFromUser();
 			if(address.equals("~"))
 				break;
 			Site site = bl.fetchSite(address);

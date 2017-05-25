@@ -265,32 +265,15 @@ public class PL_Shared
     protected String getExistStoreAddressFromUser()/*getExistAddressFromUser(int isStore)*/
 	{
 		String address;
-		//if(isStore == 1)
-			System.out.println("Please insert the stores's address : ");
-//		else if (isStore == 0)
-//			System.out.println("Please insert the supplier's address : ");
-//		else
-//			System.out.println("Please insert the site's address : ");
-//		while(true)
-//		{
+		System.out.println("Please insert the stores's address : ");
+		address = scanner.nextLine();
+		while(bl.fetchSite(address) == null) 
+		{
+			if(address.equals("~"))
+				return address;
+			System.out.println("address not exist, try again: ");
 			address = scanner.nextLine();
-			while(bl.fetchSite(address) == null) 
-			{
-				if(address.equals("~"))
-					return address;
-				System.out.println("address not exist, try again: ");
-				address = scanner.nextLine();
-			}
-//			if(bl.fetchSite(address).getIsStore() == isStore || bl.fetchSite(address).getIsStore() == 2)
-//				break;
-//			else
-//			{
-//				if(isStore == 1)
-//					System.out.println("you gave addreres of supplier ,should be address of store");
-//				else
-//					System.out.println("you gave addreres of store,should be address of supplier ");
-//			}
-//		}
+		}
 		return address;
 	}
 	
