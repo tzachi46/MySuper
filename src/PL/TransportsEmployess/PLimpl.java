@@ -172,7 +172,7 @@ public class PLimpl implements PL
             
             System.out.println("1) Employees management");
             System.out.println("2) Shifts management");
-            System.out.println("3) Update employee's specializations");
+            System.out.println("3) Employee's specializations management");
             System.out.println("4) Go back to Previous menu");
             
             String choice = scanner.nextLine();
