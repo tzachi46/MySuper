@@ -132,7 +132,7 @@ public class Orders {
 				return;
 			}
 		}
-		Order order = new Order(res.getValue().getSupplierId(),0);
+		Order order = new Order(res.getValue().getSupplierId(),0,BL.BLManager.emp.getWorkAddress());
 		order.addProduct(new OrderProduct(productId,Quantity));
 		orders.add(order);		
 	}

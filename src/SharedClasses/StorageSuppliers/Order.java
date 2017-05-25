@@ -25,27 +25,23 @@ public class Order {
 		this.StoreAddress="";
 	}
 	
-	public Order(int SupplierId, int isPeriodic){
+	public Order(int SupplierId, int isPeriodic, String StoreAddress){
 		this(SupplierId);
 		this.Periodic=isPeriodic;
+		this.StoreAddress = StoreAddress;
 	}
 	
-	public Order(int OrderNumber,int isPeriodic,int SupplierId){
-		this(SupplierId,isPeriodic);
+	public Order(int OrderNumber,int isPeriodic,int SupplierId, String StoreAddress){
+		this(SupplierId,isPeriodic,StoreAddress);
 		this.OrderNumber=OrderNumber;
 	}
 	
-	public Order(int OrderNumber,int SupplierId,String openDate, int isPeriodic,String DueDate){
-		this(OrderNumber,isPeriodic, SupplierId);
+	public Order(int OrderNumber,int SupplierId,String openDate, int isPeriodic,String DueDate, String StoreAddress){
+		this(OrderNumber,isPeriodic, SupplierId, StoreAddress);
 		this.openDate=openDate;
 		this.DueDate=DueDate;
 	}
 	
-	public Order(int OrderNumber,int SupplierId,String openDate, int isPeriodic,String DueDate,String StoreAddress){
-		this(OrderNumber,SupplierId,openDate,isPeriodic,DueDate);
-		this.StoreAddress=StoreAddress;
-		
-	}
 	public Order(int OrderNumber,int SupplierId,String openDate, int isPeriodic,String DueDate,String StoreAddress,int HaveTransport){
 		this(OrderNumber,SupplierId,openDate,isPeriodic,DueDate,StoreAddress);
 		this.HaveTransport=HaveTransport;
