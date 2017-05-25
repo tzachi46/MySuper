@@ -156,6 +156,7 @@ public class CLIMenu {
 				return;
 			int supp=Integer.parseInt(s);
 			Order order=new Order(Integer.parseInt(s));
+			order.setAddres(BL.BLManager.emp.getWorkAddress());
 			System.out.println("Please enter the ammount of days of the supply time of the order.\nIf you wish to return to the order menu press ~ ");
 			s=in.nextLine();
 			while(!s.equals("~")){

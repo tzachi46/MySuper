@@ -207,9 +207,8 @@ public class Order {
 		}
 		s=s+"------------------\nProducts in order:\n------------------";
 		for(int j=0;j<getProducts().size();j++){
-			s=s+"\nProduct numebr: "+BL.StorageSuppliers.BLSupplier.GetBLSupplier().getProductFromSupplier(getSupplierId(),getProducts().get(j).getProductId())
-					+"\nProduct name:"+getProducts().get(j).getProductName()
-					+"\nAmount: "+getProducts().get(j).getAmount()+"\nOriginal price: "+getProducts().get(j).getInitialProductPrice()
+			s=s+"\n"+BL.StorageSuppliers.BLSupplier.GetBLSupplier().getProductFromSupplier(getSupplierId(),getProducts().get(j).getProductId())
+					+"Amount: "+getProducts().get(j).getAmount()+"\nOriginal price: "+getProducts().get(j).getInitialProductPrice()
 					+"\nDiscount: "+((100-(100*getProducts().get(j).getCurrentProductPrice()/getProducts().get(j).getInitialProductPrice()))
 							+"\nCurrent price "+getProducts().get(j).getCurrentProductPrice())
 							+"\n";
