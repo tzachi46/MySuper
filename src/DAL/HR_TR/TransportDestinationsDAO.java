@@ -31,6 +31,7 @@ public class TransportDestinationsDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
       		    return false;
 		}
 	}
@@ -69,7 +70,7 @@ public class TransportDestinationsDAO extends DAO {
 		 String sql = "SELECT LICENCETRUCK,DATE,HOUR,DOCCODE,HOUROFARR"
 		 		+ " FROM TransportDestinations" +
 		 		" WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?"
-                + "AND DOCCODE = ?";
+                + " AND DOCCODE = ?";
 	        
 	        try (Connection conn = this.connect();
 	             PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -86,6 +87,7 @@ public class TransportDestinationsDAO extends DAO {
 	        			rs.getInt(5), rs.getString(6));	//ITAYYYYY - Change "" to hourOfArr
 	           
 	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
 	        }
 		return null;
 	}
@@ -161,6 +163,7 @@ public class TransportDestinationsDAO extends DAO {
 	                return vec;
 	        } catch (SQLException e)
 	        {
+	        	System.out.println(e.getMessage());
 	         }
 	        return vec;
 	}

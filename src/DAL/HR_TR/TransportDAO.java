@@ -19,8 +19,8 @@ public class TransportDAO extends DAO {
 		if(!this.checkValidDriver(trs))
 			return false;
 		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,COMPANYID,"
-				+ "DATE,HOUR,TRUCKWEIGHT,SOURCEDOC)"
-			 		+ " VALUES(?,?,?,?,?,?,?)";
+				+ "DATE,HOUR,TRUCKWEIGHT,SOURCEDOC,STOREADDRESS)"
+			 		+ " VALUES(?,?,?,?,?,?,?,?)";
 			 
 		try (Connection conn = this.connect();
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -31,6 +31,7 @@ public class TransportDAO extends DAO {
 		    pstmt.setString(5, trs.getHourOfDep());
 		    pstmt.setDouble(6, trs.getTruckWeight());
 		    pstmt.setInt(7, trs.getSourceDoc());
+		    pstmt.setString(8, trs.getAddressOrign());
 	
 		    pstmt.executeUpdate();
 		    return true;
@@ -91,7 +92,7 @@ public class TransportDAO extends DAO {
 	protected Transport fetchTransport(int licenceNo, String hour, String date){
 
 		 String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, DATE, HOUR,"
-		 		+ " TRUCKWEIGHT, SOURCEDOC"
+		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
 		 		+ " FROM Transports " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	        

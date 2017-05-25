@@ -68,7 +68,7 @@ public class Repository {
 	                    "DAY INTEGER NOT NULL, " +
 	                    "TYPE TEXT NOT NULL, " +
 	                    "PRIMARY KEY (ID,DAY,TYPE)" +
-	                    "FOREIGN KEY (ID) REFERENCES employees (ID)ON DELETE CASCADE)",
+	                    "FOREIGN KEY (ID) REFERENCES employees (ID) ON DELETE CASCADE)",
 	                    "CREATE TABLE IF NOT EXISTS drivers"
 	                  + "(ID INTEGER NOT NULL, "
 	                  + "LICENCENUM INTEGER NOT NULL, "
@@ -111,10 +111,13 @@ public class Repository {
                 			"	DATE   TEXT	NOT NULL, " + 
                 			"	HOUR   TEXT	NOT NULL, " + 
                 			"SOURCEDOC 	INT 	NOT 	NULL, "
-                			+ "	TRUCKWEIGHT		REAL	NOT NULL," 
+                			+ "	TRUCKWEIGHT		REAL	NOT NULL,"
+                			+ " STOREADDRESS TEXT NOT NULL," 
                 			+ " PRIMARY KEY (LICENCETRUCK,DATE,HOUR), "
                 			+ " FOREIGN KEY (DRIVERID) REFERENCES Drivers(ID) ON DELETE CASCADE ON UPDATE CASCADE, "
-                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE)");
+                			+ " FOREIGN KEY (LICENCETRUCK) REFERENCES Trucks(TRUCKNO) ON DELETE CASCADE ON UPDATE CASCADE, "
+                			+ " FOREIGN KEY (STOREADDRESS) REFERENCES Sites(ADDRESS) ON DELETE CASCADE ON UPDATE CASCADE, "
+                			+ "FOREIGN KEY (COMPANYID) REFERENCES Supplier(CompanyId) ON DELETE CASCADE ON UPDATE CASCADE)");
                 			
 		
 		transDests.createTable("CREATE TABLE IF NOT EXISTS TransportDestinations " +

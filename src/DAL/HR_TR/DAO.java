@@ -26,6 +26,7 @@ public abstract class DAO {
             }
  
         } catch (SQLException e) {
+        	System.out.println(e.getMessage());
         } 
 	}
 	

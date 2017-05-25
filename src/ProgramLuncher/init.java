@@ -3,13 +3,11 @@ package ProgramLuncher;
 import java.io.File;
 import java.util.Vector;
 
-import BL.TransportsEmployess.BLimp;
 import DAL.DALhrtr_Interface;
 import DAL.HR_TR.DALhrtrManager;
 import DAL.Suppliers.SupplierManager;
 import SharedClasses.Pair;
-import SharedClasses.StorageSuppliers.Order;
-import SharedClasses.StorageSuppliers.OrderProduct;
+
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
@@ -30,7 +28,7 @@ public class init
 		initHRTR();
 		
 		InitSupplierInv.init();
-		forItay();
+	//	forItay();
 		String s[]=new String[2];
 		s[0]="insert into SupplierProducts (SupplierId, ProductId, SupplierCatalogId, AvarageDeleveryTime) VALUES (1,2,123,21);";
 		s[1]="INSERT INTO ProductsPrices (SupplierId, ProductId, MinimumQuantity, Price) VALUES (1,2,0,10);";
@@ -213,13 +211,6 @@ public class init
 		dal_imp.insertTruck(new Truck(55555555, "subaro", 1000, 70, 30));
 		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 100, 45));
 		
-		//messages
-		//System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
-		
-	}
-
-	public static void forItay() {
-		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
 		Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
 		Shift sht = new Shift("24/12/2017", "morning", 3, 1, "ofir street");
 		vec.add(new Pair<String,Integer>("StoreKeeper",1));
@@ -231,26 +222,45 @@ public class init
 				, "StoreKeeper");
 		dal_imp.addEmployeeShift(sht, 
 				new Driver(655555555, "regular5", "regular5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7,31)
-				, "Carrier");
+				, "Carrier");		
+		//messages
+		//System.out.println(dal_imp.insertMessage(new Message("06/06/2017", "Base", true, 100)));
+		
+	}
+
+//	public static void forItay() {
+//		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
+//		Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
+//		Shift sht = new Shift("24/12/2017", "morning", 3, 1, "ofir street");
+//		vec.add(new Pair<String,Integer>("StoreKeeper",1));
+//		vec.add(new Pair<String,Integer>("Carrier",1));
+//		dal_imp.insertShift(sht,
+//				vec);
+//		dal_imp.addEmployeeShift(sht, 
+//				new Employee(699999999, "regular9", "regular9", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7)
+//				, "StoreKeeper");
+//		dal_imp.addEmployeeShift(sht, 
+//				new Driver(655555555, "regular5", "regular5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7,31)
+//				, "Carrier");
 		//dal_imp.insertTransport(new Transport(611111111, 11111111, 1, "24/12/2017", "10:01", 0, 0));
 //		Order ord = new Order(1/*key autoinc*/,1/*supplierid*/,"24/12/2017",0,"30/12/2017", "ofir street",0);
 //		ord.addProduct(new OrderProduct(1,2));
 //		ord.addProduct(new OrderProduct(2,2));
 //		OrderManager.getInstance().addNewOrder(ord);
-		Order ord = new Order(1);
-		ord.setPeriodic(5);
-		OrderProduct orderProduct=new OrderProduct(1);
-		orderProduct.setAmount(10);
-		OrderProduct orderProduct2=new OrderProduct(2);
-		orderProduct.setAmount(5);
-		ord.setAddres("ofir street");
-		
-		DAL.Orders.OrderManager.getInstance().addNewOrder(ord);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct2);
-		
-		
-		BLimp bl = new BLimp();
-		System.out.println(bl.checkDate("24/12/2017", "ofir street", 1, ord));
-	}
+//		Order ord = new Order(1);
+//		ord.setPeriodic(5);
+//		OrderProduct orderProduct=new OrderProduct(1);
+//		orderProduct.setAmount(10);
+//		OrderProduct orderProduct2=new OrderProduct(2);
+//		orderProduct.setAmount(5);
+//		ord.setAddres("ofir street");
+//		
+//		DAL.Orders.OrderManager.getInstance().addNewOrder(ord);
+//		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+//		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct2);
+//		
+//		
+//		BLimp bl = new BLimp();
+//		System.out.println(bl.checkDate("24/12/2017", "ofir street", 1, ord));
+//	}
 }

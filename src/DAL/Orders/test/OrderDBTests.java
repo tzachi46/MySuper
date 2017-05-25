@@ -14,7 +14,7 @@ import SharedClasses.StorageSuppliers.Supplier;
 
 public class OrderDBTests {
 
-
+/*
 	DAL.Inventory.InvDALManager dalM;
 	DAL.Orders.OrderManager ordersM;
 	BLSupplier blSupplier;
