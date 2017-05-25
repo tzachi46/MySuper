@@ -120,5 +120,22 @@ public class OrderDB {
 		return res;
 	}
 	
-	
+	protected LinkedList<Order> getUndeliverdOrders()
+	{
+		LinkedList<Order> res=new LinkedList<Order>();
+		String sql="select OrderNumber,SupplierId,OpenDate,isPeriodic,HaveTransport,StoreAddress from Orders where DueDate=''";
+		try ( Statement stmt  = DALManager.conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+			 while(rs.next()){
+				 res.add(new Order(rs.getInt("OrderNumber"),rs.getInt("SupplierId"),rs.getString("OpenDate"),rs.getInt("isPeriodic"),"",rs.getString("StoreAddress"),rs.getInt("HaveTransport")));
+			 }
+			 for(int i=0;i<res.size();i++){
+				 res.get(i).setProducts(OrderManager.getInstance().getProductOfOrder(res.get(i)));
+			 }
+		 }
+		 catch (SQLException e) {
+			////System.out.println(e.getMessage());
+		 }
+		return res;
+	}
 }
