@@ -1,6 +1,7 @@
 package PL.TransportsEmployess;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Vector;
@@ -122,7 +123,7 @@ public class PL_Shared
 	protected String getCurrentDate()
     {
     	 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-         LocalDate localDate = LocalDate.now();
+    	 LocalDateTime  localDate = LocalDateTime.now();
          return dtf.format(localDate);
     }
     

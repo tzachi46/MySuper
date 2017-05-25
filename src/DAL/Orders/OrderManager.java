@@ -34,6 +34,11 @@ public class OrderManager {
 		return orderDB.getAllOrders();
 	}
 	
+	public LinkedList<Order> getUndeliverdOrders(){
+		orderDB.initTable();
+		return orderDB.getUndeliverdOrders();
+	}
+	
 	public LinkedList<OrderProduct> getProductOfOrder(Order Order){
 		orderProductDB.initTable();
 		return orderProductDB.getProductOfOrder(Order);

@@ -2,8 +2,11 @@ package BL.TransportsEmployess;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Vector;
 
+import DAL.Orders.OrderManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
@@ -408,10 +411,15 @@ public class BLimp implements BL {
 		
 	}
 	@Override
-	public Vector<Order> getUndeliveredOrders() {
-		// TODO Auto-generated method stub
-		//return null;
-		throw new UnsupportedOperationException(); 
+	public Vector<Order> getUndeliveredOrders()
+	{
+		Vector<Order> vec = new Vector<Order>();
+		LinkedList<Order> l = OrderManager.getInstance().getUndeliverdOrders();
+		ListIterator<Order> listIterator = l.listIterator();
+		while (listIterator.hasNext()) {
+			vec.add(listIterator.next());
+		}
+		return vec;
 	}
 
 	@Override

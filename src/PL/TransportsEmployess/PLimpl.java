@@ -141,10 +141,10 @@ public class PLimpl implements PL
     	 System.out.println("Hello " + emp.getFname());
          while (true)
          {
-             System.out.println("1) site edit menu");
-             System.out.println("2) truck edit menu"); 
-             System.out.println("3) Transport edit menu"); 
-             System.out.println("4) go back to Previous menu");
+             System.out.println("1) Store Manegment");
+             System.out.println("2) Truck Manegment"); 
+             System.out.println("3) Transport Manegment"); 
+             System.out.println("4) Go back to Previous menu");
 
              String choice = scanner.nextLine();
 
