@@ -14,7 +14,7 @@ import SharedClasses.StorageSuppliers.Supplier;
 
 public class OrderDBTests {
 
-
+/*
 	DAL.Inventory.InvDALManager dalM;
 	DAL.Orders.OrderManager ordersM;
 	BLSupplier blSupplier;
@@ -55,6 +55,6 @@ public class OrderDBTests {
 		assertEquals(order.getSupplierId(), toInsert.getSupplierId());
 		assertEquals(order.getOrderNumber(),toInsert.getOrderNumber());
 	}
-
+*/
 
 }
