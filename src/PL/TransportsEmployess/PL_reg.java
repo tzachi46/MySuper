@@ -150,7 +150,7 @@ public class PL_reg
 	            showAllConstraints(emp.getId());
 	            break;
 	        }
-	        case "4":
+	        case "~":
 	        {
 	        	return false;
 	        }
@@ -170,7 +170,7 @@ public class PL_reg
             System.out.println("1) Add restriction");
             System.out.println("2) Remove restriction");
             System.out.println("3) show current restrictions");
-            System.out.println("4) go to previous menu");
+            System.out.println("~) go to previous menu");
             String choice = scanner.nextLine();
 
             if(!handleRestrictionChoice(choice,emp))
