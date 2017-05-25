@@ -214,8 +214,10 @@ public class ProductInStoreDB {
 	 * 
 	 * @return
 	 */
-	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(){
-		String sql="SELECT Barcode,Name,storeDefective,wareDefective FROM ProductInStore WHERE StoreDefective>0 OR WareDefective>0 ";
+	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(String StoreAddress){
+		String sql="SELECT ProductInStore.Barcode,Product.Name,storeDefective,wareDefective"
+				+ " FROM ProductInStore Join Product on ProductInStore.Barcode = Product.Barcode "
+				+ " WHERE StoreAdd is '"+StoreAddress+"' AND (StoreDefective>0 OR WareDefective>0) ";
 		LinkedList<Quartet<Integer,String,Integer,Integer>> temp = new LinkedList<>();
 		 try (Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
