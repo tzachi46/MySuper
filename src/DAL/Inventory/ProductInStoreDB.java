@@ -78,7 +78,7 @@ public class ProductInStoreDB {
 	
 	protected void UpdateProductInStore(ProductInStore productInStore){
 		String sql = "UPDATE ProductInStore \n"
-                + "SETStoreAdd='"+productInStore.getStoreAddress()+"',\n"
+                + "SET \n"
                 + "QuantityShelf="+productInStore.getStoreQuantity()+",\n"
                 + "QuantityWarehouse="+productInStore.getWareQuantity()+",\n"
                 + "PlaceInWarehouse='"+productInStore.getWarehouseLoc()+"',\n" 
@@ -86,7 +86,8 @@ public class ProductInStoreDB {
                 + "StoreDefective="+productInStore.getStoreDefective()+",\n" 
                 + "WareDefective="+productInStore.getWarehouseDefective()+",\n"
                 + "SalesPerDay="+productInStore.getSalesPerDay()+"\n"
-                + "WHERE Barcode="+productInStore.getProductid();     
+                + "WHERE Barcode="+productInStore.getProductid()
+				+ " AND StoreAdd is '" +productInStore.getStoreAddress()+"';";
 		try (Statement stmt = DALManager.conn.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {    }
