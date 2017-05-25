@@ -134,8 +134,12 @@ public class CLIMenu {
 			else{
 				Orders.getInstance().removeOrder(order.getOrderNumber());
 				System.out.println("Order removed successfully!");
+				order=Orders.getInstance().CancelOrderToNextOrder(order);
+				if(order!=null)
+					System.out.println(order);
 			}
 		}
+		
 	}
 	
 	private void insertNewOrder(Scanner in){
