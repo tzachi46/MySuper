@@ -44,10 +44,10 @@ public class OrderProductDB {
 		return res;
 	}
 	
-	protected int getAmountOfProductInOpenOrderes(int ProductId){
+	protected int getAmountOfProductInOpenOrderes(int ProductId, String storeAddress){
 		int count =0;
 		String sql="select Amount from OrderProduct join Orders ON OrderProduct.OrderNumber=Orders.OrderNumber\n"
-		+"where Orders.DueDate is '' AND ProductId is "+ProductId;
+		+"where Orders.DueDate is '' AND Orders.StoreAddress is '"+storeAddress+"' AND ProductId is "+ProductId;
 		try ( Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
 			 while(rs.next()){

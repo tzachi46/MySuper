@@ -145,7 +145,7 @@ public class ProductInStoreDB {
 	
 	protected ProductInStore getProductInStore(int ProductId,String StoreAddress){
 		String sql = "Select Barcode, StoreAdd, QuantityShelf, QuantityWarehouse, PlaceInWarehouse, PlaceInStore, StoreDefective, WareDefective, SalesPerDay\n"
-				+"FROM ProductInStore WHERE Barcode = "+ProductId +" AND StoreAdd is "+StoreAddress;
+				+"FROM ProductInStore WHERE Barcode = "+ProductId +" AND StoreAdd is '"+StoreAddress+"'";
 		ProductInStore res=null;
 	    try ( Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
@@ -172,7 +172,7 @@ public class ProductInStoreDB {
 		LinkedList<Product> temp = new LinkedList<>();
 		for(int i=0;i<ProductsIds.length;i++){
 			int DeliveryTime=SupplierManager.getInstance().getAvarageSupplyTimeOfProduct(ProductsIds[i]);
-			String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is " + storeAddress +"AND (QuantityShelf+QuantityWarehouse)<=(SalesPerDay*"+DeliveryTime+"*1.2) AND Barcode = "+ProductsIds[i];
+			String sql="SELECT Barcode FROM ProductInStore WHERE StoreAdd is '" + storeAddress +"' AND (QuantityShelf+QuantityWarehouse)<(SalesPerDay*"+DeliveryTime+"*1.2) AND Barcode = "+ProductsIds[i];
 			try ( Statement stmt  = DALManager.conn.createStatement();
 		             ResultSet rs    = stmt.executeQuery(sql)){
 				 while(rs.next()){
