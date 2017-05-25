@@ -120,8 +120,8 @@ public class InitSupplierInv {
 		CategoryDB.getCategoryDB().addNewCategory(cat7);
 		
 		Category cat8=new Category(8);
-		cat7.setFatherId(7);
-		cat7.setName("CHICKEN");
+		cat8.setFatherId(7);
+		cat8.setName("CHICKEN");
 		CategoryDB.getCategoryDB().addNewCategory(cat8);
 		
 		Category cat9=new Category(9);
