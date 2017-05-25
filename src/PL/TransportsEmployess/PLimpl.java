@@ -144,10 +144,17 @@ public class PLimpl implements PL
     	 System.out.println("Hello " + emp.getFname());
          while (true)
          {
+<<<<<<< HEAD
              System.out.println("1) site edit menu");
              System.out.println("2) truck edit menu"); 
              System.out.println("3) Transport edit menu"); 
-             System.out.println("4) go back to Previous menu");
+             System.out.println("~) go back to Previous menu");
+=======
+             System.out.println("1) Store Manegment");
+             System.out.println("2) Truck Manegment"); 
+             System.out.println("3) Transport Manegment"); 
+             System.out.println("4) Go back to Previous menu");
+>>>>>>> origin/debug1
 
              String choice = scanner.nextLine();
 
@@ -176,7 +183,7 @@ public class PLimpl implements PL
             System.out.println("1) Employees management");
             System.out.println("2) Shifts management");
             System.out.println("3) Employee's specializations management");
-            System.out.println("4) Go back to Previous menu");
+            System.out.println("~) Go back to Previous menu");
             
             String choice = scanner.nextLine();
 
@@ -196,7 +203,7 @@ public class PLimpl implements PL
             System.out.println("2) Employee reports management");
             System.out.println("3) Shifts reports management");
             System.out.println("5) Supplier management");
-            System.out.println("6) Go back to Previous menu");
+            System.out.println("~) Go back to Previous menu");
             String choice = scanner.nextLine();
 
             if(!HandeleManagerChoice(choice,emp))
@@ -215,13 +222,18 @@ public class PLimpl implements PL
             System.out.println("1) Restriction menu");
             System.out.println("2) show shifts");
             if(!isStoreKeeper)
-            	System.out.println("3) go back to Previous menu");
+            	System.out.println("~) go back to Previous menu");
             else
             {
+<<<<<<< HEAD
             	System.out.println("3) supplier manegment screen");
             	System.out.println("4) Inventory manegment screen");
             	System.out.println("5) Order manegment screen");
             	System.out.println("6) go back to Previous menu");
+=======
+            	System.out.println("3) supplier manegment");
+            	System.out.println("~) go back to Previous menu");
+>>>>>>> origin/debug_shay
             }
             /*System.out.println("1) Add restriction");
             System.out.println("2) Remove restriction");
@@ -253,7 +265,7 @@ public class PLimpl implements PL
             System.out.println("2) Update employee");
             System.out.println("3) Remploye employee");
             System.out.println("4) View employee's details");
-            System.out.println("5) Return to previous menu");
+            System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleEmployeeManagementMenuChoice(choice,emp))
                 break;
@@ -298,7 +310,7 @@ public class PLimpl implements PL
             	pl_man.updateSpec(emp);
                 break;
             }
-            case "4":
+            case "~":
             {
                 return false;
             }
@@ -318,7 +330,7 @@ public class PLimpl implements PL
             System.out.println("1) Add new shift");
             System.out.println("2) Delete shift");
             System.out.println("3) Show initialized shifts");
-            System.out.println("4) Return to previous menu");
+            System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleShiftManagementMenuHandle(choice,emp))
                 break;
@@ -346,7 +358,7 @@ public class PLimpl implements PL
 		        pl_admin.showInitializedShifts(emp.getWorkAddress());
 		        break;
 		    }
-		    case "4":
+		    case "~":
 		    {
 		    	return false;
 		    }
@@ -383,7 +395,7 @@ public class PLimpl implements PL
             	pl_admin.showEmployeeDetails(emp);
                 break;
             }
-            case "5":
+            case "~":
             {
                 return false;
             }
@@ -429,7 +441,7 @@ public class PLimpl implements PL
             	CLIMenu.getInstance().Start(scanner);
             	break;
             }
-            case "6":
+            case "~":
             {//ret
                 return false;
             }
@@ -449,7 +461,7 @@ public class PLimpl implements PL
         	System.out.println("Choose one of the followings: ");
         	System.out.println("1) Show employee's details");
             System.out.println("2) Show employee's shifts");
-            System.out.println("3) Return to previous menu");
+            System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleEmployeeReportManagementMenuChoice(choice,emp))
                 break;
@@ -474,7 +486,7 @@ public class PLimpl implements PL
                 pl_reg.showAllShifts(Integer.parseInt(id));
                 break;
             }
-            case "3":
+            case "~":
             {//ret
                 return false;
             }
@@ -547,7 +559,7 @@ public class PLimpl implements PL
             case "3":
             {
             	if(!isStoreKeeper)
-            		return false;
+            		System.out.println("Invalid input, try again");
             	else
             	{
             		CLIMenu.getInstance().Start(scanner);
@@ -555,6 +567,7 @@ public class PLimpl implements PL
             }
             case "4":
             {
+<<<<<<< HEAD
             	if(!isStoreKeeper)
             		System.out.println("Invalid input, try again");
             	else
@@ -566,6 +579,10 @@ public class PLimpl implements PL
             {
             	if(!isStoreKeeper)
             		System.out.println("Invalid input, try again");
+=======
+            	if(isStoreKeeper && choice.equals("~"))
+            		return false;
+>>>>>>> origin/debug_shay
             	else
             	{
             		OrderCLI.Start(scanner);
@@ -607,7 +624,7 @@ public class PLimpl implements PL
 		        pl_TransportEdit.workOnTransport();
 		        break;
 		    }
-		    case "4":
+		    case "~":
 		    {
 		        return false;
 		    }

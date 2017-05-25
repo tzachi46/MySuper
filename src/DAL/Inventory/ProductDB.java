@@ -77,7 +77,7 @@ public class ProductDB {
                 + "SET Barcode="+product.getId()+",\n"
                 + "Name='"+product.getName()+"',\n"
                 + "Manufacturer='"+product.getManufacturer()+"',\n" 
-                + "Category="+product.getCategory()+"\n"
+                + "Category="+product.getCategory()+",\n"
                 + "Weight="+product.getWeight()+"\n"
                 + "WHERE Barcode="+product.getId();     
 		try (Statement stmt = DALManager.conn.createStatement()) {
@@ -86,8 +86,11 @@ public class ProductDB {
             		product.getStoreQuantity(),product.getWarehouseQuantity(),
             		product.getWareLoc(),product.getStoreLoc(),
             		product.getStoreDefective(),product.getWareDefective(),product.getSalesPerDay());
+            
             productInStore.UpdateProductInStore(res);
-        } catch (SQLException e) {   }
+        } catch (SQLException e) {  
+        	
+        }
 		pscDB.updateProductSellingCost(product);
 	}
 	
