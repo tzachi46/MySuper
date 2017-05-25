@@ -99,7 +99,7 @@ public class CLIMenu {
 				if(calc.checkInt(s)){
 					order=Orders.getInstance().getOrder(Integer.parseInt(s));
 					if(order!=null)
-						if(order.getPeriodic()>0&&order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order))
+						if(order.getPeriodic()>0&&order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order)&&order.getAddres().equals(BLManager.emp.getWorkAddress()))
 							break;
 				}
 				System.out.println("Illegal input, please try again.");
@@ -123,7 +123,7 @@ public class CLIMenu {
 				if(calc.checkInt(s)){
 					order=Orders.getInstance().getOrder(Integer.parseInt(s));
 					if(order!=null)
-						if(order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order)&&!order.getISHaveTransport())
+						if(order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order)&&order.getAddres().equals(BLManager.emp.getWorkAddress())&&!order.getISHaveTransport())
 							break;
 				}
 				System.out.println("Illegal input, please try again.");
