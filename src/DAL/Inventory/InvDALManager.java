@@ -165,7 +165,7 @@ public class InvDALManager {
 	 */
 	public LinkedList<Quartet<Integer,String,Integer,Integer>> getDefectItems(String StoreAddress){//TODO:: fix adaption to multipale Stores
 		productInStore.InitTable();
-		return productInStore.getDefectItems();
+		return productInStore.getDefectItems(StoreAddress);
 	}
 	/**
 	 * List of items that are going out of stock

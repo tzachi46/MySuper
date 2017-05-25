@@ -3,6 +3,7 @@ package PL.StorageSuppliers.Order;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import BL.BLManager;
 import BL.StorageSuppliers.BLSupplier;
 import BL.StorageSuppliers.InvBLManager;
 import BL.StorageSuppliers.Calculations;
@@ -268,7 +269,7 @@ public class CLIMenu {
 			while(!(s.equals("~"))){ 
 				if(calc.checkInt(s)){
 					Order o=Orders.getInstance().getOrder(Integer.parseInt(s));
-					if((o!=null)&& o.getDueDate().equals(""))
+					if((o!=null)&& o.getDueDate().equals("")&&o.getAddres().equals(BLManager.emp.getWorkAddress()))
 							break;
 				}
 					
