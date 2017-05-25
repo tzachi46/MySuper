@@ -8,6 +8,7 @@ import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.StorageSuppliers.ProductFromSupplier;
+import BL.BLManager;
 import BL.StorageSuppliers.BLSupplier;
 import BL.StorageSuppliers.InvBLManager;
 
@@ -252,7 +253,7 @@ public class Orders {
 	 * @return the quantity of the missing products after taking care of the already ordered product in other orders.
 	 */
 	private int getOrderQuantity(Product p){
-		int orderedAmount = DAL.Orders.OrderManager.getInstance().getAmountOfProductInOpenOrderes(p.getId());
+		int orderedAmount = DAL.Orders.OrderManager.getInstance().getAmountOfProductInOpenOrderes(p.getId(),BLManager.emp.getWorkAddress());
 		int MyAmount=p.getStoreQuantity()+p.getWarehouseQuantity();
 		int min=p.getWarningQuantity();
 		int res = min-(MyAmount+orderedAmount); 

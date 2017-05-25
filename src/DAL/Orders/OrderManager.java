@@ -120,10 +120,10 @@ public class OrderManager {
 		return orderDB.getOpenOrdersOfSupplier(supplier);
 	}
 	
-	public int getAmountOfProductInOpenOrderes(int ProductId){
+	public int getAmountOfProductInOpenOrderes(int ProductId,String StoreAddress){
 		orderDB.initTable();
 		orderProductDB.initTable();
-		return orderProductDB.getAmountOfProductInOpenOrderes(ProductId);
+		return orderProductDB.getAmountOfProductInOpenOrderes(ProductId,StoreAddress);
 	}
 	
 	
