@@ -105,4 +105,5 @@ public interface BL {
 	boolean addreesAtTransport(String address, Transport transport);
 
 	String getArrivalTime(String addres, Transport transport);
+	public boolean checkTransportToOrder(Order order);
 }

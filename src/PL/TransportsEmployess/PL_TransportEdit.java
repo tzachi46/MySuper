@@ -40,7 +40,8 @@ public class PL_TransportEdit
 			//System.out.println("4) Remove transport from the database.");
 			System.out.println("5) Fetch transport's details from the database.");
 			System.out.println("6) Fetch transport's destinations.");
-			System.out.println("7) Return to Main Menu.");
+			System.out.println("7) Auto insertion of Transports to Orders");
+			System.out.println("8) Return to Main Menu.");
 			
 			String choice = scanner.nextLine();
 			if(!HandeleTransportOperationChoice(choice))
@@ -73,6 +74,9 @@ public class PL_TransportEdit
 					fetchTransportDests();					 
 					break;									
 			case "7":
+					autoInsertionToOrders();
+					break;
+			case "8":
 					return false;
 			default:
 			{
@@ -83,7 +87,28 @@ public class PL_TransportEdit
 		return true;
 	}
 	
-	 public String getDateInputFromUser()
+	 private void autoInsertionToOrders() {
+		// TODO Auto-generated method stub
+		 Vector<Order> orders = bl.getUndeliveredOrders();
+		 for(Order order : orders){
+			 if(bl.checkTransportToOrder(order)){
+				 System.out.println("order No. " + order.getOrderNumber() +
+						 "have been assigned to transport successfully.");
+			 }		 
+		 }
+		 orders = bl.getUndeliveredOrders();
+		 if(orders.isEmpty())
+			 System.out.println("all pending orders have been assigned.");
+		 else {
+			 System.out.println("regretfully few orders were left pending : ");
+			 for(Order order : orders){
+				 System.out.println("Order No. " + order.getOrderNumber() + ".");
+			 }
+		 }
+	}
+
+
+	public String getDateInputFromUser()
 	 {
 		 System.out.println("Enter Date :");
 	     String date = scanner.nextLine();
@@ -381,7 +406,7 @@ public class PL_TransportEdit
 		if(success)
 		{
 			//
-			elementAt.setHaveTransport(1);bpmgrbrplm
+			elementAt.setHaveTransport(1);
 			//
 			System.out.println("Transport created successfully.");
 			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), Integer.parseInt(docNum),arrivaleTime);
@@ -503,7 +528,7 @@ public class PL_TransportEdit
 		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo() ,o.getOrderNumber(),timeOfArrival))
 		{
 			//
-			o.setHaveTransport(1); klbsmgb
+			o.setHaveTransport(1); 
 			//
 			System.out.println("Successfuly Added the site to destinations.");
 			transport.setWeight(weight);
