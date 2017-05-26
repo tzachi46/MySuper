@@ -8,6 +8,7 @@ import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
+import SharedClasses.TransportsEmployess.Transport;
 
 /**
  * Created by kazarski on 3/26/17.
@@ -178,6 +179,63 @@ public class PL_reg
         }
 
         return true;
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir)
+     */
+	public void showRelevantTransports(int id) {
+		Vector<Transport> transports = getRelevantTransports(id);
+		bl.sortTrans(transports);
+		int i=0;
+		if(transports.size()==0){ //Shouldn't be true , checked before. Just in case...
+			System.out.println("You have no transports to drive");
+			return;
+		}
+		while(true){
+			System.out.println("choose option");
+            System.out.println("0)return, 1)left, 2)right, 3)show destinations");
+            System.out.println("***********************************");
+            System.out.println(transports.elementAt(i).toString());
+            System.out.println("***********************************");
+            String option = scanner.nextLine();
+            if (!validator.validateIntInBounds(option, 0, 3)&&!option.equals("~"))
+                System.out.println("invalid input, try again");
+            else 
+            {
+                if (option.equals("0")||option.equals("~"))
+                    break;
+                if (option.equals("1")) {
+                    if (i == 0)
+                        System.out.println("earlier transports not exist");
+                    else
+                        i--;
+                }
+                if (option.equals("2")) {
+                    if (i == transports.size() - 1)
+                        System.out.println("later transports not exist");
+                    else
+                        i++;
+                }
+                if (option.equals("3")){
+                	System.out.println("Transport's destinations:");
+                	Vector<Pair<String,String>> dests = bl.getHoursOfArrival(transports.elementAt(i));
+                	bl.sortDests(dests);
+                	for(int j=0; j<dests.size(); j++){
+                		System.out.println("Hour of arrival: "+ dests.elementAt(j).getKey());
+                		System.out.println("Store's address: "+ dests.elementAt(j).getValue());
+                		System.out.println();
+                	}
+                }
+            }
+		}
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	protected Vector<Transport> getRelevantTransports(int id) {
+		return bl.getRelevantTransports(id);
 	}
     
 
