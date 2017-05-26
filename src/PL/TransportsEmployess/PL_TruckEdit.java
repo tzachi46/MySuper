@@ -143,7 +143,7 @@ public class PL_TruckEdit
 			if(truck!=null)
 			{
 				System.out.println("Choose option:");
-				System.out.println("1)Updete model");
+				System.out.println("1)Update model");
 				System.out.println("2)weight");
 				System.out.println("3)maximum weight");
 				System.out.println("4)license Type");

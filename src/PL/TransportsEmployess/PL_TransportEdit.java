@@ -380,6 +380,9 @@ public class PL_TransportEdit
 		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum),elementAt.getAddres());
 		if(success)
 		{
+			//
+			elementAt.setHaveTransport(1);bpmgrbrplm
+			//
 			System.out.println("Transport created successfully.");
 			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), Integer.parseInt(docNum),arrivaleTime);
 			if(i==0)
@@ -499,6 +502,9 @@ public class PL_TransportEdit
 		}
 		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo() ,o.getOrderNumber(),timeOfArrival))
 		{
+			//
+			o.setHaveTransport(1); klbsmgb
+			//
 			System.out.println("Successfuly Added the site to destinations.");
 			transport.setWeight(weight);
 			commitUpdate(transport);

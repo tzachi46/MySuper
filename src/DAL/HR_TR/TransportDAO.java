@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import BL.StorageSuppliers.Test.ordersBLTest;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Transport;
 
@@ -36,6 +37,7 @@ public class TransportDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		    return false;
 		}
 	}
@@ -108,11 +110,12 @@ public class TransportDAO extends DAO {
 	        	}
 	        	
 	        	// get the result
-	        	return new Transport(rs.getInt(1), rs.getInt(2), 
+	        	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), 
 	        			rs.getInt(3), rs.getString(4), 
 	        			rs.getString(5), rs.getDouble(6),rs.getInt(7), rs.getString(8));
-	           
+	           return tr;
 	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
 	        }
 		return null;
 	}

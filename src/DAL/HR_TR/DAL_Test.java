@@ -1,5 +1,5 @@
 package DAL.HR_TR;
-/*
+
 import static org.junit.Assert.*;
 
 import java.util.Vector;
@@ -17,8 +17,8 @@ import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.TransportDestination;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
-*/
-/*
+
+
 public class DAL_Test {
 	
 	//Fields
@@ -56,7 +56,7 @@ public class DAL_Test {
 			_dal.deleteSite("hhhh");
 			_dal.deleteSite("aaaa");
 			_dal.deleteTruck(111);
-			_dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
+			//_dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
 			_dal.deleteTransport("01/02/2011", "10:12", 111);
 			break;
 		case 10:
@@ -64,7 +64,7 @@ public class DAL_Test {
 			_dal.deleteSite("hhhh");
 			_dal.deleteSite("aaaa");
 			_dal.deleteTruck(111);
-			_dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
+			//_dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
 			_dal.deleteTransport("01/02/2011", "10:12", 111);
 			break;
 		default:
@@ -92,7 +92,7 @@ public class DAL_Test {
 		//Update
 		emp1.setSalary(777);
 		assertTrue(_dal.updateEmployee(emp1));
-		emp2.setRank(Rank.shiftManager);
+		emp2.setRank(Rank.humenResourceManeger);
 		assertTrue(_dal.updateEmployee(emp2));
 		
 		//Fetch Again
@@ -240,20 +240,20 @@ public class DAL_Test {
 		testInd = 7;
 		Site st1 = new Site("hhhh","itay","0545492167",0);
 		Site st2 = new Site("aaaa","ofik","0545492168",1);
-		//Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.shiftManager, "rosh street", 7,4);
-		//Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
-		//_dal.insertEmployee(drv1);
-		//_dal.insertDriver(drv1);
+		Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManeger, "rosh street", 7,4);
+		Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
+		_dal.insertEmployee(drv1);
+		_dal.insertDriver(drv1);
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
-		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000,1, "hhhh");
 		boolean result = _dal.insertTransport(trp1);
 		assertTrue("insertion of transport was unsuccessful.", result);
-		Transport trp3 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 950,2);
+		Transport trp3 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000,2, "hhhh");
 		result = _dal.insertTransport(trp3);
 		assertFalse("insertion of transport was successful but shoudnt (PK)", result);
-		TransportDestination td = new TransportDestination(111, "01/02/2011", "10:12", "aaaa", 123, "10:15");
+		TransportDestination td = new TransportDestination(111, "01/02/2011", "10:12", 1, "10:15");
 		result = _dal.insertTransportDestination(td);
 		assertTrue("transport destinstion insertion was unsuccessful", result);
 	}
@@ -262,8 +262,8 @@ public class DAL_Test {
 	public void testTransportDelete() {
 		testInd = 8;
 		boolean result;
-		result = _dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
-		assertTrue("transport destinstion deletion was unsuccessful", result);
+	//	result = _dal.deleteTransportDestination(111, "aaaa", "01/02/2011", "10:12");
+	//	assertTrue("transport destinstion deletion was unsuccessful", result);
 		result = _dal.deleteTransport("01/02/2011", "10:12", 111);
 		assertTrue("deletion of transport was unsuccessful.", result);
 	}
@@ -281,8 +281,7 @@ public class DAL_Test {
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
-		
-		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000,1, "hhhh");
 		_dal.insertTransport(trp1);
 
 		boolean result = (_dal.fetchTransport("01/02/2011", "10:12", 111).toString()).equals(trp1.toString());
@@ -304,12 +303,11 @@ public class DAL_Test {
 		_dal.insertSite(st2);
 		_dal.insertTruck(trk1);
 		
-		Transport trp1 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 900,1);
+		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000,1, "aaaa");
 		_dal.insertTransport(trp1);
-		Transport trp2 = new Transport(1234, 111, 1234, "01/02/2011", "10:12", 978.9,1);
+		Transport trp2 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000,1, "aaaa");
 		boolean result = _dal.updateTransport(trp2);
 		assertTrue("updating of transport was unsuccessful.", result);
 	}
 	
 }
-*/

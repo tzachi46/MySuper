@@ -159,10 +159,10 @@ public class PL_SitesEdit
 		areaCode = getAreaCodeFromUser();
 		if(contact.equals("~"))
 			return;	
-		HR = getValidAdmin(address,"humenResourceManeger");
+		HR = getValidAdmin(address,"humanResourceManager");
 		if(HR == null)
 			return;
-		StoreManger = getValidAdmin(address,"storeManeger");
+		StoreManger = getValidAdmin(address,"storeManager");
 		if(StoreManger == null)
 			return;
 		if(bl.createSite(address, phoneNum, contact, Integer.parseInt(areaCode)))
@@ -187,9 +187,9 @@ public class PL_SitesEdit
 				break;
 			Site site = bl.fetchSite(address);
 			System.out.println("Choose option:");
-			System.out.println("1)Updete phone number");
-			System.out.println("2)Updete contant name");
-			System.out.println("3)Updete area code");
+			System.out.println("1)Update phone number");
+			System.out.println("2)Update contant name");
+			System.out.println("3)Update area code");
 			System.out.println("4)return to previous menu");
 				
 			String option = scanner.nextLine();
