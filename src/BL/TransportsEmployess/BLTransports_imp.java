@@ -239,11 +239,11 @@ public class BLTransports_imp implements BLTransports {
             @Override
             public int compare(Transport o1, Transport o2)
             {
-                int day1 = Integer.parseInt(o1.getDateOfDep().substring(0, 1));
-                int month1 = Integer.parseInt(o1.getDateOfDep().substring(3, 4));
+                int day1 = Integer.parseInt(o1.getDateOfDep().substring(0, 2));
+                int month1 = Integer.parseInt(o1.getDateOfDep().substring(3, 5));
                 int year1 = Integer.parseInt(o1.getDateOfDep().substring(6, 10));
-                int day2 = Integer.parseInt(o2.getDateOfDep().substring(0, 1));
-                int month2 = Integer.parseInt(o2.getDateOfDep().substring(3, 4));
+                int day2 = Integer.parseInt(o2.getDateOfDep().substring(0, 2));
+                int month2 = Integer.parseInt(o2.getDateOfDep().substring(3, 5));
                 int year2 = Integer.parseInt(o2.getDateOfDep().substring(6, 10));
                 if(year1 > year2)
                     return 1;
@@ -273,9 +273,9 @@ public class BLTransports_imp implements BLTransports {
             @Override
             public int compare(Pair<String,String> o1, Pair<String,String> o2)
             {
-                int hour1 = Integer.parseInt(o1.getKey().substring(0, 1));
+                int hour1 = Integer.parseInt(o1.getKey().substring(0, 2));
                 int minute1 = Integer.parseInt(o1.getKey().substring(3, 4));
-                int hour2 = Integer.parseInt(o2.getKey().substring(0, 1));
+                int hour2 = Integer.parseInt(o2.getKey().substring(0, 2));
                 int minute2 = Integer.parseInt(o2.getKey().substring(3, 4));
                 if(hour1 > hour2)
                     return 1;
