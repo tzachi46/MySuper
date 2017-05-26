@@ -271,13 +271,13 @@ public class PL_TransportEdit
                     break;
                 if (option.equals("1")) {
                     if (i == 0)
-                        System.out.println("earlier Orders not exist");
+                        System.out.println("earlier orders not exist");
                     else
                         i--;
                 }
                 if (option.equals("2")) {
                     if (i == undeliveredOrders.size() - 1)
-                        System.out.println("later shifts not exist");
+                        System.out.println("later orders not exist");
                     else
                         i++;
                 }
