@@ -277,11 +277,7 @@ public class PL_HR_man
        		System.out.println("user not exist in this store");
        		return;
        	}
-<<<<<<< HEAD
-       	if(emp.getRank() == Rank.logisticManeger || emp.getRank() == Rank.humenResourceManeger)
-=======
-       	if(emp.getRank() == Rank.logisticManager)
->>>>>>> origin/anotherBranch
+       	if(emp.getRank() == Rank.logisticManager || emp.getRank() == Rank.humenResourceManager)
        	{
        		System.out.println("you dont have the permission to view logistic manager's or HR manager's details.");
        		return;
@@ -418,7 +414,7 @@ public class PL_HR_man
 	public void showInitializedShifts(String address)
 	{
 	  	int i = 0;
-		Vector<Shift> initializedShifts = bl.fetchInitializedShifts();
+		Vector<Shift> initializedShifts = bl.fetchInitializedShifts(address);
 		if(initializedShifts == null)
 		{
              System.out.println("no relevant shifts");
@@ -430,7 +426,7 @@ public class PL_HR_man
         {    
         	Vector<Pair<Employee,String>> wrokersInShift = bl.fetchEmployeesInShift(address, initializedShifts.elementAt(i));
             System.out.println("choose option");
-            System.out.println("0)return, 1)left, 2)right,3)manual");
+            System.out.println("~)return, 1)left, 2)right,3)manual");
             System.out.println("***********************************");
             System.out.println("Date: " + initializedShifts.elementAt(i).getDate());
             System.out.println("Type: " + initializedShifts.elementAt(i).getType());
@@ -443,11 +439,11 @@ public class PL_HR_man
             System.out.println("***********************************");
 
             String option = scanner.nextLine();
-            if (!validator.validateIntInBounds(option, 0, 3))
+            if (!validator.validateIntInBounds(option, 0, 3) && !option.equals("~"))
                 System.out.println("invalid input, try again");
             else 
             {
-                if (option.equals("0")||option.equals("~"))
+                if (option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)

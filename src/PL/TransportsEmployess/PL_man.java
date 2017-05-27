@@ -38,7 +38,6 @@ public class PL_man {
 
     private void emptyShifts(String address) 
     {
-
         int i = 0;
         while (true)
         {
@@ -56,7 +55,7 @@ public class PL_man {
             }
             Vector<Pair<String,Integer>> accups = bl.fetchShiftAccupations(emptyShifts.elementAt(i));
             System.out.println("choose option");
-            System.out.println("0)return, 1)left, 2)right, 3)update 4)manual");
+            System.out.println("~)return, 1)left, 2)right, 3)update 4)manual");
             System.out.println("***********************************");
             System.out.println("Date: " + emptyShifts.elementAt(i).getDate());
             System.out.println("Type: " + emptyShifts.elementAt(i).getType());
@@ -68,10 +67,10 @@ public class PL_man {
             System.out.println("***********************************");
 
             String option = scanner.nextLine();
-            if (!option.equals("0") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
+            if (!option.equals("~") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
             else {
-                if (option.equals("0")||option.equals("~"))
+                if (option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)

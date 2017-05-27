@@ -159,16 +159,17 @@ public class ShiftDAO extends DAO {
         return null;
     }
 	
-    public Vector<Shift> fetchInitializedShifts()
+    public Vector<Shift> fetchInitializedShifts(String address)
     {
         Vector<Shift> vec = new Vector<>();
         String sql = "SELECT Date, Type, Day, Init, STOREADDRESS"
                 + " FROM shifts " +
-                  "WHERE Init = 1" ;
+                  "WHERE Init = 1 AND STOREADDRESS = '" + address +"'";
 
         try (Connection conn = this.connect();
              PreparedStatement stmt = conn.prepareStatement(sql))
         {
+        	
             ResultSet rs = stmt.executeQuery();
             while (rs.next())
                 vec.add(new Shift(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));

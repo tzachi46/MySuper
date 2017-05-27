@@ -36,7 +36,7 @@ public class PL_store_man {
    	public void showInitializedShifts(String address)
    	{
    	  	int i = 0;
-   		Vector<Shift> initializedShifts = bl.fetchInitializedShifts();
+   		Vector<Shift> initializedShifts = bl.fetchInitializedShifts(address);
    		if(initializedShifts == null)
    		{
                 System.out.println("no relevant shifts");

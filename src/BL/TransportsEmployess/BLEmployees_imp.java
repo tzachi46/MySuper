@@ -16,7 +16,7 @@ import SharedClasses.TransportsEmployess.Employee.Rank;
 /**
  * Created by Yoni Kazarski on 24/03/2017.
  */
-public class BLEmployees_imp implements  BLEmployees
+public class BLEmployees_imp
 {
     private DALhrtr_Interface dal;
 
@@ -26,7 +26,7 @@ public class BLEmployees_imp implements  BLEmployees
         dal = DALhrtrManager.getDALImp();
     }
 
-    @Override
+
     public Vector<Shift> getUptoDate(Vector<Shift> vec)
     {
         return vec;
@@ -40,13 +40,13 @@ public class BLEmployees_imp implements  BLEmployees
         return true;
     }
 
-    @Override
+
     public Shift fetchShift(String type, String date, String address)
     {
         return  dal.fetchShift(type, date, address);
     }
     
-    @Override
+   
     public boolean updateEmployee(String id, String private_name, String last_name, String salary, String start_of_employment_date, String end_of_employment_date,  String bankAccount, String rank ,String address,int day) 
     {
         Employee emp = dal.fetchEmployee(Integer.parseInt(id));
@@ -63,35 +63,26 @@ public class BLEmployees_imp implements  BLEmployees
         return dal.updateEmployee(emp);
     }
 
-    @Override
+  
     public boolean deleteEmployee(String id) {
         return dal.deleteEmployee(Integer.parseInt(id));
     }
 
-    @Override
+  
     public Employee fetchEmployee(String id)
     {
         Employee emp = dal.fetchEmployee(Integer.parseInt(id));
         return emp;
     }
 
-    @Override
-    public checkedStat checkIfEmployeeArrivedToShift(int id)
-    {
-    	/**
-    	 * WHAT????????
-    	 */
-        return null;
-    }
 
 
-    @Override
     public boolean initShift(Shift shift)
     {
         return  dal.initShift(shift);
     }
 
-    @Override
+  
     public boolean addShift(String date, String type, int manager,int cashier,int storekeeper ,int carrier, String address)
     {
         int day = 0;
@@ -115,13 +106,12 @@ public class BLEmployees_imp implements  BLEmployees
         return dal.insertShift(shift, vec);
     }
 
-    @Override
+   
     public boolean deleteShift(String date, String type,String address)
     {
         return dal.deleteShift(date, type, address);
     }
 
-    @Override
     public Vector<EmployeeRestriction> fetchAllEmployeeRestrictions(int id)
     {
         return  dal.fetchAllEmployeeRestrictions(id);
@@ -129,13 +119,13 @@ public class BLEmployees_imp implements  BLEmployees
 
 
     //region Specializations
-    @Override
+   
     public boolean addEmployeeSpeciality(int id, String specialization)
     {
     	EmployeeSpeciality employeeSpecialization = new EmployeeSpeciality(id,specialization);
         return dal.insertEmployeeSpeciality(employeeSpecialization);
     }
-    @Override
+ 
     public boolean deleteEmployeeSpeciality(int id, String specialization)
     {
     	EmployeeSpeciality employeeSpeciality = new EmployeeSpeciality(id,specialization);
@@ -144,7 +134,7 @@ public class BLEmployees_imp implements  BLEmployees
         return dal.deleteEmployeeSpeciality(employeeSpeciality); 
     }
   
-    @Override
+  
     public EmployeeSpeciality[] getSpecsOf(int id) 
     {
         Vector<EmployeeSpeciality>  vecOfSpec = dal.fetchAllEmployeeSpeciality(id);
@@ -159,13 +149,13 @@ public class BLEmployees_imp implements  BLEmployees
     }
 
     //region Constraints
-    @Override
+ 
     public boolean insertEmployeeRestriction(int id, int day, String type) {
         EmployeeRestriction empr = new EmployeeRestriction(id, day, type);
         return dal.insertEmployeeRestriction(empr); 
     }
 
-    @Override
+
     public boolean deleteEmployeeRestriction(int id, int day, String type)
     {
         EmployeeRestriction empRest = new EmployeeRestriction(id, day, type);
@@ -173,20 +163,20 @@ public class BLEmployees_imp implements  BLEmployees
     }
     //end regions
 
-    @Override
+  
     public EmployeeRestriction fetchEmployeeRestriction(int id, int day, String type)
     {
     	EmployeeRestriction empr = new EmployeeRestriction(id, day, type);
         return dal.fetchEmployeeRestriction(empr);
     }
 
-    @Override
+ 
     public Vector<Shift> getEmptyShifts(String address)
     {
         return dal.fetchEmptyShift(address);
     }
 
-    @Override
+
     public void sortDates(Vector<Shift> notSorted)
     {
         notSorted.sort(new Comparator<Shift>() {
@@ -218,7 +208,7 @@ public class BLEmployees_imp implements  BLEmployees
         });
     }
 
-    @Override
+   
     public void sortDatesPair(Vector<Pair<Shift,String>> vec) {
 
         vec.sort(new Comparator<Pair<Shift,String>>() {
@@ -250,7 +240,7 @@ public class BLEmployees_imp implements  BLEmployees
         });
     }
 
-    @Override
+ 
     public Vector<Employee> getPossibleWorkers(Shift shift, String specialization)
     {
         return dal.getPossibleWorkers(shift, specialization);
@@ -260,13 +250,13 @@ public class BLEmployees_imp implements  BLEmployees
          */
     }
 
-    @Override
+   
     public boolean addEmployeeShift(Shift shift, Employee emp, String specialization)
     {
         return  dal.addEmployeeShift(shift, emp,specialization);
     }
 
-    @Override
+   
     public void reduce(Vector<Integer> vecOpt, Vector<Employee> vecMan, Vector<Employee> vec)
     {
         for (int i = 0; i< vecOpt.size(); i++)
@@ -280,29 +270,29 @@ public class BLEmployees_imp implements  BLEmployees
         }
     }
 
-    @Override
+    
     public Vector<Pair<Shift,String>> fetchAllEmployeeShifts(int id)
     {
         return  dal.fetchAllEmployeeShifts(id);
     }
 
-	@Override
+
 	public Vector<Pair<String, Integer>> fetchShiftAccupations(Shift shift) {
 		return dal.fetchShiftAccupations(shift);
 	}
 
-	@Override
-	public Vector<Shift> fetchInitializedShifts() 
+
+	public Vector<Shift> fetchInitializedShifts(String address) 
 	{
-		return dal.fetchInitializedShifts();
+		return dal.fetchInitializedShifts(address);
 	}
 
-	@Override
+
 	public Vector<Pair<Employee, String>> fetchEmployeesInShift(String address, Shift shift) {
 		return dal.fetchEmployeesInShift(address,shift);
 	}
 
-	@Override
+	
 	public boolean cheakAvailableStoreKeepers(String addressStore, String date, String shiftType) 
 	{
 		return dal.fetchAvailableStoreKeepers(addressStore, date, shiftType).size() != 0;

@@ -277,9 +277,9 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public Vector<Shift> fetchInitializedShifts() 
+	public Vector<Shift> fetchInitializedShifts(String address) 
 	{
-		return bl_emp.fetchInitializedShifts();
+		return bl_emp.fetchInitializedShifts(address);
 	}
 
 	@Override

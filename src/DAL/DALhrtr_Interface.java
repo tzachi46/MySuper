@@ -60,7 +60,7 @@ public interface DALhrtr_Interface {
 	public boolean initShift(Shift shift);
 	public Vector<Shift> fetchEmptyShift(String address);
 	public boolean deleteShift(String date, String type,String address);
-	public Vector<Shift> fetchInitializedShifts(); ////////////////
+	public Vector<Shift> fetchInitializedShifts(String address); ////////////////
 	/* Shifts n Employees */
 	public boolean addEmployeeShift(Shift shift,Employee emp,String specialization);
 	public boolean deleteEmployeeShift(String date, String type, String address, String id);

@@ -123,7 +123,7 @@ public class OrderDB {
 	protected LinkedList<Order> getUndeliverdOrders()
 	{
 		LinkedList<Order> res=new LinkedList<Order>();
-		String sql="select OrderNumber,SupplierId,OpenDate,isPeriodic,HaveTransport,StoreAddress from Orders where DueDate=''";
+		String sql="select OrderNumber,SupplierId,OpenDate,isPeriodic,HaveTransport,StoreAddress from Orders where HaveTransport=0";
 		try ( Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
 			 while(rs.next()){

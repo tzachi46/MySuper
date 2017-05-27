@@ -171,8 +171,8 @@ public class DALhrtrManager implements DALhrtr_Interface{
 		return repo.getShifts().deleteShift(date, type,address);
 	}
 	@Override
-	public Vector<Shift> fetchInitializedShifts() {
-		return repo.getShifts().fetchInitializedShifts();
+	public Vector<Shift> fetchInitializedShifts(String address) {
+		return repo.getShifts().fetchInitializedShifts(address);
 	}
 	
 

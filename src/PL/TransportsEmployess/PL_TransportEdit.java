@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
+import DAL.Orders.OrderDB;
+import DAL.Orders.OrderManager;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
@@ -88,7 +90,6 @@ public class PL_TransportEdit
 	}
 	
 	 private void autoInsertionToOrders() {
-		// TODO Auto-generated method stub
 		 Vector<Order> orders = bl.getUndeliveredOrders();
 		 for(Order order : orders){
 			 if(bl.checkTransportToOrder(order)){
@@ -189,22 +190,6 @@ public class PL_TransportEdit
 			 }
 		  }
 	}
-	 	 
-	/*private String getWeightFromUser(String toPrint)
-	{			
-		String weight; 
-		System.out.println("Truck's "+ toPrint+ " (in Kg) : ");		
-		weight = scanner.nextLine();
-		while (!validator.validateDouble(weight)) 
-		{
-			if (weight.equals("~"))
-				return "~";
-			System.out.println(toPrint+ " is not valid, try again:");
-			weight = scanner.nextLine();
-		}
-		return weight; 
-	}*/
-	
 
 	private String getSourceDocNumInputFromUser(String toPrint)
 	{			
@@ -277,7 +262,7 @@ public class PL_TransportEdit
         while (true)
         {
             Vector<Order> undeliveredOrders = bl.getUndeliveredOrders();
-            if(undeliveredOrders == null)
+            if(undeliveredOrders == null || undeliveredOrders.size() == 0)
             {
                 System.out.println("no relevant undelivered orders");
                 return;
@@ -363,10 +348,11 @@ public class PL_TransportEdit
 									return i;
 								if(choice.equals("2"))//return
 								{
-									double Mweight = minimizeWeightMenu(weight,elementAt);
+									double Mweight = minimizeWeightMenu(truck.getMaxWeight(),elementAt);
 									if(Mweight != -1)
 									{
 										weight = Mweight;
+										replan = false;
 										break;
 									}
 								}
@@ -384,7 +370,7 @@ public class PL_TransportEdit
 					}
 				}
 				else
-					System.out.println("There is no available storekeepers in the store at this time, please try again");
+					System.out.println("There is no shift or available storekeepers in the store at this time, please try again");
 				if(!enterTruck)
 					break;
 			}
@@ -396,20 +382,13 @@ public class PL_TransportEdit
 		sourceDocNum = getSourceDocNumInputFromUser("supplier");
 		if(sourceDocNum.equals("~"))
 			return i;
-		String docNum = getSourceDocNumInputFromUser("store");
-		if(docNum.equals("~"))
-			return i;
-		String arrivaleTime = getTimeInputInShift(time, "arrival time");
-		if(arrivaleTime.equals("~"))
-			return i;
 		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum),elementAt.getAddres());
 		if(success)
 		{
-			//
 			elementAt.setHaveTransport(1);
-			//
+			OrderManager.getInstance().updateOrder(elementAt);
 			System.out.println("Transport created successfully.");
-			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), Integer.parseInt(docNum),arrivaleTime);
+			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), elementAt.getOrderNumber(),time);
 			if(i==0)
 				return i;
 			return i-1;
@@ -433,13 +412,13 @@ public class PL_TransportEdit
 			System.out.println("Choose option:");
 			System.out.println("1)reduce product");
 			System.out.println("~)return to OverWeight Menu");
-			System.out.println("Current weight: " + weight + "Max weight: " + maxWeight);
+			System.out.println("Current weight: " + weight + "kg, Max weight: " + maxWeight + "kg");
 			
 			ListIterator<OrderProduct> listIterator = orderProducts.listIterator();
 			while (listIterator.hasNext()) 
 			{
 				OrderProduct Current = listIterator.next();
-				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
+				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " amount: " + Current.getAmount() + " weight: " + Current.getProductWeight());
 			}
 			option = scanner.nextLine();
 			if(option.equals("~"))
@@ -457,7 +436,6 @@ public class PL_TransportEdit
 				OrderProduct Current = listIterator.next();
 				if(Current.getProductId() == Integer.parseInt(pid))
 					Current.setAmount(Integer.parseInt(amount));
-				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
 			}
 			weight = order.getWeightOrder();
 		}	
@@ -477,7 +455,7 @@ public class PL_TransportEdit
 			System.out.println("~)return to previous menu");
 				
 			option = scanner.nextLine();
-			if(validator.validateIntInBounds(option, 1, 4))
+			if(validator.validateIntInBounds(option, 1, 3) || option.equals("~"))
 				break;
 			System.out.println("invalid input");
 		}			

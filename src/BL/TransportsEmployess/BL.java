@@ -36,7 +36,7 @@ public interface BL {
     boolean deleteShift(String type, String date, String address);
     Shift fetchShift(String type, String date, String address);
     Vector<Shift> getEmptyShifts(String address);
-    public Vector<Shift> fetchInitializedShifts();
+    public Vector<Shift> fetchInitializedShifts(String address);
     Vector<Shift> getUptoDate(Vector<Shift> vec);
     boolean addEmployeeSpeciality(int id, String specialization);
     boolean deleteEmployeeSpeciality(int id, String specialization);
