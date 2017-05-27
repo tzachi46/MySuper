@@ -235,7 +235,7 @@ public class PL_man {
        	}
         if(emp.getRank() == Rank.storeManeger || emp.getRank() == Rank.logisticManeger || emp.getRank() == Rank.humenResourceManeger)
         {
-        	System.out.println("you dont have permission to update the specializations of maneger,admin,ceo");
+        	System.out.println("you dont have permission to update the specializations of store maneger, logistic manager or HR manager.");
         	return;
         }
         while (true)

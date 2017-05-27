@@ -277,9 +277,9 @@ public class PL_HR_man
        		System.out.println("user not exist in this store");
        		return;
        	}
-       	if(emp.getRank() == Rank.logisticManeger)
+       	if(emp.getRank() == Rank.logisticManeger || emp.getRank() == Rank.humenResourceManeger)
        	{
-       		System.out.println("you dont have the permission to view logistic manager's details.");
+       		System.out.println("you dont have the permission to view logistic manager's or HR manager's details.");
        		return;
        	}
        	printEmpDetails(emp);
