@@ -119,15 +119,15 @@ public class PLimpl implements PL
         BLManager.emp = emp;
         switch (emp.getRank())
         {
-	        case logisticManeger:
+	        case logisticManager:
 	        {
 	            return HandleLogedCeo(emp);
 	        }
-            case humenResourceManeger:
+            case humenResourceManager:
             {
                 return HandleLogedAdmin(emp);
             }
-            case storeManeger:
+            case storeManager:
             {
                 return HandleLogedManager(emp);
             }

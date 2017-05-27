@@ -144,7 +144,7 @@ public class PL_HR_man
        		System.out.println("user not exist in this store");
        		return;
        	}
-		if(emp.getRank() == Rank.logisticManeger)
+		if(emp.getRank() == Rank.logisticManager)
 		{
 			System.out.println("you dont have the permission to update a logistic manager:");
 			return;
@@ -277,7 +277,7 @@ public class PL_HR_man
        		System.out.println("user not exist in this store");
        		return;
        	}
-       	if(emp.getRank() == Rank.logisticManeger)
+       	if(emp.getRank() == Rank.logisticManager)
        	{
        		System.out.println("you dont have the permission to view logistic manager's details.");
        		return;

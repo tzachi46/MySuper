@@ -108,7 +108,7 @@ public class PL_store_man {
        		System.out.println("user not exist in this store");
        		return;
        	}
-        if(emp.getRank() == Rank.storeManeger || emp.getRank() == Rank.logisticManeger || emp.getRank() == Rank.storeManeger)
+        if(emp.getRank() == Rank.storeManager || emp.getRank() == Rank.logisticManager || emp.getRank() == Rank.storeManager)
         {
         	System.out.println("you dont have permission to update the specializations of maneger,admin,ceo");
         	return;

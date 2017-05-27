@@ -29,7 +29,7 @@ public class PL_TruckEdit
 			System.out.println("2) Update existing Truck's details.");
 			System.out.println("3) Remove Truck from the company.");
 			System.out.println("4) Fetch Truck from the company.");
-			System.out.println("5) Return to Previous Menu.");
+			System.out.println("~) Return to Previous Menu.");
 			
 			String choice = scanner.nextLine();
 			if(!HandeleTruckOperationChoice(choice))
@@ -53,7 +53,7 @@ public class PL_TruckEdit
 			case "4":
 					fetchTruck();
 					break;
-			case "5":
+			case "~":
 					return false;
 	        default:
 	        {
@@ -70,10 +70,10 @@ public class PL_TruckEdit
 		String weight; 
 		System.out.println("Truck's "+ toPrint+ " (in Kg) : ");		
 		weight = scanner.nextLine();
-		while (!validator.validateDouble(weight)) 
+		while (!validator.validateDouble(weight) || (Double.parseDouble(weight) < 1000)) 
 		{
-			if (weight.equals("0"))
-				return "0";
+			if (weight.equals("~"))
+				return "~";
 			System.out.println(toPrint+ " is not valid, try again:");
 			weight = scanner.nextLine();
 		}
@@ -89,8 +89,8 @@ public class PL_TruckEdit
 		licenceType = scanner.nextLine();
 		while (!validator.validateIntInBounds(licenceType, 0, Integer.MAX_VALUE)) 
 		{
-			if (licenceType.equals("0"))
-				return "0";
+			if (licenceType.equals("~"))
+				return "~";
 		    System.out.println("LicenceType is not valid, try again:");
 		    licenceType = scanner.nextLine();
 		}
@@ -107,21 +107,21 @@ public class PL_TruckEdit
 		String model = "";
 		System.out.println("Please insert the Truck details : ");
 		truckNo = pl_Shared.getNotExistingTruckNumber();
-		if (truckNo.equals("0"))
+		if (truckNo.equals("~"))
         	return;
 		System.out.println("Model : ");
 		model = scanner.nextLine();
-		if (model.equals("0"))
+		if (model.equals("~"))
         	return;
 		weight = getWeightFromUser("Weight");
-		if(weight.equals("0"))
+		if(weight.equals("~"))
 			return;
 		maxWeight = getWeightFromUser("max Weight");
-		if(maxWeight.equals("0"))
+		if(maxWeight.equals("~"))
 			return;
 
 		licenseType = getLicenceTypeFromUser();
-		if(licenseType.equals("0"))
+		if(licenseType.equals("~"))
 			return;
 		
 		System.out.println();
@@ -137,7 +137,7 @@ public class PL_TruckEdit
 		while (true)
 		{
 			truckNo = pl_Shared.getExistingTruckNumber();
-			if(truckNo.equals("0"))
+			if(truckNo.equals("~"))
 				return;	
 			Truck truck = bl.fetchTruck(Integer.parseInt(truckNo));
 			if(truck!=null)
@@ -147,7 +147,7 @@ public class PL_TruckEdit
 				System.out.println("2)weight");
 				System.out.println("3)maximum weight");
 				System.out.println("4)license Type");
-				System.out.println("5)return to previous menu");
+				System.out.println("~)return to previous menu");
 				
 				String option = scanner.nextLine();
 				if(!handleTruckUpdate(option,truck))
@@ -182,7 +182,7 @@ public class PL_TruckEdit
 			case "4":
 					updateLicenseType(truck);
 					break;
-			case "5":
+			case "~":
 					return false;
 	        default:
 	        {
@@ -196,7 +196,7 @@ public class PL_TruckEdit
 	private void updateLicenseType(Truck truck) 
 	{
 		String licenceType = getLicenceTypeFromUser();
-		if(licenceType.equals("0"))
+		if(licenceType.equals("~"))
 			return;
 		truck.setLicenceType(Integer.parseInt(licenceType));
 		commitUpdate(truck);
@@ -205,7 +205,7 @@ public class PL_TruckEdit
 	private void updateMaxWeight(Truck truck) 
 	{
 		String maxWeight = getWeightFromUser("max Weight");
-		if(maxWeight.equals("0"))
+		if(maxWeight.equals("~"))
 			return;
 		truck.setMaxWeight(Double.parseDouble(maxWeight));
 		commitUpdate(truck);
@@ -215,7 +215,7 @@ public class PL_TruckEdit
 	private void updateWeight(Truck truck) 
 	{
 		String weight = getWeightFromUser("Weight");
-		if(weight.equals("0"))
+		if(weight.equals("~"))
 			return;
 		truck.setWeight(Double.parseDouble(weight));
 		commitUpdate(truck);
@@ -226,7 +226,7 @@ public class PL_TruckEdit
 	{
 		System.out.println("Model : ");
 		String model = scanner.nextLine();
-		if (model.equals("0"))
+		if (model.equals("~"))
         	return;
 		truck.setModel(model);
 		commitUpdate(truck);
@@ -237,7 +237,7 @@ public class PL_TruckEdit
 		while(true)
 		{
 			String truckNo = pl_Shared.getExistingTruckNumber();
-			if (truckNo.equals("0"))
+			if (truckNo.equals("~"))
 	        	return;
 			int numericTruckNo = Integer.parseInt(truckNo);
 			if(bl.fetchTruck(numericTruckNo) != null)
@@ -258,8 +258,9 @@ public class PL_TruckEdit
 	private void fetchTruck()
 	{
 			String truckNo = pl_Shared.getExistingTruckNumber();
-			if (truckNo.equals("0"))
+			if (truckNo.equals("~"))
 	        	return;
 			System.out.println(bl.fetchTruck(Integer.parseInt(truckNo)).toString());
+			System.out.println("---------------------------");
 	}
 }
