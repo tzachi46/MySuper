@@ -31,7 +31,7 @@ public class PL_SitesEdit
 			System.out.println("2) Update existing store's details.");
 			System.out.println("3) Remove store from the database.");
 			System.out.println("4) Fetch store's details from the database.");
-			System.out.println("5) Return to Main Menu.");
+			System.out.println("~) Return to Main Menu.");
 	
 			String choice = scanner.nextLine();
 			
@@ -55,8 +55,6 @@ public class PL_SitesEdit
 			case "4":
 					fetchSite();
 					break;
-			case "5":
-					return false;
 			case "~":
 					return false;
 			default:
@@ -159,9 +157,9 @@ public class PL_SitesEdit
 		areaCode = getAreaCodeFromUser();
 		if(contact.equals("~"))
 			return;	
-		HR = getValidAdmin(address,"humanResourceManager");
+		HR = getValidAdmin(address,"humenResourceManager");
 		if(HR == null)
-			return;
+			return;                          
 		StoreManger = getValidAdmin(address,"storeManager");
 		if(StoreManger == null)
 			return;
@@ -190,7 +188,7 @@ public class PL_SitesEdit
 			System.out.println("1)Update phone number");
 			System.out.println("2)Update contant name");
 			System.out.println("3)Update area code");
-			System.out.println("4)return to previous menu");
+			System.out.println("~)return to previous menu");
 				
 			String option = scanner.nextLine();
 			if(!handleSiteUpdate(option,site))
@@ -211,8 +209,6 @@ public class PL_SitesEdit
 			case "3":
 					updateAreaCode(site);
 					break;
-			case "4":
-					return false;
 			case "~":
 					return false;
 	        default:

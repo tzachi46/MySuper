@@ -1,5 +1,5 @@
 package DAL.Orders.test;
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ import BL.StorageSuppliers.BLSupplier;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.Supplier;
 
-
+*/
 public class OrderDBTests {
 
 /*

@@ -46,16 +46,16 @@ public class init
 		dal_imp.insertSite(new Site("rosh street", "0111111111", "rosh", 123));
 		
 		//ceo
-		dal_imp.insertEmployee(new Employee(111111111, "ceo1", "ceo1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.logisticManeger, "ofir street", 7));
+		dal_imp.insertEmployee(new Employee(111111111, "ceo1", "ceo1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.logisticManager, "Base", 7));
 		
 		//3 admins
-		dal_imp.insertEmployee(new Employee(911111111, "admin1", "admin1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "ofir street", 7));
-		dal_imp.insertEmployee(new Employee(922222222, "admin2", "admin2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(933333333, "admin3", "admin3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManeger, "rosh street", 7));
+		dal_imp.insertEmployee(new Employee(911111111, "admin1", "admin1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManager, "ofir street", 7));
+		dal_imp.insertEmployee(new Employee(922222222, "admin2", "admin2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManager, "dov street", 7));
+		dal_imp.insertEmployee(new Employee(933333333, "admin3", "admin3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.storeManager, "rosh street", 7));
 		// 6 mangers 2 per Store
-		dal_imp.insertEmployee(new Employee(211111111, "maneger1", "maneger1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManeger, "ofir street", 7));
-		dal_imp.insertEmployee(new Employee(233333333, "maneger3", "maneger3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManeger, "dov street", 7));
-		dal_imp.insertEmployee(new Employee(255555555, "maneger5", "maneger5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManeger, "rosh street", 7));
+		dal_imp.insertEmployee(new Employee(211111111, "maneger1", "maneger1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManager, "ofir street", 7));
+		dal_imp.insertEmployee(new Employee(233333333, "maneger3", "maneger3", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManager, "dov street", 7));
+		dal_imp.insertEmployee(new Employee(255555555, "maneger5", "maneger5", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManager, "rosh street", 7));
 		// 18 regular employees 6 per Store
 		dal_imp.insertEmployee(new Employee(611111111, "regular1", "regular1", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));
 		dal_imp.insertEmployee(new Employee(622222222, "regular2", "regular2", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7));

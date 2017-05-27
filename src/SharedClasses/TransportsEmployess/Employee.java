@@ -3,7 +3,7 @@ package SharedClasses.TransportsEmployess;
 public class Employee 
 {
 	//public enum Rank {logisticManeger,humenResourceManeger, shiftManager, regular, storeManeger}
-	public enum Rank {logisticManeger,humenResourceManeger, regular, storeManeger}
+	public enum Rank {logisticManager,humenResourceManager, regular, storeManager}
 	
 	private int id;
 	private String fname;

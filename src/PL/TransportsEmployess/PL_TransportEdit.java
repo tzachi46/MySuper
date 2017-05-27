@@ -41,7 +41,7 @@ public class PL_TransportEdit
 			System.out.println("5) Fetch transport's details from the database.");
 			System.out.println("6) Fetch transport's destinations.");
 			System.out.println("7) Auto insertion of Transports to Orders");
-			System.out.println("8) Return to Main Menu.");
+			System.out.println("~) Return to Main Menu.");
 			
 			String choice = scanner.nextLine();
 			if(!HandeleTransportOperationChoice(choice))
@@ -76,7 +76,7 @@ public class PL_TransportEdit
 			case "7":
 					autoInsertionToOrders();
 					break;
-			case "8":
+			case "~":
 					return false;
 			default:
 			{
@@ -190,7 +190,7 @@ public class PL_TransportEdit
 		  }
 	}
 	 	 
-	private String getWeightFromUser(String toPrint)
+	/*private String getWeightFromUser(String toPrint)
 	{			
 		String weight; 
 		System.out.println("Truck's "+ toPrint+ " (in Kg) : ");		
@@ -203,7 +203,7 @@ public class PL_TransportEdit
 			weight = scanner.nextLine();
 		}
 		return weight; 
-	}
+	}*/
 	
 
 	private String getSourceDocNumInputFromUser(String toPrint)
@@ -359,7 +359,7 @@ public class PL_TransportEdit
 							while(choice.equals("2"))
 							{
 								choice = OverWeightMenu();
-								if(choice.equals("4"))//return
+								if(choice.equals("~"))//return
 									return i;
 								if(choice.equals("2"))//return
 								{
@@ -432,7 +432,7 @@ public class PL_TransportEdit
 		{
 			System.out.println("Choose option:");
 			System.out.println("1)reduce product");
-			System.out.println("2)return to OverWeight Menu");
+			System.out.println("~)return to OverWeight Menu");
 			System.out.println("Current weight: " + weight + "Max weight: " + maxWeight);
 			
 			ListIterator<OrderProduct> listIterator = orderProducts.listIterator();
@@ -442,7 +442,7 @@ public class PL_TransportEdit
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " " + Current.getProductWeight());
 			}
 			option = scanner.nextLine();
-			if(option.equals(2))
+			if(option.equals("~"))
 				return -1;
 		
 			String pid,amount;
@@ -474,7 +474,7 @@ public class PL_TransportEdit
 			System.out.println("1)replan the transport");
 			System.out.println("2)enter weight again");
 			System.out.println("3)replace truck");
-			System.out.println("4)return to previous menu");
+			System.out.println("~)return to previous menu");
 				
 			option = scanner.nextLine();
 			if(validator.validateIntInBounds(option, 1, 4))
@@ -488,7 +488,7 @@ public class PL_TransportEdit
 	private int insertSiteToTransport(int i,Order o) 
 	{
 		double weight;
-		String timeOfArrival,siteAddress;
+		String timeOfArrival;
 		System.out.println("Please insert the Transport's details : ");
 		Transport transport = getTransportByKey();
 		if(transport == null)
@@ -576,7 +576,7 @@ public class PL_TransportEdit
 			System.out.println("Choose option:");
 			System.out.println("1)Updete id of driver");
 			System.out.println("2)Updete sourceDoc number");
-			System.out.println("3)return to previous menu");
+			System.out.println("~)return to previous menu");
 				
 			String option = scanner.nextLine();
 			if(!handleTransportUpdate(option,transport))
@@ -594,7 +594,7 @@ public class PL_TransportEdit
 			case "2":
 					updateSourceDoc(transport);
 					break;
-			case "3":
+			case "~":
 					return false;
 	        default:
 	        {
