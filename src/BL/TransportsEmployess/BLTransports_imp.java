@@ -1,10 +1,12 @@
 package BL.TransportsEmployess;
 
+import java.util.Comparator;
 import java.util.Vector;
 
 
 import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Driver;
+import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -221,4 +223,70 @@ public class BLTransports_imp implements BLTransports {
 				transport.getDateOfDep(), transport.getHourOfDep()).getHourOfArr();
 	}
 
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	public Vector<Transport> getRelevantTransports(int id) {
+		return dal.getRelevantTransports(id);
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	public void sortTrans(Vector<Transport> notSorted)
+    {
+        notSorted.sort(new Comparator<Transport>() {
+            @Override
+            public int compare(Transport o1, Transport o2)
+            {
+                int day1 = Integer.parseInt(o1.getDateOfDep().substring(0, 2));
+                int month1 = Integer.parseInt(o1.getDateOfDep().substring(3, 5));
+                int year1 = Integer.parseInt(o1.getDateOfDep().substring(6, 10));
+                int day2 = Integer.parseInt(o2.getDateOfDep().substring(0, 2));
+                int month2 = Integer.parseInt(o2.getDateOfDep().substring(3, 5));
+                int year2 = Integer.parseInt(o2.getDateOfDep().substring(6, 10));
+                if(year1 > year2)
+                    return 1;
+                if(year1 < year2)
+                    return -1;
+                if(month1 > month2)
+                    return 1;
+                if(month1 < month2)
+                    return -1;
+                if(day1 > day2)
+                    return 1;
+                if(day1 < day2)
+                    return -1;
+                if (Integer.parseInt(o1.getHourOfDep().substring(0,1))<12) //Morning transport
+                    return -1;
+                return 0;
+            }
+        });
+    }
+	
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	public void sortDests(Vector<Pair<String,String>> notSorted)
+    {
+        notSorted.sort(new Comparator<Pair<String,String>>() {
+            @Override
+            public int compare(Pair<String,String> o1, Pair<String,String> o2)
+            {
+                int hour1 = Integer.parseInt(o1.getKey().substring(0, 2));
+                int minute1 = Integer.parseInt(o1.getKey().substring(3, 4));
+                int hour2 = Integer.parseInt(o2.getKey().substring(0, 2));
+                int minute2 = Integer.parseInt(o2.getKey().substring(3, 4));
+                if(hour1 > hour2)
+                    return 1;
+                if(hour1 < hour2)
+                    return -1;
+                if(minute1 > minute2)
+                    return 1;
+                if(minute1 < minute2)
+                    return -1;
+                return 0;
+            }
+        });
+    }
 }

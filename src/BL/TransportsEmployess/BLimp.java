@@ -428,6 +428,8 @@ public class BLimp implements BL {
 	@Override
 	public boolean addreesAtTransport(String address, Transport transport) {
 		Vector<Integer> vec  = bl_trans.getOrdersInTransport(transport);
+		if(vec==null)
+			return false;
 		for(Integer orderNo : vec){
 			if(DAL.Orders.OrderManager.getInstance().getOrder(orderNo).getAddres().equals(address))
 				return true;
@@ -446,5 +448,29 @@ public class BLimp implements BL {
 			}
 		}
 		return null;
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	@Override
+	public Vector<Transport> getRelevantTransports(int id) {
+		return bl_trans.getRelevantTransports(id);
+	}
+	
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	@Override
+	public void sortTrans(Vector<Transport> vec) {
+		bl_trans.sortTrans(vec);
+	}
+	
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of Pair<time, address> by date
+     */
+	@Override
+	public void sortDests(Vector<Pair<String,String>> vec) {
+		bl_trans.sortDests(vec);
 	}
 }

@@ -9,6 +9,7 @@ import PL.StorageSuppliers.Order.OrderCLI;
 import PL.StorageSuppliers.SupplierPL.CLIMenu;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Transport;
 
 /**
  * Created by Yoni Kazarski on 24/03/2017.
@@ -194,29 +195,40 @@ public class PLimpl implements PL
         return  true;
 
     }
-
+    
+    /*
+     * NEW (edited 26.5 by Ofir)
+     */
     private boolean HandleLogedRegular(Employee emp)
     {
     	boolean isStoreKeeper = isStoreKeeper(emp.getId());
+    	boolean isDriving = isDriving(emp.getId());
         while (true)
         {
             System.out.println("Hello " + emp.getFname());
             System.out.println("1) Restriction menu");
             System.out.println("2) show shifts");
-            if(!isStoreKeeper)
+            if(!isStoreKeeper){
+            	if(isDriving){
+            		System.out.println("3) View transports details"); //Present transports whose driver is emp
+            	}
             	System.out.println("~) go back to Previous menu");
+            }
             else
             {
             	System.out.println("3) supplier manegment screen");
             	System.out.println("4) Inventory manegment screen");
             	System.out.println("5) Order manegment screen");
+            	if(isDriving){
+            		System.out.println("6) View transports details"); //Present transports whose driver is emp
+            	}
             	System.out.println("~) go back to Previous menu");
 
             }
             
             String choice = scanner.nextLine();
 
-            if(!HandeleRegularrChoice(choice,emp,isStoreKeeper))
+            if(!HandeleRegularrChoice(choice,emp,isStoreKeeper, isDriving))
                 break;
         }
 
@@ -240,8 +252,13 @@ public class PLimpl implements PL
 
         return true;
     }
-
-
+    
+    /*
+     * NEW (edited 26.5 by Ofir)
+     */
+    private boolean isDriving(int id){
+    	return pl_reg.getRelevantTransports(id)!=null;
+    }
 
     private boolean isStoreKeeper(int id) 
     {
@@ -503,7 +520,10 @@ public class PLimpl implements PL
         return true;
 	}
 
-	private boolean HandeleRegularrChoice(String choice, Employee emp, boolean isStoreKeeper)
+    /*
+     * NEW (edited 26.5 by Ofir)
+     */
+	private boolean HandeleRegularrChoice(String choice, Employee emp, boolean isStoreKeeper, boolean isDriving)
     {
         switch (choice)
         {
@@ -519,9 +539,13 @@ public class PLimpl implements PL
             }
             case "3":
             {
-            	if(!isStoreKeeper)
+            	if(!isStoreKeeper&& !isDriving){
             		System.out.println("Invalid input, try again");
-            	else
+            	}
+            	else if(!isStoreKeeper && isDriving){
+            		pl_reg.showRelevantTransports(emp.getId());
+            	}
+            	else if(isStoreKeeper)
             	{
             		CLIMenu.getInstance().Start(scanner);
             	}
@@ -546,6 +570,15 @@ public class PLimpl implements PL
             		OrderCLI.Start(scanner);
             	}
             	break;
+            }
+            case "6":
+            {
+            	if(isStoreKeeper && isDriving){
+            		pl_reg.showRelevantTransports(emp.getId());
+            	}
+            	else{
+            		System.out.println("Invalid input, try again");
+            	}
             }
             case "~":
             {

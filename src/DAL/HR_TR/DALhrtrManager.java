@@ -253,4 +253,11 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	public TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber, String date, String hour) {
 		return this.repo.transDests.fetchTransportDestination(truckNumbeer, orderNumber, date, hour);
 	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	public Vector<Transport> getRelevantTransports(int id) {
+		return this.repo.transports.getRelevantTransports(id);
+	}
 }

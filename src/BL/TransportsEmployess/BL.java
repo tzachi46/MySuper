@@ -106,4 +106,18 @@ public interface BL {
 
 	String getArrivalTime(String addres, Transport transport);
 	public boolean checkTransportToOrder(Order order);
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	Vector<Transport> getRelevantTransports(int id);
+
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	void sortTrans(Vector<Transport> vec);
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of Pair<time, address> by date
+     */
+	void sortDests(Vector<Pair<String, String>> vec);
 }

@@ -140,6 +140,7 @@ public class TransportDestinationsDAO extends DAO {
 		        }
 			return orderNumber;
 	}
+	
 	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) {
 		 Vector<Pair<String, String>> vec = new Vector<Pair<String,String>>();
 	        String sql = "SELECT TransportDestinations.HOUROFARR, TransportDestinations.DOCCODE "
@@ -167,5 +168,4 @@ public class TransportDestinationsDAO extends DAO {
 	         }
 	        return vec;
 	}
-
 }

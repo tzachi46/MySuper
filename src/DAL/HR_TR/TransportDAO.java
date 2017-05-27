@@ -168,7 +168,7 @@ public class TransportDAO extends DAO {
 	
 	public Vector<Integer> getOrdersInTransport(Transport tran){
 		Vector<Integer> vec = new Vector<Integer>();
-		String sql = "SELECT TransportDestinations.SOURCEDOC"
+		String sql = "SELECT TransportDestinations.DOCCODE"
 		 		+ " FROM TransportDestinations " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	        
@@ -183,6 +183,38 @@ public class TransportDAO extends DAO {
 	            while (rs.next())
 	            {// get the result
 	                vec.add(rs.getInt(1));
+	            }
+	            if (vec.size() > 0)
+	                return vec;
+	           
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+		return null;
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	public Vector<Transport> getRelevantTransports(int id) {
+		Vector<Transport> vec = new Vector<Transport>();
+		String sql = "SELECT LICENCETRUCK, COMPANYID, DATE, HOUR,"
+		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " FROM Transports " +
+				 "WHERE DRIVERID = ?";
+	        
+	
+	        try (Connection conn = this.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setInt(1, id);
+			    
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	            	Transport tr =  new Transport(id, rs.getInt(1), 
+		        			rs.getInt(2), rs.getString(3), 
+		        			rs.getString(4), rs.getDouble(5),rs.getInt(6), rs.getString(7));
+	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)
 	                return vec;
