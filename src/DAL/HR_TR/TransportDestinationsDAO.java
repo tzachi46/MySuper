@@ -79,12 +79,11 @@ public class TransportDestinationsDAO extends DAO {
 	              stmt.setString(3, date);
 	              stmt.setString(2, hour);
 	            ResultSet rs = stmt.executeQuery();
-	        	if(!rs.next()){
+	        	if(!rs.next())
 	        		return null;
-	        	}
 	        	// get the result
 	        	return new TransportDestination(rs.getInt(1), rs.getString(2), rs.getString(3),
-	        			rs.getInt(5), rs.getString(6));	//ITAYYYYY - Change "" to hourOfArr
+	        			rs.getInt(4), rs.getString(5));	//ITAYYYYY - Change "" to hourOfArr
 	           
 	        } catch (SQLException e) 
 	        {
