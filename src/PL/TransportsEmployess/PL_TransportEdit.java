@@ -537,10 +537,7 @@ public class PL_TransportEdit
 			weight = o.getWeightOrder();
 		
 		if(bl.addreesAtTransport(o.getAddres(),transport))
-		{
-			System.out.println("daym :" + o.getAddres());
 			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
-		}	
 		else
 		{
 			while(true)
@@ -556,10 +553,10 @@ public class PL_TransportEdit
 		}
 		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo() ,o.getOrderNumber(),timeOfArrival))
 		{
-			//
-			o.setHaveTransport(1); 
-			//
-			System.out.println("Successfuly Added the site to destinations.");
+			o.setHaveTransport(1);
+			OrderManager.getInstance().updateOrder(o);
+			
+			System.out.println("Successfuly Added rhe order to the trasport.");
 			transport.setWeight(weight);
 			commitUpdate(transport);
 			if(i != 1)
