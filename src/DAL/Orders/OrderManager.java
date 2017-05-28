@@ -126,6 +126,11 @@ public class OrderManager {
 		return orderProductDB.getAmountOfProductInOpenOrderes(ProductId,StoreAddress);
 	}
 	
+	public boolean isProductExistInAOrder(int productId){
+		orderDB.initTable();
+		orderProductDB.initTable();
+		return orderProductDB.isProductExistInAOrder(productId);
+	}
 	
 	//help functions
 	protected static boolean executeSQLCommand(String[] SQL) {
@@ -145,4 +150,7 @@ public class OrderManager {
 		sqlCommand[0]=SQL;
 		return executeSQLCommand(sqlCommand);
     }
+	
+
+	
 }

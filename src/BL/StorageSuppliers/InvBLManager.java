@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import BL.BLManager;
 import DAL.Inventory.InvDALManager;
+import DAL.Orders.OrderManager;
 import SharedClasses.Quartet;
 import SharedClasses.StorageSuppliers.Category;
 import SharedClasses.StorageSuppliers.Product;
@@ -174,5 +175,9 @@ public class InvBLManager {
 		
 		public LinkedList<String> getStoresOfferingProduct(int productId){
 			return DB.getStoresOfferingProduct(productId);
+		}
+		
+		public boolean isProductExistInAOrder(int productId){
+			return OrderManager.getInstance().isProductExistInAOrder(productId);
 		}
 	}

@@ -192,6 +192,7 @@ public class InvDALManager {
 		return productInStore.getStoresOfferingProduct(productId);
 	}
 	
+	
 	protected static boolean executeSQLCommand(String[] SQL) {
 		try (Statement stmt = DALManager.conn.createStatement()) {
 			for(int i=0;i<SQL.length;i++)
@@ -208,5 +209,6 @@ public class InvDALManager {
 		sqlCommand[0]=SQL;
 		return executeSQLCommand(sqlCommand);
     }
+	
 }
 
