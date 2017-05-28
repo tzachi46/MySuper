@@ -184,8 +184,9 @@ public class PLimpl implements PL
             System.out.println("Hello " + emp.getFname());
             System.out.println("1) Show messages");
             System.out.println("2) Employee reports management");
-            System.out.println("3) Shifts reports management");
-            System.out.println("4) Supplier management");
+            System.out.println("3) Inventory reports management");
+            System.out.println("4) Order reports management");
+            System.out.println("5) Supplier management");
             System.out.println("~) Go back to Previous menu");
             String choice = scanner.nextLine();
 
@@ -407,14 +408,21 @@ public class PLimpl implements PL
             case "2":
             {
             	HandleEmployeeReportManagementMenu(emp);
+            	
                 break;
             }
             case "3":
             {
-                HandleEmployeeShiftReportManagementMenu(emp);
+                /*HandleEmployeeShiftReportManagementMenu(emp);*/
+            	System.out.println("not implemented yet");
                 break;
             }
             case "4":
+            {//supplier management
+            	System.out.println("not implemented yet");
+            	break;
+            }
+            case "5":
             {//supplier management
             	CLIMenu.getInstance().Start(scanner);
             	break;
@@ -439,6 +447,9 @@ public class PLimpl implements PL
         	System.out.println("Choose one of the followings: ");
         	System.out.println("1) Show employee's details");
             System.out.println("2) Show employee's shifts");
+            System.out.println("3) Show initialized shifts");
+            System.out.println("4) Show uninitialized shifts");
+            /*HandleEmployeeShiftReportManagementMenu(emp)*/
             System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleEmployeeReportManagementMenuChoice(choice,emp))
@@ -464,6 +475,16 @@ public class PLimpl implements PL
                 pl_reg.showAllShifts(Integer.parseInt(id));
                 break;
             }
+            case "3":
+            {
+                pl_admin.showInitializedShifts(emp.getWorkAddress());
+                break;
+            }
+            case "4":
+            {
+                System.out.println("currently unsported will be avilable soon");
+                break;
+            }
             case "~":
             {//ret
                 return false;
@@ -476,7 +497,7 @@ public class PLimpl implements PL
         }
         return true;
 	}
-
+/*
 	private boolean HandleEmployeeShiftReportManagementMenu(Employee emp) 
 	{
 		while (true)
@@ -519,7 +540,7 @@ public class PLimpl implements PL
         }
         return true;
 	}
-
+*/
     /*
      * NEW (edited 26.5 by Ofir)
      */
@@ -625,5 +646,61 @@ public class PLimpl implements PL
 			}
 		}
 		return true;
+	}
+	
+	private boolean HandleInventoryReportManagementMenu(Employee emp) 
+	{
+		while (true)
+        {
+        	System.out.println("Choose one of the followings: ");
+            System.out.println("1) Get products in inventory.");
+            System.out.println("2) Get products that are running out.");
+            System.out.println("3) Get defective products.");
+            System.out.println("4) Get product details.");
+            System.out.println("~) Return to previous menu");
+            String choice = scanner.nextLine();
+            if(!HandleInventoryReportManagementMenuChoice(choice,emp))
+                break;
+        }
+        return true;	
+	}
+    
+    
+    private boolean HandleInventoryReportManagementMenuChoice(String choice, Employee emp) 
+    {
+    	InventoryCLI ICLI =InventoryCLI.GetInvCLIManager();
+    	switch (choice)
+        {
+            case "1":
+            {
+            	ICLI.getProductsMenu(scanner);
+                break;
+            }
+            case "2":
+            {
+            	ICLI.runningOutProducts(scanner);
+                break;
+            }
+            case "3":
+            {
+            	ICLI.defectiveProducts(scanner);
+                break;
+            }
+            case "4":
+            {
+            	ICLI.getProductMenu(scanner);
+                break;
+            }
+            case "~":
+            {//ret
+                return false;
+            }
+            default:
+            {
+                System.out.println("Invalid input, try again");
+                break;
+            }
+        }
+        return true;
 	}
 }
