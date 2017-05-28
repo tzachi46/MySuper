@@ -194,7 +194,7 @@ public class PL_reg
 		}
 		while(true){
 			System.out.println("choose option");
-            System.out.println("0)return, 1)left, 2)right, 3)show destinations");
+            System.out.println("~)return, 1)left, 2)right, 3)show destinations");
             System.out.println("***********************************");
             System.out.println(transports.elementAt(i).toString());
             System.out.println("***********************************");
@@ -203,7 +203,7 @@ public class PL_reg
                 System.out.println("invalid input, try again");
             else 
             {
-                if (option.equals("0")||option.equals("~"))
+                if (option.equals("~"))
                     break;
                 if (option.equals("1")) {
                     if (i == 0)
