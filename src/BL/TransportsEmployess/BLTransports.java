@@ -38,7 +38,7 @@ public interface BLTransports {
 							double weight, int sourceDoc,  String address);
 	public Transport fetchTransport(String date, String time, int numberOfTruck);
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, /*String source*/int companyID,
-							double weight, int sourceDoc, String address);
+							double weight, String address);
 /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
 	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr) throws Exception;
 	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
@@ -55,4 +55,5 @@ public interface BLTransports {
 	public Vector<Integer> getOrdersInTransport(Transport trans);
 	public String getArrivalTime(int orderNumber, Transport transport);
 	public Vector<Transport> getTransportsInDate(String date);
+	public boolean checkReplacement(Truck truck);
 }

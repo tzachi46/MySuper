@@ -248,8 +248,8 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID /*String source*/,
-			double weight, int sourceDoc,String address) {
-		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc,address);
+			double weight,String address) {
+		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight,address);
 	}
 
 	/*@Override
@@ -490,4 +490,10 @@ public class BLimp implements BL {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean checkReplacement(Truck truck) {
+		return bl_trans.checkReplacement(truck);
+	}
+
 }

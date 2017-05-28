@@ -211,7 +211,7 @@ public class PL_TransportEdit
 	 public int getExistTruckDrivers(String addressStore, String date, String shiftType,int lio)
 	 {
 		 Vector<Driver> drivers = bl.fetchAvailableDrivers(addressStore,date,shiftType);
-		 for(int i =0;i< drivers.size();i++)
+		 for(int i = drivers.size()-1;i>=0 ;i--)
 		 {
 			 if(drivers.elementAt(i).getLno()<lio)
 				 drivers.removeElementAt(i); 
@@ -517,7 +517,7 @@ public class PL_TransportEdit
 		Transport transport = getTransportByKey();
 		if(transport == null)
 			return i;
-		if(transport.getSourceDoc() != o.getSupplierId())
+		if(transport.getCompanyID() != o.getSupplierId())
 		{
 			System.out.println("Cant add to transport order from another supplier.");
 			return i;
@@ -652,7 +652,7 @@ public class PL_TransportEdit
 
 	private void commitUpdate(Transport transport)
 	{
-		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getSourceDoc(), transport.getAddressOrign()))
+		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getAddressOrign()))
 			System.out.println("Transport updated successfully.");
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");

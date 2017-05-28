@@ -592,8 +592,8 @@ public class InitSupplierInv {
 		
 		
 		DALhrtr_Interface dal_imp = DAL.HR_TR.DALhrtrManager.getDALImp();
-		dal_imp.insertTransport(new Transport(622222222, 11111111, 1, "25/05/2017", "10:01", 2000, 0, "ofir street"));
-		dal_imp.insertTransportDestination(new TransportDestination(11111111, "25/05/2017", "10:01", order.getOrderNumber(), "10:02"));
+		dal_imp.insertTransport(new Transport(622222222, 11111111, 1, "29/05/2017", "10:01", 2000, "ofir street"));
+		dal_imp.insertTransportDestination(new TransportDestination(11111111, "29/05/2017", "10:01", order.getOrderNumber(), "10:02"));
 	}
 	
 	

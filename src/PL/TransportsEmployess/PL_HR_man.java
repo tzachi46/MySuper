@@ -8,6 +8,7 @@ import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Employee.Rank;
+import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 
 /**
  * Created by kazarski on 3/26/17.
@@ -218,7 +219,21 @@ public class PL_HR_man
     	   String lio = getLicenceDriver(false);
            if(lio.equals("~"))
         	   return;
-           if(bl.fetchDriver(emp.getId())==null)
+           if(lio.equals("")&&bl.fetchDriver(emp.getId())!=null){
+        	   //Remove from drivers
+        	   bl.deleteDriver(emp.getId());
+        	   EmployeeSpeciality[] specs = bl.getSpecsOf(emp.getId());
+        	   boolean found = false;
+        	   for(int i=0; i<specs.length; i++){
+        		   if(specs[i].getSpecialization().equals("Carrier")){
+        			   found = true;
+        		   }
+        	   }
+        	   if(found){
+        		   bl.deleteEmployeeSpeciality(emp.getId(), "Carrier");
+        	   }
+           }
+           else if(bl.fetchDriver(emp.getId())==null)
            	   bl.insertDriver(new Driver(emp.getId(), emp.getFname(), emp.getLname(),emp.getSalary(), emp.getStartDate(), emp.getEndDate(), emp.getBankAccount(), emp.getRank(), emp.getWorkAddress(),emp.getDayOfRest(),Integer.parseInt(lio)));
            else
         	   bl.updateDriver(emp.getId(),Integer.parseInt(lio));       
@@ -290,7 +305,7 @@ public class PL_HR_man
     
     private int getNumOfEmployees(String toPrint, int min,int max)
     {
-    	 System.out.println("Enter number of " + toPrint + ", should be at least " + min +", press -1 to Return");
+    	 System.out.println("Enter number of " + toPrint + ", should be at least " + min +", press ~ to Return");
          String num = scanner.nextLine();
          while(!validator.validateIntInBounds(num, min, max))
          {
