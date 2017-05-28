@@ -114,7 +114,7 @@ public class PL_SitesEdit
 	
 	private Employee getValidAdmin(String address,String job)
 	{
-		System.out.println("At any point you can press ~ to return to previous menu");
+		//System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter the details of the "+ job + " of the store:");
         String id = pl_shared.getNotExistingId();
         if(id.equals("~"))
@@ -155,7 +155,7 @@ public class PL_SitesEdit
 		if(contact.equals("~"))
 			return;	
 		areaCode = getAreaCodeFromUser();
-		if(contact.equals("~"))
+		if(areaCode.equals("~"))
 			return;	
 		HR = getValidAdmin(address,"humenResourceManager");
 		if(HR == null)
@@ -177,10 +177,10 @@ public class PL_SitesEdit
 	
 	private void updateSite() 
 	{
-		String address;
+		String address = pl_shared.getExistStoreAddressFromUser();;
 		while (true)
 		{
-			address = pl_shared.getExistStoreAddressFromUser();
+			//address = pl_shared.getExistStoreAddressFromUser();
 			if(address.equals("~"))
 				break;
 			Site site = bl.fetchSite(address);
@@ -262,6 +262,9 @@ public class PL_SitesEdit
 		if(address.equals("BasePoint"))
 		{
 			System.out.println("cant delete the main store!");
+			return;
+		}
+		if(address.equals("~")){
 			return;
 		}
 		if(bl.deleteSite(address))
