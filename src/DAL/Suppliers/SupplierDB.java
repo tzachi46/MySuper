@@ -64,7 +64,7 @@ public class SupplierDB {
 	}
 	
 	protected void removeSupplier(int supplierId){
-		String[] sql= new String[5];
+		String[] sql= new String[6];
 		sql[0]="DELETE FROM SupplierDays\n"
 					+ " WHERE CompanyId="+supplierId+"\n";
 		sql[1]="DELETE FROM SuplierContactList\n"
@@ -73,8 +73,11 @@ public class SupplierDB {
 				+ " WHERE SupplierId="+supplierId+"\n";
 		sql[3]="DELETE FROM SupplierProducts\n"
 				+ " WHERE SupplierId="+supplierId+"\n";
-		sql[4]="DELETE FROM Supplier\n"
+		sql[4]="DELETE FROM Orders\n"
+				+ " WHERE SupplierId="+supplierId+"\n";
+		sql[5]="DELETE FROM Supplier\n"
 				+ " WHERE CompanyId="+supplierId+"\n";
+		
 		SupplierManager.executeSQLCommand(sql);	
 	}
 	
