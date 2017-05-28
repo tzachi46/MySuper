@@ -224,6 +224,40 @@ public class TransportDAO extends DAO {
 	        }
 		return null;
 	}
+	
+	/**
+	 * new addition : 28.05.2017 itay
+	 * @param id
+	 * @return
+	 */
+	public Vector<Transport> getRelevantTransports(String date) {
+		Vector<Transport> vec = new Vector<Transport>();
+		String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, HOUR,"
+		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " FROM Transports " +
+				 "WHERE DATE = ?";
+	        
+	
+	        try (Connection conn = this.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setString(1, date);
+			    
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	            	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), rs.getInt(3), date, rs.getString(4),
+	            			rs.getInt(5), rs.getInt(6), rs.getString(7));
+	                vec.add(tr);
+	            }
+	            if (vec.size() > 0)
+	                return vec;
+	           
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+		return null;
+	}
+	
 
 
 }

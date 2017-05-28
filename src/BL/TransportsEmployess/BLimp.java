@@ -1,6 +1,7 @@
 package BL.TransportsEmployess;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -346,15 +347,16 @@ public class BLimp implements BL {
 	}
 	
 	public boolean checkTransportToOrder(Order order){
-		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-        LocalDate localDate = LocalDate.now();
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime localDate = LocalDateTime.now();
         String date; 
         for(int i = 0; i < WEEK; i++){
 			localDate.plusDays(i);
-			date = dtf.format(localDate);
+			date = localDate.format(dtf);//dtf.format(localDate);
 			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
 				order.setDueDate(order.getDate());
 				order.setHaveTransport(1);
+				DAL.Orders.OrderManager.getInstance().updateOrder(order);
 				return true;
 			}
         }
@@ -363,42 +365,31 @@ public class BLimp implements BL {
 	
 	
 	public boolean checkDate(String date, String store, int supplierId, Order order){
-		// OLD CODE 
-		/* store keepers */
-//		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
-//				!(bl_emp.cheakAvailableStoreKeepers(store, date, "evening"))){
-//			return false;
-//		} else {
-//			/* get the optional trucks in morning */
-//			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
-//			/* choose the proper driver to the truck in morning */
-//			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
-//			if(driverNtruckM == null){ /* not M */
-//				/* get the optional trucks in evening */
-//				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
-//				/* choose the proper driver to the truck in evening */
-//				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
-//				if(driverNtruckE == null){/* not M  & not E */
-//					return false;
-//				} else {/* E */
-//					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-//							driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
-//				}
-//			} else { /* M */
-//				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
-//						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber()));
+//		
+//		Vector<Transport> transports =  bl_trans.getTransportsInDate(date);
+//			if(!transports.isEmpty()){
+//				Transport tran = transports.firstElement();
+//				int hour = Integer.parseInt(tran.getHourOfDep().substring(0, 2));
+//				if(hour >= 12)
+//					return bl_trans.addSiteToTransport(tran.getDateOfDep(), tran.getHourOfDep(),
+//							tran.getTruckNo(), order.getOrderNumber(), "23:59");
+//				else 
+//					return bl_trans.addSiteToTransport(tran.getDateOfDep(), tran.getHourOfDep(),
+//							tran.getTruckNo(), order.getOrderNumber(), "11:59");
 //			}
-//		}
-		
-		
+		/**
+		 * if there is'nt a transport to attach the order
+		 */
 		if(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")){
 			/* get the optional trucks in morning */
 			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
 			/* choose the proper driver to the truck in morning */
 			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
 			if(driverNtruckM != null){ /* not M */
-				return (bl_trans.createTransport(date, "12:01", driverNtruckM.getValue().getTruckNo(),
-						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber(), order.getAddres()));
+				return ((bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
+						&& (bl_trans.addSiteToTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+								order.getOrderNumber(), "11:59")));
 			}
 		} 
 		if(bl_emp.cheakAvailableStoreKeepers(store, date, "evening")){
@@ -407,8 +398,10 @@ public class BLimp implements BL {
 			/* choose the proper driver to the truck in evening */
 			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
 			 if(driverNtruckE != null) {/* E */
-				return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getOrderNumber(), order.getAddres()));
+				return ((bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
+						&& (bl_trans.addSiteToTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+								order.getOrderNumber(), "23:59")));
 			 }
 		} 
 		return false;

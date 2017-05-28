@@ -63,7 +63,7 @@ public class PL_man {
             System.out.println("Shift managers: " + Shift.getNumOfAccup("ShiftManager",accups));//emptyShifts.elementAt(i).getShift_manger());
             System.out.println("Cashier: " + Shift.getNumOfAccup("Cashier",accups));//emptyShifts.elementAt(i).getCashier());
             System.out.println("Store keepers: " + Shift.getNumOfAccup("StoreKeeper",accups));//emptyShifts.elementAt(i).getStorekeeper());
-            System.out.println("Truck Drivers: " + Shift.getNumOfAccup("TruckDriver",accups));//emptyShifts.elementAt(i).getTruck_driver());
+            System.out.println("Truck Drivers: " + Shift.getNumOfAccup("Carrier",accups));//emptyShifts.elementAt(i).getTruck_driver());
             System.out.println("***********************************");
 
             String option = scanner.nextLine();

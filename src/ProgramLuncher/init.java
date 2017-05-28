@@ -3,6 +3,9 @@ package ProgramLuncher;
 import java.io.File;
 import java.util.Vector;
 
+import BL.BLManager;
+import BL.TransportsEmployess.BL;
+import BL.TransportsEmployess.BLimp;
 import DAL.DALhrtr_Interface;
 import DAL.HR_TR.DALhrtrManager;
 import DAL.Suppliers.SupplierManager;
@@ -14,6 +17,8 @@ import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
+import SharedClasses.TransportsEmployess.Transport;
+import SharedClasses.TransportsEmployess.TransportDestination;
 import SharedClasses.TransportsEmployess.Truck;
 import SharedClasses.TransportsEmployess.Employee.Rank;
 
@@ -29,13 +34,14 @@ public class init
 		
 		InitSupplierInv.init();
 	//	forItay();
+	//	initItay();
 		String s[]=new String[2];
 		s[0]="insert into SupplierProducts (SupplierId, ProductId, SupplierCatalogId, AvarageDeleveryTime) VALUES (1,2,123,21);";
 		s[1]="INSERT INTO ProductsPrices (SupplierId, ProductId, MinimumQuantity, Price) VALUES (1,2,0,10);";
 		SupplierManager.executeSQLCommand(s);
 		System.out.println("DB has been ReInitialized");
 	}
-	
+
 	public static void initHRTR() 
 	{
 		DALhrtr_Interface dal_imp = DALhrtrManager.getDALImp();
@@ -215,12 +221,26 @@ public class init
 		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
 		dal_imp.insertShift(sht,shiftAcc1);
 		
+		
 		dal_imp.addEmployeeShift(sht, new Employee(611111111, "regular1", "regular1", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "ShiftManager");
 		dal_imp.addEmployeeShift(sht, new Employee(622222222, "regular2", "regular2", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");		
 		dal_imp.addEmployeeShift(sht, new Employee(633333333, "regular3", "regular3", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");
 		dal_imp.addEmployeeShift(sht, new Employee(644444444, "regular4", "regular4", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Cashier");		
 		dal_imp.addEmployeeShift(sht, new Employee(655555555, "regular5", "regular5", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "StoreKeeper");
+
 		
+		/***
+		 * itay's shit
+		 */
+		Vector<Pair<String,Integer>> shiftAcc5 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("28/05/2017", "morning", 5, 0, "ofir street");
+		shiftAcc5.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc5.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc5.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc5.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc5);
+		
+				
 	    shiftAcc1 = new Vector<Pair<String,Integer>>();
 		sht = new Shift("15/06/2017", "evening", 5, 1, "ofir street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
@@ -295,7 +315,7 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(722222222, "regular11", "regular11", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "StoreKeeper");
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("20/06/2017", "morning", 5, 1, "rosh street");
+		sht = new Shift("28/05/2017", "morning", 5, 1, "ofir street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
@@ -310,7 +330,7 @@ public class init
 
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("20/06/2017", "morning", 5, 1, "Base");
+		sht = new Shift("20/05/2017", "morning", 5, 1, "Base");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
@@ -322,5 +342,9 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(833333333, "regular21", "regular21", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Carrier");
 		dal_imp.addEmployeeShift(sht, new Employee(844444444, "regular22", "regular22", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Cashier");		
 		dal_imp.addEmployeeShift(sht, new Employee(855555555, "regular23", "regular23", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "StoreKeeper");
+	
+	
+		
+	
 	}
 }

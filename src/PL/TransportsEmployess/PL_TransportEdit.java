@@ -93,7 +93,7 @@ public class PL_TransportEdit
 		 for(Order order : orders){
 			 if(bl.checkTransportToOrder(order)){
 				 System.out.println("order No. " + order.getOrderNumber() +
-						 "have been assigned to transport successfully.");
+						 " have been assigned to transport successfully.");
 			 }		 
 		 }
 		 orders = bl.getUndeliveredOrders();
@@ -105,6 +105,7 @@ public class PL_TransportEdit
 				 System.out.println("Order No. " + order.getOrderNumber() + ".");
 			 }
 		 }
+		 System.out.println();
 	}
 
 
