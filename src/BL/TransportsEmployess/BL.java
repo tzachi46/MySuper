@@ -1,5 +1,6 @@
 package BL.TransportsEmployess;
 
+import java.util.LinkedList;
 import java.util.Vector;
 
 import SharedClasses.TransportsEmployess.Driver;
@@ -8,6 +9,7 @@ import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -120,4 +122,9 @@ public interface BL {
      * NEW (edited 26.5 by Ofir): Sort vector of Pair<time, address> by date
      */
 	void sortDests(Vector<Pair<String, String>> vec);
+
+	/*
+	 * NEW (28.5): check if pid in list
+	 */
+	boolean checkPidInList(LinkedList<OrderProduct> list, String pid);
 }

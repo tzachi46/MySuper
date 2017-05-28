@@ -168,7 +168,7 @@ public class PL_HR_man
     {
     	 boolean updateded = bl.updateEmployee(Integer.toString(employee.getId()),employee.getFname(),employee.getLname(),Double.toString(employee.getSalary()),employee.getStartDate(),employee.getEndDate(),employee.getBankAccount(),employee.getRank().toString(),employee.getWorkAddress(),employee.getDayOfRest());
          if(updateded)
-             System.out.println(employee.getFname() + " " + employee.getLname()  + " was updedated");
+             System.out.println(employee.getFname() + " " + employee.getLname()  + " was updated");
          else
              System.out.println("problem happened");
     }
@@ -294,7 +294,7 @@ public class PL_HR_man
          String num = scanner.nextLine();
          while(!validator.validateIntInBounds(num, min, max))
          {
-             if (num.equals("-1"))
+             if (num.equals("~"))
                  return -1;
              System.out.println("this number is not valid, try again:");
              num = scanner.nextLine();
@@ -371,46 +371,7 @@ public class PL_HR_man
         }
     }
    
-    public void updateShift()
-    {
-        while (true) 
-        {
-            System.out.println("At any point you can press ~ to return to previous menu");
-            System.out.println("choose option :");
-            System.out.println("1) Add/Reduce workers to empty shift");
-            System.out.println("2) Return to previuos menu");
-
-            String option = scanner.nextLine();
-            if (!HandleUpdateShiftOption(option))
-                break;
-        }
-    }
-
-    private boolean HandleUpdateShiftOption(String option)
-    {
-            switch (option)
-            {
-                case "1":
-                {
-                    break;
-                }
-                case "2":
-                {
-                    return false;
-                }
-                case "~":
-                {
-                	return false;
-                }
-                default:
-                {
-                    System.out.println("invalid input, try again");
-                    break;
-                }
-            }
-            return  true;
-    }
-    
+	
 	public void showInitializedShifts(String address)
 	{
 	  	int i = 0;

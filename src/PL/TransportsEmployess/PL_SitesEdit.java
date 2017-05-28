@@ -114,8 +114,12 @@ public class PL_SitesEdit
 	
 	private Employee getValidAdmin(String address,String job,String idPrev)
 	{
+<<<<<<< HEAD
 		String id;
 		System.out.println("At any point you can press ~ to return to previous menu");
+=======
+		//System.out.println("At any point you can press ~ to return to previous menu");
+>>>>>>> origin/Tilda
         System.out.println("Enter the details of the "+ job + " of the store:");
         while (true)
         {
@@ -163,7 +167,7 @@ public class PL_SitesEdit
 		if(contact.equals("~"))
 			return;	
 		areaCode = getAreaCodeFromUser();
-		if(contact.equals("~"))
+		if(areaCode.equals("~"))
 			return;	
 		HR = getValidAdmin(address,"humenResourceManager","-1");
 		if(HR == null)
@@ -185,6 +189,7 @@ public class PL_SitesEdit
 	
 	private void updateSite() 
 	{
+<<<<<<< HEAD
 		String address;
 		address = pl_shared.getExistStoreAddressFromUser();
 		if(address.equals("~"))
@@ -192,6 +197,14 @@ public class PL_SitesEdit
 	
 		while (true)
 		{	
+=======
+		String address = pl_shared.getExistStoreAddressFromUser();;
+		while (true)
+		{
+			//address = pl_shared.getExistStoreAddressFromUser();
+			if(address.equals("~"))
+				break;
+>>>>>>> origin/Tilda
 			Site site = bl.fetchSite(address);
 			System.out.println("Choose option:");
 			System.out.println("1)Update phone number");
@@ -271,6 +284,9 @@ public class PL_SitesEdit
 		if(address.equals("BasePoint"))
 		{
 			System.out.println("cant delete the main store!");
+			return;
+		}
+		if(address.equals("~")){
 			return;
 		}
 		if(bl.deleteSite(address))

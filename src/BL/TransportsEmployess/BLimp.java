@@ -13,6 +13,7 @@ import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -472,5 +473,26 @@ public class BLimp implements BL {
 	@Override
 	public void sortDests(Vector<Pair<String,String>> vec) {
 		bl_trans.sortDests(vec);
+	}
+	/*
+	 * NEW (28.5): check if pid exist in list of products
+	 */
+	@Override
+	public boolean checkPidInList(LinkedList<OrderProduct> list, String pid){
+		int id=-1;
+		try{
+			id=Integer.parseInt(pid);
+		}catch(Exception e){
+			//Should not be here, pid tested before
+			return false;
+		}
+		ListIterator<OrderProduct> iter = list.listIterator();
+		while (iter.hasNext()) 
+		{
+			OrderProduct curr = iter.next();
+			if(curr.getProductId() == id)
+				return true;
+		}
+		return false;
 	}
 }

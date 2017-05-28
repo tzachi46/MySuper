@@ -67,7 +67,7 @@ public class PLimpl implements PL
     private void openingFrame(){
 		System.out.println("*********************");
 		System.out.println("* Hello and Welcome *");
-		System.out.println("* to the Transport  *");
+		System.out.println("*    to  MySuper    *");
 		System.out.println("* and Employment    *");
 		System.out.println("* Managment System! *");
 		System.out.println("*********************");
@@ -78,11 +78,11 @@ public class PLimpl implements PL
     	openingFrame();
 
         System.out.println("1) log in");
-        System.out.println("2) Exit");
+        System.out.println("~) Exit");
 
         String option = scanner.nextLine();
 
-        while (!option.equals("1") && !option.equals("2"))
+        while (!option.equals("1") && !option.equals("~"))
         {
             System.out.println("ivalid input, try again");
             option = scanner.nextLine();
@@ -146,7 +146,7 @@ public class PLimpl implements PL
              System.out.println("1) Store Manegment");
              System.out.println("2) Truck Manegment"); 
              System.out.println("3) Transport Manegment"); 
-             System.out.println("4) go back to Previous menu");
+             System.out.println("~) go back to Previous menu");
 
              String choice = scanner.nextLine();
 
@@ -630,10 +630,6 @@ public class PLimpl implements PL
 		    {
 		        pl_TransportEdit.workOnTransport();
 		        break;
-		    }
-		    case "4":
-		    {
-		        return false;
 		    }
 		    case "~":
 		    	return false;
