@@ -350,9 +350,10 @@ public class BLimp implements BL {
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime localDate = LocalDateTime.now();
         String date; 
+        localDate.plusDays(order.getMaxProductPrepTime());
         for(int i = 0; i < WEEK; i++){
 			localDate.plusDays(i);
-			date = localDate.format(dtf);//dtf.format(localDate);
+			date = localDate.format(dtf);
 			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
 				order.setDueDate(order.getDate());
 				order.setHaveTransport(1);

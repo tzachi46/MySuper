@@ -102,7 +102,6 @@ public class SupplierProductsDB {
 	    	while(rs.next())
 	    		prices.add(new Pair<Integer,Double>(rs.getInt("MinimumQuantity"),rs.getDouble("Price")));
 	        } catch (Exception e) {
-	            //System.out.println(e.getMessage());
 	            return null; 
 	        }
 		sql = "SELECT SupplierId, ProductId,SupplierCatalogId,AvarageDeleveryTime \n"
@@ -113,6 +112,7 @@ public class SupplierProductsDB {
 	    	Product p= DAL.Inventory.InvDALManager.getInstance().getProduct(ProductId,BLManager.emp.getWorkAddress());
 	    	res= new ProductFromSupplier(rs.getInt("SupplierId"),p,rs.getInt("SupplierCatalogId"),rs.getInt("AvarageDeleveryTime"),prices);
 	        } catch (Exception e) {
+	        	System.out.println(e.getMessage());
 	            return null; 
 	        }
 		return res;
