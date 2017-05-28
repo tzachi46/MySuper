@@ -110,7 +110,7 @@ public class PL_man {
         if (vecMan.size()< Shift.getNumOfAccup("ShiftManager", accups)/*shift.getShift_manger()*/ || 
         		vecCash.size()< Shift.getNumOfAccup("Cashier", accups)/*shift.getCashier()*/  ||
         		vecSK.size()<Shift.getNumOfAccup("StoreKeeper", accups)/*shift.getStorekeeper()*/ ||
-        		vecCA.size() < Shift.getNumOfAccup("TruckDriver", accups)/*shift.getTruck_driver()*/)
+        		vecCA.size() < Shift.getNumOfAccup("Carrier", accups)/*shift.getTruck_driver()*/)
         {
             System.out.println("Not enough employees for shift tell the HR manager to hire some");
             return index;
@@ -175,21 +175,21 @@ public class PL_man {
             }
         }
         bl.reduce(vecOpt3,vecSK,vecCA);
-        if(Shift.getNumOfAccup("TruckDriver", accups)/*shift.getTruck_driver()*/ > 0) 
+        if(Shift.getNumOfAccup("Carrier", accups)/*shift.getTruck_driver()*/ > 0) 
         {
         	if(vecCA.size() == 0)
         	{
         		 System.out.println("Not enough employees for shift tell the HR manager to hire some");
         		 return index;
         	}
-            System.out.println("Choose " + Shift.getNumOfAccup("TruckDriver", accups)/*shift.getTruck_driver()*/ + " truck drivers");
+            System.out.println("Choose " + Shift.getNumOfAccup("Carrier", accups)/*shift.getTruck_driver()*/ + " truck drivers");
             for (i = 0; i < vecCA.size(); i++) {
                 System.out.println((i + 1) + ")" + vecCA.elementAt(i).getFname() + " " + vecCA.elementAt(i).getLname() + " " + vecCA.elementAt(i).getId());
             }
             System.out.println("Write your options with ',' between them");
             choice = scanner.nextLine();
 
-            while ((vecOpt4 = validator.validateEmployeeChoice(vecCA.size(), choice, Shift.getNumOfAccup("TruckDriver", accups)/*shift.getTruck_driver()*/)) == null) {
+            while ((vecOpt4 = validator.validateEmployeeChoice(vecCA.size(), choice, Shift.getNumOfAccup("Carrier", accups)/*shift.getTruck_driver()*/)) == null) {
                 if (choice.equals("~"))
                     return index;
                 System.out.println("choice is not valid, try again:");

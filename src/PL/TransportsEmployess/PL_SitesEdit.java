@@ -85,13 +85,16 @@ public class PL_SitesEdit
 	private String getNameFromUser()
 	{
 		String name;
-		System.out.println("Please insert name: ");
+		System.out.println("Please insert contact name: ");
 		name = scanner.nextLine();
 		while(!validator.validateName(name)) 
 		{
 			if(name.equals("~"))
 				return name;
-			System.out.println("name is not valid, try again");
+			if(!name.equals(""))
+				System.out.println("name is not valid, try again");
+			else 
+				System.out.println("invalid input please try again");
 			name = scanner.nextLine();
 		}
 		return name;

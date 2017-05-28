@@ -7,6 +7,8 @@ public class Validator_imp implements Validator{
 
 	@Override
 	public boolean validateName(String name) {
+		if(name.equals(""))
+			return false;
 		for(int i = 0; i < name.length(); i++)
 		{
 			if(!((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') ||
