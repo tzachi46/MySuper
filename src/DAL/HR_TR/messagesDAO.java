@@ -27,7 +27,7 @@ public class messagesDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
-			System.out.println(e.getStackTrace());
+			////System.out.println(e.getStackTrace());
      		    return false;
 		}
 	}
@@ -71,7 +71,7 @@ public class messagesDAO extends DAO {
 	            	dates.add(new Pair<String, Integer>(rs.getString(1),rs.getInt(2)));
 	    
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 		return dates;
 	}

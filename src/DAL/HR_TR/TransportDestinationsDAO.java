@@ -31,7 +31,7 @@ public class TransportDestinationsDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			////System.out.println(e.getMessage());
       		    return false;
 		}
 	}
@@ -87,7 +87,7 @@ public class TransportDestinationsDAO extends DAO {
 	        			rs.getInt(5), rs.getString(6));	//ITAYYYYY - Change "" to hourOfArr
 	           
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 		return null;
 	}
@@ -136,7 +136,7 @@ public class TransportDestinationsDAO extends DAO {
 		        		return orderNumber;
 		           
 		        } catch (SQLException e) {
-		 		       System.out.println(e.getMessage());
+		 		       ////System.out.println(e.getMessage());
 		        }
 			return orderNumber;
 	}
@@ -164,7 +164,7 @@ public class TransportDestinationsDAO extends DAO {
 	                return vec;
 	        } catch (SQLException e)
 	        {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	         }
 	        return vec;
 	}

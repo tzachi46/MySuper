@@ -74,7 +74,7 @@ public class TruckDAO extends DAO {
 	        			rs.getDouble(2), rs.getDouble(3), rs.getInt(4));
 	           
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 		return null;
 	}

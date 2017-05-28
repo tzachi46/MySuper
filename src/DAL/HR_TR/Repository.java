@@ -190,7 +190,7 @@ public class Repository {
 		        	return (rs.getInt(3) >= weight && rs.getInt(1) >= rs.getInt(2));
 		           
 		        } catch (SQLException e) {
-		        	System.out.println(e.getMessage());
+		        	////System.out.println(e.getMessage());
 		        }
 		return false;
 	}
@@ -301,7 +301,7 @@ public class Repository {
 	                return vec;
 	        } catch (SQLException e)
 	        {
-	        	System.out.println("error");
+	        	////System.out.println("error");
 	        }
 	        return vec;
 	  }
@@ -351,7 +351,7 @@ public class Repository {
 		            	truckNums.add(rs.getInt(1));
 		            }
 		        } catch (SQLException e) {
-		        	System.out.println(e.getMessage());
+		        	////System.out.println(e.getMessage());
 		        }
 		Vector<Pair<Integer, String>> trucksAndTheirSchedual = new Vector<Pair<Integer,String>>();
         sql =	 "SELECT Trucks.TRUCKNO, Transports.HOUR"
@@ -369,7 +369,7 @@ public class Repository {
 	            	trucksAndTheirSchedual.add(new Pair<Integer,String>(rs.getInt(1),rs.getString(2)));
 	            }
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 	    for(Pair<Integer, String> pair : trucksAndTheirSchedual){
 	    	String type="morning";
@@ -381,7 +381,7 @@ public class Repository {
 	    	}
 	    }
 	    for(Integer trk : truckNums){
-	    	System.out.println("truck no. " + trk);
+	    	////System.out.println("truck no. " + trk);
 	    }
 	    
 	    return truckNums;
