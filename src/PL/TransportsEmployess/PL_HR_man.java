@@ -155,8 +155,8 @@ public class PL_HR_man
 	         System.out.println("1) update salery");
 	         System.out.println("2) update bank Account");
 	         System.out.println("3) Fire employee");
-	         System.out.println("4) Update licence type");
-	         System.out.println("5) return to previous menu");
+	//         System.out.println("4) Update licence type");
+	         System.out.println("~) return to previous menu");
 	
 	         String choice = scanner.nextLine();
 	         if(!handelUpdateChoice(emp, choice))
@@ -192,14 +192,14 @@ public class PL_HR_man
                 fireEmployee(emp);
                 break;
             }
-            case "4":
-            {
-                updateLicenceType(emp);
-            }
-            case "5":
-            {
-                return false;
-            }
+//            case "4":
+//            {
+//                updateLicenceType(emp);
+//            }
+//            case "5":
+//            {
+//                return false;
+//            }
             case "~":
             {
             	return false;
@@ -212,7 +212,7 @@ public class PL_HR_man
         }
         return  true;
     }
-    
+/*    
     private void updateLicenceType(Employee emp) 
     {
     	   String lio = getLicenceDriver(false);
@@ -224,7 +224,7 @@ public class PL_HR_man
         	   bl.updateDriver(emp.getId(),Integer.parseInt(lio));       
 	}
 
-
+*/
 	private void updateSalery(Employee emp)
     {
     	  String salary = pl_shared.getsalary();
