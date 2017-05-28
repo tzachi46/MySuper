@@ -556,7 +556,7 @@ public class PL_TransportEdit
 			o.setHaveTransport(1);
 			OrderManager.getInstance().updateOrder(o);
 			
-			System.out.println("Successfuly Added rhe order to the trasport.");
+			System.out.println("Successfuly Added the order to the trasport.");
 			transport.setWeight(weight);
 			commitUpdate(transport);
 			if(i != 1)
