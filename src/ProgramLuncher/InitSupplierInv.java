@@ -531,7 +531,32 @@ public class InitSupplierInv {
 		orderProduct.setAmount(5);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
 		
+		Order order3=new Order(3);
+		order3.setPeriodic(10);
+		order3.setAddres("dov street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order3);
 		
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(108);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+		
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(56);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+		
+		
+		Order order4=new Order(3);
+		order4.setPeriodic(6);
+		order4.setAddres("ofir street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(14);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
+		
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
 		
 		
 		
