@@ -439,13 +439,15 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public String getArrivalTime(String address, Transport transport) {
+	public String getArrivalTime(String address, Transport transport) 
+	{
 		Vector<Integer> vec = bl_trans.getOrdersInTransport(transport);
-		for(Integer orderNo : vec){
+		
+		for(Integer orderNo : vec)
+		{
 			Order ord = DAL.Orders.OrderManager.getInstance().getOrder(orderNo);
-			if(ord.getAddres().equals(address)){
+			if(ord.getAddres().equals(address))
 				return bl_trans.getArrivalTime(ord.getOrderNumber(), transport);
-			}
 		}
 		return null;
 	}

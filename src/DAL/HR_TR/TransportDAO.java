@@ -190,7 +190,7 @@ public class TransportDAO extends DAO {
 	        } catch (SQLException e) {
 	        	////System.out.println(e.getMessage());
 	        }
-		return null;
+		return vec;
 	}
 
 	/*
