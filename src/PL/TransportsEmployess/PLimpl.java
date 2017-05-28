@@ -185,7 +185,7 @@ public class PLimpl implements PL
             System.out.println("1) Show messages");
             System.out.println("2) Employee reports management");
             System.out.println("3) Inventory reports management");
-            System.out.println("4) Order reports management");
+            System.out.println("4) Get all orders");
             System.out.println("5) Supplier management");
             System.out.println("~) Go back to Previous menu");
             String choice = scanner.nextLine();
@@ -413,13 +413,12 @@ public class PLimpl implements PL
             }
             case "3":
             {
-                /*HandleEmployeeShiftReportManagementMenu(emp);*/
-            	System.out.println("not implemented yet");
+            	HandleInventoryReportManagementMenu(emp);
                 break;
             }
             case "4":
-            {//supplier management
-            	System.out.println("not implemented yet");
+            {
+            	OrderCLI.getAllOrders(scanner);
             	break;
             }
             case "5":
@@ -692,7 +691,7 @@ public class PLimpl implements PL
                 break;
             }
             case "~":
-            {//ret
+            {
                 return false;
             }
             default:
