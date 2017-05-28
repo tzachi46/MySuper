@@ -264,4 +264,9 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	public Vector<Transport> getTransportsInDate(String date) {
 		return this.repo.transports.getRelevantTransports(date);
 	}
+
+	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo) 
+	{
+		return this.repo.transDests.getTransportOrders(date, hour, truckNo);
+	}
 }

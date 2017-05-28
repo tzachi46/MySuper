@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import BL.TransportsEmployess.*;
 import DAL.Orders.OrderManager;
+import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
@@ -35,13 +36,14 @@ public class PL_TransportEdit
 		{
 			System.out.println("Which of the following operations you wish to do :");
 			System.out.println("1) Insert new Transport.");
-			System.out.println("2) Insert new site to an existing transport.");
+			System.out.println("2) Insert order to an existing transport.");
 			//System.out.println("3) Delete a site from existing transport.");
 			System.out.println("3) Update existing Transport's general details.");
 			//System.out.println("4) Remove transport from the database.");
 			System.out.println("5) Fetch transport's details from the database.");
 			System.out.println("6) Fetch transport's destinations.");
-			System.out.println("7) Auto insertion of Transports to Orders");
+			System.out.println("7) Fetch Orders of transports.");
+			System.out.println("8) Auto insertion of Transports to Orders");
 			System.out.println("~) Return to Main Menu.");
 			
 			String choice = scanner.nextLine();
@@ -73,8 +75,11 @@ public class PL_TransportEdit
 					break;
 			case "6":											
 					fetchTransportDests();					 
+					break;
+			case "7":											
+					fetchTransportOrders();					 
 					break;									
-			case "7":
+			case "8":
 					autoInsertionToOrders();
 					break;
 			case "~":
@@ -88,7 +93,18 @@ public class PL_TransportEdit
 		return true;
 	}
 	
-	 private void autoInsertionToOrders() {
+	 private void fetchTransportOrders() 
+	 {
+		Transport transport = getTransportByKey();
+		if(transport == null)
+			return;
+		Vector<Integer>  orders = bl.getTransportOrders(transport.getDateOfDep(),transport.getHourOfDep(),transport.getTruckNo());
+		for (int i = 0; i< orders.size() ;i++)
+			System.out.println(OrderManager.getInstance().getOrder(orders.get(i)).toStringJustOrder());
+     } 
+
+
+	private void autoInsertionToOrders() {
 		 Vector<Order> orders = bl.getUndeliveredOrders();
 		 for(Order order : orders){
 			 if(bl.checkTransportToOrder(order)){
@@ -546,7 +562,7 @@ public class PL_TransportEdit
 			weight = min;
 		}
 		else
-			weight = o.getWeightOrder();
+			weight = o.getWeightOrder() + transport.getCurrentWeight();
 		
 		if(bl.addreesAtTransport(o.getAddres(),transport))
 			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
@@ -652,7 +668,7 @@ public class PL_TransportEdit
 
 	private void commitUpdate(Transport transport)
 	{
-		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getTruckWeight(), transport.getSourceDoc(), transport.getAddressOrign()))
+		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getCurrentWeight(), transport.getSourceDoc(), transport.getAddressOrign()))
 			System.out.println("Transport updated successfully.");
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");
@@ -679,10 +695,12 @@ public class PL_TransportEdit
 	}
 	private void fetchTransportDests() 
 	{
-		Transport transport =getTransportByKey();
+		Transport transport = getTransportByKey();
 		if(transport == null)
 			return;
-		System.out.println(((BLimp) bl).getBl_trans().getHoursOfArrival(transport));//bl.getTransportDests(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo()).toString());
+		Vector<Pair<String,String>> dests =  bl.getHoursOfArrival(transport);
+		for (int i = 0; i < dests.size();i++)
+			System.out.println(dests.get(i).getKey() + " - " + dests.get(i).getValue());
 	}
 	
 	private Transport getTransportByKey() 

@@ -94,7 +94,7 @@ public class Validator_imp implements Validator{
 
     @Override
     public boolean validateSpec(String spec){
-        if(!(spec.equals("Cashier") || spec.equals("Carrier") || spec.equals("StoreKeeper") || spec.equals("Manager")))
+        if(!(spec.equals("Cashier") || spec.equals("Carrier") || spec.equals("StoreKeeper") || spec.equals("ShiftManager")))
             return false;
         return true;
     }

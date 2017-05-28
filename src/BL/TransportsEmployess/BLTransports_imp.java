@@ -292,4 +292,10 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<Transport> getTransportsInDate(String date) {
 		return dal.getTransportsInDate(date);
 	}
+
+	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo) 
+	{
+		return  dal.getTransportOrders(date, hour, truckNo);
+		
+	}
 }

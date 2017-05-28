@@ -183,6 +183,19 @@ public class Order {
 		s=s+"----------------------------------------\n";
 		return s;
 	}
+	
+	public String toStringJustOrder(){
+		ZonedDateTime t = ZonedDateTime.parse(getDate());
+		String Date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(t);
+		Supplier sup = DAL.Suppliers.SupplierManager.getInstance().getSupplier(SupplierId);
+		String s="";
+		s=s+"----------------------------------------\n";
+		s=s+"Order number: "+getOrderNumber()+"\nSupplier number: "+getSupplierId()+
+				"\nSupplier Name: "+sup.getName()+"\nAddress: "+sup.getAddress()+
+				"\nOrder date: "+Date+"\nContact number: "+getSupplierPhoneNumber()+"\n";
+		s=s+"----------------------------------------\n";
+		return s;
+	}
 	public String toStringWithAddress(){
 		ZonedDateTime t = ZonedDateTime.parse(getDate());
 		String Date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(t);

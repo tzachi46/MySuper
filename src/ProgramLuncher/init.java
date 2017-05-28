@@ -315,7 +315,7 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(722222222, "regular11", "regular11", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "StoreKeeper");
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("28/05/2017", "morning", 5, 1, "ofir street");
+		sht = new Shift("20/06/2017", "morning", 5, 1, "rosh street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
@@ -330,7 +330,7 @@ public class init
 
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("20/05/2017", "morning", 5, 1, "Base");
+		sht = new Shift("20/06/2017", "morning", 5, 1, "Base");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));

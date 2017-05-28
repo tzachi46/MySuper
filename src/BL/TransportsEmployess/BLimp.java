@@ -490,4 +490,10 @@ public class BLimp implements BL {
 		}
 		return false;
 	}
+
+	@Override
+	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo)
+	{
+		return bl_trans.getTransportOrders(date, hour, truckNo);
+	}
 }
