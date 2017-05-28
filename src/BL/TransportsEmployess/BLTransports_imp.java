@@ -178,7 +178,7 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<String> getNotHandledMessages(String workAddress) {
 		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, false);
 		Vector<String> ans = new Vector<String>();
-		if(messages==null){
+		if(messages==null||messages.size()==0){
 			ans.add("There is no record of not handled masseges for you.");
 			return ans;
 		}
@@ -191,7 +191,7 @@ public class BLTransports_imp implements BLTransports {
 	public Vector<String> getHandledMessages(String workAddress) {
 		Vector<Pair<String, Integer>> messages = dal.getMessages(workAddress, true);
 		Vector<String> ans = new Vector<String>();
-		if(messages==null){
+		if(messages==null||messages.size()==0){
 			ans.add("There is no record of handled masseges for you.");
 			return ans;
 		}
