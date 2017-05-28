@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import BL.TransportsEmployess.*;
-import DAL.Orders.OrderDB;
 import DAL.Orders.OrderManager;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -273,7 +272,7 @@ public class PL_TransportEdit
             	System.out.println("~)return, 1)left, 2)right, 3)Send Transport 4)manual");
             else
             	System.out.println("~)return, 1)left, 2)right, 3)Add order to Transport 4)manual");
-            System.out.println(undeliveredOrders.elementAt(i).toString());
+            System.out.println(undeliveredOrders.elementAt(i).toStringWithAddress());
             String option = scanner.nextLine();
             if (!option.equals("~") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
@@ -308,7 +307,8 @@ public class PL_TransportEdit
 	
 	private int sentTransport(Order elementAt, int i) 
 	{
-		String date, time,  numberOfTruck = "0" ,sourceDocNum = "";
+		String date, time,  numberOfTruck = "0" ;
+		int sourceDocNum;
 		double  weight = elementAt.getWeightOrder();
 		int supplier = elementAt.getSupplierId();
 		String source = elementAt.getAddres();
@@ -380,10 +380,8 @@ public class PL_TransportEdit
 		}	
 		
 		//CHANGW TO ????
-		sourceDocNum = getSourceDocNumInputFromUser("supplier");
-		if(sourceDocNum.equals("~"))
-			return i;
-		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum),elementAt.getAddres());
+		sourceDocNum = elementAt.getSupplierId();
+		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,sourceDocNum,elementAt.getAddres());
 		if(success)
 		{
 			elementAt.setHaveTransport(1);
@@ -421,15 +419,56 @@ public class PL_TransportEdit
 				OrderProduct Current = listIterator.next();
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " amount: " + Current.getAmount() + " weight: " + Current.getProductWeight());
 			}
-			option = scanner.nextLine();
+			/*option = scanner.nextLine();//TODO: check illegal input
 			if(option.equals("~"))
 				return -1;
-		
+			*/
+			while(true){
+				option = scanner.nextLine();
+				if(option.equals("~")){
+					return -1;
+				}
+				else if(option.equals("1")){
+					break;
+				}
+				System.out.println("Ilegal option, please enter again:");
+			}
 			String pid,amount;
 			System.out.println("Enter productId: ");
-			pid = scanner.nextLine();
+			//pid = scanner.nextLine(); //TODO: check if pid is number and exists in listIterator
+			while(true){
+				pid = scanner.nextLine();
+				if(pid.equals("~")){
+					return -1;
+				}
+				/*pid is not number*/
+				else if(!validator.validateIntInBounds(pid, 0, Integer.MAX_VALUE)){
+					System.out.println("Ilegal product id, please enter again:");
+				}
+				/*pid is not in list*/
+				else if(!bl.checkPidInList(orderProducts, pid)){
+					System.out.println("Product id not in this order, please enter a different one:");
+				}
+				else{//pid is number and in list
+					break;
+				}
+			}
 			System.out.println("Enter new Amount");
-			amount = scanner.nextLine();
+			//amount = scanner.nextLine(); 
+			while(true){
+				amount = scanner.nextLine();
+				if(amount.equals("~")){
+					return -1;
+				}
+				else if(!validator.validateIntInBounds(amount, 0, Integer.MAX_VALUE)){
+					//not integer
+					System.out.println("Invlaid input, try again:");
+				}
+				else{
+					//valid
+					break;
+				}
+			}
 			
 			listIterator = orderProducts.listIterator();
 			while (listIterator.hasNext()) 
@@ -472,6 +511,17 @@ public class PL_TransportEdit
 		Transport transport = getTransportByKey();
 		if(transport == null)
 			return i;
+		if(transport.getSourceDoc() != o.getSupplierId())
+		{
+			System.out.println("Cant add to transport order from another supplier.");
+			return i;
+		}
+		if(bl.fetchSite(transport.getAddressOrign()).getAreaCode() != bl.fetchSite(o.getAddres()).getAreaCode())
+		{
+			System.out.println("Origin area code: " + bl.fetchSite(transport.getAddressOrign()).getAreaCode() +  ". The order area code: " + bl.fetchSite(o.getAddres()).getAreaCode() );
+			System.out.println("Cant add order to transport from a store with a diffrent area code ");
+			return i;
+		}
 		if(!bl.cheakAvailableStoreKeepers(o.getAddres(), transport.getDateOfDep(), transport.getHourOfDep()))
 		{
 			System.out.println("There are no available storekeeprs at this site, try again");
@@ -488,9 +538,7 @@ public class PL_TransportEdit
 			weight = o.getWeightOrder();
 		
 		if(bl.addreesAtTransport(o.getAddres(),transport))
-		{
 			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
-		}	
 		else
 		{
 			while(true)
@@ -506,10 +554,10 @@ public class PL_TransportEdit
 		}
 		if(bl.addSiteToTransport(transport.getDateOfDep(), transport.getHourOfDep(),transport.getTruckNo() ,o.getOrderNumber(),timeOfArrival))
 		{
-			//
-			o.setHaveTransport(1); 
-			//
-			System.out.println("Successfuly Added the site to destinations.");
+			o.setHaveTransport(1);
+			OrderManager.getInstance().updateOrder(o);
+			
+			System.out.println("Successfuly Added the order to the trasport.");
 			transport.setWeight(weight);
 			commitUpdate(transport);
 			if(i != 1)
@@ -553,8 +601,8 @@ public class PL_TransportEdit
 			if(transport == null)
 				return;
 			System.out.println("Choose option:");
-			System.out.println("1)Updete id of driver");
-			System.out.println("2)Updete sourceDoc number");
+			System.out.println("1)Update id of driver");
+			System.out.println("2)Update sourceDoc number");
 			System.out.println("~)return to previous menu");
 				
 			String option = scanner.nextLine();

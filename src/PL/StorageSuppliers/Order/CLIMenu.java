@@ -239,7 +239,7 @@ public class CLIMenu {
 		return false;
 	}
 
-	private void getAllOrders(Scanner in){
+	public void getAllOrders(Scanner in){
 		LinkedList<Order> temp=Orders.getInstance().getAllOrders();
 		System.out.println("All the store orders:");
 		for(int i=0;i<temp.size();i++){

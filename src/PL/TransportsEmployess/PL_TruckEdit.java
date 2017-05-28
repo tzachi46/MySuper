@@ -133,17 +133,17 @@ public class PL_TruckEdit
 	//TODO - UPDATE TO BE LIKE updateDriver
 	private void updateTruck()
 	{
-		String truckNo;
+		String truckNo= pl_Shared.getExistingTruckNumber();
 		while (true)
 		{
-			truckNo = pl_Shared.getExistingTruckNumber();
+			//truckNo = pl_Shared.getExistingTruckNumber();
 			if(truckNo.equals("~"))
 				return;	
 			Truck truck = bl.fetchTruck(Integer.parseInt(truckNo));
 			if(truck!=null)
 			{
 				System.out.println("Choose option:");
-				System.out.println("1)Update model");
+				System.out.println("1)model");
 				System.out.println("2)weight");
 				System.out.println("3)maximum weight");
 				System.out.println("4)license Type");

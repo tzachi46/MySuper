@@ -37,7 +37,7 @@ public class TransportDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			////System.out.println(e.getMessage());
 		    return false;
 		}
 	}
@@ -115,7 +115,7 @@ public class TransportDAO extends DAO {
 	        			rs.getString(5), rs.getDouble(6),rs.getInt(7), rs.getString(8));
 	           return tr;
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 		return null;
 	}
@@ -161,7 +161,7 @@ public class TransportDAO extends DAO {
 	            if (vec.size() > 0)
 	                return vec;
 	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
+	            ////System.out.println(e.getMessage());
 	        }
 		return vec;
 	}
@@ -188,9 +188,9 @@ public class TransportDAO extends DAO {
 	                return vec;
 	           
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
-		return null;
+		return vec;
 	}
 
 	/*
@@ -220,7 +220,7 @@ public class TransportDAO extends DAO {
 	                return vec;
 	           
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	////System.out.println(e.getMessage());
 	        }
 		return null;
 	}

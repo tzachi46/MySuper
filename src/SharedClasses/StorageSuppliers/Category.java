@@ -38,7 +38,7 @@ public class Category {
 		discountStartTime=null;	
 	}
 	/**
-	 * constructor
+	 * constructo
 	 * @param id
 	 * @param fatherId
 	 * @param name

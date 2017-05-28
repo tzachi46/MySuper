@@ -31,7 +31,7 @@ public class DALManager {
 	    try {
 	    	conn = DriverManager.getConnection(DALManager.DBLocation);
 	    } catch (SQLException e) {
-	    	////System.out.println(e.getMessage());
+	    	//////System.out.println(e.getMessage());
 	    }
     }
 	

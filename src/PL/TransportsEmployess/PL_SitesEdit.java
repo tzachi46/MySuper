@@ -112,13 +112,21 @@ public class PL_SitesEdit
 		return areaCode;
 	}
 	
-	private Employee getValidAdmin(String address,String job)
+	private Employee getValidAdmin(String address,String job,String idPrev)
 	{
+		String id;
 		System.out.println("At any point you can press ~ to return to previous menu");
         System.out.println("Enter the details of the "+ job + " of the store:");
-        String id = pl_shared.getNotExistingId();
-        if(id.equals("~"))
-        	return null;
+        while (true)
+        {
+	        id = pl_shared.getNotExistingId();
+	        if(id.equals("~"))
+	        	return null;
+	        if(!id.equals(idPrev))
+	        	break;
+	        else
+	        	System.out.println("The id is equal to the id of the store maneger, try again.");
+	    }
         String fisrt_name = pl_shared.getName("first name");
         if(fisrt_name.equals("~"))
         	return null;
@@ -155,12 +163,12 @@ public class PL_SitesEdit
 		if(contact.equals("~"))
 			return;	
 		areaCode = getAreaCodeFromUser();
-		if(contact.equals("~"))
+		if(areaCode.equals("~"))
 			return;	
-		HR = getValidAdmin(address,"humenResourceManager");
+		HR = getValidAdmin(address,"humenResourceManager","-1");
 		if(HR == null)
 			return;                          
-		StoreManger = getValidAdmin(address,"storeManager");
+		StoreManger = getValidAdmin(address,"storeManager",Integer.toString(HR.getId()));
 		if(StoreManger == null)
 			return;
 		if(bl.createSite(address, phoneNum, contact, Integer.parseInt(areaCode)))
@@ -177,10 +185,9 @@ public class PL_SitesEdit
 	
 	private void updateSite() 
 	{
-		String address;
+		String address = pl_shared.getExistStoreAddressFromUser();;
 		while (true)
 		{
-			address = pl_shared.getExistStoreAddressFromUser();
 			if(address.equals("~"))
 				break;
 			Site site = bl.fetchSite(address);
@@ -262,6 +269,9 @@ public class PL_SitesEdit
 		if(address.equals("BasePoint"))
 		{
 			System.out.println("cant delete the main store!");
+			return;
+		}
+		if(address.equals("~")){
 			return;
 		}
 		if(bl.deleteSite(address))

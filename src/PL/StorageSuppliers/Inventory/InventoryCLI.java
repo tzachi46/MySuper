@@ -176,7 +176,7 @@ public class InventoryCLI {
 	/**
 	 * Shows all the products in the inventory
 	 */
-	private void getProductsMenu(Scanner in){
+	public void getProductsMenu(Scanner in){
 		System.out.println("All the products in the store and the warehouse:\n");
 		Product[] p=BL.getProductInInventory();
 		for(int i=0;i<p.length;i++)
@@ -198,7 +198,7 @@ public class InventoryCLI {
 	/**
 	 * Shows all the running out products
 	 */
-	private void runningOutProducts(Scanner in){
+	public void runningOutProducts(Scanner in){
 		LinkedList<Product> temp=BL.getMissingItems();
 		if(temp!=null){
 			System.out.println("Running out products report:\n"
@@ -229,7 +229,7 @@ public class InventoryCLI {
 	/**
 	 * Shows all defective or expired products
 	 */
-	private void defectiveProducts(Scanner in){
+	public void defectiveProducts(Scanner in){
 		LinkedList<Quartet<Integer,String,Integer,Integer>> temp=BL.getDefectItems();
 		if(temp!=null){
 			System.out.println("Defective or expired products: ");
@@ -262,7 +262,7 @@ public class InventoryCLI {
 	/**
 	 * Shows all the products in the inventory
 	 */
-	private void getProductMenu(Scanner in){
+	public void getProductMenu(Scanner in){
 		System.out.println("Get product details menu:\nEnter product ID.\nIf you wish to return to the main Menu press ~ ");
 		String s=in.nextLine();
 		while(!s.equals("~")&&!checkProductId(s)){

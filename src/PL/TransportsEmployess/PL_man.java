@@ -124,7 +124,7 @@ public class PL_man {
         choice = scanner.nextLine();
         while ((vecOpt1 = validator.validateEmployeeChoice(vecMan.size(),choice, Shift.getNumOfAccup("ShiftManager", accups)/*shift.getShift_manger()*/)) == null)
         {
-            if (choice.equals("0")||choice.equals("0"))
+            if (choice.equals("~"))
                 return index;
             System.out.println("choice is not valid, try again:");
             choice = scanner.nextLine();
@@ -243,7 +243,7 @@ public class PL_man {
             System.out.println("Choose Option: ");
             System.out.println("1) add Specializiation");
             System.out.println("2) remove Specializiation");
-            System.out.println("3) return to previous menu");
+            System.out.println("~) return to previous menu");
           
             String choice = scanner.nextLine();
             if(!handelUpdateSpecChoice(emp, choice))
@@ -312,10 +312,6 @@ public class PL_man {
             {
             	removeSpecializiation(emp);
                 break;
-            }
-            case "3": 
-            {
-                return false;
             }
             case "~":
             {
