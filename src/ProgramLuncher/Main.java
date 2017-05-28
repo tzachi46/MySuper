@@ -6,16 +6,10 @@ public class Main {
 
 	public static void main(String[] args) throws Exception 
 	{
-		
-	///	init.forItay();
-	///	init.initHRTR();
-		///InitSupplierInv.init();
-	
-		
-		
+
 		PL pl = new PLimpl();
 		pl.run();
-	//	testForDebug();
+
 	}
 	
 //	private static void testForDebug(){

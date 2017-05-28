@@ -123,10 +123,15 @@ public class CLIMenu {
 				if(calc.checkInt(s)){
 					order=Orders.getInstance().getOrder(Integer.parseInt(s));
 					if(order!=null)
-						if(order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order)&&order.getAddres().equals(BLManager.emp.getWorkAddress())&&!order.getISHaveTransport())
+						if(order.getDueDate().equals("")&&!Orders.getInstance().isLastDayOfOrder(order)&&order.getAddres().equals(BLManager.emp.getWorkAddress())&&!order.getISHaveTransport()){
 							break;
+						}
+							
 				}
-				System.out.println("Illegal input, please try again.");
+				if(!order.getISHaveTransport())
+					System.out.println("this order allready has transport therfore it is not possible to cancel this order, please try again.");
+				else
+					System.out.println("Illegal input, please try again.");
 				s=in.nextLine();
 			}
 			if(s.equals("~"))

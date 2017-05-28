@@ -112,6 +112,8 @@ public class InventoryCLI {
 					System.out.println("This product does not exists, please enter product id again.\nTo go back to category manager menu press '~'.");
 				else if(BL.getStoresOfferingProduct(Integer.parseInt(pro)).size()>0)
 					System.out.println("This product already exists in some stores, please remove it from the stores.\nTo go back to category manager menu press '~'.");
+				else if(BL.isProductExistInAOrder(Integer.parseInt(pro)))
+					System.out.println("This product already exists in some order, please remove it from the order.\nTo go back to category manager menu press '~'.");
 				else break;
 				pro=in.nextLine();
 			}

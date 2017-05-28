@@ -109,10 +109,10 @@ public class PL_TruckEdit
 		truckNo = pl_Shared.getNotExistingTruckNumber();
 		if (truckNo.equals("~"))
         	return;
-		System.out.println("Model : ");
-		model = scanner.nextLine();
-		if (model.equals("~"))
-        	return;
+		model = pl_Shared.getNotEmptyStringFromUser("Model");
+		if(model.equals("~")){
+			return;
+		}
 		weight = getWeightFromUser("Weight");
 		if(weight.equals("~"))
 			return;
@@ -224,10 +224,10 @@ public class PL_TruckEdit
 
 	private void updateModel(Truck truck) 
 	{
-		System.out.println("Model : ");
-		String model = scanner.nextLine();
-		if (model.equals("~"))
-        	return;
+		String model = pl_Shared.getNotEmptyStringFromUser("odel");
+		if(model.equals("~")){
+			return;
+		}
 		truck.setModel(model);
 		commitUpdate(truck);
 	}

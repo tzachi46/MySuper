@@ -282,16 +282,31 @@ public class PL_Shared
 		//System.out.println("Please insert the site's address : ");
 		System.out.println("address :");
 		address = scanner.nextLine();
-		while(bl.fetchSite(address) != null) 
+		while(bl.fetchSite(address) != null || address.equals("")) 
 		{
 			if(address.equals("~"))
 				return address;
-			System.out.println("address not exist, try again");
+			if(!address.equals(""))
+				System.out.println("address does exist, try again");
+			else 
+				System.out.println("invalid input please try again");
 			address = scanner.nextLine();
 		}
 		return address;
 	}
 
+    public String getNotEmptyStringFromUser(String toPrint){
+    	String ret="";
+    	System.out.print(toPrint+" :");
+    	while(true){
+			ret = scanner.nextLine();
+			if (ret.equals("~"))
+				return ret;
+			if (!ret.equals(""))
+				return ret;
+			System.out.println(toPrint+ " can't be empty, please enter again");
+		}
+    }
 
 	public int manualOrder(int i, Vector<Order> undeliveredOrders) 
 	{
