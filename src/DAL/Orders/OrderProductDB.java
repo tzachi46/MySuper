@@ -44,6 +44,21 @@ public class OrderProductDB {
 		return res;
 	}
 	
+	protected boolean isProductExistInAOrder(int productId){
+		String sql="select * from OrderProduct where ProductId = "+productId+";";
+		try ( Statement stmt  = DALManager.conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+			 while(rs.next()){
+				 return true;
+			 }
+		 }
+		 catch (SQLException e) {
+			 return false;
+		 }
+		return false;
+
+	}
+	
 	protected int getAmountOfProductInOpenOrderes(int ProductId, String storeAddress){
 		int count =0;
 		String sql="select Amount from OrderProduct join Orders ON OrderProduct.OrderNumber=Orders.OrderNumber\n"
