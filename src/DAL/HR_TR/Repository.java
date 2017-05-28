@@ -380,9 +380,9 @@ public class Repository {
 	    		truckNums.add(pair.getKey());
 	    	}
 	    }
-	    for(Integer trk : truckNums){
+	    /*for(Integer trk : truckNums){
 	    	////System.out.println("truck no. " + trk);
-	    }
+	    }*/
 	    
 	    return truckNums;
     }
