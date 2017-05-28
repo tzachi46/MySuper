@@ -183,6 +183,26 @@ public class Order {
 		s=s+"----------------------------------------\n";
 		return s;
 	}
+	public String toStringWithAddress(){
+		ZonedDateTime t = ZonedDateTime.parse(getDate());
+		String Date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(t);
+		Supplier sup = DAL.Suppliers.SupplierManager.getInstance().getSupplier(SupplierId);
+		String s="";
+		s=s+"----------------------------------------\n";
+		s=s+"Order number: "+getOrderNumber()+"\nStore address: "+ getAddres() + "\nSupplier number: "+getSupplierId()+
+				"\nSupplier Name: "+sup.getName()+"\nAddress: "+sup.getAddress()+
+				"\nOrder date: "+Date+"\nContact number: "+getSupplierPhoneNumber()+"\n";
+		s=s+"------------------\nProducts in order:\n------------------";
+		for(int j=0;j<getProducts().size();j++){ //change to cataloge number: BL.StorageSuppliers.BLSupplier.GetBLSupplier().getProductFromSupplier(getSupplierId(),getProducts().get(j).getProductId())
+			s=s+"\nProduct numebr: "+getProducts().get(j).getProductId()+"\nProduct name:"+getProducts().get(j).getProductName()
+					+"\nAmount: "+getProducts().get(j).getAmount()+"\nOriginal price: "+getProducts().get(j).getInitialProductPrice()
+					+"\nDiscount: "+((100-(100*getProducts().get(j).getCurrentProductPrice()/getProducts().get(j).getInitialProductPrice()))
+							+"\nCurrent price "+getProducts().get(j).getCurrentProductPrice())+"\n";
+		}
+		s=s+"----------------------------------------\n";
+		return s;
+	}
+	
 	public String getOrderDetail(){
 		ZonedDateTime t = ZonedDateTime.parse(getDate());
 		String Date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(t);
