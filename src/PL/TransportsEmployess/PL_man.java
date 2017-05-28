@@ -124,7 +124,7 @@ public class PL_man {
         choice = scanner.nextLine();
         while ((vecOpt1 = validator.validateEmployeeChoice(vecMan.size(),choice, Shift.getNumOfAccup("ShiftManager", accups)/*shift.getShift_manger()*/)) == null)
         {
-            if (choice.equals("0")||choice.equals("0"))
+            if (choice.equals("~"))
                 return index;
             System.out.println("choice is not valid, try again:");
             choice = scanner.nextLine();
