@@ -593,8 +593,8 @@ public class PL_TransportEdit
 			if(transport == null)
 				return;
 			System.out.println("Choose option:");
-			System.out.println("1)Updete id of driver");
-			System.out.println("2)Updete sourceDoc number");
+			System.out.println("1)Update id of driver");
+			System.out.println("2)Update sourceDoc number");
 			System.out.println("~)return to previous menu");
 				
 			String option = scanner.nextLine();
