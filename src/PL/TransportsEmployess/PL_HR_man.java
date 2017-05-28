@@ -426,12 +426,12 @@ public class PL_HR_man
 
 
 	public void viewMessages(String workAddress) {
-    	System.out.println("At any point you can press ~ to return to previous menu");
 		while (true)
 	    {
 	         System.out.println("Choose Option: ");
 	         System.out.println("1) view not handled messages");
 	         System.out.println("2) view handled messages");
+	         System.out.println("~) go back to previous menu");
 	         
 	         String choice = scanner.nextLine();
 	         if(!handleViewMessagesChoice(workAddress, choice))
