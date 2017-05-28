@@ -9,7 +9,6 @@ import PL.StorageSuppliers.Order.OrderCLI;
 import PL.StorageSuppliers.SupplierPL.CLIMenu;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
-import SharedClasses.TransportsEmployess.Transport;
 
 /**
  * Created by Yoni Kazarski on 24/03/2017.

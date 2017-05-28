@@ -178,11 +178,12 @@ public class PL_SitesEdit
 	private void updateSite() 
 	{
 		String address;
+		address = pl_shared.getExistStoreAddressFromUser();
+		if(address.equals("~"))
+			return;
+	
 		while (true)
-		{
-			address = pl_shared.getExistStoreAddressFromUser();
-			if(address.equals("~"))
-				break;
+		{	
 			Site site = bl.fetchSite(address);
 			System.out.println("Choose option:");
 			System.out.println("1)Update phone number");
