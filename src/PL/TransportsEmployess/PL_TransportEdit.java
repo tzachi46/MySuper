@@ -420,15 +420,15 @@ public class PL_TransportEdit
 				OrderProduct Current = listIterator.next();
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " amount: " + Current.getAmount() + " weight: " + Current.getProductWeight());
 			}
-			option = scanner.nextLine();
+			option = scanner.nextLine();//TODO: check illegal input
 			if(option.equals("~"))
 				return -1;
 		
 			String pid,amount;
 			System.out.println("Enter productId: ");
-			pid = scanner.nextLine();
+			pid = scanner.nextLine(); //TODO: check if pid is number and exists in listIterator
 			System.out.println("Enter new Amount");
-			amount = scanner.nextLine();
+			amount = scanner.nextLine(); //TODO: check if amount is a number
 			
 			listIterator = orderProducts.listIterator();
 			while (listIterator.hasNext()) 
