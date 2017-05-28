@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import DAL.Suppliers.SupplierManager;
 import SharedClasses.TransportsEmployess.Site;;
 
 public class SiteDAO extends DAO {
@@ -80,16 +81,21 @@ public class SiteDAO extends DAO {
 	
 	protected boolean deleteSite(String address){
 		String sql = "DELETE FROM Sites WHERE ADDRESS = ?";
-			 
+		String sql2="DELETE FROM Orders\n"
+				+ " WHERE StoreAddress='"+address+"';";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
  
 	        // set the corresponding parameters
 	        pstmt.setString(1, address);
+
 	        // execute the delete statement
+			SupplierManager.executeSQLCommand(sql2);	
 	        pstmt.executeUpdate();
+	        
 	        return true;
 	    } catch (SQLException e) {
+	    	System.out.println(e.getMessage());
  	        return false;
 	    }
 	}
