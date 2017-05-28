@@ -329,6 +329,11 @@ public class BLTransports_imp implements BLTransports {
 		return dal.getTransportsInDate(date);
 	}
 
+	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo) 
+	{
+		return  dal.getTransportOrders(date, hour, truckNo);
+		
+	}
 	public boolean checkReplacement(Truck truck) {
 		Vector<Transport> transports = dal.fetchTrucksTransports(truck.getTruckNo());
 		if(transports == null || transports.isEmpty())

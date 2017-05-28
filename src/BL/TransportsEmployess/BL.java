@@ -128,6 +128,7 @@ public interface BL {
 	 */
 	boolean checkPidInList(LinkedList<OrderProduct> list, String pid);
 
+	Vector<Integer> getTransportOrders(String date, String hour, int truckNo);
 	boolean checkReplacement(Truck truck);
 
 }
