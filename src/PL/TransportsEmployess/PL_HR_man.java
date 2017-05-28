@@ -453,6 +453,7 @@ public class PL_HR_man
         		for(int i=0; i<newMessages.size(); i++){
         			System.out.println(newMessages.elementAt(i));
         		}
+        		break;
             }
             case "2":
             {
@@ -460,6 +461,7 @@ public class PL_HR_man
             	for(int i=0; i<oldMessages.size(); i++){
         			System.out.println(oldMessages.elementAt(i));
         		}
+            	break;
             }
             default:
             {
