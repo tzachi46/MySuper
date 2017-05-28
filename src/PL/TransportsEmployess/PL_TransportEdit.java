@@ -295,7 +295,7 @@ public class PL_TransportEdit
                 	if(toTras)
                 		i = sentTransport(undeliveredOrders.elementAt(i),i);  
                 	else
-                		insertSiteToTransport(i,undeliveredOrders.elementAt(i));
+                		i =insertSiteToTransport(i,undeliveredOrders.elementAt(i));
                 if (option.equals("4"))
                     i = pl_Shared.manualOrder(i,undeliveredOrders);
             }
@@ -349,7 +349,7 @@ public class PL_TransportEdit
 									return i;
 								if(choice.equals("2"))//return
 								{
-									double Mweight = minimizeWeightMenu(truck.getMaxWeight(),elementAt);
+									double Mweight = minimizeWeightMenu(truck.getMaxWeight(),elementAt,0);
 									if(Mweight != -1)
 									{
 										weight = Mweight;
@@ -401,18 +401,18 @@ public class PL_TransportEdit
 
 	
 
-	private double minimizeWeightMenu(double maxWeight, Order order) 
+	private double minimizeWeightMenu(double maxWeight, Order order, double prevWeight) 
 	{
 		String option;
-		double weight = order.getWeightOrder();
+		double weight = order.getWeightOrder() + prevWeight;
 		LinkedList<OrderProduct> orderProducts= order.getProducts();
 		while(weight > maxWeight)
 		{
 			System.out.println("Choose option:");
 			System.out.println("1)reduce product");
 			System.out.println("~)return to OverWeight Menu");
-			System.out.println("Current weight: " + weight + "kg, Max weight: " + maxWeight + "kg");
-			
+			System.out.println("Current weight: " + weight + "kg, Truck current Weight: " + prevWeight +"kg, Order Weight: " + (weight-prevWeight) + " kg");
+			System.out.println("Max weight: " + maxWeight + "kg");
 			ListIterator<OrderProduct> listIterator = orderProducts.listIterator();
 			while (listIterator.hasNext()) 
 			{
@@ -436,7 +436,8 @@ public class PL_TransportEdit
 			String pid,amount;
 			System.out.println("Enter productId: ");
 			//pid = scanner.nextLine(); //TODO: check if pid is number and exists in listIterator
-			while(true){
+			while(true)
+			{
 				pid = scanner.nextLine();
 				if(pid.equals("~")){
 					return -1;
@@ -477,8 +478,13 @@ public class PL_TransportEdit
 				if(Current.getProductId() == Integer.parseInt(pid))
 					Current.setAmount(Integer.parseInt(amount));
 			}
-			weight = order.getWeightOrder();
-		}	
+			weight = order.getWeightOrder() + prevWeight;
+		}
+		if(weight == prevWeight)
+		{
+			System.out.println("Order without any products is invalid. try another option.");
+			return -1;
+		}
 		return weight;
 	}
 
@@ -527,9 +533,14 @@ public class PL_TransportEdit
 			System.out.println("There are no available storekeeprs at this site, try again");
 			return i;
 		}
+		if(transport.getCurrentWeight() == transport.getTruckWeight())
+		{
+			System.out.println("There trasport is currently at full capacity, can't add new orders");
+			return i;
+		}
 		if(o.getWeightOrder() + transport.getCurrentWeight() > transport.getTruckWeight())
 		{
-			double min =  minimizeWeightMenu(transport.getTruckWeight(), o);
+			double min =  minimizeWeightMenu(transport.getTruckWeight(), o,transport.getCurrentWeight());
 			if(min == -1)
 				return i;
 			weight = min;
@@ -560,7 +571,7 @@ public class PL_TransportEdit
 			System.out.println("Successfuly Added the order to the trasport.");
 			transport.setWeight(weight);
 			commitUpdate(transport);
-			if(i != 1)
+			if(i != 0)
 				return i-1;
 			else
 				return i;
@@ -602,7 +613,6 @@ public class PL_TransportEdit
 				return;
 			System.out.println("Choose option:");
 			System.out.println("1)Update id of driver");
-			System.out.println("2)Update sourceDoc number");
 			System.out.println("~)return to previous menu");
 				
 			String option = scanner.nextLine();
@@ -618,10 +628,7 @@ public class PL_TransportEdit
 	        case "1":
 	        		updateId(transport);
 	        		break;
-			case "2":
-					updateSourceDoc(transport);
-					break;
-			case "~":
+	        case "~":
 					return false;
 	        default:
 	        {
@@ -630,17 +637,6 @@ public class PL_TransportEdit
 	        }
 	    }
 	 	return true;
-	}
-
-
-	private void updateSourceDoc(Transport transport) 
-	{
-		String  SourceDoc = getSourceDocNumInputFromUser("supplier");
-		if(SourceDoc.equals("~"))
-			return;
-		transport.setSourceDoc(Integer.parseInt(SourceDoc));
-		commitUpdate(transport);
-		
 	}
 
 

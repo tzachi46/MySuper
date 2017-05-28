@@ -30,7 +30,7 @@ public class TransportDAO extends DAO {
 		    pstmt.setInt(3, trs.getCompanyID());
 		    pstmt.setString(4, trs.getDateOfDep());
 		    pstmt.setString(5, trs.getHourOfDep());
-		    pstmt.setDouble(6, trs.getTruckWeight());
+		    pstmt.setDouble(6, trs.getCurrentWeight());
 		    pstmt.setInt(7, trs.getSourceDoc());
 		    pstmt.setString(8, trs.getAddressOrign());
 	
