@@ -420,15 +420,56 @@ public class PL_TransportEdit
 				OrderProduct Current = listIterator.next();
 				System.out.println(Current.getProductId() + " " + Current.getProductName()+ " amount: " + Current.getAmount() + " weight: " + Current.getProductWeight());
 			}
-			option = scanner.nextLine();//TODO: check illegal input
+			/*option = scanner.nextLine();//TODO: check illegal input
 			if(option.equals("~"))
 				return -1;
-		
+			*/
+			while(true){
+				option = scanner.nextLine();
+				if(option.equals("~")){
+					return -1;
+				}
+				else if(option.equals("1")){
+					break;
+				}
+				System.out.println("Ilegal option, please enter again:");
+			}
 			String pid,amount;
 			System.out.println("Enter productId: ");
-			pid = scanner.nextLine(); //TODO: check if pid is number and exists in listIterator
+			//pid = scanner.nextLine(); //TODO: check if pid is number and exists in listIterator
+			while(true){
+				pid = scanner.nextLine();
+				if(pid.equals("~")){
+					return -1;
+				}
+				/*pid is not number*/
+				else if(!validator.validateIntInBounds(pid, 0, Integer.MAX_VALUE)){
+					System.out.println("Ilegal product id, please enter again:");
+				}
+				/*pid is not in list*/
+				else if(!bl.checkPidInList(orderProducts, pid)){
+					System.out.println("Product id not in this order, please enter a different one:");
+				}
+				else{//pid is number and in list
+					break;
+				}
+			}
 			System.out.println("Enter new Amount");
-			amount = scanner.nextLine(); //TODO: check if amount is a number
+			//amount = scanner.nextLine(); 
+			while(true){
+				amount = scanner.nextLine();
+				if(amount.equals("~")){
+					return -1;
+				}
+				else if(!validator.validateIntInBounds(amount, 0, Integer.MAX_VALUE)){
+					//not integer
+					System.out.println("Invlaid input, try again:");
+				}
+				else{
+					//valid
+					break;
+				}
+			}
 			
 			listIterator = orderProducts.listIterator();
 			while (listIterator.hasNext()) 
