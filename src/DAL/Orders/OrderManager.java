@@ -3,6 +3,9 @@ package DAL.Orders;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+
+import org.sqlite.SQLiteConfig;
+
 import DAL.DALManager;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -129,6 +132,7 @@ public class OrderManager {
 	
 	//help functions
 	protected static boolean executeSQLCommand(String[] SQL) {
+		
 		try (Statement stmt = DALManager.conn.createStatement()) {
 			for(int i=0;i<SQL.length;i++)
 				stmt.execute(SQL[i]);

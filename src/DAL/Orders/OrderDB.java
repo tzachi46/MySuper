@@ -22,6 +22,7 @@ public class OrderDB {
 				+ "	StoreAddress varchar(30) NOT NULL,\n"
 				+ "	HaveTransport Integer NOT NULL,\n"
 				+ "	isPeriodic Integer NOT NULL);\n";
+		
 		OrderManager.executeSQLCommand(sql);
 	}
 	
@@ -89,6 +90,8 @@ public class OrderDB {
 				+ " WHERE OrderNumber= "+orderId+";";	
 		OrderManager.executeSQLCommand(sql);
 	}
+	
+	
 	
 	protected void updateOrder(Order order) {
 		String sql = "UPDATE Orders \n"
