@@ -257,6 +257,34 @@ public class TransportDAO extends DAO {
 	        }
 		return null;
 	}
+
+	public Vector<Transport> fetchTrucksTransports(int truckNumber) {
+		Vector<Transport> vec = new Vector<Transport>();
+		String sql = "SELECT DRIVERID, COMPANYID, DATE, HOUR,"
+		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " FROM Transports " +
+				 "WHERE LICENCETRUCK = ?";
+	        
+	
+	        try (Connection conn = this.connect();
+	             PreparedStatement stmt = conn.prepareStatement(sql)){
+	        	stmt.setInt(1, truckNumber);
+			    
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next())
+	            {// get the result
+	            	Transport tr =  new Transport(rs.getInt(1), truckNumber, rs.getInt(2), rs.getString(3),
+	            			rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getString(7));
+	                vec.add(tr);
+	            }
+	            if (vec.size() > 0)
+	                return vec;
+	           
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }
+		return null;
+	}
 	
 
 

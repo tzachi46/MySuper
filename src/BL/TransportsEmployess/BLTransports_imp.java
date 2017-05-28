@@ -1,5 +1,7 @@
 package BL.TransportsEmployess;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -46,9 +48,43 @@ public class BLTransports_imp implements BLTransports {
 
 	@Override
 	public boolean deleteTruck(int truckNumber) {
+		Vector<Transport> trans = dal.fetchTrucksTransports(truckNumber);
+		if(trans == null || trans.isEmpty())
+			return dal.deleteTruck(truckNumber);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime localDate = LocalDateTime.now();
+        String date = localDate.format(dtf);
+		for(Transport tran : trans){
+			int res = compare(tran.getDateOfDep(), date);
+			if(res >= 0)
+				return false;
+		}
 		return dal.deleteTruck(truckNumber);
 	}
 
+	
+	 private int compare(String o1, String o2)
+     {
+         int day1 = Integer.parseInt(o1.substring(0, 2));
+         int month1 = Integer.parseInt(o1.substring(3, 5));
+         int year1 = Integer.parseInt(o1.substring(6, 10));
+         int day2 = Integer.parseInt(o2.substring(0, 2));
+         int month2 = Integer.parseInt(o2.substring(3, 5));
+         int year2 = Integer.parseInt(o2.substring(6, 10));
+         if(year1 > year2)
+             return 1;
+         if(year1 < year2)
+             return -1;
+         if(month1 > month2)
+             return 1;
+         if(month1 < month2)
+             return -1;
+         if(day1 > day2)
+             return 1;
+         if(day1 < day2)
+             return -1;
+         return 0;
+     }
 	@Override
 	public boolean checkDriverExist(int ID) {
 		return dal.fetchDriver(ID) != null;
