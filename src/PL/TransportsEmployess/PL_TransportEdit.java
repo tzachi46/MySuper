@@ -668,7 +668,7 @@ public class PL_TransportEdit
 
 	private void commitUpdate(Transport transport)
 	{
-		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getCurrentWeight(), transport.getSourceDoc(), transport.getAddressOrign()))
+		if(bl.updateTransport(transport.getDateOfDep(), transport.getHourOfDep(), transport.getTruckNo(), transport.getDriverID(), transport.getCompanyID(), transport.getCurrentWeight(), transport.getAddressOrign()))
 			System.out.println("Transport updated successfully.");
 		else 
 			System.out.println("Unfortunately the system couldnt update the transport in the data base.");
