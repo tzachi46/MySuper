@@ -558,6 +558,18 @@ public class InitSupplierInv {
 		orderProduct.setAmount(36);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
 		
+		order4=new Order(3);
+		order4.setPeriodic(6);
+		order4.setAddres("ofir street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(14);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(5,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(5,orderProduct);
+		
+		
 		
 		
 	}

@@ -215,10 +215,9 @@ public class BLTransports_imp implements BLTransports {
 			return dal.getOrdersInTransport(trans);
 	}
 
-	public String getArrivalTime(int orderNumber, Transport transport) {
-
-		return dal.fetchTransportDestination(transport.getTruckNo(),
-				transport.getCompanyID(), 
+	public String getArrivalTime(int orderNumber, Transport transport) 
+	{
+		return dal.fetchTransportDestination(transport.getTruckNo(),orderNumber, 
 				transport.getDateOfDep(), transport.getHourOfDep()).getHourOfArr();
 	}
 

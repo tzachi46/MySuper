@@ -271,7 +271,7 @@ public class PL_TransportEdit
             	System.out.println("~)return, 1)left, 2)right, 3)Send Transport 4)manual");
             else
             	System.out.println("~)return, 1)left, 2)right, 3)Add order to Transport 4)manual");
-            System.out.println(undeliveredOrders.elementAt(i).toString());
+            System.out.println(undeliveredOrders.elementAt(i).toStringWithAddress());
             String option = scanner.nextLine();
             if (!option.equals("~") && !option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"))
                 System.out.println("invalid input, try again");
@@ -306,7 +306,8 @@ public class PL_TransportEdit
 	
 	private int sentTransport(Order elementAt, int i) 
 	{
-		String date, time,  numberOfTruck = "0" ,sourceDocNum = "";
+		String date, time,  numberOfTruck = "0" ;
+		int sourceDocNum;
 		double  weight = elementAt.getWeightOrder();
 		int supplier = elementAt.getSupplierId();
 		String source = elementAt.getAddres();
@@ -378,10 +379,8 @@ public class PL_TransportEdit
 		}	
 		
 		//CHANGW TO ????
-		sourceDocNum = getSourceDocNumInputFromUser("supplier");
-		if(sourceDocNum.equals("~"))
-			return i;
-		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,Integer.parseInt(sourceDocNum),elementAt.getAddres());
+		sourceDocNum = elementAt.getSupplierId();
+		boolean success = bl.createTransport(date, time,Integer.parseInt(numberOfTruck), idOfDriver, supplier, weight,sourceDocNum,elementAt.getAddres());
 		if(success)
 		{
 			elementAt.setHaveTransport(1);
@@ -511,6 +510,17 @@ public class PL_TransportEdit
 		Transport transport = getTransportByKey();
 		if(transport == null)
 			return i;
+		if(transport.getSourceDoc() != o.getSupplierId())
+		{
+			System.out.println("Cant add to transport order from another supplier.");
+			return i;
+		}
+		if(bl.fetchSite(transport.getAddressOrign()).getAreaCode() != bl.fetchSite(o.getAddres()).getAreaCode())
+		{
+			System.out.println("Origin area code: " + bl.fetchSite(transport.getAddressOrign()).getAreaCode() +  ". The order area code: " + bl.fetchSite(o.getAddres()).getAreaCode() );
+			System.out.println("Cant add order to transport from a store with a diffrent area code ");
+			return i;
+		}
 		if(!bl.cheakAvailableStoreKeepers(o.getAddres(), transport.getDateOfDep(), transport.getHourOfDep()))
 		{
 			System.out.println("There are no available storekeeprs at this site, try again");
@@ -528,6 +538,7 @@ public class PL_TransportEdit
 		
 		if(bl.addreesAtTransport(o.getAddres(),transport))
 		{
+			System.out.println("daym :" + o.getAddres());
 			timeOfArrival = bl.getArrivalTime(o.getAddres(), transport);
 		}	
 		else
