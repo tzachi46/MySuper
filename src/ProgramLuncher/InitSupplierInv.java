@@ -1,5 +1,9 @@
 package ProgramLuncher;
 import BL.StorageSuppliers.BLSupplier;
+import BL.TransportsEmployess.BL;
+import BL.TransportsEmployess.BLimp;
+import DAL.DALhrtr_Interface;
+import DAL.HR_TR.DALhrtrManager;
 import DAL.Inventory.CategoryDB;
 import DAL.Inventory.ProductDB;
 import DAL.Orders.OrderManager;
@@ -11,6 +15,8 @@ import SharedClasses.StorageSuppliers.Product;
 import SharedClasses.StorageSuppliers.ProductFromSupplier;
 import SharedClasses.StorageSuppliers.Supplier;
 import SharedClasses.StorageSuppliers.SupplierContact;
+import SharedClasses.TransportsEmployess.Transport;
+import SharedClasses.TransportsEmployess.TransportDestination;
 
 public class InitSupplierInv {
 	
@@ -530,11 +536,37 @@ public class InitSupplierInv {
 		orderProduct=new OrderProduct(7);
 		orderProduct.setAmount(5);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
+		/**/
+		
+		Order order3=new Order(3);
+		order3.setPeriodic(10);
+		order3.setAddres("dov street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order3);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(108);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+		
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(56);
+		
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
+		
+		Order order4=new Order(3);
+		order4.setPeriodic(6);
+		order4.setAddres("ofir street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(14);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
 		
 		
-		
-		
-		
+		DALhrtr_Interface dal_imp = DAL.HR_TR.DALhrtrManager.getDALImp();
+		dal_imp.insertTransport(new Transport(622222222, 11111111, 1, "25/05/2017", "10:01", 2000, 0, "ofir street"));
+		dal_imp.insertTransportDestination(new TransportDestination(11111111, "25/05/2017", "10:01", order.getOrderNumber(), "10:02"));
 	}
 	
 	

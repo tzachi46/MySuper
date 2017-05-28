@@ -260,4 +260,8 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	public Vector<Transport> getRelevantTransports(int id) {
 		return this.repo.transports.getRelevantTransports(id);
 	}
+	
+	public Vector<Transport> getTransportsInDate(String date) {
+		return this.repo.transports.getRelevantTransports(date);
+	}
 }

@@ -82,4 +82,5 @@ public interface DALhrtr_Interface {
 	public TransportDestination fetchTransportDestination(int truckNumbeer, int orderNumber,
 			String date, String hour);
 	public Vector<Integer> getOrdersInTransport(Transport trans);
+	public Vector<Transport> getTransportsInDate(String date);
 }

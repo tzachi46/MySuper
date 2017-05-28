@@ -183,12 +183,12 @@ public class BLEmployees_imp
             @Override
             public int compare(Shift o1, Shift o2)
             {
-                int day1 = Integer.parseInt(o1.getDate().substring(0, 1));
-                int month1 = Integer.parseInt(o1.getDate().substring(3, 4));
-                int year1 = Integer.parseInt(o1.getDate().substring(6, 10));
-                int day2 = Integer.parseInt(o2.getDate().substring(0, 1));
-                int month2 = Integer.parseInt(o2.getDate().substring(3, 4));
-                int year2 = Integer.parseInt(o2.getDate().substring(6, 10));
+                int day1 = Integer.parseInt(o1.getDate().substring(0, 2));
+                int month1 = Integer.parseInt(o1.getDate().substring(3, 5));
+                int year1 = Integer.parseInt(o1.getDate().substring(6));
+                int day2 = Integer.parseInt(o2.getDate().substring(0, 2));
+                int month2 = Integer.parseInt(o2.getDate().substring(3, 5));
+                int year2 = Integer.parseInt(o2.getDate().substring(6));
                 if(year1 > year2)
                     return 1;
                 if(year1 < year2)

@@ -54,4 +54,5 @@ public interface BLTransports {
 	/***/
 	public Vector<Integer> getOrdersInTransport(Transport trans);
 	public String getArrivalTime(int orderNumber, Transport transport);
+	public Vector<Transport> getTransportsInDate(String date);
 }

@@ -289,4 +289,9 @@ public class BLTransports_imp implements BLTransports {
             }
         });
     }
+
+	@Override
+	public Vector<Transport> getTransportsInDate(String date) {
+		return dal.getTransportsInDate(date);
+	}
 }
