@@ -265,13 +265,13 @@ public class DALhrtrManager implements DALhrtr_Interface{
 		return this.repo.transports.getRelevantTransports(date);
 	}
 
-<<<<<<< HEAD
-	public Vector<Transport> fetchTrucksTransports(int truckNumber) {
+
+	public Vector<Transport> fetchTrucksTransports(int truckNumber) 
+	{
 		return this.repo.transports.fetchTrucksTransports(truckNumber);
-=======
+	}
 	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo) 
 	{
 		return this.repo.transDests.getTransportOrders(date, hour, truckNo);
->>>>>>> origin/debug7
 	}
 }
