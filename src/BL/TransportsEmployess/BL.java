@@ -127,4 +127,7 @@ public interface BL {
 	 * NEW (28.5): check if pid in list
 	 */
 	boolean checkPidInList(LinkedList<OrderProduct> list, String pid);
+
+	Vector<Integer> getTransportOrders(String date, String hour, int truckNo);
+
 }

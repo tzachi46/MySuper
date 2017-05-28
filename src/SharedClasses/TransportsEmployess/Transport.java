@@ -53,7 +53,7 @@ public class Transport {
 	}
 	public double getTruckWeight() 
 	{
-		return (DAL.HR_TR.DALhrtrManager.getDALImp().fetchTruck(truckNo)).getWeight();
+		return (DAL.HR_TR.DALhrtrManager.getDALImp().fetchTruck(truckNo)).getMaxWeight();
 	}
 	public void setDriverID(int driverID) {
 		this.driverID = driverID;
