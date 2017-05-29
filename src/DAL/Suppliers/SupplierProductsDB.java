@@ -109,8 +109,10 @@ public class SupplierProductsDB {
 		ProductFromSupplier res=null;
 	    try (Statement stmt  = DALManager.conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
+	    	while(rs.next()){
 	    	Product p= DAL.Inventory.InvDALManager.getInstance().getProduct(ProductId,BLManager.emp.getWorkAddress());
 	    	res= new ProductFromSupplier(rs.getInt("SupplierId"),p,rs.getInt("SupplierCatalogId"),rs.getInt("AvarageDeleveryTime"),prices);
+	    	}
 	        } catch (Exception e) {
 	        	System.out.println(e.getMessage());
 	            return null; 

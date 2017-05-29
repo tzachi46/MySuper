@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import DAL.HR_TR.DALhrtrManager;
 import SharedClasses.TransportsEmployess.Driver;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -347,6 +348,13 @@ public class BLTransports_imp implements BLTransports {
 				return false;
 		}
 		return true;
+	}
+	
+	public void insertMessage(Message msg){
+		dal.insertMessage(msg);
+	}
+	public void updateMessage(Message msg){
+		dal.updateMessage(msg);
 	}
 
 }

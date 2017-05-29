@@ -128,13 +128,28 @@ public class Order {
 	public int getMaxProductPrepTime(){
 		int maxTime = 0;
 		for (OrderProduct prod: products){
-			int avgTime = DAL.Suppliers.SupplierManager.getInstance().getProductFromSupplier(SupplierId, prod.getProductId()).getAvarageDeleveryTime();
+			int avgTime=0;
+			ProductFromSupplier pfs=DAL.Suppliers.SupplierManager.getInstance().getProductFromSupplier(SupplierId, prod.getProductId());
+			if(pfs!=null)
+				avgTime = pfs.getAvarageDeleveryTime();
 			if (avgTime > maxTime)
 				maxTime = avgTime;
 		}
+
 		return maxTime;
 	}
-	
+	public int getBiggestProdustSupply(Order o){
+		LinkedList<OrderProduct>pro=o.getProducts();
+		int time=0;
+		int supp=o.getSupplierId();
+		int temp=0;
+		for(int i=0;i<pro.size();i++){
+			temp=DAL.Suppliers.SupplierManager.getInstance().getProductFromSupplier(supp, pro.get(i).getProductId()).getAvarageDeleveryTime();
+			if(temp>time)
+				time=temp;
+		}
+		return time;
+	}
 	public boolean addProduct(OrderProduct p) {
 		if (!canOrder())
 			return false;

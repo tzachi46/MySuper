@@ -7,11 +7,13 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import DAL.HR_TR.DALhrtrManager;
 import DAL.Orders.OrderManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -350,20 +352,30 @@ public class BLimp implements BL {
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime localDate = LocalDateTime.now();
         String date; 
-        localDate.plusDays(order.getMaxProductPrepTime());
+        localDate=localDate.plusDays(order.getMaxProductPrepTime());
         for(int i = 0; i < WEEK; i++){
-			localDate.plusDays(i);
+			localDate=localDate.plusDays(1);
 			date = localDate.format(dtf);
 			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
-				order.setDueDate(order.getDate());
+				//order.setDueDate(order.getDate());
 				order.setHaveTransport(1);
 				DAL.Orders.OrderManager.getInstance().updateOrder(order);
+			    localDate = LocalDateTime.now();
+				date = localDate.format(dtf);
+				updateMessgae(new Message(date, order.getAddres(), true, order.getOrderNumber()));
 				return true;
 			}
         }
+        localDate = LocalDateTime.now();
+		date = localDate.format(dtf);
+        bl_trans.insertMessage(new Message(date, order.getAddres(), false, order.getOrderNumber())); ///
         return false;
    }
 	
+	@Override
+	public void updateMessgae(Message msg){
+		bl_trans.updateMessage(msg);
+	}
 	
 	public boolean checkDate(String date, String store, int supplierId, Order order){
 //		

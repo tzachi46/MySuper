@@ -7,6 +7,7 @@ import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
@@ -130,5 +131,7 @@ public interface BL {
 
 	Vector<Integer> getTransportOrders(String date, String hour, int truckNo);
 	boolean checkReplacement(Truck truck);
+
+	void updateMessgae(Message msg);
 
 }

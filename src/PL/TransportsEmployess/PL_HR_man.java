@@ -160,7 +160,7 @@ public class PL_HR_man
 			System.out.println("2) update bank Account");
 			System.out.println("3) Fire employee");
 			System.out.println("4) Update licence type");
-			System.out.println("5) return to previous menu");
+			System.out.println("~) return to previous menu");
 
 			String choice = scanner.nextLine();
 			if(!handelUpdateChoice(emp, choice))
@@ -199,10 +199,6 @@ public class PL_HR_man
 		case "4":
 		{
 			updateLicenceType(emp);
-		}
-		case "5":
-		{
-			return false;
 		}
 		case "~":
 		{

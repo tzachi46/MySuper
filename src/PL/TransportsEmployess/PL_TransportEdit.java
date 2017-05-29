@@ -1,5 +1,7 @@
 package PL.TransportsEmployess;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
+import SharedClasses.TransportsEmployess.Message;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 
@@ -402,6 +405,12 @@ public class PL_TransportEdit
 		{
 			elementAt.setHaveTransport(1);
 			OrderManager.getInstance().updateOrder(elementAt);
+			 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDateTime local = LocalDateTime.now();
+			
+			String date1 = local.format(dtf);
+			bl.updateMessgae(new Message(date1/*elementAt.getDate()*/, elementAt.getAddres(), true, elementAt.getOrderNumber()));
+			
 			System.out.println("Transport created successfully.");
 			bl.addSiteToTransport(date, time, Integer.parseInt(numberOfTruck), elementAt.getOrderNumber(),time);
 			if(i==0)
@@ -583,6 +592,8 @@ public class PL_TransportEdit
 		{
 			o.setHaveTransport(1);
 			OrderManager.getInstance().updateOrder(o);
+			
+			bl.updateMessgae(new Message(o.getDate(), o.getAddres(), true, o.getOrderNumber()));
 			
 			System.out.println("Successfuly Added the order to the trasport.");
 			transport.setWeight(weight);

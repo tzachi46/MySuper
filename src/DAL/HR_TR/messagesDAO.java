@@ -44,12 +44,14 @@ public class messagesDAO extends DAO {
 	         // set the corresponding parameters
 	    	 pstmt.setString(1, address);
 			 pstmt.setString(2, date);
+			 pstmt.setInt(3, OrderNumber);
 	         // update 
 	         pstmt.executeUpdate();
 	         //close resource
 	         pstmt.close();
 	         return true;
 	     } catch (SQLException e) {
+	    	 	System.out.println(e.getMessage());
 		         return false;
 	     }
 	}
@@ -57,7 +59,7 @@ public class messagesDAO extends DAO {
 	protected Vector<Pair<String, Integer>> fetchMessages(String address,boolean isHandled)
 	{
 		 Vector<Pair<String, Integer>> dates = new Vector<Pair<String, Integer>>();
-		 String sql = "SELECT DATE,ORDERNUMBER"
+		 String sql = "SELECT DATE, ORDERNUMBER "
 			 		+ "FROM Messages " +
 					  "WHERE ADDRESS = ? AND ISHANDLED = ?";
 		        
@@ -67,11 +69,12 @@ public class messagesDAO extends DAO {
 	        	stmt.setString(1, address);
 	        	stmt.setInt(2, isHandled ? 1 : 0);
 	            ResultSet rs = stmt.executeQuery();
-	            while (rs.next());
+	            while (rs.next()){
 	            	dates.add(new Pair<String, Integer>(rs.getString(1),rs.getInt(2)));
+	            }
 	    
 	        } catch (SQLException e) {
-	        	////System.out.println(e.getMessage());
+	        	System.out.println(e.getMessage());
 	        }
 		return dates;
 	}

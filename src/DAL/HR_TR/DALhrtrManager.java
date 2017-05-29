@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import DAL.DALhrtr_Interface;
 import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
@@ -274,4 +275,9 @@ public class DALhrtrManager implements DALhrtr_Interface{
 	{
 		return this.repo.transDests.getTransportOrders(date, hour, truckNo);
 	}
+
+	public void updateMessage(Message msg) {
+		repo.messages.updateMessage(msg.getAddress(), msg.getDate(), msg.getOrderNumber());
+	}
+
 }

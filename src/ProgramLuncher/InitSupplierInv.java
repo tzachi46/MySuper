@@ -328,7 +328,7 @@ public class InitSupplierInv {
 		p.setWareLoc("3");
 		
 		CatalogID= "312";
-		AvarageDeleveryTime = 9;
+		AvarageDeleveryTime = 0;
 		PFS= new ProductFromSupplier(2,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
 		price= "7";
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
@@ -360,7 +360,7 @@ public class InitSupplierInv {
 		p.setWareLoc("3");
 		
 		CatalogID= "31";
-		AvarageDeleveryTime = 21;
+		AvarageDeleveryTime = 0;
 		PFS= new ProductFromSupplier(2,p,Integer.parseInt(CatalogID),AvarageDeleveryTime);
 		price= "8";
 		BLSupplier.GetBLSupplier().addProductFromSupplier(PFS);
@@ -529,11 +529,11 @@ public class InitSupplierInv {
 		order2.setAddres("Base");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order2);
 		
-		orderProduct=new OrderProduct(6);
+		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
 		
-		orderProduct=new OrderProduct(7);
+		orderProduct=new OrderProduct(2);
 		orderProduct.setAmount(5);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
 		/**/
