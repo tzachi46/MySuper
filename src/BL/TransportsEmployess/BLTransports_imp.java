@@ -127,14 +127,14 @@ public class BLTransports_imp implements BLTransports {
 	@Override
 	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String csource*/,
 			double weight, int sourceDoc, String address) {
-		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,sourceDoc,address));
+		return dal.insertTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,address));
 	}
 
 	@Override
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID,
-			double weight, int sourceDoc, String address) {
+			double weight, String address) {
 	///	if(dal.checkLicenceAndWeight(driverID, truckNumber, weight)){
-			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight, sourceDoc,address));
+			return dal.updateTransport(new Transport(driverID, truckNumber, companyID, date, time, weight,address));
 	///	}
 	///	return false;
 	}
@@ -334,4 +334,19 @@ public class BLTransports_imp implements BLTransports {
 		return  dal.getTransportOrders(date, hour, truckNo);
 		
 	}
+	public boolean checkReplacement(Truck truck) {
+		Vector<Transport> transports = dal.fetchTrucksTransports(truck.getTruckNo());
+		if(transports == null || transports.isEmpty())
+			return true;
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime localDate = LocalDateTime.now();
+        String date = localDate.format(dtf);
+		for(Transport tran : transports){
+			int res = compare(tran.getDateOfDep(), date);
+			if(res >= 0)
+				return false;
+		}
+		return true;
+	}
+
 }

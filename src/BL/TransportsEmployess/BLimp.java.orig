@@ -1,21 +1,38 @@
 package BL.TransportsEmployess;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Vector;
 
+import DAL.Orders.OrderManager;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 
 public class BLimp implements BL {
+
+	public BLTransports_imp getBl_trans() {
+		return bl_trans;
+	}
+
+	public void setBl_trans(BLTransports_imp bl_trans) {
+		this.bl_trans = bl_trans;
+	}
+
+	public BLEmployees_imp getBl_emp() {
+		return bl_emp;
+	}
 
 	//Fields
 	private BLEmployees_imp bl_emp;
@@ -219,9 +236,9 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-			double weight, int sourceDoc)
+			double weight, int sourceDoc,String address)
 	{
-		return bl_trans.createTransport(date, time, truckNumber, driverID, companyID/*source*/, weight, sourceDoc);
+		return bl_trans.createTransport(date, time, truckNumber, driverID, companyID/*source*/, weight, sourceDoc, address);
 	}
 
 	@Override
@@ -231,25 +248,25 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID /*String source*/,
-			double weight, int sourceDoc) {
-		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc);
+			double weight,String address) {
+		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight,address);
 	}
 
-	@Override
+	/*@Override
 	public boolean deleteTransport(String date, String time, int truckNumber) {
 		return bl_trans.deleteTransport(date, time, truckNumber);
-	}
+	}*/
 
 	@Override
-	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode,
+	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode,
 			String hourOfArr){
-		return bl_trans.addSiteToTransport(date, time, truckNumber, siteAddress, docCode, hourOfArr);
+		return bl_trans.addSiteToTransport(date, time, truckNumber, docCode, hourOfArr);
 	}
 
-	@Override
+	/*@Override
 	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress) {
 		return bl_trans.deleteSiteFromTransport(date, time, truckNumber, siteAddress);
-	}
+	}*/
 
 	@Override
 	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time) {
@@ -262,9 +279,9 @@ public class BLimp implements BL {
 	}
 
 	@Override
-	public Vector<Shift> fetchInitializedShifts() 
+	public Vector<Shift> fetchInitializedShifts(String address) 
 	{
-		return bl_emp.fetchInitializedShifts();
+		return bl_emp.fetchInitializedShifts(address);
 	}
 
 	@Override
@@ -288,13 +305,13 @@ public class BLimp implements BL {
 		return bl_trans.updateDriver(id,parseInt);	
 	}
 
-	@Override
-	public String getTransportDests(String date, String hour, int truckNumber) {
+	/*@Override
+	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber) {
 		return bl_trans.getTransportDests(date, hour, truckNumber);
-	}
+	}*/
 
 	@Override
-	public Vector<String> getHoursOfArrival(Transport trans)
+	public Vector<Pair<String, String>> getHoursOfArrival(Transport trans)
 	{
 		return bl_trans.getHoursOfArrival(trans);
 	}
@@ -314,21 +331,14 @@ public class BLimp implements BL {
 	public Vector<String> getHandledMessages(String workAddress) {
 		return bl_trans.getHandledMessages(workAddress);
 	}
-<<<<<<< HEAD
-
-	@Override
-	public Vector<Order> getUndeliveredOrders() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-=======
 	
-	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store){
+	private Pair<Driver, Truck> checkAvailabilityOfDriversToTrucks(Vector<Integer> truckNums, String date, String shift, String store, double orderWeight){
 		Vector<Driver> drivers = bl_trans.fetchAvailableDrivers(store, date, shift);
-		double weight = getWeightOfOrder();
+		double weight = orderWeight;
 		for(Driver d : drivers){
 			for(Integer truckNo : truckNums){
-				if(bl_trans.checkLicenceAndWeight(d.getId(), truckNo, weight)){
+				if((d.getLno() >= bl_trans.fetchTruck(truckNo).getLicenceType()) && 
+						(bl_trans.fetchTruck(truckNo).getMaxWeight() >= weight)){
 					return new Pair<Driver,Truck>(d, bl_trans.fetchTruck(truckNo));
 				}
 			}
@@ -336,55 +346,161 @@ public class BLimp implements BL {
 		return null;
 	}
 	
-	private double getWeightOfOrder() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
-	}
-	
 	public boolean checkTransportToOrder(Order order){
-		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-        LocalDate localDate = LocalDate.now();
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime localDate = LocalDateTime.now();
         String date; 
         for(int i = 0; i < WEEK; i++){
-       	 localDate.plusDays(i);
-       	 date = dtf.format(localDate);
-       	 if(checkDate(date, order.getStore()) == true)
-       			 return true;
+			localDate.plusDays(i);
+			date = localDate.format(dtf);//dtf.format(localDate);
+			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
+				order.setDueDate(order.getDate());
+				order.setHaveTransport(1);
+				DAL.Orders.OrderManager.getInstance().updateOrder(order);
+				return true;
+			}
         }
         return false;
    }
 	
 	
-	private boolean checkDate(String date, String store){
-		/* store keepers */
-		if(!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")) &&
-				!(bl_emp.cheakAvailableStoreKeepers(store, date, "morning"))){
-			return false;
-		} else {
+	public boolean checkDate(String date, String store, int supplierId, Order order){
+//		
+//		Vector<Transport> transports =  bl_trans.getTransportsInDate(date);
+//			if(!transports.isEmpty()){
+//				Transport tran = transports.firstElement();
+//				int hour = Integer.parseInt(tran.getHourOfDep().substring(0, 2));
+//				if(hour >= 12)
+//					return bl_trans.addSiteToTransport(tran.getDateOfDep(), tran.getHourOfDep(),
+//							tran.getTruckNo(), order.getOrderNumber(), "23:59");
+//				else 
+//					return bl_trans.addSiteToTransport(tran.getDateOfDep(), tran.getHourOfDep(),
+//							tran.getTruckNo(), order.getOrderNumber(), "11:59");
+//			}
+		/**
+		 * if there is'nt a transport to attach the order
+		 */
+		if(bl_emp.cheakAvailableStoreKeepers(store, date, "morning")){
 			/* get the optional trucks in morning */
 			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
 			/* choose the proper driver to the truck in morning */
-			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store);
-			if(driverNtruckM == null){ /* not M */
-				/* get the optional trucks in evening */
-				Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
-				/* choose the proper driver to the truck in evening */
-				Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store);
-				if(driverNtruckE == null){/* not M  & not E */
-					return false;
-				} else {/* E */
-					return (bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
-							driverNtruckE.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
-				}
-			} else { /* M */
-				return (bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
-						driverNtruckM.getKey().getId(), store, getWeightOfOrder(), getSourceDoc()));
+			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
+			if(driverNtruckM != null){ /* not M */
+				return ((bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
+						&& (bl_trans.addSiteToTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
+								order.getOrderNumber(), "11:59")));
 			}
+		} 
+		if(bl_emp.cheakAvailableStoreKeepers(store, date, "evening")){
+			/* get the optional trucks in evening */
+			Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
+			/* choose the proper driver to the truck in evening */
+			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
+			 if(driverNtruckE != null) {/* E */
+				return ((bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
+						&& (bl_trans.addSiteToTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
+								order.getOrderNumber(), "23:59")));
+			 }
+		} 
+		return false;
+		
+	}
+	@Override
+	public Vector<Order> getUndeliveredOrders()
+	{
+		Vector<Order> vec = new Vector<Order>();
+		LinkedList<Order> l = OrderManager.getInstance().getUndeliverdOrders();
+		ListIterator<Order> listIterator = l.listIterator();
+		while (listIterator.hasNext()) {
+			vec.add(listIterator.next());
 		}
+		return vec;
+	}
+
+	@Override
+	public boolean addreesAtTransport(String address, Transport transport) {
+		Vector<Integer> vec  = bl_trans.getOrdersInTransport(transport);
+		if(vec==null)
+			return false;
+		for(Integer orderNo : vec){
+			if(DAL.Orders.OrderManager.getInstance().getOrder(orderNo).getAddres().equals(address))
+				return true;
+		}
+		return false;
+		
+	}
+
+	@Override
+	public String getArrivalTime(String address, Transport transport) 
+	{
+		Vector<Integer> vec = bl_trans.getOrdersInTransport(transport);
+		
+		for(Integer orderNo : vec)
+		{
+			Order ord = DAL.Orders.OrderManager.getInstance().getOrder(orderNo);
+			if(ord.getAddres().equals(address))
+				return bl_trans.getArrivalTime(ord.getOrderNumber(), transport);
+		}
+		return null;
+	}
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	@Override
+	public Vector<Transport> getRelevantTransports(int id) {
+		return bl_trans.getRelevantTransports(id);
 	}
 	
-	private int getSourceDoc() {
-		throw new UnsupportedOperationException();
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	@Override
+	public void sortTrans(Vector<Transport> vec) {
+		bl_trans.sortTrans(vec);
 	}
->>>>>>> Itay
+	
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of Pair<time, address> by date
+     */
+	@Override
+	public void sortDests(Vector<Pair<String,String>> vec) {
+		bl_trans.sortDests(vec);
+	}
+	/*
+	 * NEW (28.5): check if pid exist in list of products
+	 */
+	@Override
+	public boolean checkPidInList(LinkedList<OrderProduct> list, String pid){
+		int id=-1;
+		try{
+			id=Integer.parseInt(pid);
+		}catch(Exception e){
+			//Should not be here, pid tested before
+			return false;
+		}
+		ListIterator<OrderProduct> iter = list.listIterator();
+		while (iter.hasNext()) 
+		{
+			OrderProduct curr = iter.next();
+			if(curr.getProductId() == id)
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+<<<<<<< HEAD
+	public boolean checkReplacement(Truck truck) {
+		return bl_trans.checkReplacement(truck);
+	}
+
+=======
+	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo)
+	{
+		return bl_trans.getTransportOrders(date, hour, truckNo);
+	}
+>>>>>>> forDebug7
 }

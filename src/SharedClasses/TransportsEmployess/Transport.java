@@ -5,8 +5,8 @@ public class Transport {
 	@Override
 	public String toString() {
 		return "Transport's Details: \nTime of Departure : "+ dateOfDep +" "+hourOfDep + "\nTruck's Number : "+ truckNo +
-				"\nDriver's ID : "+driverID+"\nSource's company ID : "+companyID+"\nTransport's Weight : "+ Weight+" kg\n"
-				+ "sourceDoc: " + sourceDoc;
+				"\nDriver's ID : "+driverID+"\nSource's company ID : "+companyID+"\nTransport's Weight : "+ Weight+" kg"
+				;
 	}
 	private int driverID;
 	private int truckNo;
@@ -14,11 +14,10 @@ public class Transport {
 	private String addressOrign;
 	private String dateOfDep;
 	private String hourOfDep;
-	private int sourceDoc;
 	private double Weight;
 	
 	public Transport(int driverID, int truckNo, int companyID/*String addressOrign*/,
-			String dateOfDep, String hourOfDep, double Weight, int sourceDoc, String addressOrign) 
+			String dateOfDep, String hourOfDep, double Weight, String addressOrign) 
 	{
 		this.driverID = driverID;
 		this.truckNo = truckNo;
@@ -26,12 +25,8 @@ public class Transport {
 		this.companyID = companyID;
 		this.dateOfDep = dateOfDep;
 		this.hourOfDep = hourOfDep;
-		this.sourceDoc = sourceDoc;
 		this.Weight = Weight;
 		this.addressOrign = addressOrign;
-	}
-	public int getSourceDoc(){
-		return sourceDoc;
 	}
 	public int getDriverID() {
 		return driverID;
@@ -73,9 +68,7 @@ public class Transport {
 	public void setHourOfDep(String hourOfDep) {
 		this.hourOfDep = hourOfDep;
 	}
-	public void setSourceDoc(int sourceDoc) {
-		this.sourceDoc = sourceDoc;
-	}
+	
 	public void setWeight(double Weight) {
 		this.Weight = Weight;
 	}

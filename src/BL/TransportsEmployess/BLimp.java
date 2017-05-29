@@ -248,8 +248,8 @@ public class BLimp implements BL {
 
 	@Override
 	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID /*String source*/,
-			double weight, int sourceDoc,String address) {
-		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight, sourceDoc,address);
+			double weight,String address) {
+		return bl_trans.updateTransport(date, time, truckNumber, driverID, companyID /*source*/, weight,address);
 	}
 
 	/*@Override
@@ -350,9 +350,10 @@ public class BLimp implements BL {
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime localDate = LocalDateTime.now();
         String date; 
+        localDate.plusDays(order.getMaxProductPrepTime());
         for(int i = 0; i < WEEK; i++){
 			localDate.plusDays(i);
-			date = localDate.format(dtf);//dtf.format(localDate);
+			date = localDate.format(dtf);
 			if(checkDate(date, order.getAddres(), order.getSupplierId(), order) == true){/* after big merge */
 				order.setDueDate(order.getDate());
 				order.setHaveTransport(1);
@@ -492,6 +493,10 @@ public class BLimp implements BL {
 	}
 
 	@Override
+	public boolean checkReplacement(Truck truck) {
+		return bl_trans.checkReplacement(truck);
+	}
+
 	public Vector<Integer> getTransportOrders(String date, String hour, int truckNo)
 	{
 		return bl_trans.getTransportOrders(date, hour, truckNo);

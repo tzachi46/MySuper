@@ -109,8 +109,7 @@ public class Repository {
                 			"	LICENCETRUCK	INT		NOT NULL, " + 
                 			"	COMPANYID   INT	NOT NULL, " + 
                 			"	DATE   TEXT	NOT NULL, " + 
-                			"	HOUR   TEXT	NOT NULL, " + 
-                			"SOURCEDOC 	INT 	NOT 	NULL, "
+                			"	HOUR   TEXT	NOT NULL, " 
                 			+ "	TRUCKWEIGHT		REAL	NOT NULL,"
                 			+ " STOREADDRESS TEXT NOT NULL," 
                 			+ " PRIMARY KEY (LICENCETRUCK,DATE,HOUR), "
@@ -229,10 +228,10 @@ public class Repository {
 	  public Vector<Pair<Shift,String>> fetchAllEmployeeShifts(int id)
 	    {
 	        Vector<Pair<Shift,String>> vec = new Vector<Pair<Shift,String>>();
-	        String sql = "SELECT shifts.Date, shifts.Type, shifts.Day, shifts.Init, "
-	        		+ "shifts.STOREADDRESS, employeeShifts.Specialization"
+	        String sql = "SELECT shifts.Date,  shifts.Type, shifts.Day, shifts.Init, "
+	        		+ "shifts.STOREADDRESS, employeeShifts.Specialization, employeeShifts.ID"
 	                + " FROM shifts, employeeShifts"
-	                + " WHERE shifts.Date = employeeShifts.Date AND shifts.Type = employeeShifts.Type AND employeeShifts.ID = ?";
+	                + " WHERE employeeShifts.ID = ? AND shifts.Date = employeeShifts.Date AND shifts.Type = employeeShifts.Type";
 
 	        try (Connection conn = this.employees.connect();
 	             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -240,12 +239,17 @@ public class Repository {
 	            ResultSet rs = stmt.executeQuery();
 	            while (rs.next())
 	            {// get the result
-	                vec.add(new Pair<Shift,String>(new Shift( rs.getString(1),  rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5)),rs.getString(6)));
+	            	System.out.println(rs.getString(5));
+	            	Shift shift = new Shift( rs.getString(1),  rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
+	                if(!vec.contains(shift))
+	                	vec.add(new Pair<Shift,String>(shift,rs.getString(6)));
+	                
 	            }
 	            if (vec.size() > 0)
 	                return vec;
 	        } catch (SQLException e)
 	        {
+	        	System.out.println(e.getMessage());
 	        }
 	        return vec;
 	    }

@@ -101,7 +101,7 @@ public class BLEmployees_imp
         Vector<Pair<String,Integer>> vec = new Vector<Pair<String,Integer>>();
         vec.addElement(new Pair<String,Integer>("Cashier", cashier));
         vec.addElement(new Pair<String,Integer>("ShiftManager", manager));
-        vec.addElement(new Pair<String,Integer>("TruckDriver", carrier));
+        vec.addElement(new Pair<String,Integer>(/*"TruckDriver"*/"Carrier", carrier));
         vec.addElement(new Pair<String,Integer>("StoreKeeper", storekeeper));
         return dal.insertShift(shift, vec);
     }

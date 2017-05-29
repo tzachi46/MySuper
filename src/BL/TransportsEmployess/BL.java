@@ -83,7 +83,7 @@ public interface BL {
   							double weight, int sourceDoc, String address);
   	public Transport fetchTransport(String date, String time, int numberOfTruck);
   	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-  							double weight, int sourceDoc,String address);
+  							double weight,String address);
   /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
   	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr);
   	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);*/
@@ -129,5 +129,6 @@ public interface BL {
 	boolean checkPidInList(LinkedList<OrderProduct> list, String pid);
 
 	Vector<Integer> getTransportOrders(String date, String hour, int truckNo);
+	boolean checkReplacement(Truck truck);
 
 }

@@ -1,5 +1,6 @@
 package BL.TransportsEmployess;
 
+import java.util.LinkedList;
 import java.util.Vector;
 
 import SharedClasses.TransportsEmployess.Driver;
@@ -8,6 +9,7 @@ import SharedClasses.TransportsEmployess.EmployeeRestriction;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
 import SharedClasses.Pair;
 import SharedClasses.StorageSuppliers.Order;
+import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Site;
 import SharedClasses.TransportsEmployess.Transport;
@@ -36,7 +38,7 @@ public interface BL {
     boolean deleteShift(String type, String date, String address);
     Shift fetchShift(String type, String date, String address);
     Vector<Shift> getEmptyShifts(String address);
-    public Vector<Shift> fetchInitializedShifts();
+    public Vector<Shift> fetchInitializedShifts(String address);
     Vector<Shift> getUptoDate(Vector<Shift> vec);
     boolean addEmployeeSpeciality(int id, String specialization);
     boolean deleteEmployeeSpeciality(int id, String specialization);
@@ -78,14 +80,14 @@ public interface BL {
   	
   	//***** Transports *****//
   	public boolean createTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-  							double weight, int sourceDoc);
+  							double weight, int sourceDoc, String address);
   	public Transport fetchTransport(String date, String time, int numberOfTruck);
   	public boolean updateTransport(String date, String time, int truckNumber, int driverID, int companyID/*String source*/,
-  							double weight, int sourceDoc);
-  	public boolean deleteTransport(String date, String time, int truckNumber);
-  	public boolean addSiteToTransport(String date, String time, int truckNumber, String siteAddress, int docCode, String hourOfArr);
-  	public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);
-  	public String getTransportDests(String date, String hour, int truckNumber);
+  							double weight,String address);
+  /*	public boolean deleteTransport(String date, String time, int truckNumber);*/
+  	public boolean addSiteToTransport(String date, String time, int truckNumber, int docCode, String hourOfArr);
+  	/*public boolean deleteSiteFromTransport(String date, String time, int truckNumber, String siteAddress);*/
+  //	public Vector<Pair<String, String>> getTransportDests(String date, String hour, int truckNumber);
   	//**********************//
   	
   	public Vector<Driver> fetchAvailableDrivers(String addressStore, String date, String time);
@@ -94,9 +96,42 @@ public interface BL {
   	public boolean cheakAvailableStoreKeepers(String addressStore, String date, String time);
 
   	boolean updateDriver(int id, int parseInt);
-  	public Vector<String> getHoursOfArrival(Transport trans);
+  	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans);
 	public boolean checkIfTruckAvilable(String date,String time,int truckNumber);
 
 	Vector<String> getNotHandledMessages(String workAddress);
 	Vector<String> getHandledMessages(String workAddress);
+
+	Vector<Order> getUndeliveredOrders();
+
+	boolean addreesAtTransport(String address, Transport transport);
+
+	String getArrivalTime(String addres, Transport transport);
+	public boolean checkTransportToOrder(Order order);
+
+	/*
+     * NEW (edited 26.5 by Ofir): get transports whose driver's id = id
+     */
+	Vector<Transport> getRelevantTransports(int id);
+
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of transports by date
+     */
+	void sortTrans(Vector<Transport> vec);
+	/*
+     * NEW (edited 26.5 by Ofir): Sort vector of Pair<time, address> by date
+     */
+	void sortDests(Vector<Pair<String, String>> vec);
+
+	/*
+	 * NEW (28.5): check if pid in list
+	 */
+	boolean checkPidInList(LinkedList<OrderProduct> list, String pid);
+
+<<<<<<< HEAD
+	boolean checkReplacement(Truck truck);
+=======
+	Vector<Integer> getTransportOrders(String date, String hour, int truckNo);
+>>>>>>> forDebug7
+
 }

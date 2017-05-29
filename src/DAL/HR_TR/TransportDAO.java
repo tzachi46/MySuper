@@ -20,8 +20,8 @@ public class TransportDAO extends DAO {
 		if(!this.checkValidDriver(trs))
 			return false;
 		String sql = "INSERT INTO Transports(DRIVERID,LICENCETRUCK,COMPANYID,"
-				+ "DATE,HOUR,TRUCKWEIGHT,SOURCEDOC,STOREADDRESS)"
-			 		+ " VALUES(?,?,?,?,?,?,?,?)";
+				+ "DATE,HOUR,TRUCKWEIGHT,STOREADDRESS)"
+			 		+ " VALUES(?,?,?,?,?,?,?)";
 			 
 		try (Connection conn = this.connect();
 		    PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -31,8 +31,7 @@ public class TransportDAO extends DAO {
 		    pstmt.setString(4, trs.getDateOfDep());
 		    pstmt.setString(5, trs.getHourOfDep());
 		    pstmt.setDouble(6, trs.getCurrentWeight());
-		    pstmt.setInt(7, trs.getSourceDoc());
-		    pstmt.setString(8, trs.getAddressOrign());
+		    pstmt.setString(7, trs.getAddressOrign());
 	
 		    pstmt.executeUpdate();
 		    return true;
@@ -67,7 +66,7 @@ public class TransportDAO extends DAO {
 	protected boolean updateTransport(Transport trs){
 		 String sql = "UPDATE Transports SET "
 	                + "DRIVERID = ? ,"+ " COMPANYID = ? ," +
-				  " TRUCKWEIGHT = ? ," +"SOURCEDOC = ?"+
+				  " TRUCKWEIGHT = ? ," +
 	                " WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	 
         try (Connection conn = this.connect();
@@ -75,12 +74,11 @@ public class TransportDAO extends DAO {
  
             // set the corresponding parameters
         	pstmt.setInt(1, trs.getDriverID());
-		    pstmt.setInt(5, trs.getTruckNo());
+		    pstmt.setInt(4, trs.getTruckNo());
 		    pstmt.setInt(2, trs.getCompanyID());
-		    pstmt.setString(7, trs.getDateOfDep());
-		    pstmt.setString(6, trs.getHourOfDep());
+		    pstmt.setString(6, trs.getDateOfDep());
+		    pstmt.setString(5, trs.getHourOfDep());
 		    pstmt.setDouble(3, trs.getTruckWeight());
-		    pstmt.setInt(4, trs.getSourceDoc());
             // update 
             pstmt.executeUpdate();
             //close resource
@@ -112,7 +110,7 @@ public class TransportDAO extends DAO {
 	        	// get the result
 	        	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), 
 	        			rs.getInt(3), rs.getString(4), 
-	        			rs.getString(5), rs.getDouble(6),rs.getInt(7), rs.getString(8));
+	        			rs.getString(5), rs.getDouble(6), rs.getString(8));
 	           return tr;
 	        } catch (SQLException e) {
 	        	////System.out.println(e.getMessage());
@@ -213,7 +211,7 @@ public class TransportDAO extends DAO {
 	            {// get the result
 	            	Transport tr =  new Transport(id, rs.getInt(1), 
 		        			rs.getInt(2), rs.getString(3), 
-		        			rs.getString(4), rs.getDouble(5),rs.getInt(6), rs.getString(7));
+		        			rs.getString(4), rs.getDouble(5), rs.getString(7));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)
@@ -246,7 +244,7 @@ public class TransportDAO extends DAO {
 	            while (rs.next())
 	            {// get the result
 	            	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), rs.getInt(3), date, rs.getString(4),
-	            			rs.getInt(5), rs.getInt(6), rs.getString(7));
+	            			rs.getInt(5), rs.getString(7));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)
@@ -274,7 +272,7 @@ public class TransportDAO extends DAO {
 	            while (rs.next())
 	            {// get the result
 	            	Transport tr =  new Transport(rs.getInt(1), truckNumber, rs.getInt(2), rs.getString(3),
-	            			rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getString(7));
+	            			rs.getString(4), rs.getDouble(5), rs.getString(7));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)

@@ -198,8 +198,19 @@ public class PL_TruckEdit
 		String licenceType = getLicenceTypeFromUser();
 		if(licenceType.equals("~"))
 			return;
-		truck.setLicenceType(Integer.parseInt(licenceType));
-		commitUpdate(truck);
+		if(Integer.parseInt(licenceType) < truck.getLicenceType()){
+			truck.setLicenceType(Integer.parseInt(licenceType));
+			commitUpdate(truck);
+			return;
+		}
+		if(bl.checkReplacement(truck)){
+			truck.setLicenceType(Integer.parseInt(licenceType));
+			commitUpdate(truck);
+			return;
+		} else {
+			System.out.println("truck's license type cannot be changed in the moment due to pending transports.");
+			return;
+		}
 	}
 
 	private void updateMaxWeight(Truck truck) 
@@ -207,9 +218,22 @@ public class PL_TruckEdit
 		String maxWeight = getWeightFromUser("max Weight");
 		if(maxWeight.equals("~"))
 			return;
-		truck.setMaxWeight(Double.parseDouble(maxWeight));
-		commitUpdate(truck);
-		
+		if(Double.parseDouble(maxWeight) >= truck.getMaxWeight()){
+			truck.setMaxWeight(Double.parseDouble(maxWeight));
+			commitUpdate(truck);
+			return;
+		}
+		else {
+			if(bl.checkReplacement(truck)){
+				truck.setMaxWeight(Double.parseDouble(maxWeight));
+				commitUpdate(truck);
+				return;
+			} else {
+				System.out.println("truck's max weight cannot be changed in the moment due to pending transports.");
+				return;
+				
+			}
+		}
 	}
 
 	private void updateWeight(Truck truck) 
@@ -224,7 +248,7 @@ public class PL_TruckEdit
 
 	private void updateModel(Truck truck) 
 	{
-		String model = pl_Shared.getNotEmptyStringFromUser("odel");
+		String model = pl_Shared.getNotEmptyStringFromUser("model");
 		if(model.equals("~")){
 			return;
 		}
