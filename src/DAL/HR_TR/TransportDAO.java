@@ -92,7 +92,7 @@ public class TransportDAO extends DAO {
 	protected Transport fetchTransport(int licenceNo, String hour, String date){
 
 		 String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, DATE, HOUR,"
-		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " TRUCKWEIGHT, STOREADDRESS"
 		 		+ " FROM Transports " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	        
@@ -110,10 +110,10 @@ public class TransportDAO extends DAO {
 	        	// get the result
 	        	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), 
 	        			rs.getInt(3), rs.getString(4), 
-	        			rs.getString(5), rs.getDouble(6), rs.getString(8));
+	        			rs.getString(5), rs.getDouble(6), rs.getString(7));
 	           return tr;
 	        } catch (SQLException e) {
-	        	////System.out.println(e.getMessage());
+	        	System.out.println(e.getMessage());
 	        }
 		return null;
 	}
@@ -166,7 +166,7 @@ public class TransportDAO extends DAO {
 	
 	public Vector<Integer> getOrdersInTransport(Transport tran){
 		Vector<Integer> vec = new Vector<Integer>();
-		String sql = "SELECT TransportDestinations.DOCCODE"
+		String sql = "SELECT TransportDestinations.COMPANYID"
 		 		+ " FROM TransportDestinations " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	        
@@ -197,7 +197,7 @@ public class TransportDAO extends DAO {
 	public Vector<Transport> getRelevantTransports(int id) {
 		Vector<Transport> vec = new Vector<Transport>();
 		String sql = "SELECT LICENCETRUCK, COMPANYID, DATE, HOUR,"
-		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " TRUCKWEIGHT, STOREADDRESS"
 		 		+ " FROM Transports " +
 				 "WHERE DRIVERID = ?";
 	        
@@ -211,7 +211,7 @@ public class TransportDAO extends DAO {
 	            {// get the result
 	            	Transport tr =  new Transport(id, rs.getInt(1), 
 		        			rs.getInt(2), rs.getString(3), 
-		        			rs.getString(4), rs.getDouble(5), rs.getString(7));
+		        			rs.getString(4), rs.getDouble(5), rs.getString(6));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)
@@ -231,7 +231,7 @@ public class TransportDAO extends DAO {
 	public Vector<Transport> getRelevantTransports(String date) {
 		Vector<Transport> vec = new Vector<Transport>();
 		String sql = "SELECT DRIVERID, LICENCETRUCK, COMPANYID, HOUR,"
-		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " TRUCKWEIGHT, STOREADDRESS"
 		 		+ " FROM Transports " +
 				 "WHERE DATE = ?";
 	        
@@ -244,7 +244,7 @@ public class TransportDAO extends DAO {
 	            while (rs.next())
 	            {// get the result
 	            	Transport tr =  new Transport(rs.getInt(1), rs.getInt(2), rs.getInt(3), date, rs.getString(4),
-	            			rs.getInt(5), rs.getString(7));
+	            			rs.getInt(5), rs.getString(6));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)
@@ -259,7 +259,7 @@ public class TransportDAO extends DAO {
 	public Vector<Transport> fetchTrucksTransports(int truckNumber) {
 		Vector<Transport> vec = new Vector<Transport>();
 		String sql = "SELECT DRIVERID, COMPANYID, DATE, HOUR,"
-		 		+ " TRUCKWEIGHT, SOURCEDOC, STOREADDRESS"
+		 		+ " TRUCKWEIGHT, STOREADDRESS"
 		 		+ " FROM Transports " +
 				 "WHERE LICENCETRUCK = ?";
 	        
@@ -272,7 +272,7 @@ public class TransportDAO extends DAO {
 	            while (rs.next())
 	            {// get the result
 	            	Transport tr =  new Transport(rs.getInt(1), truckNumber, rs.getInt(2), rs.getString(3),
-	            			rs.getString(4), rs.getDouble(5), rs.getString(7));
+	            			rs.getString(4), rs.getDouble(5), rs.getString(6));
 	                vec.add(tr);
 	            }
 	            if (vec.size() > 0)

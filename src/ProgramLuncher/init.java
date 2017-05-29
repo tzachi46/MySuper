@@ -205,7 +205,7 @@ public class init
 		dal_imp.insertDriver(new Driver(833333333, "regular21", "regular21", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7,21));
 		
 		//insert trucks
-		dal_imp.insertTruck(new Truck(11111111, "subaro", 1000, 30, 10));
+		dal_imp.insertTruck(new Truck(11111111, "subaro", 1000, 300, 10));
 		dal_imp.insertTruck(new Truck(22222222, "subaro", 1000, 50, 15));
 		dal_imp.insertTruck(new Truck(33333333, "subaro", 1000, 50, 20));
 		dal_imp.insertTruck(new Truck(44444444, "subaro", 1000, 60, 25));
@@ -330,7 +330,7 @@ public class init
 
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("20/06/2017", "morning", 5, 1, "Base");
+		sht = new Shift("29/05/2017", "morning", 5, 1, "Base");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
