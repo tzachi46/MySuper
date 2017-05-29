@@ -31,7 +31,65 @@ public class PL_store_man {
 
 
     
+    public void updateShift(Employee emp) 
+    {
+    	 emptyShifts(emp.getWorkAddress());
+    }
+    
 
+    private void emptyShifts(String address) 
+    {
+        int i = 0;
+        while (true)
+        {
+            Vector<Shift> emptyShifts = bl.getEmptyShifts(address);
+            if(emptyShifts == null){
+                System.out.println("no relevant empty shifts");
+                return;
+            }
+            bl.sortDates(emptyShifts);
+            emptyShifts = bl.getUptoDate(emptyShifts);
+            if (emptyShifts ==null)
+            {
+                System.out.println("no relevant empty shifts");
+                return;
+            }
+            Vector<Pair<String,Integer>> accups = bl.fetchShiftAccupations(emptyShifts.elementAt(i));
+            System.out.println("choose option");
+            System.out.println("~)return, 1)left, 2)right, 3)manual");
+            System.out.println("***********************************");
+            System.out.println("Date: " + emptyShifts.elementAt(i).getDate());
+            System.out.println("Type: " + emptyShifts.elementAt(i).getType());
+            System.out.println("Needed employees: ");
+            System.out.println("Shift managers: " + Shift.getNumOfAccup("ShiftManager",accups));//emptyShifts.elementAt(i).getShift_manger());
+            System.out.println("Cashier: " + Shift.getNumOfAccup("Cashier",accups));//emptyShifts.elementAt(i).getCashier());
+            System.out.println("Store keepers: " + Shift.getNumOfAccup("StoreKeeper",accups));//emptyShifts.elementAt(i).getStorekeeper());
+            System.out.println("Truck Drivers: " + Shift.getNumOfAccup("Carrier",accups));//emptyShifts.elementAt(i).getTruck_driver());
+            System.out.println("***********************************");
+
+            String option = scanner.nextLine();
+            if (!option.equals("~") && !option.equals("1") && !option.equals("2") && !option.equals("3"))
+                System.out.println("invalid input, try again");
+            else {
+                if (option.equals("~"))
+                    break;
+                if (option.equals("1")) {
+                    if (i == 0)
+                        System.out.println("earlier shifts not exist");
+                    else
+                        i--;
+                }
+                if (option.equals("2")) {
+                    if (i == emptyShifts.size() - 1)
+                        System.out.println("later shifts not exist");
+                    else
+                        i++;
+                }
+                if (option.equals("3"))
+                    i = pl_shared.manual(i,emptyShifts);
+            }
+        }
+    }
     
    	public void showInitializedShifts(String address)
    	{

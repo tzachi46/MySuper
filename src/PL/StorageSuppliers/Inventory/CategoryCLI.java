@@ -38,7 +38,7 @@ public class CategoryCLI {
 	/**
 	 * category manager menu
 	 */
-	void categoryManager(Scanner in){
+	public void categoryManager(Scanner in){
 		inv_cli=InventoryCLI.GetInvCLIManager();
 		boolean endOfPage=false;
 		while(!endOfPage){

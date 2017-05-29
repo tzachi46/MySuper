@@ -1,7 +1,10 @@
 package PL.TransportsEmployess;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -14,6 +17,7 @@ import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Message;
+import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 
@@ -337,6 +341,10 @@ public class PL_TransportEdit
 			boolean replan = true;
 			System.out.println("Please insert the Transport's details : ");
 			date = pl_Shared.getShiftDate();
+			//
+			if(!check(date, elementAt))
+				return i;
+			//
 			if(date.equals("~"))
 				return i;
 			time = getTimeInputFromUser("leaving time");
@@ -425,6 +433,46 @@ public class PL_TransportEdit
 	}
 
 	
+
+	private boolean check(String date, Order elementAt) {
+		vlkmbvgrmbergmbermgbme;bme;
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		Date dt1,dt2;
+//		try {
+//			dt1 = sdf.parse(date);
+//			dt2 = sdf.parse(elementAt.getDate());
+//			dt1.
+//		} catch (ParseException e) {
+//			return false;
+//		}
+//		
+//		int offset = elementAt.getBiggestProdustSupply(elementAt);
+//		return false;
+		throw new UnsupportedOperationException();
+	}
+	
+	private int compare(String s1, String s2){
+		 int day1 = Integer.parseInt(s1.substring(0, 2));
+         int month1 = Integer.parseInt(s1.substring(3, 5));
+         int year1 = Integer.parseInt(s1.substring(6, 10));
+         int day2 = Integer.parseInt(s2.substring(0, 2));
+         int month2 = Integer.parseInt(s2.substring(3, 5));
+         int year2 = Integer.parseInt(s2.substring(6, 10));
+         if(year1 > year2)
+             return 1;
+         if(year1 < year2)
+             return -1;
+         if(month1 > month2)
+             return 1;
+         if(month1 < month2)
+             return -1;
+         if(day1 > day2)
+             return 1;
+         if(day1 < day2)
+             return -1;
+         return 0;
+	}
+
 
 	private double minimizeWeightMenu(double maxWeight, Order order, double prevWeight) 
 	{

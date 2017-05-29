@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import BL.BLManager;
 import BL.TransportsEmployess.*;
+import PL.StorageSuppliers.Inventory.CategoryCLI;
 import PL.StorageSuppliers.Inventory.InventoryCLI;
 import PL.StorageSuppliers.Order.OrderCLI;
 import PL.StorageSuppliers.SupplierPL.CLIMenu;
@@ -65,12 +66,12 @@ public class PLimpl implements PL
     
 
     private void openingFrame(){
-		System.out.println("*********************");
-		System.out.println("* Hello and Welcome *");
-		System.out.println("*    to  MySuper    *");
-		System.out.println("* and Employment    *");
-		System.out.println("* Managment System! *");
-		System.out.println("*********************");
+		System.out.println("***************************");
+		System.out.println("*    Hello and Welcome    *");
+		System.out.println("*      to  MySuper        *");
+		System.out.println("* Employment &  Managment *");
+		System.out.println("*     	 System!          *");
+		System.out.println("***************************");
 	}
     
     private boolean showStartMenu()
@@ -480,7 +481,7 @@ public class PLimpl implements PL
             }
             case "4":
             {
-                System.out.println("currently unsported will be avilable soon");
+            	pl_man.updateShift(emp);
                 break;
             }
             case "~":
@@ -651,6 +652,7 @@ public class PLimpl implements PL
             System.out.println("2) Get products that are running out.");
             System.out.println("3) Get defective products.");
             System.out.println("4) Get product details.");
+            System.out.println("5) Category manager.");
             System.out.println("~) Return to previous menu");
             String choice = scanner.nextLine();
             if(!HandleInventoryReportManagementMenuChoice(choice,emp))
@@ -683,6 +685,11 @@ public class PLimpl implements PL
             case "4":
             {
             	ICLI.getProductMenu(scanner);
+                break;
+            }
+            case "5":
+            {
+            	CategoryCLI.GetCategoryCLI().categoryManager(scanner);
                 break;
             }
             case "~":
