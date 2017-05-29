@@ -525,7 +525,7 @@ public class InitSupplierInv {
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(1,orderProduct);
 		
 		Order order2=new Order(2);
-		order2.setPeriodic(10);
+		order2.setPeriodic(0);
 		order2.setAddres("Base");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order2);
 		
@@ -539,7 +539,7 @@ public class InitSupplierInv {
 		/**/
 		
 		Order order3=new Order(3);
-		order3.setPeriodic(10);
+		order3.setPeriodic(0);
 		order3.setAddres("dov street");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order3);
 		orderProduct=new OrderProduct(1);
@@ -564,7 +564,7 @@ public class InitSupplierInv {
 		
 		
 		Order order4=new Order(3);
-		order4.setPeriodic(6);
+		order4.setPeriodic(0);
 		order4.setAddres("ofir street");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
 		

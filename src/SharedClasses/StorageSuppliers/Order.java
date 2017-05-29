@@ -125,7 +125,7 @@ public class Order {
 		return true;
 	}
 	
-	private int getMaxProductPrepTime(){
+	public int getMaxProductPrepTime(){
 		int maxTime = 0;
 		for (OrderProduct prod: products){
 			int avgTime = DAL.Suppliers.SupplierManager.getInstance().getProductFromSupplier(SupplierId, prod.getProductId()).getAvarageDeleveryTime();
