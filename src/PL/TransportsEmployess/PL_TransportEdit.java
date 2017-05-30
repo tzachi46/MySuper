@@ -1,5 +1,6 @@
 package PL.TransportsEmployess;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -342,7 +343,7 @@ public class PL_TransportEdit
 			System.out.println("Please insert the Transport's details : ");
 			date = pl_Shared.getShiftDate();
 			//
-			if(!check(date, elementAt))
+			if(!check(date, elementAt))/*BUGBUGBUGBUGBUG*/
 				return i;
 			//
 			if(date.equals("~"))
@@ -435,42 +436,26 @@ public class PL_TransportEdit
 	
 
 	private boolean check(String date, Order elementAt) {
-		vlkmbvgrmbergmbermgbme;bme;
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		Date dt1,dt2;
-//		try {
-//			dt1 = sdf.parse(date);
-//			dt2 = sdf.parse(elementAt.getDate());
-//			dt1.
-//		} catch (ParseException e) {
-//			return false;
-//		}
-//		
-//		int offset = elementAt.getBiggestProdustSupply(elementAt);
-//		return false;
-		throw new UnsupportedOperationException();
+		int startInt=GetDayAsInt2(date);
+		int endInt = getDateIntFromOrder(elementAt);
+		if(startInt<=endInt)
+			return true;
+		return false;
 	}
-	
-	private int compare(String s1, String s2){
-		 int day1 = Integer.parseInt(s1.substring(0, 2));
-         int month1 = Integer.parseInt(s1.substring(3, 5));
-         int year1 = Integer.parseInt(s1.substring(6, 10));
-         int day2 = Integer.parseInt(s2.substring(0, 2));
-         int month2 = Integer.parseInt(s2.substring(3, 5));
-         int year2 = Integer.parseInt(s2.substring(6, 10));
-         if(year1 > year2)
-             return 1;
-         if(year1 < year2)
-             return -1;
-         if(month1 > month2)
-             return 1;
-         if(month1 < month2)
-             return -1;
-         if(day1 > day2)
-             return 1;
-         if(day1 < day2)
-             return -1;
-         return 0;
+
+	private int getDateIntFromOrder(Order ord){
+		String s = ord.getDate();
+		String numS = (s.substring(0, 4));
+		numS += s.substring(5,7);
+		numS += s.substring(9,11);
+		return Integer.parseInt(numS);
+	}
+	private int GetDayAsInt2(String s){
+		String[] parts = s.split("\\/");
+		String ans="";
+		for(int i=parts.length-1;i>=0;i--)
+			ans+=parts[i];
+		return Integer.parseInt(ans);
 	}
 
 
