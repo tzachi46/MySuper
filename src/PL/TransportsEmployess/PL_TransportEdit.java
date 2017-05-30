@@ -318,10 +318,12 @@ public class PL_TransportEdit
                         i++;
                 }
                 if (option.equals("3")) 
+                {
                 	if(toTras)
                 		i = sentTransport(undeliveredOrders.elementAt(i),i);  
                 	else
                 		i =insertSiteToTransport(i,undeliveredOrders.elementAt(i));
+                }
                 if (option.equals("4"))
                     i = pl_Shared.manualOrder(i,undeliveredOrders);
             }
@@ -807,6 +809,7 @@ public class PL_TransportEdit
 		Vector<Pair<String,String>> dests =  bl.getHoursOfArrival(transport);
 		for (int i = 0; i < dests.size();i++)
 			System.out.println(dests.get(i).getKey() + " - " + dests.get(i).getValue());
+		System.out.println("-------------------------------");
 	}
 	
 	private Transport getTransportByKey() 

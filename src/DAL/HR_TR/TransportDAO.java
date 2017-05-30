@@ -166,7 +166,7 @@ public class TransportDAO extends DAO {
 	
 	public Vector<Integer> getOrdersInTransport(Transport tran){
 		Vector<Integer> vec = new Vector<Integer>();
-		String sql = "SELECT TransportDestinations.COMPANYID"
+		String sql = "SELECT TransportDestinations.DOCCODE"
 		 		+ " FROM TransportDestinations " +
 				 "WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	        

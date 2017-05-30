@@ -143,7 +143,7 @@ public class TransportDestinationsDAO extends DAO {
 	
 	public Vector<Pair<String,String>> getHoursOfArrival(Transport trans) {
 		 Vector<Pair<String, String>> vec = new Vector<Pair<String,String>>();
-	        String sql = "SELECT TransportDestinations.HOUROFARR, TransportDestinations.DOCCODE "
+	        String sql = "SELECT DISTINCT TransportDestinations.HOUROFARR, TransportDestinations.DOCCODE "
 	                + " FROM TransportDestinations "
 	                + " WHERE TransportDestinations.DATE = ? AND TransportDestinations.HOUR = ? ";
 

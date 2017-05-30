@@ -186,7 +186,7 @@ public class Order {
 		String s="";
 		s=s+"----------------------------------------\n";
 		s=s+"Order number: "+getOrderNumber()+"\nSupplier number: "+getSupplierId()+
-				"\nSupplier Name: "+sup.getName()+"\nAddress: "+sup.getAddress()+
+				"\nSupplier Name: "+sup.getName()+"\nSupplier Address: "+sup.getAddress()+
 				"\nOrder date: "+Date+"\nContact number: "+getSupplierPhoneNumber()+"\n";
 		s=s+"------------------\nProducts in order:\n------------------";
 		for(int j=0;j<getProducts().size();j++){ //change to cataloge number: BL.StorageSuppliers.BLSupplier.GetBLSupplier().getProductFromSupplier(getSupplierId(),getProducts().get(j).getProductId())
@@ -206,7 +206,7 @@ public class Order {
 		String s="";
 		s=s+"----------------------------------------\n";
 		s=s+"Order number: "+getOrderNumber()+"\nSupplier number: "+getSupplierId()+
-				"\nSupplier Name: "+sup.getName()+"\nAddress: "+sup.getAddress()+
+				"\nSupplier Name: "+sup.getName()+"\nSupplier Address: "+sup.getAddress()+
 				"\nOrder date: "+Date+"\nContact number: "+getSupplierPhoneNumber()+"\n";
 		s=s+"----------------------------------------\n";
 		return s;
@@ -218,7 +218,7 @@ public class Order {
 		String s="";
 		s=s+"----------------------------------------\n";
 		s=s+"Order number: "+getOrderNumber()+"\nStore address: "+ getAddres() + "\nSupplier number: "+getSupplierId()+
-				"\nSupplier Name: "+sup.getName()+"\nAddress: "+sup.getAddress()+
+				"\nSupplier Name: "+sup.getName()+"\nSupplier Address: "+sup.getAddress()+
 				"\nOrder date: "+Date+"\nContact number: "+getSupplierPhoneNumber()+"\n";
 		s=s+"------------------\nProducts in order:\n------------------";
 		for(int j=0;j<getProducts().size();j++){ //change to cataloge number: BL.StorageSuppliers.BLSupplier.GetBLSupplier().getProductFromSupplier(getSupplierId(),getProducts().get(j).getProductId())

@@ -205,12 +205,12 @@ public class init
 		dal_imp.insertDriver(new Driver(833333333, "regular21", "regular21", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7,21));
 		
 		//insert trucks
-		dal_imp.insertTruck(new Truck(11111111, "subaro", 1000, 300, 10));
-		dal_imp.insertTruck(new Truck(22222222, "subaro", 1000, 50, 15));
-		dal_imp.insertTruck(new Truck(33333333, "subaro", 1000, 50, 20));
-		dal_imp.insertTruck(new Truck(44444444, "subaro", 1000, 60, 25));
-		dal_imp.insertTruck(new Truck(55555555, "subaro", 1000, 70, 30));
-		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 100, 45));
+		dal_imp.insertTruck(new Truck(11111111, "subaro", 1000, 1000, 10));
+		dal_imp.insertTruck(new Truck(22222222, "subaro", 1000, 1200, 15));
+		dal_imp.insertTruck(new Truck(33333333, "subaro", 1000, 1200, 20));
+		dal_imp.insertTruck(new Truck(44444444, "subaro", 1000, 1300, 25));
+		dal_imp.insertTruck(new Truck(55555555, "subaro", 1000, 2000, 30));
+		dal_imp.insertTruck(new Truck(66666666, "subaro", 1000, 2500, 45));
 		
 		//insert Shifts
 		Vector<Pair<String,Integer>> shiftAcc1 = new Vector<Pair<String,Integer>>();
@@ -233,7 +233,7 @@ public class init
 		 * itay's shit
 		 */
 		Vector<Pair<String,Integer>> shiftAcc5 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("28/05/2017", "morning", 5, 0, "ofir street");
+		sht = new Shift("10/06/2017", "morning", 5, 0, "ofir street");
 		shiftAcc5.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc5.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc5.add(new Pair<String,Integer>("Cashier",1));
@@ -242,37 +242,6 @@ public class init
 		
 				
 	    shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("15/06/2017", "evening", 5, 1, "ofir street");
-		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
-		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
-		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
-		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
-		dal_imp.insertShift(sht,shiftAcc1);
-		
-		dal_imp.addEmployeeShift(sht, new Employee(611111111, "regular1", "regular1", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "ShiftManager");
-		dal_imp.addEmployeeShift(sht, new Employee(622222222, "regular2", "regular2", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");		
-		dal_imp.addEmployeeShift(sht, new Employee(633333333, "regular3", "regular3", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");
-		dal_imp.addEmployeeShift(sht, new Employee(644444444, "regular4", "regular4", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Cashier");		
-		dal_imp.addEmployeeShift(sht, new Employee(655555555, "regular5", "regular5", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "StoreKeeper");
-		
-		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("16/06/2017", "evening", 6, 0, "ofir street");
-		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
-		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
-		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
-		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
-		dal_imp.insertShift(sht,shiftAcc1);
-			
-		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("17/06/2017", "morning", 7, 0, "ofir street");
-		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
-		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
-		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
-		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
-		dal_imp.insertShift(sht,shiftAcc1);
-		
-		
-		shiftAcc1 = new Vector<Pair<String,Integer>>();
 		sht = new Shift("20/06/2017", "morning", 5, 1, "ofir street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
@@ -287,7 +256,15 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(655555555, "regular5", "regular5", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "StoreKeeper");
 		
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("01/06/2017", "morning", 5, 1, "ofir street");
+		sht = new Shift("11/06/2017", "evening", 6, 0, "ofir street");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+			
+		shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("14/06/2017", "morning", 7, 0, "ofir street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
@@ -301,7 +278,7 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(655555555, "regular5", "regular5", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "StoreKeeper");
 		
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("21/06/2017", "morning", 5, 1, "dov street");
+		sht = new Shift("20/06/2017", "morning", 5, 1, "dov street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
@@ -330,7 +307,7 @@ public class init
 
 				
 		shiftAcc1 = new Vector<Pair<String,Integer>>();
-		sht = new Shift("29/05/2017", "morning", 5, 1, "Base");
+		sht = new Shift("20/06/2017", "morning", 5, 1, "Base");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
 		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
