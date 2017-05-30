@@ -121,7 +121,7 @@ public class PL_Shared
 	 
 	protected String getCurrentDate()
     {
-    	 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+    	 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     	 LocalDateTime  localDate = LocalDateTime.now();
          return dtf.format(localDate);
     }

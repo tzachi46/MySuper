@@ -239,6 +239,164 @@ public class CategoryCLI {
 			}
 		}
 	}
+	
+	
+	public void categoryManager2(Scanner in){
+		inv_cli=InventoryCLI.GetInvCLIManager();
+		boolean endOfPage=false;
+		while(!endOfPage){
+			System.out.println("Category manager menu:\n1. Get category list.\n2. Category inventory report."
+					+ "\n3. Category Details.\n~. Back to inventory menu");
+			String input=in.nextLine();
+			Category[]category=BL.getAllCategories();
+			LinkedList<Category>c=new LinkedList<>();
+			for(int i=0;i<category.length;i++)
+				c.add(category[i]);
+			while(!calc.checkKeyboardMenu(input,1,3)&&!input.equals("~"))
+			{
+				System.out.println("Illegal input, please try again.");
+				input=in.nextLine();
+			}
+			switch(input.charAt(0)){
+			case('1'):{
+				System.out.println("Store categories list:");
+				printCategory(c,-1,0);
+				System.out.println("\nIf you wish to return to the category menu press ~");
+				String s=in.nextLine();
+				while(!s.equals("~")){
+					System.out.println("Illegal input, please try again.");
+					s=in.nextLine();
+				}
+				continue;
+				//break;
+			}
+			
+			case('2'):{
+				System.out.println("Category inventory report:\nEnter category name.\nIf you wish to see all categories please enter 'all'."
+						+ "\nIf you wish to return to category manager menu press ~");
+				String cat=in.nextLine();
+				while(!cat.equals("~")){
+					if(BL.checkCategoryName(cat))
+						break;
+					if(cat.equals("all")){
+						printCategory(c,-1,0);
+						System.out.println("Enter category name.\nIf you wish to see all categories please enter 'all'."
+								+ "\nIf you wish to return to category manager menu press ~");
+					}
+					else{
+						System.out.println("Illegal input, please try again.");
+					}
+					cat=in.nextLine();
+				}
+				if(cat.equals("~"))
+					continue;
+				else{
+					LinkedList<Category>catToCheck=new LinkedList<>();
+					catToCheck.add(BL.getCategoryByName(cat));
+					System.out.println("Category added successfully!");
+					while(!cat.equals("#")){
+						System.out.println("If you wish to add one more category enter it's name.\nIf you are done please press '#'."
+								+ "\nIf you wish to see all categories please enter 'all'."
+								+ "\nIf you wish to return to category manager menu press ~");
+						cat=in.nextLine();
+						if(cat.equals("~"))
+							break;
+						if(cat.equals("all")){
+							printCategory(c,-1,0);
+							continue;
+						}
+						if(BL.checkCategoryName(cat)){
+							boolean inserted=false;
+							for(int a=0;a<catToCheck.size();a++)
+								if(catToCheck.get(a).getName().equals(cat))
+									inserted=true;
+							if(inserted==false){
+								catToCheck.add(BL.getCategoryByName(cat));
+								System.out.println("Category added successfully!");
+							}
+							else
+								System.out.println("Category already inserted!");
+						}
+						else {
+							if(!cat.equals("#"))
+								System.out.println("Illegal input, please try again.");
+						}
+					}
+				if(!cat.equals("~")){
+					for(int k=0;k<catToCheck.size();k++){
+						for(int j=0;j<category.length;j++){
+							boolean inserted=false;
+							if(category[j].getFatherId()==catToCheck.get(k).getId()){
+								for(int p=0;p<catToCheck.size();p++){
+									if(category[j].getId()==catToCheck.get(p).getId())
+										inserted=true;
+								}
+								if(!inserted)
+									catToCheck.add(category[j]);
+							}
+						}
+					}
+					System.out.print("Category report for categories: ");
+					for(int l=0;l<catToCheck.size();l++){
+						if(l<catToCheck.size()-1)
+							System.out.print(catToCheck.get(l).getName()+", ");
+						else
+							System.out.print(catToCheck.get(l).getName());
+					}
+					System.out.println("\n----------------------------------------");
+					LinkedList<Product>p=BL.getProductInInventoryList();
+					for(int i=0;i<catToCheck.size();i++){
+						printProductInCat(catToCheck.get(i),p);
+					}
+				System.out.println("\nIf you wish to return to the category manager menu press ~");
+				String s2=in.nextLine();
+				while(!s2.equals("~")){
+					System.out.println("Illegal input, please try again.");
+					s2=in.nextLine();
+				}
+				}
+				continue;
+				//break;
+				}
+			}
+			case('3'):{
+				System.out.println("Please enter the category name.\nIf you wish to return to category manager menu press ~");
+				String cat=in.nextLine();
+				while(!BL.checkCategoryName(cat)&&!(cat.equals("~")))
+				{
+					System.out.println("This category does not exists, please enter category name again.\nTo go back to category manager menu press '~'.");
+					cat=in.nextLine();
+				}
+				if(cat.equals("~"))
+					continue;
+				Category cat1=BL.getCategoryByName(cat);
+				String parentName;
+				if(cat1.getFatherId()!=-1)
+					parentName=BL.getCategoryById(cat1.getFatherId()).getName();
+				else
+					parentName="None";
+				System.out.println("Category Details:\nCategory id: "+cat1.getId()+"\nCategory name: "+cat1.getName()+"\nParent category: "+parentName+
+						"\nDiscount: "+cat1.getDiscount()+"\nDiscount start date: "+cat1.getDiscountStartTime()+"\nDiscount finish time: "+cat1.getDiscountFinishTime()+"\n");
+				System.out.println("If you wish to return to category manager menu press ~");
+				cat=in.nextLine();
+				while(!cat.equals("~"))
+				{
+					System.out.println("Illegal input, please try again.");
+					cat=in.nextLine();
+				}
+				continue;
+				//break;
+			}
+			case('~'):{
+				endOfPage=true;
+				break;
+			}
+			}
+		}
+	}
+	
+	
+	
 	/**
 	 * prints the categories
 	 * @param c

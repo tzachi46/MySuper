@@ -689,7 +689,7 @@ public class PLimpl implements PL
             }
             case "5":
             {
-            	CategoryCLI.GetCategoryCLI().categoryManager(scanner);
+            	CategoryCLI.GetCategoryCLI().categoryManager2(scanner);
                 break;
             }
             case "~":

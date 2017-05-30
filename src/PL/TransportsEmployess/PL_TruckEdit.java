@@ -74,7 +74,7 @@ public class PL_TruckEdit
 		{
 			if (weight.equals("~"))
 				return "~";
-			System.out.println(toPrint+ " is not valid, try again:");
+			System.out.println(toPrint+ " is not valid, try again (must be at least 1000 kg):");
 			weight = scanner.nextLine();
 		}
 		return weight; 

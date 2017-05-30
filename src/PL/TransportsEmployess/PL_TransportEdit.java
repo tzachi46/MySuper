@@ -3,8 +3,10 @@ package PL.TransportsEmployess;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -434,21 +436,28 @@ public class PL_TransportEdit
 	}
 
 	
-
 	private boolean check(String date, Order elementAt) {
-		int startInt=GetDayAsInt2(date);
-		int endInt = getDateIntFromOrder(elementAt);
-		if(startInt<=endInt)
-			return true;
-		return false;
-	}
-
-	private int getDateIntFromOrder(Order ord){
-		String s = ord.getDate();
-		String numS = (s.substring(0, 4));
-		numS += s.substring(5,7);
-		numS += s.substring(9,11);
-		return Integer.parseInt(numS);
+		SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+	
+		Date dt1,dt2;
+		try {
+			dt1 = dtf.parse(elementAt.getDate());
+			dt2 = dtf.parse(date);
+			c.setTime(new Date());
+			c.add(Calendar.DATE, elementAt.getBiggestProdustSupply(elementAt));
+			String output = dtf.format(c.getTime());
+			int startInt=GetDayAsInt2(date);
+			int endInt = GetDayAsInt2(output);
+			if(startInt<=endInt)
+				return true;
+			return false;
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+	
 	}
 	private int GetDayAsInt2(String s){
 		String[] parts = s.split("\\/");
