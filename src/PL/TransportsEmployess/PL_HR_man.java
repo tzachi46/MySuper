@@ -38,7 +38,7 @@ public class PL_HR_man
 			System.out.println("Enter driving licence: ");
 		else
 		{
-			System.out.println("Does the new Employee has driving licence?");
+			System.out.println("Does the Employee has driving licence?");
 			System.out.println("~-return, 1-no and continue,else enter the driving licence");
 		}
 		String lio = scanner.nextLine();

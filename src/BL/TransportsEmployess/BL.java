@@ -70,6 +70,7 @@ public interface BL {
   	//public boolean updateDriver(int ID, String firstName, String lastName, int licenseType);
   	public Driver fetchDriver(int ID);
   	public boolean deleteDriver(int ID);
+  	public boolean deleteOnlyDriver(int id);
   	//*******************//
   	
   	//***** Sites *****//

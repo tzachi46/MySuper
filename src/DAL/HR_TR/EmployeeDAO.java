@@ -353,4 +353,20 @@ public class EmployeeDAO extends DAO {
 		         return false;
 		     }
 	}
+
+	public boolean deleteOnlyDriver(int id) {
+		String sql = "DELETE FROM drivers WHERE ID = ?";
+		 
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+ 
+	        // set the corresponding parameters
+	        pstmt.setInt(1, id);
+	        // execute the delete statement
+	        pstmt.executeUpdate();
+	        return true;
+	    } catch (SQLException e) {
+	        return false;
+	    }
+	}
 }

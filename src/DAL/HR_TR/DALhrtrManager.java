@@ -280,4 +280,9 @@ public class DALhrtrManager implements DALhrtr_Interface{
 		repo.messages.updateMessage(msg.getAddress(), msg.getDate(), msg.getOrderNumber());
 	}
 
+	public boolean deleteOnlyDriver(int id) {
+		// TODO Auto-generated method stub
+		return repo.employees.deleteOnlyDriver(id);
+	}
+
 }

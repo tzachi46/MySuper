@@ -357,4 +357,9 @@ public class BLTransports_imp implements BLTransports {
 		dal.updateMessage(msg);
 	}
 
+	public boolean deleteOnlyDriver(int id) {
+		// TODO Auto-generated method stub
+		return dal.deleteOnlyDriver(id);
+	}
+
 }

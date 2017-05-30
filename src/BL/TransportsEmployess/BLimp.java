@@ -212,7 +212,9 @@ public class BLimp implements BL {
 	public boolean deleteDriver(int ID) {
 		return bl_trans.deleteDriver(ID);
 	}
-
+	public boolean deleteOnlyDriver(int id){
+		return bl_trans.deleteOnlyDriver(id);
+	}
 	@Override
 	public boolean createSite(String address, String phoneNumber, String contactName/*, int isStore*/, int areaCode) {
 		return bl_trans.createSite(address, phoneNumber, contactName, /*isStore,*/ areaCode);
