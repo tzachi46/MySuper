@@ -215,7 +215,7 @@ public class PL_HR_man
 
 	private void updateLicenceType(Employee emp) 
 	{
-		String lio = getLicenceDriver(false);
+		/*String lio = getLicenceDriver(false);
 		if(lio.equals("~"))
 			return;
 		Vector<Transport>vec=bl.getRelevantTransports(emp.getId());
@@ -244,7 +244,40 @@ public class PL_HR_man
            else if(bl.fetchDriver(emp.getId())==null)
 			bl.insertDriver(new Driver(emp.getId(), emp.getFname(), emp.getLname(),emp.getSalary(), emp.getStartDate(), emp.getEndDate(), emp.getBankAccount(), emp.getRank(), emp.getWorkAddress(),emp.getDayOfRest(),Integer.parseInt(lio)));
 		else
-			bl.updateDriver(emp.getId(),Integer.parseInt(lio));       
+			bl.updateDriver(emp.getId(),Integer.parseInt(lio));  */
+		
+			String lio = getLicenceDriver(false);
+			if(lio.equals("~"))
+				return;
+			Vector<Transport>vec=bl.getRelevantTransports(emp.getId());
+			if(vec!=null){
+				for(int i=0;i<vec.size();i++){   
+					if(!ComperDates(vec.get(i).getDateOfDep())){
+						System.out.println("Driver has an open transportation!");
+						return;
+					}
+				}
+			}
+			boolean wasDriver = bl.fetchDriver(emp.getId())!=null;
+			boolean isDriverNow = !lio.equals("");
+			if(!isDriverNow && wasDriver){
+	    	   //Remove from drivers
+	    	   bl.deleteDriver(emp.getId());
+	    	   EmployeeSpeciality[] specs = bl.getSpecsOf(emp.getId());
+	    	   boolean found = false;
+	    	   for(int i=0; i<specs.length; i++){
+	    		   if(specs[i].getSpecialization().equals("Carrier")){
+	    			   found = true;
+	    		   }
+	    	   }
+	    	   if(found){
+	    		   bl.deleteEmployeeSpeciality(emp.getId(), "Carrier");
+	    	   }
+	       }
+	       else if(!wasDriver && isDriverNow)
+	    	   bl.insertDriver(new Driver(emp.getId(), emp.getFname(), emp.getLname(),emp.getSalary(), emp.getStartDate(), emp.getEndDate(), emp.getBankAccount(), emp.getRank(), emp.getWorkAddress(),emp.getDayOfRest(),Integer.parseInt(lio)));
+	       else if(wasDriver && isDriverNow)
+				bl.updateDriver(emp.getId(),Integer.parseInt(lio));    
 	}
 
 	/**
