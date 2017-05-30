@@ -239,9 +239,8 @@ public class Repository {
 	            ResultSet rs = stmt.executeQuery();
 	            while (rs.next())
 	            {// get the result
-	            	System.out.println(rs.getString(5));
 	            	Shift shift = new Shift( rs.getString(1),  rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
-	                if(!vec.contains(shift))
+	                if(!vec.contains(shift) && shift.getStoreAddress().equals(this.employees.fetchEmployee(id).getWorkAddress()))
 	                	vec.add(new Pair<Shift,String>(shift,rs.getString(6)));
 	                
 	            }
