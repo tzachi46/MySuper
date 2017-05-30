@@ -343,13 +343,15 @@ public class PL_TransportEdit
 		{
 			boolean replan = true;
 			System.out.println("Please insert the Transport's details : ");
-			date = pl_Shared.getShiftDate();
-			//
-			if(!check(date, elementAt))/*BUGBUGBUGBUGBUG*/
-				return i;
-			//
+			date = pl_Shared.getShiftDate();		
 			if(date.equals("~"))
 				return i;
+			//
+			if(!check(date, elementAt)){/*BUGBUGBUGBUGBUG*/
+				System.out.println("illegal date of transport, please check the supply time of the products!");
+				return i;
+			}
+			//
 			time = getTimeInputFromUser("leaving time");
 			if(time.equals("~"))
 				return i;
@@ -435,21 +437,66 @@ public class PL_TransportEdit
 		}
 	}
 
+	boolean checkTodayDate(String start,String finish){
+		if(start==null||finish==null)
+			return false;
+		int today=getTodayDateAsInt();
+		int startInt=GetDayAsInt(start);
+		int finishInt=GetDayAsInt(finish);
+		if(today>=startInt && today<=finishInt)
+			return true;
+		return false;
+	}
+	/**
+	 * return true if start < finish
+	 * @param start
+	 * @param finish
+	 * @return
+	 */
+	boolean ComperDates(String start,String finish){
+		int startInt=GetDayAsInt(start);
+		int finishInt=GetDayAsInt(finish);
+		if(startInt<=finishInt)
+			return true;
+		return false;
+	}
+	/**
+	 * @return the day in int format
+	 */
+	private int getTodayDateAsInt(){
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		Date date = new Date();
+		String today=dateFormat.format(date).toString();
+		return GetDayAsInt(today);
+	}
+	/**
+	 * reverses the date in order to get it's decimal representation 
+	 * @param s
+	 * @return date as int
+	 */
+	private int GetDayAsInt(String s){
+		String[] parts = s.split("\\.");
+		String ans="";
+		for(int i=parts.length-1;i>=0;i--)
+			ans+=parts[i];
+		return Integer.parseInt(ans);
+	}
 	
 	private boolean check(String date, Order elementAt) {
 		SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dtf2 = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 	
 		Date dt1,dt2;
 		try {
-			dt1 = dtf.parse(elementAt.getDate());
+			dt1 = dtf2.parse(elementAt.getDate());
 			dt2 = dtf.parse(date);
-			c.setTime(new Date());
+			c.setTime(dt1);
 			c.add(Calendar.DATE, elementAt.getBiggestProdustSupply(elementAt));
 			String output = dtf.format(c.getTime());
 			int startInt=GetDayAsInt2(date);
 			int endInt = GetDayAsInt2(output);
-			if(startInt<=endInt)
+			if(startInt>=endInt)
 				return true;
 			return false;
 			
@@ -466,7 +513,13 @@ public class PL_TransportEdit
 			ans+=parts[i];
 		return Integer.parseInt(ans);
 	}
-
+	private int GetDayAsInt3(String s){
+		String[] parts = s.split("\\-");
+		String ans="";
+		for(int i=parts.length-1;i>=0;i--)
+			ans+=parts[i];
+		return Integer.parseInt(ans);
+	}
 
 	private double minimizeWeightMenu(double maxWeight, Order order, double prevWeight) 
 	{

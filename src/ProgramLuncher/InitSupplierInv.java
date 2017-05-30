@@ -517,6 +517,7 @@ public class InitSupplierInv {
 		
 		Order order=new Order(2);
 		order.setPeriodic(10);
+		order.setHaveTransport(1);
 		OrderProduct orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
 		order.setAddres("ofir street");
