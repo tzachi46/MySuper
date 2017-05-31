@@ -8,6 +8,7 @@ import BL.TransportsEmployess.*;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.Pair;
+import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Employee.Rank;
@@ -342,6 +343,20 @@ public class PL_HR_man
 	private void fireEmployee(Employee emp)
 	{
 		String currentDate = pl_shared.getCurrentDate();
+		Vector<Transport> trans = bl.getRelevantTransports(emp.getId());
+		boolean futureTransport = false;
+		ListIterator<Transport> listIterator = trans.listIterator();
+		while (listIterator.hasNext()) {
+			Transport curr = listIterator.next();
+			if(bl.compareDates(currentDate, curr.getDateOfDep())==-1){
+				//If current date<transport's date = future transport -> can't delete
+				futureTransport=true;
+			}
+		}
+		if(futureTransport){
+			System.out.println("Can't fire a driver of a future transport.");
+			return;
+		}
 		emp.setEndOfEmploymentDate(currentDate);
 		commitUpdate(emp);
 	}

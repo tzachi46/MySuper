@@ -522,4 +522,8 @@ public class BLimp implements BL {
 	{
 		return bl_trans.getTransportOrders(date, hour, truckNo);
 	}
+	@Override
+	public int compareDates(String d1, String d2){
+		return bl_trans.compare(d1, d2);
+	}
 }

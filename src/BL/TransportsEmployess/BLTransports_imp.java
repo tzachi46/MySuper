@@ -64,7 +64,7 @@ public class BLTransports_imp implements BLTransports {
 	}
 
 	
-	 private int compare(String o1, String o2)
+	 public int compare(String o1, String o2)
      {
          int day1 = Integer.parseInt(o1.substring(0, 2));
          int month1 = Integer.parseInt(o1.substring(3, 5));
@@ -99,7 +99,7 @@ public class BLTransports_imp implements BLTransports {
 
 	@Override
 	public boolean deleteDriver(int ID) {
-		return dal.deleteEmployee(ID);
+		return dal.deleteOnlyDriver(ID);
 	}
 
 	@Override

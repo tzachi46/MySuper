@@ -135,4 +135,6 @@ public interface BL {
 
 	void updateMessgae(Message msg);
 
+	int compareDates(String d1, String d2);
+
 }
