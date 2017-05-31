@@ -242,6 +242,22 @@ public class init
 		
 				
 	    shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("29/05/2017", "morning", 5, 1, "ofir street");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+		
+		dal_imp.addEmployeeShift(sht, new Employee(611111111, "regular1", "regular1", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "ShiftManager");
+		dal_imp.addEmployeeShift(sht, new Employee(622222222, "regular2", "regular2", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");		
+		dal_imp.addEmployeeShift(sht, new Employee(633333333, "regular3", "regular3", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Carrier");
+		dal_imp.addEmployeeShift(sht, new Employee(644444444, "regular4", "regular4", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "Cashier");		
+		dal_imp.addEmployeeShift(sht, new Employee(655555555, "regular5", "regular5", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "ofir street", 7), "StoreKeeper");
+	
+		
+		
+	    shiftAcc1 = new Vector<Pair<String,Integer>>();
 		sht = new Shift("20/06/2017", "morning", 5, 1, "ofir street");
 		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
 		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
@@ -321,6 +337,69 @@ public class init
 		dal_imp.addEmployeeShift(sht, new Employee(855555555, "regular23", "regular23", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "StoreKeeper");
 	
 	
+		
+		
+		//// for boris
+		
+		
+		
+		
+	    shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("30/06/2017", "morning", 5, 1, "ofir street");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+		
+		shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("30/06/2017", "morning", 5, 1, "dov street");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+				
+		dal_imp.addEmployeeShift(sht, new Employee(677777777, "regular7", "regular7", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "ShiftManager");
+		dal_imp.addEmployeeShift(sht, new Employee(688888888, "regular8", "regular8", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "Carrier");		
+		dal_imp.addEmployeeShift(sht, new Employee(699999999, "regular9", "regular9", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "Carrier");
+		dal_imp.addEmployeeShift(sht, new Employee(711111111, "regular10", "regular10", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "Cashier");		
+		dal_imp.addEmployeeShift(sht, new Employee(722222222, "regular11", "regular11", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "rosh street", 7), "StoreKeeper");
+				
+		shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("30/06/2017", "morning", 5, 1, "rosh street");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+		
+		dal_imp.addEmployeeShift(sht, new Employee(744444444, "regular13", "regular13", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "ShiftManager");
+		dal_imp.addEmployeeShift(sht, new Employee(755555555, "regular14", "regular14", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Carrier");		
+		dal_imp.addEmployeeShift(sht, new Employee(766666666, "regular15", "regular15", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Carrier");
+		dal_imp.addEmployeeShift(sht, new Employee(777777777, "regular16", "regular16", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Cashier");		
+		dal_imp.addEmployeeShift(sht, new Employee(788888888, "regular17", "regular17", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "StoreKeeper");
+
+				
+		shiftAcc1 = new Vector<Pair<String,Integer>>();
+		sht = new Shift("30/06/2017", "morning", 5, 1, "Base");
+		shiftAcc1.add(new Pair<String,Integer>("ShiftManager",1));
+		shiftAcc1.add(new Pair<String,Integer>("StoreKeeper",1));
+		shiftAcc1.add(new Pair<String,Integer>("Cashier",1));
+		shiftAcc1.add(new Pair<String,Integer>("Carrier",2));
+		dal_imp.insertShift(sht,shiftAcc1);
+		
+		dal_imp.addEmployeeShift(sht, new Employee(811111111, "regular19", "regular19", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "ShiftManager");
+		dal_imp.addEmployeeShift(sht, new Employee(822222222, "regular20", "regular20", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Carrier");		
+		dal_imp.addEmployeeShift(sht, new Employee(833333333, "regular21", "regular21", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Carrier");
+		dal_imp.addEmployeeShift(sht, new Employee(844444444, "regular22", "regular22", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "Cashier");		
+		dal_imp.addEmployeeShift(sht, new Employee(855555555, "regular23", "regular23", 50000, "04/04/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "dov street", 7), "StoreKeeper");
+	
+	
+		
+		
+		
+		
 		
 	
 	}

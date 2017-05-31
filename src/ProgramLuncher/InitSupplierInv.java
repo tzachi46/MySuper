@@ -514,31 +514,27 @@ public class InitSupplierInv {
 				+ "CONSTRAINT PK_ProductsPrices PRIMARY KEY (OrderNumber,ProductId));\n";
 		OrderManager.executeSQLCommand(sql2);
 		
-		
+		///1
 		Order order=new Order(2);
 		order.setPeriodic(10);
 		order.setHaveTransport(1);
 		OrderProduct orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
 		order.setAddres("ofir street");
-		
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(1,orderProduct);
-		
+		////2
 		Order order2=new Order(2);
 		order2.setPeriodic(0);
 		order2.setAddres("Base");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order2);
-		
 		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(10);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
-		
 		orderProduct=new OrderProduct(2);
 		orderProduct.setAmount(5);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(2,orderProduct);
-		/**/
-		
+	    /////3
 		Order order3=new Order(3);
 		order3.setPeriodic(0);
 		order3.setAddres("dov street");
@@ -546,79 +542,87 @@ public class InitSupplierInv {
 		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(108);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
-		
 		orderProduct=new OrderProduct(3);
 		orderProduct.setAmount(56);
-//		
-//		Order order3=new Order(3);
-//		order3.setPeriodic(10);
-//		order3.setAddres("dov street");
-//		DAL.Orders.OrderManager.getInstance().addNewOrder(order3);
-//		
-//		orderProduct=new OrderProduct(1);
-//		orderProduct.setAmount(108);
-//		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
-//		
-//		orderProduct=new OrderProduct(3);
-//		orderProduct.setAmount(56);
-//		DAL.Orders.OrderManager.getInstance().addProductToOrder(3,orderProduct);
-		
-		
+	    /////4
 		Order order4=new Order(3);
 		order4.setPeriodic(0);
 		order4.setAddres("ofir street");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
-		
 		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(14);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-		
 		orderProduct=new OrderProduct(3);
 		orderProduct.setAmount(36);
 		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-		
-		
-		/////
+		/////5
 	    order4=new Order(3);
 		order4.setPeriodic(0);
 		order4.setAddres("ofir street");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
-		
 		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(14);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-		
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(5,orderProduct);
 		orderProduct=new OrderProduct(3);
 		orderProduct.setAmount(36);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-		////
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(5,orderProduct);
+		////6
 		order4=new Order(3);
 		order4.setPeriodic(0);
 		order4.setAddres("ofir street");
 		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
-		
 		orderProduct=new OrderProduct(1);
 		orderProduct.setAmount(14);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-		
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(6,orderProduct);
 		orderProduct=new OrderProduct(3);
 		orderProduct.setAmount(36);
-		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(6,orderProduct);
+		/////7
+	    order4=new Order(3);
+		order4.setPeriodic(0);
+		order4.setAddres("ofir street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(1500);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(7,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(7,orderProduct);
+		////8
+		order4=new Order(3);
+		order4.setPeriodic(0);
+		order4.setAddres("ofir street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(1500);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(8,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(8,orderProduct);
+		/////9
+	    order4=new Order(3);
+		order4.setPeriodic(0);
+		order4.setAddres("dov street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(1500);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(9,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(9,orderProduct);
+		////10
+		order4=new Order(3);
+		order4.setPeriodic(0);
+		order4.setAddres("rosh street");
+		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
+		orderProduct=new OrderProduct(1);
+		orderProduct.setAmount(1500);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(10,orderProduct);
+		orderProduct=new OrderProduct(3);
+		orderProduct.setAmount(36);
+		DAL.Orders.OrderManager.getInstance().addProductToOrder(10,orderProduct);
+	
 		
-		
-		
-		
-//		Order order4=new Order(3);
-//		order4.setPeriodic(6);
-//		order4.setAddres("ofir street");
-//		DAL.Orders.OrderManager.getInstance().addNewOrder(order4);
-//		
-//		orderProduct=new OrderProduct(1);
-//		orderProduct.setAmount(14);
-//		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
-//		orderProduct=new OrderProduct(3);
-//		orderProduct.setAmount(36);
-//		DAL.Orders.OrderManager.getInstance().addProductToOrder(4,orderProduct);
 		
 		
 		DALhrtr_Interface dal_imp = DAL.HR_TR.DALhrtrManager.getDALImp();
