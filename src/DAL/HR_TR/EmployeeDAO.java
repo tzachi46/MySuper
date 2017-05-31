@@ -66,6 +66,7 @@ public class EmployeeDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		    return false;
 		}
 	}
@@ -311,6 +312,7 @@ public class EmployeeDAO extends DAO {
 	    			rs.getString(5), rs.getString(6), rs.getString(7), Rank.valueOf(rs.getString(8)),rs.getString(9), rs.getInt(10),rs.getInt(11));
 	       
 	    } catch (SQLException e) {
+	    	System.out.println(e.getMessage());
     	    }
 	return null;
 	}

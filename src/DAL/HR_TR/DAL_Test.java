@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ProgramLuncher.InitSupplierInv;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Employee;
 import SharedClasses.TransportsEmployess.EmployeeSpeciality;
@@ -29,6 +30,13 @@ public class DAL_Test {
 	@Before
 	public void setUp() throws Exception {
 		_dal = DALhrtrManager.getDALImp();
+		DAL.Orders.OrderManager.getInstance();
+		DAL.Suppliers.SupplierManager.getInstance();
+		DAL.Inventory.CategoryDB.getCategoryDB();
+		DAL.Inventory.ProductDB.getProductDB();
+		DAL.Inventory.ProductInStoreDB.getInstance();
+		DAL.Inventory.InvDALManager.getInstance();
+		InitSupplierInv.init();
 	}
 
 	@After
@@ -76,7 +84,8 @@ public class DAL_Test {
 	@Test
 	public void testEmp() {
 		//Insert
-		Employee emp1 = new Employee(1, "test1", "test1", 10.5, "01/01/2017", null, 
+		_dal.insertSite(new Site("ofir street", "0545492167", "dani", 1));
+		Employee emp1 = new Employee(1, "test1", "test1", 10.5, "01/01/2017", "", 
 				"123456/leumi/123/15%/10%", Rank.regular, "ofir street", 3);
 		Employee emp2 = new Employee(2, "test2", "test2", 10.5, "01/01/2017", "02/01/2017", 
 				"123456/leumi/123/15%/10%", Rank.regular, "ofir street", 3);
@@ -137,7 +146,8 @@ public class DAL_Test {
 		//Shifts
 		assertFalse(_dal.getPossibleWorkers(new Shift
 				("01/01/2017", "morning", 3, 1, "ofir street"), "Carrier").contains(emp1));
-		
+		_dal.deleteEmployee(1);
+		_dal.deleteSite("ofir street");
 	}
 	
 	@Test
@@ -185,7 +195,8 @@ public class DAL_Test {
 	@Test
 	public void testDriverFetchUpdate() {
 		testInd = 4;
-		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", null,
+		_dal.insertSite(new Site("rosh street", "0545492167", "dani", 2));
+		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", "",
 				"123456/leumi/123/15%/10%", Rank.regular, "rosh street",7, 2);
 		_dal.insertEmployee(drv1);
 		_dal.insertDriver(drv1);
@@ -194,14 +205,15 @@ public class DAL_Test {
 		assertTrue("fetching of driver was unsuccessful.", result);
 		result = (_dal.fetchDriver(112) == null);
 		assertTrue("driver fetching was successful but shouldnt (primary key)", result);
-		Driver drv2 = new Driver(1234, "itay", "dani", 10000, "01/01/2017", null,
+		Driver drv2 = new Driver(1234, "itay", "dani", 10000, "01/01/2017", "",
 				"123456/leumi/123/15%/10%", Rank.regular, "rosh street",7, 2);
 		result = _dal.updateEmployee(drv2);
 		assertTrue("driver single update was unsuccessful", result);
-		Driver drv3 = new Driver(1234, "dani", "danidani", 10000, "01/01/2017", null,
+		Driver drv3 = new Driver(1234, "dani", "danidani", 10000, "01/01/2017", "",
 				"123456/leumi/123/15%/10%", Rank.regular, "rosh street",7, 3);
 		result = _dal.updateEmployee(drv3);
 		assertTrue("driver multiple update was unsuccessful", result);
+		_dal.deleteSite("rosh street");
 	}
 	
 	@Test
@@ -240,12 +252,12 @@ public class DAL_Test {
 		testInd = 7;
 		Site st1 = new Site("hhhh","itay","0545492167",0);
 		Site st2 = new Site("aaaa","ofik","0545492168",1);
-		Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.humenResourceManager, "rosh street", 7,4);
+		Driver drv1 = new Driver(1234, "itay", "rosh", 50000, "04/19/2017", "", "123456/leumi/123/15%/10%", Rank.regular, "hhhh", 7,4);
 		Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
-		_dal.insertEmployee(drv1);
-		_dal.insertDriver(drv1);
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
+		_dal.insertEmployee(drv1);
+		_dal.insertDriver(drv1);
 		_dal.insertTruck(trk1);
 		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000, "hhhh");
 		boolean result = _dal.insertTransport(trp1);
@@ -253,7 +265,7 @@ public class DAL_Test {
 		Transport trp3 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000, "hhhh");
 		result = _dal.insertTransport(trp3);
 		assertFalse("insertion of transport was successful but shoudnt (PK)", result);
-		TransportDestination td = new TransportDestination(111, "01/02/2011", "10:12", 1, "10:15");
+		TransportDestination td = new TransportDestination(111, "01/02/2011", "10:12", 2, "10:15");
 		result = _dal.insertTransportDestination(td);
 		assertTrue("transport destinstion insertion was unsuccessful", result);
 	}
@@ -273,13 +285,13 @@ public class DAL_Test {
 		testInd = 9;
 		Site st1 = new Site("hhhh","itay","0545492167",0);
 		Site st2 = new Site("aaaa","ofik","0545492168",1);
-		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", null,
-				"123456/leumi/123/15%/10%", Rank.regular, "rosh street",7, 4);
+		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", "",
+				"123456/leumi/123/15%/10%", Rank.regular, "hhhh",7, 4);
 		Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
-		_dal.insertEmployee(drv1);
-		_dal.insertDriver(drv1);
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
+		_dal.insertEmployee(drv1);
+		_dal.insertDriver(drv1);
 		_dal.insertTruck(trk1);
 		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000, "hhhh");
 		_dal.insertTransport(trp1);
@@ -295,12 +307,14 @@ public class DAL_Test {
 		testInd = 10;
 		Site st1 = new Site("hhhh","itay","0545492167",0);
 		Site st2 = new Site("aaaa","ofik","0545492168",1);
-		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", null,
-				"123456/leumi/123/15%/10%", Rank.regular, "rosh street",7, 4);
+		Driver drv1 = new Driver(1234, "itay", "rosh", 10000, "01/01/2017", "",
+				"123456/leumi/123/15%/10%", Rank.regular, "aaaa",7, 4);
 		Truck trk1 = new Truck(111, "i3", 1000, 1200, 3);
-		_dal.insertDriver(drv1);
 		_dal.insertSite(st1);
 		_dal.insertSite(st2);
+		_dal.insertEmployee(drv1);
+		_dal.insertDriver(drv1);
+		
 		_dal.insertTruck(trk1);
 		
 		Transport trp1 = new Transport(1234, 111, 1, "01/02/2011", "10:12", 1000, "aaaa");

@@ -36,7 +36,7 @@ public class TransportDAO extends DAO {
 		    pstmt.executeUpdate();
 		    return true;
 		} catch (SQLException e) {
-			////System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + "  Trans insert");
 		    return false;
 		}
 	}
@@ -66,7 +66,7 @@ public class TransportDAO extends DAO {
 	protected boolean updateTransport(Transport trs){
 		 String sql = "UPDATE Transports SET "
 	                + "DRIVERID = ? ,"+ " COMPANYID = ? ," +
-				  " TRUCKWEIGHT = ? ," +
+				  " TRUCKWEIGHT = ? " +
 	                " WHERE LICENCETRUCK = ? AND HOUR = ? AND DATE = ?";
 	 
         try (Connection conn = this.connect();
@@ -85,6 +85,7 @@ public class TransportDAO extends DAO {
             pstmt.close();
             return true;
         } catch (SQLException e) {
+        	System.out.println(e.getMessage());
             return false;
         }
 	}
@@ -113,7 +114,7 @@ public class TransportDAO extends DAO {
 	        			rs.getString(5), rs.getDouble(6), rs.getString(7));
 	           return tr;
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	System.out.println(e.getMessage() + "  Trans fetch");
 	        }
 		return null;
 	}
@@ -134,6 +135,7 @@ public class TransportDAO extends DAO {
             
             return true;
         } catch (SQLException e) {
+        	System.out.println(e.getMessage() + "  Trans delete");
             return false;
         }
 	}
