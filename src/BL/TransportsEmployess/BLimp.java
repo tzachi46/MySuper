@@ -406,7 +406,7 @@ public class BLimp implements BL {
 			/* get the optional trucks in morning */
 			Vector<Integer> trucksNumsM = this.bl_trans.fetchAvailableTrucks(date, "morning");
 			/* choose the proper driver to the truck in morning */
-			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getOrderNumber());
+			Pair<Driver,Truck> driverNtruckM = this.checkAvailabilityOfDriversToTrucks(trucksNumsM, date, "morning", store,order.getWeightOrder());
 			if(driverNtruckM != null){ /* not M */
 				return ((bl_trans.createTransport(date, "00:01", driverNtruckM.getValue().getTruckNo(),
 						driverNtruckM.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
@@ -418,7 +418,7 @@ public class BLimp implements BL {
 			/* get the optional trucks in evening */
 			Vector<Integer> trucksNumsE = this.bl_trans.fetchAvailableTrucks(date, "evening");
 			/* choose the proper driver to the truck in evening */
-			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getOrderNumber());
+			Pair<Driver,Truck> driverNtruckE = this.checkAvailabilityOfDriversToTrucks(trucksNumsE, date, "evening", store, order.getWeightOrder());
 			 if(driverNtruckE != null) {/* E */
 				return ((bl_trans.createTransport(date, "12:01", driverNtruckE.getValue().getTruckNo(),
 						driverNtruckE.getKey().getId(), supplierId, order.getWeightOrder(), order.getSupplierId(), order.getAddres()))
