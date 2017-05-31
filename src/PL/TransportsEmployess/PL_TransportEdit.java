@@ -3,7 +3,6 @@ package PL.TransportsEmployess;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -20,7 +19,6 @@ import SharedClasses.StorageSuppliers.Order;
 import SharedClasses.StorageSuppliers.OrderProduct;
 import SharedClasses.TransportsEmployess.Driver;
 import SharedClasses.TransportsEmployess.Message;
-import SharedClasses.TransportsEmployess.Shift;
 import SharedClasses.TransportsEmployess.Transport;
 import SharedClasses.TransportsEmployess.Truck;
 
@@ -216,7 +214,7 @@ public class PL_TransportEdit
 			 }
 		  }
 	}
-
+/*
 	private String getSourceDocNumInputFromUser(String toPrint)
 	{			
 		String sourceDocNum; 
@@ -231,7 +229,7 @@ public class PL_TransportEdit
 		}
 		return sourceDocNum; 
 	}
-	 
+	 */
 	 
 	 
 	 public int getExistTruckDrivers(String addressStore, String date, String shiftType,int lio)
