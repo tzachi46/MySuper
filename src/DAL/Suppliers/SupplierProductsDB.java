@@ -114,7 +114,7 @@ public class SupplierProductsDB {
 	    	res= new ProductFromSupplier(rs.getInt("SupplierId"),p,rs.getInt("SupplierCatalogId"),rs.getInt("AvarageDeleveryTime"),prices);
 	    	}
 	        } catch (Exception e) {
-	        	System.out.println(e.getMessage());
+	        	//System.out.println(e.getMessage());
 	            return null; 
 	        }
 		return res;

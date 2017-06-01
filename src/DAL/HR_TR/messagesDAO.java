@@ -51,7 +51,7 @@ public class messagesDAO extends DAO {
 	         pstmt.close();
 	         return true;
 	     } catch (SQLException e) {
-	    	 	System.out.println(e.getMessage());
+	    	 	//System.out.println(e.getMessage());
 		         return false;
 	     }
 	}
@@ -74,7 +74,7 @@ public class messagesDAO extends DAO {
 	            }
 	    
 	        } catch (SQLException e) {
-	        	System.out.println(e.getMessage());
+	        	//System.out.println(e.getMessage());
 	        }
 		return dates;
 	}

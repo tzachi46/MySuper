@@ -248,7 +248,7 @@ public class Repository {
 	                return vec;
 	        } catch (SQLException e)
 	        {
-	        	System.out.println(e.getMessage());
+	        	//System.out.println(e.getMessage());
 	        }
 	        return vec;
 	    }
