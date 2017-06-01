@@ -513,13 +513,13 @@ public class PL_TransportEdit
 			ans+=parts[i];
 		return Integer.parseInt(ans);
 	}
-	private int GetDayAsInt3(String s){
+/*	private int GetDayAsInt3(String s){
 		String[] parts = s.split("\\-");
 		String ans="";
 		for(int i=parts.length-1;i>=0;i--)
 			ans+=parts[i];
 		return Integer.parseInt(ans);
-	}
+	}*/
 
 	private double minimizeWeightMenu(double maxWeight, Order order, double prevWeight) 
 	{
